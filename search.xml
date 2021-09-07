@@ -177,6 +177,9 @@
       <categories>
         <category>ROS机器人学习</category>
       </categories>
+      <tags>
+        <tag>ROS</tag>
+      </tags>
   </entry>
   <entry>
     <title>Typora快捷键</title>
@@ -1311,6 +1314,101 @@ NVIC_Init();
       </categories>
       <tags>
         <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>固定Ubuntu下的端口号</title>
+    <url>/posts/408ef5ae.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="固定Ubuntu下的端口号"><a href="#固定Ubuntu下的端口号" class="headerlink" title="固定Ubuntu下的端口号"></a>固定Ubuntu下的端口号</h1><p>Ubuntu下ttyUSB0和ttyUSB1经常不固定,序号取决于插入顺序,先插上的序号小</p>
+<p>固定步骤如下:</p>
+<ol>
+<li><p>查看已插入的USB设备</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure>
+<p>找到对应的USB设备,记下该设备的设备ID,如<code>10c4:ea60</code>,如果不确定是哪个的话,就拔下usb设备运行一次<code>lsusb</code>,再插上,多出来的就是需要设置的设备.</p>
+</li>
+<li><p>修改<code>rules.d</code>下的配置文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#进入目录</span></span><br><span class="line"><span class="built_in">cd</span> /etc/udev/rules.d</span><br><span class="line"><span class="comment">#新建.rules文件,名称任意</span></span><br><span class="line">touch usb.rules</span><br><span class="line"><span class="comment">#或直接编辑后保存</span></span><br><span class="line">sudo vi usb.rules</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开刚刚新建的文件,添加如下内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">KERNEL==<span class="string">&quot;ttyUSB*&quot;</span>, ATTRS&#123;idVendor&#125;==<span class="string">&quot;10c4&quot;</span>, ATTRS&#123;idProduct&#125;==<span class="string">&quot;ea60&quot;</span>, MODE:=<span class="string">&quot;0777&quot;</span>, SYMLINK+=<span class="string">&quot;YOUR_NAME&quot;</span></span><br></pre></td></tr></table></figure>
+<p>其中,SYMLINK任意起名</p>
+<p>退出vi编辑器,<code>wq</code>保存退出</p>
+</li>
+<li><p>重启udev</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service udev reload</span><br><span class="line">service udev restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新插拔USB设备,查看端口号绑定</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls -l /dev |grep ttyUSB</span><br></pre></td></tr></table></figure>
+<p>显示:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lrwxrwxrwx  1 root   root           7 Nov 29 14:03 YOUR_NAME -&gt; ttyUSB0</span><br></pre></td></tr></table></figure>
+<p>打开设备时，用（/dev/YOUR_NAME）即可。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>ROS</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ROS机器人学习——TF坐标变换</title>
+    <url>/posts/5b37128a.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="ROS机器人学习——TF坐标变换"><a href="#ROS机器人学习——TF坐标变换" class="headerlink" title="ROS机器人学习——TF坐标变换"></a>ROS机器人学习——TF坐标变换</h1><h2 id="什么是TF"><a href="#什么是TF" class="headerlink" title="什么是TF"></a>什么是TF</h2><p><a href="http://wiki.ros.org/tf">tf-wiki</a></p>
+<blockquote>
+<p>tf is a package that lets the user keep track of multiple coordinate frames over time. tf maintains the relationship between coordinate frames in a tree structure buffered in time, and lets the user transform points, vectors, etc between any two coordinate frames at any desired point in time.</p>
+</blockquote>
+<p>将多个坐标系联系起来,使用tf树定义不同坐标系之间的平移与旋转变换关系，并且持续追踪多个坐标系内的变化情况。</p>
+<h2 id="为什么需要坐标变换"><a href="#为什么需要坐标变换" class="headerlink" title="为什么需要坐标变换?"></a>为什么需要坐标变换?</h2><p>在ROS中定义了许多坐标系，有机器人坐标系(base_link)，有雷达坐标系(base_laser)，地图坐标系(map)，里程计坐标系(odom)等。以机器人中心为原点的坐标系，称为base_link坐标系，以激光雷达中心为原点的坐标系，称为base_laser坐标系。以下图机器人与激光雷达为例</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros-tf-1.png" alt="ros-tf-1"></p>
+<p>机器人在运行过程中，激光雷达可以采集到周围障碍物的数据，这些数据是以激光雷达为原点(base_laser参考系)下的测量值。如果我们想使用这些数据帮助机器人完成避障功能，由于激光雷达并不在机器人的中心(base_link)之上，会始终存在一个雷达与机器人中心的偏差值。这个时候，如果我们采用一种坐标变换，将激光数据从base_laser参考系变换到base_link参考下，问题就解决了。所以我们需要定义这两个坐标系之间的变换关系,也就是<strong>TF坐标变换</strong></p>
+<h2 id="TF变换实例"><a href="#TF变换实例" class="headerlink" title="TF变换实例"></a>TF变换实例</h2><p>在 <a href="https://www.fanziqi.site/posts/b6e9d4e.html">麦克纳姆轮运动学解算</a> 一文中,我提到了ROS的坐标系统与单位制,这里不再累述,请读者自行阅读</p>
+<p>以机器人四轮与地面的接触面为X-Y平面，四轮轴心连线的点做垂线，与x-y平面的交点为base_link坐标系原点，车头朝向方向为X轴，正左方向为Y轴，向上为Z轴。如图所示:</p>
+<p><strong>TODO:添加图片</strong></p>
+<p>以思岚激光雷达为例，我们一般在安装时都习惯将雷达不带线的一端朝车头方向，雷达USB端的朝车尾方向,如图所示:</p>
+<p><strong>TODO:添加图片</strong></p>
+<p>雷达正中心为坐标原点，USB端的方向为X轴正方向，正左方向为Y轴，向上为Z轴。</p>
+<p>测量雷达中心相对机器人坐标原点(0,0,0)的距离，得到雷达在机器人坐标系中(x:0.1,y:0.0,z:0.2)。前面我们提到，思岚雷达的X轴正方向与机器人的X轴正方向为相反方向，雷达坐标系需要绕Z轴顺时针旋转180度才能与机器人base_link坐标系重合 ，旋转(yaw:3.14,roll:0,pitch:0)。</p>
+<p>根据这些数据，当我们获取激光数据后，采用(x: 0.1m, y: 0.0m, z: 0.2m, yaw:3.14, roll:0, pitch:0)的坐标变换，就可以将数据从base_laser参考系变换到base_link参考系，这就定义出了两个参考系之间的变换关系。</p>
+<p>为了定义和存储base_link和base_laser两个参考系之间的关系，我们需要将他们添加到tf树中。从树的概念上来讲，tf树中的每个节点都对应一个参考系，而节点之间的边对应于参考系之间的变换关系。tf就是使用这样的树结构，保证每两个参考系之间只有一种遍历方式，而且所有变换关系，都是母节点到子节点的变换。</p>
+<p>为了定义参考系，我们需要定义两个节点，一个对应于base_link参考系，一个对应于base_laser参考系。为了创建两个节点之间的边，我们首先需要决定哪一个节点作为母节点，哪一个节点作为子节点，这一点在tf树中是非常重要的。这里我们选择base_link作为母节点，这样会方便后边为机器人添加更多的传感器作为子节点.</p>
+<h2 id="发布TF变换"><a href="#发布TF变换" class="headerlink" title="发布TF变换"></a>发布TF变换</h2><p>我们最常使用的是tf包中的static_transform_publisher，它即可在命令行直接运行，也可写在launch文件中配置坐标转换关系。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&lt;node pkg=<span class="string">&quot;tf&quot;</span> type=<span class="string">&quot;static_transform_publisher&quot;</span> name=<span class="string">&quot;base_link_to_laser&quot;</span> args=<span class="string">&quot;0.065 0.0 0.245 1.57 0.0 0.0 /base_link /lidar 50&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>pkg：包名，tf</li>
+<li>type：类型，static_transform_publisher</li>
+<li>name：名称，自定，便于理解</li>
+<li>arg：tf参数， x y z yaw pitch roll frame_id child_frame_id period_in_ms<ul>
+<li>x y z 分别代表着相应轴的平移，单位是 米。</li>
+<li>yaw pitch roll 分别代表着绕z y x 三个轴的转动，单位是 弧度。</li>
+<li>frame_id 为坐标系变换中的父坐标系， child_frame_id为坐标系变换中的子坐标系。(传感器的frame_id的名称根据厂商或有不同，一般在驱动启动launch可查看，思岚激光雷达的frame_id为/lidar)</li>
+<li>period_in_ms 为发布频率，单位为 毫秒。通常取100。一毫秒为一秒的千分之一，100毫秒即为0.1秒，也就是10Hz。</li>
+</ul>
+</li>
+</ul>
+<h2 id="TF常用工具"><a href="#TF常用工具" class="headerlink" title="TF常用工具"></a>TF常用工具</h2><ul>
+<li><p>tf_monitor 打印tf树中所有参考系信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tf_monitor &lt;source_frame&gt; &lt;target_frame&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>tf_echo 查看指定作消息之间的变换关系</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tf_echo &lt;source_frame&gt; &lt;target_frame&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>static_transform_publisher 发布两个参考系之间的的静态坐标关系</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">static_transform_publisher x y z yaw pitch roll frame id child frame id period</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>view_frame 可视化的调试工具,可以生成pdf文件显示tf树信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rosrun tf view_frames</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://blog.csdn.net/autolabor/article/details/86492895">https://blog.csdn.net/autolabor/article/details/86492895</a></p>
+]]></content>
+      <categories>
+        <category>ROS机器人学习</category>
+      </categories>
+      <tags>
+        <tag>ROS</tag>
       </tags>
   </entry>
 </search>
