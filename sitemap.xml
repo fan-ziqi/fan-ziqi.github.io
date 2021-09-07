@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.fanziqi.site/posts/c4c88997.html</loc>
+    
+    <lastmod>2021-09-03</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/posts/b6e9d4e.html</loc>
+    
+    <lastmod>2021-09-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/posts/a53da602.html</loc>
+    
+    <lastmod>2021-09-01</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.fanziqi.site/posts/eb3a5cff.html</loc>
     
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-01</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/posts/bfa5a820.html</loc>
+    
+    <lastmod>2021-08-30</lastmod>
     
   </url>
   
@@ -31,13 +59,6 @@
   
   <url>
     <loc>http://www.fanziqi.site/bb/index.html</loc>
-    
-    <lastmod>2021-08-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.fanziqi.site/posts/c4c88997.html</loc>
     
     <lastmod>2021-08-08</lastmod>
     
@@ -79,6 +100,13 @@
   </url>
   
   <url>
+    <loc>http://www.fanziqi.site/posts/7859c9f3.html</loc>
+    
+    <lastmod>2021-08-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.fanziqi.site/posts/f382e178.html</loc>
     
     <lastmod>2021-08-08</lastmod>
@@ -86,9 +114,51 @@
   </url>
   
   <url>
-    <loc>http://www.fanziqi.site/posts/7859c9f3.html</loc>
+    <loc>http://www.fanziqi.site/website/birth.html</loc>
     
-    <lastmod>2021-08-08</lastmod>
+    <lastmod>2021-03-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/website/book.html</loc>
+    
+    <lastmod>2021-03-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/website/cake.html</loc>
+    
+    <lastmod>2021-03-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/website/happy.html</loc>
+    
+    <lastmod>2021-03-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/website/gift.html</loc>
+    
+    <lastmod>2021-03-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/website/wawa.html</loc>
+    
+    <lastmod>2021-03-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/website/5500words.html</loc>
+    
+    <lastmod>2021-03-28</lastmod>
     
   </url>
   
@@ -144,7 +214,7 @@
 
   <url>
     <loc>http://www.fanziqi.site/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -152,49 +222,56 @@
   
   <url>
     <loc>http://www.fanziqi.site/tags/PCB/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/tags/Chrome/</loc>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/Git/</loc>
-    <lastmod>2021-08-25</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.fanziqi.site/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/stm32/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/hexo/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/ROS/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/web/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -203,35 +280,35 @@
   
   <url>
     <loc>http://www.fanziqi.site/categories/Altium-Designer/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/categories/%E6%8A%80%E8%83%BD/</loc>
-    <lastmod>2021-08-25</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/categories/stm32/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/categories/%E7%BD%91%E7%AB%99/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

@@ -5,8 +5,7 @@
     <url>/posts/a1423033.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Altium-Designer导出Gerber文件的一般步骤"><a href="#Altium-Designer导出Gerber文件的一般步骤" class="headerlink" title="Altium Designer导出Gerber文件的一般步骤"></a>Altium Designer导出Gerber文件的一般步骤</h1><p>PCB画完之后，需要生成Gerber文件提交给PCB工厂进行生产，本文将介绍生成Gerber的一般步骤</p>
 <h2 id="一、导出非机械层"><a href="#一、导出非机械层" class="headerlink" title="一、导出非机械层"></a>一、导出非机械层</h2><h3 id="1-1-”文件“-gt-”制造输出“-gt-“Gerber-Files”"><a href="#1-1-”文件“-gt-”制造输出“-gt-“Gerber-Files”" class="headerlink" title="1.1 ”文件“ -&gt; ”制造输出“ -&gt; “Gerber Files”"></a>1.1 ”文件“ -&gt; ”制造输出“ -&gt; “Gerber Files”</h3><p>（“File”-&gt;“Fabrication Outputs”-&gt;“Gerber Files”）</p>
-<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/AD-Gerber-1-1.png" alt="image-20210806221126738">
-
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/AD-Gerber-1-1.png" alt="image-20210806221126738"></p>
 <h3 id="1-2-通用（General）"><a href="#1-2-通用（General）" class="headerlink" title="1.2 通用（General）"></a>1.2 通用（General）</h3><p>单位：英寸（Inches）</p>
 <p>格式：2:5</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/AD-Gerber-1-2.png" alt="image-20210806221658661"></p>
@@ -60,50 +59,115 @@
       </tags>
   </entry>
   <entry>
-    <title>Git操作</title>
-    <url>/posts/c4c88997.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Git操作"><a href="#Git操作" class="headerlink" title="Git操作"></a>Git操作</h1><ul>
-<li><p>安装</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install git</span><br></pre></td></tr></table></figure></li>
-<li><p>查看版本</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure></li>
-<li><p>生成密钥</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p>查看公钥</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub </span><br></pre></td></tr></table></figure></li>
-<li><p>GIthub -&gt; Settings -&gt; SSH and GPG keys -&gt; New SSH key</p>
-</li>
-<li><p>检查本地是否能远程访问github服务器，出现You’ve successfully authenticated，说明认证通过。</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></li>
-<li><p>配置自己的名称和电子邮件地址</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;YOURNAME&quot;</span><br><span class="line">git config --global user.email &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p>查看设置</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure></li>
-<li><p>新项目</p>
+    <title>Chrome多设备书签同步方案</title>
+    <url>/posts/a53da602.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Chrome多设备书签同步方案"><a href="#Chrome多设备书签同步方案" class="headerlink" title="Chrome多设备书签同步方案"></a>Chrome多设备书签同步方案</h1><p>众所周知因为某些原因Chrome无法与它的服务器正常通讯,这就影响到了我们书签的同步,这里介绍一个插件,将书签同步到GitHub或GItee上.</p>
+<p>项目地址: ↓ </p>
+<p><a href="https://github.com/CLDeveloping/chrome-bookmark">Github项目</a> | <a href="https://gitee.com/CLCoding/chrome-bookmark">Gitee项目</a></p>
 <ul>
-<li><p>建立新的repository</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/new</span><br></pre></td></tr></table></figure></li>
-<li><p>新建目录</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">touch README //README 文件用于描述该项目  </span><br></pre></td></tr></table></figure></li>
-<li><p>提交</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add README  //提交README</span><br><span class="line">git commit -m &quot;first commit&quot; //-m 用于指定本次提交的描述信息 </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git push -u origin master  </span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>已有项目</p>
-<ul>
-<li><p>clone下来</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:fan-ziqi/My_ROS_Robot.git</span><br></pre></td></tr></table></figure></li>
-<li><p>提交</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .   // .代表添加所有文件  </span><br><span class="line">git commit -m &quot;对文件操作的简易描述&quot;  </span><br><span class="line">git push -u origin master </span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
+<li>将项目整个下载下来,解压缩,在浏览器地址栏输入：<code>chrome://extensions/</code>，进入扩展程序管理界面</li>
+<li>点击【加载已解压的扩展程序】-&gt; 选择项目根目录，导入源码文件夹</li>
+<li>这里只介绍GitHub操作.进入自己的GitHub创建一个私有项目,随便命名</li>
+<li>获取Github项目<a href="https://github.com/settings/tokens">私有访问Token</a>（如何获取：Github -&gt; Settings -&gt; Developer settings -&gt; Personal access tokens -&gt; Generate new token）选择repo,时间选无限,将生成的token拷贝下来,这个只会出现一次,最好拿小本本记下来</li>
+<li>点击书签工具配置,将仓库地址和token填入,选择保存配置</li>
+<li>重新点击书签图标工具，就可以选择上传或者下载书签了</li>
 </ul>
 ]]></content>
       <categories>
         <category>技能</category>
       </categories>
       <tags>
+        <tag>Chrome</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git操作</title>
+    <url>/posts/c4c88997.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Git操作"><a href="#Git操作" class="headerlink" title="Git操作"></a>Git操作</h1><ul>
+<li><p>安装</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看版本</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成密钥</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看公钥</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GIthub -&gt; Settings -&gt; SSH and GPG keys -&gt; New SSH key</p>
+</li>
+<li><p>检查本地是否能远程访问github服务器，出现You’ve successfully authenticated，说明认证通过。</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置自己的名称和电子邮件地址</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;YOURNAME&quot;</span><br><span class="line">git config --global user.email &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看设置</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新项目</p>
+<ul>
+<li><p>建立新的repository</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/new</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建目录</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">touch README //README 文件用于描述该项目  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add README  //提交README</span><br><span class="line">git commit -m &quot;first commit&quot; //-m 用于指定本次提交的描述信息 </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git push -u origin master  </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>已有项目</p>
+<ul>
+<li><p>clone下来</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:fan-ziqi/My_ROS_Robot.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .   // .代表添加所有文件  </span><br><span class="line">git commit -m &quot;对文件操作的简易描述&quot;  </span><br><span class="line">git push -u origin master </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="0903更新"><a href="#0903更新" class="headerlink" title="0903更新"></a>0903更新</h1><p>出现错误<code>error: failed to push some refs to &#39;https://github.com/xxx/xxx.git&#39;</code></p>
+<p>出现错误的原因是github中的某些文件不在本地代码目录中。</p>
+<p>也就是说我们需要先将远程代码库中的任何文件先pull到本地代码库中，才能push新的代码到github代码库中。</p>
+<p>使用如下命令：git pull —rebase origin main</p>
+<p>然后再进行上传: git push -u origin main</p>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MPU6050-DMP读不出数据</title>
+    <url>/posts/bfa5a820.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="MPU6050-DMP读不出数据"><a href="#MPU6050-DMP读不出数据" class="headerlink" title="MPU6050-DMP读不出数据"></a>MPU6050-DMP读不出数据</h1><p>遇上一个很头疼的问题，MPU6050可以正常读取三个轴的数据，但是使用DMP方式读取数据时，会卡在这一句上</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Get a packet. */</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">mpu_read_fifo_stream</span>(dmp.packet_length, fifo_data, more))</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br></pre></td></tr></table></figure>
+<p>进入此函数，通过逐句debug，发现卡在这一句上了</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!st.chip_cfg.dmp_on)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br></pre></td></tr></table></figure>
+<p>问题来了，这说的是dmp没有打开啊？？可是前面命名已经使能了DMP</p>
+<p>于是打开百度，同样问题的解答有以下几点</p>
+<ul>
+<li>MPU6050供电问题，经检查确实为3.3V，故排除</li>
+<li>FIFO没有使能，经检查也有使能，排除</li>
+</ul>
+<p>嘶 那问题出在哪呢</p>
+<p><strong>MPU6050不讲武德，它坏了</strong></p>
+<p><strong>换一个芯片就好了</strong></p>
+<p><strong>RNM退钱！</strong></p>
+]]></content>
+      <categories>
+        <category>stm32</category>
+      </categories>
+      <tags>
+        <tag>stm32</tag>
       </tags>
   </entry>
   <entry>
@@ -148,95 +212,99 @@
   <entry>
     <title>stm32库函数及缩写</title>
     <url>/posts/2ed78409.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="缩写定义"><a href="#缩写定义" class="headerlink" title="缩写定义"></a>缩写定义</h2><table>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="缩写定义"><a href="#缩写定义" class="headerlink" title="缩写定义"></a>缩写定义</h2><div class="table-container">
+<table>
 <thead>
 <tr>
-<th align="left">缩写</th>
+<th style="text-align:left">缩写</th>
 <th>外设/单元</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">ADC</td>
+<tbody>
+<tr>
+<td style="text-align:left">ADC</td>
 <td>模数转换器</td>
 </tr>
 <tr>
-<td align="left">BKP</td>
+<td style="text-align:left">BKP</td>
 <td>备份寄存器</td>
 </tr>
 <tr>
-<td align="left">CAN</td>
+<td style="text-align:left">CAN</td>
 <td>控制器局域网模块</td>
 </tr>
 <tr>
-<td align="left">DMA</td>
+<td style="text-align:left">DMA</td>
 <td>直接内存存取控制器</td>
 </tr>
 <tr>
-<td align="left">EXTI</td>
+<td style="text-align:left">EXTI</td>
 <td>外部中断事件控制器</td>
 </tr>
 <tr>
-<td align="left">FLASH</td>
+<td style="text-align:left">FLASH</td>
 <td>闪存存储器</td>
 </tr>
 <tr>
-<td align="left">GPIO</td>
+<td style="text-align:left">GPIO</td>
 <td>通用输入输出</td>
 </tr>
 <tr>
-<td align="left">I2C</td>
+<td style="text-align:left">I2C</td>
 <td>内部集成电路</td>
 </tr>
 <tr>
-<td align="left">IWDG</td>
+<td style="text-align:left">IWDG</td>
 <td>独立看门狗</td>
 </tr>
 <tr>
-<td align="left">NVIC</td>
+<td style="text-align:left">NVIC</td>
 <td>嵌套中断向量列表控制器</td>
 </tr>
 <tr>
-<td align="left">PWR</td>
+<td style="text-align:left">PWR</td>
 <td>电源/功耗控制</td>
 </tr>
 <tr>
-<td align="left">RCC</td>
+<td style="text-align:left">RCC</td>
 <td>复位与时钟控制器</td>
 </tr>
 <tr>
-<td align="left">RTC</td>
+<td style="text-align:left">RTC</td>
 <td>实时时钟</td>
 </tr>
 <tr>
-<td align="left">SPI</td>
+<td style="text-align:left">SPI</td>
 <td>串行外设接口</td>
 </tr>
 <tr>
-<td align="left">SysTick</td>
+<td style="text-align:left">SysTick</td>
 <td>系统嘀嗒定时器</td>
 </tr>
 <tr>
-<td align="left">TIM</td>
+<td style="text-align:left">TIM</td>
 <td>通用定时器</td>
 </tr>
 <tr>
-<td align="left">TIM1</td>
+<td style="text-align:left">TIM1</td>
 <td>高级控制定时器</td>
 </tr>
 <tr>
-<td align="left">USART</td>
+<td style="text-align:left">USART</td>
 <td>通用同步异步接收发射端</td>
 </tr>
 <tr>
-<td align="left">WWDG</td>
+<td style="text-align:left">WWDG</td>
 <td>窗口看门狗</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="固态函数库命名规则"><a href="#固态函数库命名规则" class="headerlink" title="固态函数库命名规则"></a>固态函数库命名规则</h2><p>PPP 表示任一外设缩写，例如：ADC。</p>
 <p>系统、源程序文件和头文件命名都以<strong>“stm32f10x_”</strong>作为开头，例如：<strong>stm32f10x_conf.h</strong>。</p>
 <p>常量仅被应用于一个文件的，定义于该文件中；被应用于多个文件的，在对应头文件中定义。所有常量都由英文字母大写书写。</p>
 <p>寄存器作为常量处理。他们的命名都由英文字母大写书写。在大多数情况下，他们采用与缩写规范与本用户手册一致。</p>
-<p>外设函数的命名以该外设的缩写加下划线为开头。每个单词的第一个字母都由英文字母大写书写，例如：<strong>SPI_SendData****。</strong> 在函数名中，只允许存在一个下划线，用以分隔外设缩写和函数名的其它部分。</p>
+<p>外设函数的命名以该外设的缩写加下划线为开头。每个单词的第一个字母都由英文字母大写书写，例如：<strong>SPI_SendData**</strong>。** 在函数名中，只允许存在一个下划线，用以分隔外设缩写和函数名的其它部分。</p>
 <p>名为 <strong>PPP_Init</strong> 的函数，其功能是根据 <strong>PPP_InitTypeDef</strong> 中指定的参数，初始化外设 PPP，例如 <strong>TIM_Init</strong>. 文档和库规范</p>
 <p>名为 <strong>PPP_DeInit</strong> 的函数，其功能为复位外设 PPP 的所有寄存器至缺省值，例如 <strong>TIM_DeInit</strong>. </p>
 <p>名为 <strong>PPP_StructInit</strong> 的函数，其功能为通过设置 <strong>PPP_InitTypeDef</strong> 结构中的各种参数来定义外设的功能，例如：<strong>USART_StructInit</strong></p>
@@ -355,7 +423,7 @@
     <title>手把手教你配置哔哔点啥</title>
     <url>/posts/af935eab.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="手把手教你配置哔哔点啥"><a href="#手把手教你配置哔哔点啥" class="headerlink" title="手把手教你配置哔哔点啥"></a>手把手教你配置哔哔点啥</h1><p>有一些闲言碎语不知道去哪说，所以搭建了一个哔哔点啥页面</p>
-<h1 id="一、服务部署"><a href="#一、服务部署" class="headerlink" title="一、服务部署"></a>一、服务部署</h1><h3 id="1-首先保证成功激活腾讯云开发"><a href="#1-首先保证成功激活腾讯云开发" class="headerlink" title="1. 首先保证成功激活腾讯云开发"></a>1. 首先保证成功激活腾讯云开发</h3><h3 id="2-点击一键部署至云开发"><a href="#2-点击一键部署至云开发" class="headerlink" title="2. 点击一键部署至云开发"></a>2. <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https://github.com/lmm214/bber&branch=main">点击一键部署至云开发</a></h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-1.png" alt="image-20210807160349972"></p>
+<h1 id="一、服务部署"><a href="#一、服务部署" class="headerlink" title="一、服务部署"></a>一、服务部署</h1><h3 id="1-首先保证成功激活腾讯云开发"><a href="#1-首先保证成功激活腾讯云开发" class="headerlink" title="1. 首先保证成功激活腾讯云开发"></a>1. 首先保证成功激活腾讯云开发</h3><h3 id="2-点击一键部署至云开发"><a href="#2-点击一键部署至云开发" class="headerlink" title="2. 点击一键部署至云开发"></a>2. <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&amp;appUrl=https%3A%2F%2Fgithub.com%2Flmm214%2Fbber&amp;branch=main">点击一键部署至云开发</a></h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-1.png" alt="image-20210807160349972"></p>
 <h3 id="3-进入环境-登录授权，启用“匿名登录”"><a href="#3-进入环境-登录授权，启用“匿名登录”" class="headerlink" title="3. 进入环境-登录授权，启用“匿名登录”"></a>3. 进入<a href="https://console.cloud.tencent.com/tcb/env/login">环境-登录授权</a>，启用“匿名登录”</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-2.png" alt="image-20210807160443690"></p>
 <h3 id="4-进入环境-安全配置，将博客网址添加到“WEB安全域名”"><a href="#4-进入环境-安全配置，将博客网址添加到“WEB安全域名”" class="headerlink" title="4. 进入环境-安全配置，将博客网址添加到“WEB安全域名”"></a>4. 进入<a href="https://console.cloud.tencent.com/tcb/env/safety">环境-安全配置</a>，将博客网址添加到“WEB安全域名”</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-3.png" alt="image-20210807160514198"></p>
 <h3 id="5-进入环境-HTTP访问服务，复制链接备用。"><a href="#5-进入环境-HTTP访问服务，复制链接备用。" class="headerlink" title="5. 进入环境-HTTP访问服务，复制链接备用。"></a>5. 进入<a href="https://console.cloud.tencent.com/tcb/env/access">环境-HTTP访问服务</a>，复制链接备用。</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-4.png" alt="image-20210807160549968"></p>
@@ -363,7 +431,6 @@
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-5.png" alt="image-20210807160730497"></p>
 <h3 id="7-扫码进入公众号，输入命名绑定"><a href="#7-扫码进入公众号，输入命名绑定" class="headerlink" title="7. 扫码进入公众号，输入命名绑定"></a>7. 扫码进入公众号，输入命名绑定</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-0.png" alt="img"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/bber 你刚刚设置的key,https://你的云函数HTTP访问地址/bber</span><br><span class="line"></span><br><span class="line">比如: /bber mykey,https://balabala.ap-shanghai.app.tcloudbase.com/bber</span><br></pre></td></tr></table></figure>
-
 <h3 id="8-手动添加一条哔哔-必须要有"><a href="#8-手动添加一条哔哔-必须要有" class="headerlink" title="8. 手动添加一条哔哔  必须要有"></a>8. 手动添加一条哔哔  <em>必须要有</em></h3><p>进入腾讯云数据库-&gt;talks-&gt;文档列表-&gt;添加文档</p>
 <p>字段: content</p>
 <p>类型: string</p>
@@ -373,7 +440,6 @@
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-6.png" alt="image-20210807161419278"></p>
 <h2 id="二、前端部署"><a href="#二、前端部署" class="headerlink" title="二、前端部署"></a>二、前端部署</h2><h3 id="1-新建一个markdown文件"><a href="#1-新建一个markdown文件" class="headerlink" title="1. 新建一个markdown文件"></a>1. 新建一个<em>markdown</em>文件</h3><p>以源代码模式编辑，复制以下内容</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&#x27;speak-bber&#x27;</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">speak</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/ispeak-bber@1.1.1-beta/ispeak-bber.min.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> &gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line">ispeakBber</span><br><span class="line"><span class="code">    .init(&#123;</span></span><br><span class="line"><span class="code">      el: &#x27;#speak-bber&#x27;,</span></span><br><span class="line"><span class="code">      name: &#x27;DreamyTZK 🦄&#x27;, // 显示的昵称</span></span><br><span class="line"><span class="code">      envId: &#x27;腾讯云开发环境id&#x27;, // 环境id</span></span><br><span class="line"><span class="code">      region: &#x27;ap-shanghai&#x27;, // 腾讯云地址，默认为上海</span></span><br><span class="line"><span class="code">      limit: 10, // 每次加载的条数，默认为5</span></span><br><span class="line"><span class="code">      avatar: &#x27;https://cdn.jsdelivr.net/npm/kang-static@latest/avatar.jpg&#x27;,</span></span><br><span class="line"><span class="code">      fromcolor:&#x27;rgb(245, 150, 170)&#x27;</span></span><br><span class="line"><span class="code">    &#125;)</span></span><br><span class="line"><span class="code">    .then(function() &#123;</span></span><br><span class="line"><span class="code">      console.log(&#x27;ispeak 加载完成&#x27;)</span></span><br><span class="line"><span class="code">    &#125;)</span></span><br><span class="line"><span class="code">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>退出源代码模式后应该看不见上面的代码</p>
 <h3 id="2-重新生成hexo静态网站"><a href="#2-重新生成hexo静态网站" class="headerlink" title="2. 重新生成hexo静态网站"></a>2. 重新生成hexo静态网站</h3><p>此处不再赘述</p>
 <h3 id="3-查看哔哔页面"><a href="#3-查看哔哔页面" class="headerlink" title="3.查看哔哔页面"></a>3.查看哔哔页面</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-7.png" alt="image-20210807161821445"></p>
@@ -383,6 +449,109 @@
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>麦克纳姆轮运动学解算</title>
+    <url>/posts/b6e9d4e.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="麦克纳姆轮运动学解算"><a href="#麦克纳姆轮运动学解算" class="headerlink" title="麦克纳姆轮运动学解算"></a>麦克纳姆轮运动学解算</h1><h2 id="一、麦克纳姆轮介绍"><a href="#一、麦克纳姆轮介绍" class="headerlink" title="一、麦克纳姆轮介绍"></a>一、麦克纳姆轮介绍</h2><p>了解过Robomaster的同学都知道，RM战车所用的轮子均为麦克纳姆轮，这种轮子安装方式与普通轮子无异，可安装于平行轴上，但是麦克纳姆轮可以实现全向移动，即<strong>前后运动</strong>、<strong>水平移动</strong>、<strong>绕中心自转</strong>。正因为以上优点，许多工业上的全向移动平台都会应用这种轮子。缺点也有，就是不耐磨，需要定期更换。</p>
+<p>麦克纳姆轮由两部分组成：<strong>轮毂</strong>和<strong>辊子</strong>，轮毂为轮子的主体，辊子为轮毂周围的类似椭球体的小轮子，轮毂和辊子都有自己的轴，且轮毂轴与辊子轴夹角为45°（可以为其他角度但45°角最为常见）</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-1.png" alt="ML-1" style="zoom: 25%;"></p>
+<p>麦轮的安装方式也有讲究，虽然都是同轴安装，但与普通轮子不同，麦轮分为左旋和右旋两种，在一个四轮底盘上需要用两个左旋和两个右旋。安装方式为O型，如图所示：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-2.png" alt="ML-2"></p>
+<p>左图为安装后你看到的样子，右图为四个轮子与地面接触的辊子围成的形状，也就是“O形”</p>
+<p><strong>这里的O形指的是与地面接触的辊子围成的形状噢，不要再问为什么左图看起来是个X了</strong></p>
+<h2 id="二、麦克纳姆轮运动学模型"><a href="#二、麦克纳姆轮运动学模型" class="headerlink" title="二、麦克纳姆轮运动学模型"></a>二、麦克纳姆轮运动学模型</h2><h3 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h3><h4 id="1-1-坐标系统"><a href="#1-1-坐标系统" class="headerlink" title="1.1 坐标系统"></a>1.1 坐标系统</h4><p>在ROS机器人中，坐标系统使用右手定义</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-3.png" alt="ML-3"></p>
+<p>对于ROS机器人，如果以它为坐标系的原点，那么</p>
+<ul>
+<li>x轴：前方</li>
+<li>y轴：左方</li>
+<li>z轴：上方</li>
+</ul>
+<p>如图所示：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-4.png" alt="ML-4"></p>
+<p>除此之外，对于旋转运动，也使用右手定义：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-5.png" alt="ML-5" style="zoom:150%;"></p>
+<p>根据<strong>右手定义</strong>，围绕 <strong>z轴正旋转</strong> 是 <strong>逆时针旋转</strong></p>
+<h4 id="1-2-测量单位"><a href="#1-2-测量单位" class="headerlink" title="1.2 测量单位"></a>1.2 测量单位</h4><p>ROS使用公制 ：</p>
+<ul>
+<li>线速度：<code>m/s</code></li>
+<li>角速度：<code>rad/s</code></li>
+</ul>
+<h4 id="1-3-轮子序号定义"><a href="#1-3-轮子序号定义" class="headerlink" title="1.3 轮子序号定义"></a>1.3 轮子序号定义</h4><p>左前<strong>1</strong> 右前<strong>2</strong></p>
+<p>左后<strong>3</strong> 右后<strong>4</strong></p>
+<h3 id="2-逆运动学解析"><a href="#2-逆运动学解析" class="headerlink" title="2. 逆运动学解析"></a>2. 逆运动学解析</h3><p>逆运动学模型（inverse kinematic model）得到的公式可以根据底盘的运动状态解算出四个轮子的速度。</p>
+<h4 id="2-1-底盘运动的分解"><a href="#2-1-底盘运动的分解" class="headerlink" title="2.1 底盘运动的分解"></a>2.1 底盘运动的分解</h4><p>刚体在平面内的运动可以分解为三个独立分量：X轴平动、Y轴平动、yaw 轴自转。底盘的运动也可以分解为三个量：</p>
+<p>如下图所示:</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-6.PNG" alt="ML-6"></p>
+<ul>
+<li>$v_{tx}$ 表示 X 轴运动的速度，即前后方向，定义向前为正；</li>
+<li>$v_{ty}$ 表示 Y 轴运动的速度，即左右方向，定义向左为正；</li>
+<li>$\overrightarrow{\omega}$ 表示 yaw 轴自转的角速度，定义逆时针为正。</li>
+</ul>
+<h4 id="2-2-计算轮子轴心位置的速度"><a href="#2-2-计算轮子轴心位置的速度" class="headerlink" title="2.2 计算轮子轴心位置的速度"></a>2.2 计算轮子轴心位置的速度</h4><p>如下图所示，以右前轮为例，蓝色的方框代表轮子，定义以下变量：</p>
+<ul>
+<li>$\overrightarrow{r}$为从底盘中心指向轮子轴心的矢量；</li>
+<li>$\overrightarrow{v}$为轮子轴心的速度矢量；</li>
+<li>$\overrightarrow{v_r}$为轮子轴心沿垂直于$\overrightarrow{r}$的方向（即切线方向）的速度分量；</li>
+</ul>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-7.PNG" alt="ML-7" style="zoom: 67%;"></p>
+<p>可以计算出：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\overrightarrow{v} &= \overrightarrow{v_t}+\overrightarrow{v_r} \\ &= \overrightarrow{v_t}+\overrightarrow{\omega}\times\overrightarrow{r}
+\end{align*}</script><p>将$\overrightarrow{r}$分解为$r_x$和$r_y$，分别计算轮子轴心在X、Y轴的速度分量：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}
+v_x=v_{tx}+\omega\cdot{r_y} \\ 
+v_y=v_{ty}+\omega\cdot{r_x}
+\end{matrix}\right.</script><p>其他三个轮子同理</p>
+<h4 id="2-3计算与地面接触的辊子速度"><a href="#2-3计算与地面接触的辊子速度" class="headerlink" title="2.3计算与地面接触的辊子速度"></a>2.3计算与地面接触的辊子速度</h4><p>由2.2算得的轮子轴心速度，可以分解为沿辊子轴方向的$\overrightarrow{v_\parallel}$ 和垂直辊子轴方向的 $\overrightarrow{v_\perp}$ ，如图所示</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-8.PNG" alt="ML-8" style="zoom:50%;"></p>
+<p>其中$\overrightarrow{v_\perp}$用于让辊子空转，可以忽略</p>
+<p>定义一个沿辊子方向的单位矢量$\hat{e}$，对于右前轮来说，$\hat{e}=\frac{1}{\sqrt{2}}\cdot\hat{i}+\frac{1}{\sqrt{2}}\cdot\hat{j}$</p>
+<p>则沿轴线的速度为$\overrightarrow{v}$在$\hat{e}$方向的投影：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ \overrightarrow{v_\parallel}&=\overrightarrow{v}\cdot\hat{e} \\ 
+ &=(v_x\cdot\hat{i}+v_y\cdot\hat{j})\cdot(\frac{1}{\sqrt{2}}\cdot\hat{i}+\frac{1}{\sqrt{2}}\cdot\hat{j}) \\ 
+ &= \frac{1}{\sqrt{2}}v_x+\frac{1}{\sqrt{2}}v_y
+\end{align*}</script><h4 id="2-4-计算轮子的转速（和地面接触点的线速度）"><a href="#2-4-计算轮子的转速（和地面接触点的线速度）" class="headerlink" title="2.4 计算轮子的转速（和地面接触点的线速度）"></a>2.4 计算轮子的转速（和地面接触点的线速度）</h4><p>如图所示，轮子转速为$v_w$</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ML-9.PNG" alt="ML-9" style="zoom:50%;"></p>
+<p>由于辊子与轮轴呈45°角，则$v_\omega$可求得：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ v_w&=\frac{v_\parallel}{cos45^{\circ}} \\ 
+ &=\sqrt{2}(\frac{1}{\sqrt{2}}v_x+\frac{1}{\sqrt{2}}v_y) \\ 
+ &= v_x+v_y
+\end{align*}</script><p>将2.2求出的$\left\{\begin{matrix}<br>v_x=v_{tx}+\omega\cdot{r_y} \\<br>v_y=v_{ty}+\omega\cdot{r_x}<br>\end{matrix}\right.$带入上式，可求出此轮的转速：</p>
+<script type="math/tex; mode=display">
+v_w=v_{tx}+v_{ty}+\omega(r_x+r_y)</script><p>结合以上四个步骤，可以根据底盘运动状态解算出四个轮子的转速：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}
+v_{w1}=v_{tx}-v_{ty}-\omega(r_x+r_y)\\ 
+v_{w2}=v_{tx}+v_{ty}+\omega(r_x+r_y)\\ 
+v_{w3}=v_{tx}+v_{ty}-\omega(r_x+r_y)\\ 
+v_{w4}=v_{tx}-v_{ty}+\omega(r_x+r_y)
+\end{matrix}\right.</script><p>以上方程组就是O形麦轮底盘的逆运动学模型。</p>
+<h4 id="2-5-代码实现"><a href="#2-5-代码实现" class="headerlink" title="2.5 代码实现"></a>2.5 代码实现</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//参数宏定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENCODER_RESOLUTION      1440.0   <span class="comment">//编码器分辨率, 轮子转一圈，编码器产生的脉冲数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WHEEL_DIAMETER          0.058    <span class="comment">//轮子直径,单位：米</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> D_X                     0.18     <span class="comment">//底盘Y轴上两轮中心的间距</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> D_Y                     0.25     <span class="comment">//底盘X轴上两轮中心的间距</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PID_RATE                50       <span class="comment">//PID调节PWM值的频率</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> pulse_per_meter = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">float</span> rx_plus_ry_cali = <span class="number">0.3</span>;</span><br><span class="line"><span class="keyword">double</span> angular_correction_factor = <span class="number">1.0</span>;</span><br><span class="line"><span class="keyword">double</span> linear_correction_factor = <span class="number">1.0</span>;</span><br><span class="line"><span class="keyword">double</span> angular_correction_factor = <span class="number">1.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @函数作用：运动学解析参数初始化</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Kinematics_Init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//轮子转动一圈，移动的距离为轮子的周长WHEEL_DIAMETER*3.1415926，编码器产生的脉冲信号为ENCODER_RESOLUTION。则电机编码器转一圈产生的脉冲信号除以轮子周长可得轮子前进1m的距离所对应编码器计数的变化</span></span><br><span class="line">    pulse_per_meter = (<span class="keyword">float</span>)(ENCODER_RESOLUTION/(WHEEL_DIAMETER*<span class="number">3.1415926</span>))/linear_correction_factor;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">float</span> r_x = D_X/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">float</span> r_y = D_Y/<span class="number">2</span>;</span><br><span class="line">    rx_plus_ry_cali = (r_x + r_y)/angular_correction_factor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @函数作用：逆向运动学解析，底盘三轴速度--&gt;轮子速度</span></span><br><span class="line"><span class="comment">  * @输入：机器人三轴速度 m/s</span></span><br><span class="line"><span class="comment">  * @输出：电机应达到的目标速度（一个PID控制周期内，电机编码器计数值的变化）</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Kinematics_Inverse</span><span class="params">(<span class="keyword">int16_t</span>* input, <span class="keyword">int16_t</span>* output)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">float</span> v_tx   = (<span class="keyword">float</span>)input[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">float</span> v_ty   = (<span class="keyword">float</span>)input[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">float</span> omega = (<span class="keyword">float</span>)input[<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">float</span> v_w[<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	v_w[<span class="number">0</span>] = v_tx - v_ty - (r_x + r_y)*omega;</span><br><span class="line">	v_w[<span class="number">1</span>] = v_tx + v_ty + (r_x + r_y)*omega;</span><br><span class="line">	v_w[<span class="number">2</span>] = v_tx + v_ty - (r_x + r_y)*omega;</span><br><span class="line">	v_w[<span class="number">3</span>] = v_tx - v_ty + (r_x + r_y)*omega;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//计算一个PID控制周期内，电机编码器计数值的变化</span></span><br><span class="line">	output[<span class="number">0</span>] = (<span class="keyword">int16_t</span>)(v_w[<span class="number">0</span>] * pulse_per_meter/PID_RATE);</span><br><span class="line">	output[<span class="number">1</span>] = (<span class="keyword">int16_t</span>)(v_w[<span class="number">1</span>] * pulse_per_meter/PID_RATE);</span><br><span class="line">	output[<span class="number">2</span>] = (<span class="keyword">int16_t</span>)(v_w[<span class="number">2</span>] * pulse_per_meter/PID_RATE);</span><br><span class="line">	output[<span class="number">3</span>] = (<span class="keyword">int16_t</span>)(v_w[<span class="number">3</span>] * pulse_per_meter/PID_RATE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-正运动学解析"><a href="#3-正运动学解析" class="headerlink" title="3. 正运动学解析"></a>3. 正运动学解析</h3><h4 id="3-1-正运动学模型"><a href="#3-1-正运动学模型" class="headerlink" title="3.1 正运动学模型"></a>3.1 正运动学模型</h4><p>正运动学模型（forward kinematic model）让我们可以通过四个轮子的速度，计算出底盘的运动状态。可以直接根据逆运动学模型中的三个方程解出来，比如：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}
+v_{tx}=\frac{v_4+v_3}{2}\\ 
+v_{ty}=\frac{v_3-v_1}{2}\\ 
+\omega=\frac{v_2-v_3}{2(r_x+r_y)}
+\end{matrix}\right.</script><p>转换为底盘坐标系下对时间求积分即为里程计变化量</p>
+<h4 id="3-2-代码实现"><a href="#3-2-代码实现" class="headerlink" title="3.2 代码实现"></a>3.2 代码实现</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//参数宏定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENCODER_MAX 32767        </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENCODER_MIN -32768 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENCODER_LOW_WRAP  ((ENCODER_MAX - ENCODER_MIN)*0.3+ENCODER_MIN)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENCODER_HIGH_WRAP ((ENCODER_MAX - ENCODER_MIN)*0.7+ENCODER_MIN)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.1415926</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//变量定义</span></span><br><span class="line"><span class="keyword">int32_t</span>  wheel_turns[<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int32_t</span>  encoder_sum_current[<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @函数功能：正向运动学解析，轮子编码值-&gt;底盘三轴里程计坐标</span></span><br><span class="line"><span class="comment">  * @输入：编码器累加值</span></span><br><span class="line"><span class="comment">  * @输出：三轴里程计 x y yaw</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Kinematics_Forward</span><span class="params">(<span class="keyword">int16_t</span>* input, <span class="keyword">int16_t</span>* output)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">double</span> dv_w_times_dt[<span class="number">4</span>]; <span class="comment">//轮子瞬时变化量dxw=dvw*dt</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">double</span> dv_t_times_dt[<span class="number">3</span>]; <span class="comment">//底盘瞬时变化量dxt=dvt*dt</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int16_t</span> encoder_sum[<span class="number">4</span>];</span><br><span class="line">	</span><br><span class="line">    <span class="comment">//将左面轮子编码器累加值乘以-1，以计算前进的距离</span></span><br><span class="line">	encoder_sum[<span class="number">0</span>] = -input[<span class="number">0</span>];</span><br><span class="line">	encoder_sum[<span class="number">1</span>] = input[<span class="number">1</span>];</span><br><span class="line">	encoder_sum[<span class="number">2</span>] = -input[<span class="number">2</span>];</span><br><span class="line">	encoder_sum[<span class="number">3</span>] = input[<span class="number">3</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器计数溢出处理</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(encoder_sum[i] &lt; ENCODER_LOW_WRAP &amp;&amp; encoder_sum_current[i] &gt; ENCODER_HIGH_WRAP)</span><br><span class="line">			wheel_turns[i]++;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(encoder_sum[i] &gt; ENCODER_HIGH_WRAP &amp;&amp; encoder_sum_current[i] &lt; ENCODER_LOW_WRAP)</span><br><span class="line">			wheel_turns[i]--;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			wheel_turns[i]=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//将编码器数值转化为前进的距离，单位m</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">	&#123;	</span><br><span class="line">		dv_w_times_dt[i] = <span class="number">1.0</span>*(encoder_sum[i] + wheel_turns[i]*(ENCODER_MAX-ENCODER_MIN)-encoder_sum_current[i])/pulse_per_meter;</span><br><span class="line">		encoder_sum_current[i] = encoder_sum[i];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">//要计算坐标所以变回来</span></span><br><span class="line">	dv_w_times_dt[<span class="number">0</span>] = -dv_w_times_dt[<span class="number">0</span>];</span><br><span class="line">	dv_w_times_dt[<span class="number">1</span>] =  dv_w_times_dt[<span class="number">1</span>];</span><br><span class="line">	dv_w_times_dt[<span class="number">2</span>] = -dv_w_times_dt[<span class="number">2</span>];</span><br><span class="line">	dv_w_times_dt[<span class="number">3</span>] =  dv_w_times_dt[<span class="number">3</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//计算底盘坐标系(base_link)下x轴、y轴变化距离m与Yaw轴朝向变化rad 一段时间内的变化量</span></span><br><span class="line">	dv_t_times_dt[<span class="number">0</span>] = ( dv_w_times_dt[<span class="number">3</span>] + dv_w_times_dt[<span class="number">2</span>])/<span class="number">2.0</span>;</span><br><span class="line">	dv_t_times_dt[<span class="number">1</span>] = ( dv_w_times_dt[<span class="number">2</span>] - dv_w_times_dt[<span class="number">0</span>])/<span class="number">2.0</span>;</span><br><span class="line">	dv_t_times_dt[<span class="number">2</span>] = ( dv_w_times_dt[<span class="number">1</span>] - dv_w_times_dt[<span class="number">2</span>])/(<span class="number">2</span>*wheel_track_cali);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//积分计算里程计坐标系(odom_frame)下的机器人X,Y,Yaw轴坐标</span></span><br><span class="line">	<span class="comment">//dx = ( vx*cos(theta) - vy*sin(theta) )*dt</span></span><br><span class="line">	<span class="comment">//dy = ( vx*sin(theta) + vy*cos(theta) )*dt</span></span><br><span class="line">	output[<span class="number">0</span>] += (<span class="keyword">int16_t</span>)(<span class="built_in">cos</span>((<span class="keyword">double</span>)output[<span class="number">2</span>])*dv_t_times_dt[<span class="number">0</span>] - <span class="built_in">sin</span>((<span class="keyword">double</span>)output[<span class="number">2</span>])*dv_t_times_dt[<span class="number">1</span>]);</span><br><span class="line">	output[<span class="number">1</span>] += (<span class="keyword">int16_t</span>)(<span class="built_in">sin</span>((<span class="keyword">double</span>)output[<span class="number">2</span>])*dv_t_times_dt[<span class="number">0</span>] + <span class="built_in">cos</span>((<span class="keyword">double</span>)output[<span class="number">2</span>])*dv_t_times_dt[<span class="number">1</span>]);</span><br><span class="line">	output[<span class="number">2</span>] += (<span class="keyword">int16_t</span>)(dv_t_times_dt[<span class="number">2</span>]*<span class="number">1000</span>);</span><br><span class="line">		</span><br><span class="line">    <span class="comment">//Yaw轴坐标变化范围控制-2Π -&gt; 2Π</span></span><br><span class="line">	<span class="keyword">if</span>(output[<span class="number">2</span>] &gt; PI)</span><br><span class="line">		output[<span class="number">2</span>] -= <span class="number">2</span>*PI;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(output[<span class="number">2</span>] &lt; -PI)</span><br><span class="line">		output[<span class="number">2</span>] += <span class="number">2</span>*PI;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">//发送机器人X轴y轴Yaw轴瞬时变化量，在ROS端除以时间</span></span><br><span class="line">	output[<span class="number">3</span>] = (<span class="keyword">int16_t</span>)(dv_t_times_dt[<span class="number">0</span>]);</span><br><span class="line">	output[<span class="number">4</span>] = (<span class="keyword">int16_t</span>)(dv_t_times_dt[<span class="number">1</span>]);</span><br><span class="line">	output[<span class="number">5</span>] = (<span class="keyword">int16_t</span>)(dv_t_times_dt[<span class="number">2</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><p>【1】<a href="https://zhuanlan.zhihu.com/p/20282234">https://zhuanlan.zhihu.com/p/20282234</a></p>
+<p>【2】<a href="https://blog.csdn.net/shixiaolu63/article/details/78496457">https://blog.csdn.net/shixiaolu63/article/details/78496457</a></p>
+]]></content>
+      <categories>
+        <category>ROS机器人学习</category>
+      </categories>
+      <tags>
+        <tag>ROS</tag>
       </tags>
   </entry>
   <entry>
@@ -404,22 +573,21 @@
 <h3 id="创建工作空间"><a href="#创建工作空间" class="headerlink" title="创建工作空间"></a>创建工作空间</h3><p>(以下使用<code>WORKSPACE</code>代表你的工作空间名)</p>
 <ol>
 <li><p>创建工作空间</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">    mkdir -p ~/WORKSPACE/src</span><br><span class="line">    <span class="built_in">cd</span> ~/WORKSPACE/src</span><br><span class="line">catkin_init_workspace</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">    mkdir -p ~/WORKSPACE/src</span><br><span class="line">    <span class="built_in">cd</span> ~/WORKSPACE/src</span><br><span class="line">catkin_init_workspace</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>编译工作空间</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/WORKSPACE/</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/WORKSPACE/</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>设置环境变量</p>
 <p> 编译完成后,会自动产生<code>build</code>和<code>devel</code>,<code>devel</code>文件夹中会产生<code>setup.*sh</code>样子的环境变量设置脚本,用<code>source</code>运行脚本,以生效工作空间中的环境变量.</p>
   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> devel/setup.bash</span><br></pre></td></tr></table></figure>
-
 <p> 但是这么设置环境变量只能在当前终端下生效,如希望在所有终端都生效,则需要在终端的配置文件中添加环境变量的设置:</p>
 </li>
 </ol>
 <pre><code><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;source /WORKSPACE/devel/setup.bash&quot;</span>&gt;&gt;~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
-</code></pre>
-<ol start="4">
+</code></pre><ol>
 <li><p>检查环境变量</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$ROS_PACKAGE_PATH</span></span><br></pre></td></tr></table></figure>
-
 <p> 如果打印的路径中包含当前工作空间的路径,说明环境变量设置成功.</p>
 <p> <strong>TODO:添加成功的截图</strong></p>
 </li>
@@ -434,12 +602,10 @@
 <ol>
 <li><p>创建功能包</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># catkin_create_pkg命令使用方法:</span></span><br><span class="line"><span class="comment"># catkin_create_pkg &lt;package_name&gt; [depend1] [depend2] [depend3]</span></span><br><span class="line"><span class="built_in">cd</span> ~/WORKSPACE/src</span><br><span class="line">catkin_create_pkg learning_communication std_msgs rospy roscpp</span><br></pre></td></tr></table></figure>
-
 <p>创建完成后,src下会生成一个<code>learning_communication</code>文件夹,已包含<code>CmakeList.txt</code>和<code>package.xml</code></p>
 </li>
 <li><p>编译功能包</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/WORKSPACE</span><br><span class="line">catkin_make</span><br><span class="line"><span class="built_in">source</span> ~/WORKSPACE/devel/setup.bash</span><br></pre></td></tr></table></figure>
-
 <p><strong>同一工作空间下不能存在同名功能包</strong></p>
 <p><strong>不同工作空间下可以存在同名功能包</strong></p>
 </li>
@@ -447,10 +613,8 @@
 <p>所有工作空间的路径会依次顺序记录在ROS_PACKAGE_PATH环境变量中,即新的路径会排在前面.当在不同工作空间下存在同名功能包,ROS会优先查找纪录在最前端的工作空间中有没有需要的功能包,如果不存在则继续向下查找.</p>
 <p>可通过以下命令查看所有ROS的环境变量</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">env | grep ros</span><br></pre></td></tr></table></figure>
-
 <p>查找功能包存放路径</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rospack find PACKAGE</span><br></pre></td></tr></table></figure>
-
 <p><strong>TODO:添加查找功能包的路径图片</strong></p>
 <h2 id="ROS通信编程"><a href="#ROS通信编程" class="headerlink" title="ROS通信编程"></a>ROS通信编程</h2><h3 id="话题编程"><a href="#话题编程" class="headerlink" title="话题编程"></a>话题编程</h3><p>话题编程流程</p>
 <ol>
@@ -459,17 +623,15 @@
 <li>添加编译选项</li>
 <li>添加可执行程序</li>
 </ol>
-<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros-%E8%AF%9D%E9%A2%98.png" alt="截屏2021-08-25 下午7.46.04" style="zoom: 33%;">
-
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros-%E8%AF%9D%E9%A2%98.png" alt="截屏2021-08-25 下午7.46.04" style="zoom: 33%;"></p>
 <h4 id="创建发布者Publisher"><a href="#创建发布者Publisher" class="headerlink" title="创建发布者Publisher"></a>创建发布者Publisher</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * talker.cpp</span></span><br><span class="line"><span class="comment"> * 创建一个Publisher,发布chatter话题,发布字符串&quot;Hello World&quot;,类型为string</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;std_msgs/String.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// ROS节点初始化,节点名称为talker</span></span><br><span class="line">  <span class="comment">// 注:节点名称必须唯一 </span></span><br><span class="line">  ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;talker&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 创建节点句柄,方便管理节电资源的使用和管理</span></span><br><span class="line">  ros::NodeHandle n;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 创建一个Publisher，发布名为chatter的topic，消息类型为std_msgs::String</span></span><br><span class="line">  <span class="comment">// 1000为消息发布队列大小,当发布消息实际速度较慢时,Publisher会将消息存储在一定空间的队列中,当消息数量超过队列大小时,ROS会自动删除队列中最早入队的消息</span></span><br><span class="line">  ros::Publisher chatter_pub = n.advertise&lt;std_msgs::String&gt;(<span class="string">&quot;chatter&quot;</span>, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 设置循环的频率,单位为Hz</span></span><br><span class="line">  <span class="comment">// 当调用Rate::sleep()时,ROS节点会根据此处设置的频率休眠响应的时间,以保证维持一致的时间周期.</span></span><br><span class="line">  <span class="function">ros::Rate <span class="title">loop_rate</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 发生异常,ros::ok()返回false,跳出循环</span></span><br><span class="line">  <span class="comment">// 异常包括 1.Ctrl+C/2.被另外同名节点踢掉线/3.节点调用了关闭函数ros::shutdown()/4.所有ros::NodeHandles句柄被销毁</span></span><br><span class="line">  <span class="keyword">while</span> (ros::<span class="built_in">ok</span>())</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 初始化std_msgs::String类型的消息msg,msg只有一个成员data</span></span><br><span class="line">    std_msgs::String msg;</span><br><span class="line">    std::stringstream ss;</span><br><span class="line">    ss &lt;&lt; <span class="string">&quot;hello world &quot;</span> &lt;&lt; count;</span><br><span class="line">    <span class="comment">/*这一句一般出现在创建ROS话题的发布者（Publisher）节点程序中，是利用c++自带的头文件sstream，来实现利用输入输出流的方式往string里写东西，并且还可以拼接string和其他类型的变量。</span></span><br><span class="line"><span class="comment">    *该语句实现了string型的数据&quot;hello world&quot;和int型变量count的拼接，形成一个新的string。即如果count是１，那么hello world1会作为string被存放在ss当中。</span></span><br><span class="line"><span class="comment">    *使用ss.str()调用这个string。最后可以用ROS_INFO输出。  </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    msg.data = ss.<span class="built_in">str</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ROS_INFO类似于printf/cout,用来打印日志信息</span></span><br><span class="line">    <span class="comment">// c_str()函数返回一个指向正规C字符串的指针常量, 内容与本string串相同. </span></span><br><span class="line">    <span class="built_in">ROS_INFO</span>(<span class="string">&quot;%s&quot;</span>, msg.data.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="comment">// 发布消息</span></span><br><span class="line">    chatter_pub.<span class="built_in">publish</span>(msg);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用来处理节点订阅话题的所有回调函数(目前的发布节点没有订阅信息,此函数非必须,但为了保证不出错所以所有节点都默认加入该函数)</span></span><br><span class="line">    ros::<span class="built_in">spinOnce</span>();</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 目前为止,Publisher一个周期的工作完成了,让他休息一段时间,100ms后开始下一周期的工作</span></span><br><span class="line">    loop_rate.<span class="built_in">sleep</span>();</span><br><span class="line">    ++count;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="创建订阅者Subscriber"><a href="#创建订阅者Subscriber" class="headerlink" title="创建订阅者Subscriber"></a>创建订阅者Subscriber</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * listener.cpp</span></span><br><span class="line"><span class="comment"> * 创建一个Subscriber,订阅chatter话题，消息类型String</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;std_msgs/String.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收到订阅的消息后，会进入消息回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">chatterCallback</span><span class="params">(<span class="keyword">const</span> std_msgs::String::ConstPtr&amp; msg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 将接收到的消息打印出来</span></span><br><span class="line">  <span class="built_in">ROS_INFO</span>(<span class="string">&quot;I heard: [%s]&quot;</span>, msg-&gt;data.<span class="built_in">c_str</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 初始化ROS节点</span></span><br><span class="line">  ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;listener&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建节点句柄</span></span><br><span class="line">  ros::NodeHandle n;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 订阅节点需要声明订阅信息,该信息会在ROS Master中注册,Master会关注系统中是否存在发布该话题的节点,若存在则会帮助两个节点建立连接,完成数据传输</span></span><br><span class="line">  <span class="comment">// 创建一个Subscriber，订阅名为chatter的topic，注册回调函数chatterCallback</span></span><br><span class="line">  ros::Subscriber sub = n.<span class="built_in">subscribe</span>(<span class="string">&quot;chatter&quot;</span>, <span class="number">1000</span>, chatterCallback);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 循环等待回调函数,此函数在ros::ok()返回false时退出</span></span><br><span class="line">  ros::<span class="built_in">spin</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="编译功能包"><a href="#编译功能包" class="headerlink" title="编译功能包"></a>编译功能包</h4><p>设置编译规则<code>CmakeList.txt</code></p>
 <ol>
 <li><p>设置头文件路径</p>
 <p> <code>include_directories(头文件相对路径)</code></p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Specify additional locations of header files</span></span><br><span class="line"><span class="comment">## Your package locations should be listed before other locations </span></span><br><span class="line">include_directories(</span><br><span class="line">  include</span><br><span class="line">  <span class="variable">$&#123;catkin_INCLUDE_DIRS&#125;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Specify additional locations of header files</span></span><br><span class="line"><span class="comment">## Your package locations should be listed before other locations </span></span><br><span class="line">include_directories(</span><br><span class="line">  include</span><br><span class="line">  <span class="variable">$&#123;catkin_INCLUDE_DIRS&#125;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>设置需要编译的代码和可生成的可执行文件 </p>
 <p><code>add_executable(生成的可执行文件 参与编译的源码文件1 参与编译的源码文件2)</code></p>
 </li>
@@ -478,26 +640,24 @@
 </li>
 <li><p>若生成的可执行文件需要依赖其他文件生成的代码,如消息类型,则需设置依赖</p>
 <p><code>add_dependencies(生成的可执行文件 $&#123;PROJECT_NAME&#125;_generate_messages_cpp)</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Declare a C++ executable</span></span><br><span class="line"><span class="comment">## With catkin_make all packages are built within a single CMake context</span></span><br><span class="line"><span class="comment">## The recommended prefix ensures that target names across packages don&#x27;t collide</span></span><br><span class="line">add_executable(talker src/talker.cpp)</span><br><span class="line">target_link_libraries(talker <span class="variable">$&#123;catkin_LIBRARIES&#125;</span>)</span><br><span class="line"><span class="comment">#add_dependencies(talker $&#123;PROJECT_NAME&#125;_generate_messages_cpp)</span></span><br><span class="line"></span><br><span class="line">add_executable(listener src/listener.cpp)</span><br><span class="line">target_link_libraries(listener <span class="variable">$&#123;catkin_LIBRARIES&#125;</span>)</span><br><span class="line"><span class="comment">#add_dependencies(listener $&#123;PROJECT_NAME&#125;_generate_messages_cpp)</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Declare a C++ executable</span></span><br><span class="line"><span class="comment">## With catkin_make all packages are built within a single CMake context</span></span><br><span class="line"><span class="comment">## The recommended prefix ensures that target names across packages don&#x27;t collide</span></span><br><span class="line">add_executable(talker src/talker.cpp)</span><br><span class="line">target_link_libraries(talker <span class="variable">$&#123;catkin_LIBRARIES&#125;</span>)</span><br><span class="line"><span class="comment">#add_dependencies(talker $&#123;PROJECT_NAME&#125;_generate_messages_cpp)</span></span><br><span class="line"></span><br><span class="line">add_executable(listener src/listener.cpp)</span><br><span class="line">target_link_libraries(listener <span class="variable">$&#123;catkin_LIBRARIES&#125;</span>)</span><br><span class="line"><span class="comment">#add_dependencies(listener $&#123;PROJECT_NAME&#125;_generate_messages_cpp)</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>在工作空间路径下编译</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/WORKSPACE</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
-
 <p>系统会生成<code>talker</code>和<code>listener</code>两个可执行文件,位于<code>~/WORKSPACE/devel/lib/PACKAGE</code>路径下</p>
 <h4 id="运行功能包"><a href="#运行功能包" class="headerlink" title="运行功能包"></a>运行功能包</h4><p>每次编译之后都需要设置环境变量,假定已将环境变量脚本添加到终端配置文件中,运行以下代码刷新环境变量</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
-
 <ol>
 <li><p>启动<code>roscore</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>启动<code>Publisher</code></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rosrun learning_communication talker</span><br></pre></td></tr></table></figure>
-
 <p><strong>(TODO:添加运行截图)</strong></p>
 </li>
 <li><p>启动<code>Subscriber</code></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rosrun learning_communication listener</span><br></pre></td></tr></table></figure>
-
 <p><strong>(TODO:添加运行截图)</strong></p>
 <p>若先运行<code>Subscriber</code>,节点会处于等待状态直到<code>Publisher</code>启动</p>
 </li>
@@ -507,96 +667,95 @@
 <p>.msg文件是ROS中定义消息类型的文件,放置在功能包根目录下的msg文件夹中</p>
 <p>例如:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string name</span><br><span class="line">uint8 sex</span><br><span class="line">uint8 age</span><br></pre></td></tr></table></figure>
-
 <p>还可以定义常量,在发布或订阅消息数据时可直接使用,相当于宏定义.如</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">uint8 unknown = 0</span><br><span class="line">uint8 male    = 1</span><br><span class="line">uint8 female  = 2</span><br></pre></td></tr></table></figure>
-
 <p>很多消息定义中还会包含一个标准格式的头信息<code>std_msgs/Header</code>,此处定义消息类型较为简单,也可以不加头信息</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">uint32 seq</span><br><span class="line">time stamp</span><br><span class="line">string frame_id</span><br></pre></td></tr></table></figure>
-
 <p><code>seq</code>为消息顺序标识无,无需手动设置,<code>Publisher</code>发布消息时会自动累加;</p>
 <p><code>stamp</code>为消息中与数据相关联的时间戳,可用于时间同步</p>
 <p><code>frame_id</code>为消息中与数据相关联的参考坐标系id</p>
 <p>为了使用这个自定义的消息类型,需要编译msg文件</p>
 <ol>
 <li><p>在<code>package.xml</code>中添加以下功能包依赖</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span>  </span><br></pre></td></tr></table></figure></li>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+</li>
 <li><p>设置<code>CmakeList.txt</code></p>
 <ol>
 <li><p><code>find_package</code>中添加消息声称依赖的功能包<code>message_generation</code></p>
- <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">find_package(catkin REQUIRED COMPONENTS</span><br><span class="line">	geometry_msgs</span><br><span class="line">  roscpp</span><br><span class="line">  rospy</span><br><span class="line">  std_msgs</span><br><span class="line">  message_generation</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">find_package(catkin REQUIRED COMPONENTS</span><br><span class="line">	geometry_msgs</span><br><span class="line">  roscpp</span><br><span class="line">  rospy</span><br><span class="line">  std_msgs</span><br><span class="line">  message_generation</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>设置<code>catkin</code>依赖</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">catkin_package(</span><br><span class="line">	......</span><br><span class="line">  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs message_runtime</span><br><span class="line">	......</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">catkin_package(</span><br><span class="line">	......</span><br><span class="line">  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs message_runtime</span><br><span class="line">	......</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>设置需要编译的msg文件</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">add_message_files(</span><br><span class="line">	FILES</span><br><span class="line">	Person.msg</span><br><span class="line">)</span><br><span class="line">generate_messages(</span><br><span class="line">	DEPENDENCIES</span><br><span class="line">	std_msgs</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">add_message_files(</span><br><span class="line">	FILES</span><br><span class="line">	Person.msg</span><br><span class="line">)</span><br><span class="line">generate_messages(</span><br><span class="line">	DEPENDENCIES</span><br><span class="line">	std_msgs</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 </li>
 <li><p>在根目录下<code>catkin_make</code>编译,使用如下命令查看自定义的Person消息类型</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rosmsg show person</span><br></pre></td></tr></table></figure>
-
 <p><strong>(TODO:添加运行截图)</strong></p>
 <p>即可在代码中使用,参考<code>String</code>类型使用方法</p>
 </li>
 </ol>
-<h3 id="服务编程"><a href="#服务编程" class="headerlink" title="服务编程"></a>服务编程</h3><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros-%E6%9C%8D%E5%8A%A1.png" alt="ros-服务" style="zoom: 33%;">
-
+<h3 id="服务编程"><a href="#服务编程" class="headerlink" title="服务编程"></a>服务编程</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros-%E6%9C%8D%E5%8A%A1.png" alt="ros-服务" style="zoom: 33%;"></p>
 <p>下面以加法运算为例,<code>Client</code>发布两个需要相加的<code>int</code>变量,<code>Server</code>节点接收请求后完成运算并返回结果</p>
 <h4 id="自定义服务数据"><a href="#自定义服务数据" class="headerlink" title="自定义服务数据"></a>自定义服务数据</h4><p>通过<code>.srv</code>文件进行接口定义,放置于功能包根目录下的<code>srv</code>文件夹中.</p>
-<p>该文件包含请求与应答两个数据域,中间用—分割,内容格式与自定义话题相同</p>
+<p>该文件包含请求与应答两个数据域,中间用—-分割,内容格式与自定义话题相同</p>
 <p>以加法运算为例,创建<code>AddTwoInts.srv</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int64 a</span><br><span class="line">int64 b</span><br><span class="line">---</span><br><span class="line">int64 sum</span><br></pre></td></tr></table></figure>
-
 <p>与话题一样,需要在<code>package.xml</code>和<code>CMakeList.txt</code>中配置依赖和编译规则</p>
 <ol>
 <li><p><code>package.xml</code>添加以下依赖(与话题相同)</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span>  </span><br></pre></td></tr></table></figure></li>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>message_generation<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>message_runtime<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+</li>
 <li><p><code>CMakeList.txt</code>添加以下配置</p>
 <ol>
 <li><p><code>find_package</code>中添加消息声称依赖的功能包<code>message_generation</code>(与话题相同)</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find_package(catkin REQUIRED COMPONENTS</span><br><span class="line"> geometry_msgs</span><br><span class="line">  roscpp</span><br><span class="line">  rospy</span><br><span class="line">  std_msgs</span><br><span class="line">  message_generation</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>设置需要编译的srv文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">add_service_files(</span><br><span class="line">	FILES</span><br><span class="line">	AddTwoInts.srv</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">add_service_files(</span><br><span class="line">	FILES</span><br><span class="line">	AddTwoInts.srv</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 </li>
 </ol>
 <h4 id="创建服务器Server"><a href="#创建服务器Server" class="headerlink" title="创建服务器Server"></a>创建服务器Server</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * server.cpp</span></span><br><span class="line"><span class="comment"> * AddTwoInts Server</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="comment">// 使用ROS中的服务,必须包含服务数据类型的头文件,这个头文件是前文AddTwoInts.srv自动生成的</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;learning_communication/AddTwoInts.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// service回调函数，输入参数req，输出参数res</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">add</span><span class="params">(learning_communication::AddTwoInts::Request  &amp;req,</span></span></span><br><span class="line"><span class="params"><span class="function">         learning_communication::AddTwoInts::Response &amp;res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 将输入参数中的请求数据相加，结果放到应答变量中,反馈到Client,回调函数返回true</span></span><br><span class="line">  res.sum = req.a + req.b;</span><br><span class="line">  <span class="built_in">ROS_INFO</span>(<span class="string">&quot;request: x=%ld, y=%ld&quot;</span>, (<span class="keyword">long</span> <span class="keyword">int</span>)req.a, (<span class="keyword">long</span> <span class="keyword">int</span>)req.b);</span><br><span class="line">  <span class="built_in">ROS_INFO</span>(<span class="string">&quot;sending back response: [%ld]&quot;</span>, (<span class="keyword">long</span> <span class="keyword">int</span>)res.sum);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// ROS节点初始化</span></span><br><span class="line">  ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;add_two_ints_server&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 创建节点句柄</span></span><br><span class="line">  ros::NodeHandle n;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建一个名为add_two_ints的server，注册回调函数add()</span></span><br><span class="line">  ros::ServiceServer service = n.<span class="built_in">advertiseService</span>(<span class="string">&quot;add_two_ints&quot;</span>, add);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 循环等待回调函数</span></span><br><span class="line">  <span class="built_in">ROS_INFO</span>(<span class="string">&quot;Ready to add two ints.&quot;</span>);</span><br><span class="line">  ros::<span class="built_in">spin</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>可见,Server类似于话题中的Subscriber</p>
 <h4 id="创建客户端Client"><a href="#创建客户端Client" class="headerlink" title="创建客户端Client"></a>创建客户端Client</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * client.cpp</span></span><br><span class="line"><span class="comment"> * AddTwoInts Client</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;learning_communication/AddTwoInts.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// ROS节点初始化</span></span><br><span class="line">  ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;add_two_ints_client&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从终端命令行获取两个加数</span></span><br><span class="line">  <span class="keyword">if</span> (argc != <span class="number">3</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">ROS_INFO</span>(<span class="string">&quot;usage: add_two_ints_client X Y&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建节点句柄</span></span><br><span class="line">  ros::NodeHandle n;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 创建一个add_two_int的Client实例，服务类型是learning_communication::AddTwoInts</span></span><br><span class="line">  ros::ServiceClient client = n.serviceClient&lt;learning_communication::AddTwoInts&gt;(<span class="string">&quot;add_two_ints&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 实例化一个服务数据类型的变量,包含两个成员:request和response</span></span><br><span class="line">  <span class="comment">// 创建learning_communication::AddTwoInts类型的service消息</span></span><br><span class="line">  learning_communication::AddTwoInts srv;</span><br><span class="line">  srv.request.a = <span class="built_in">atoll</span>(argv[<span class="number">1</span>]);</span><br><span class="line">  srv.request.b = <span class="built_in">atoll</span>(argv[<span class="number">2</span>]);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 发布service请求，等待加法运算的应答结果</span></span><br><span class="line">  <span class="keyword">if</span> (client.<span class="built_in">call</span>(srv))</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">ROS_INFO</span>(<span class="string">&quot;Sum: %ld&quot;</span>, (<span class="keyword">long</span> <span class="keyword">int</span>)srv.response.sum);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">ROS_ERROR</span>(<span class="string">&quot;Failed to call service add_two_ints&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>可见,Client类似于话题中的Publisher</p>
 <h4 id="编译功能包-1"><a href="#编译功能包-1" class="headerlink" title="编译功能包"></a>编译功能包</h4><p>设置编译规则<code>CmakeList.txt</code></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">add_executable(server src/server.cpp)</span><br><span class="line">target_link_libraries(server <span class="variable">$&#123;catkin_LIBRARIES&#125;</span>)</span><br><span class="line">add_dependencies(server <span class="variable">$&#123;PROJECT_NAME&#125;</span>_gencpp)</span><br><span class="line"></span><br><span class="line">add_executable(client src/client.cpp)</span><br><span class="line">target_link_libraries(client <span class="variable">$&#123;catkin_LIBRARIES&#125;</span>)</span><br><span class="line">add_dependencies(client <span class="variable">$&#123;PROJECT_NAME&#125;</span>_gencpp)</span><br></pre></td></tr></table></figure>
-
 <p>catkin_make编译,刷新环境变量</p>
 <h4 id="运行功能包-1"><a href="#运行功能包-1" class="headerlink" title="运行功能包"></a>运行功能包</h4><ol>
 <li><p>启动<code>roscore</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<ol start="2">
+<ol>
 <li><p>启动<code>Server</code></p>
- <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rosrun learning_communication server</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rosrun learning_communication server</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>​        <strong>(TODO:添加运行截图)</strong></p>
-<ol start="3">
+<ol>
 <li><p>启动<code>Client</code></p>
- <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rosrun learning_communication client 3 5</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rosrun learning_communication client 3 5</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>​        <strong>(TODO:添加运行截图)</strong></p>
 <h2 id="分布式多机通信"><a href="#分布式多机通信" class="headerlink" title="分布式多机通信"></a>分布式多机通信</h2><p><strong>(TODO:待添加)</strong></p>
 <h2 id="ROS常用组件"><a href="#ROS常用组件" class="headerlink" title="ROS常用组件"></a>ROS常用组件</h2><h3 id="launch启动文件"><a href="#launch启动文件" class="headerlink" title="launch启动文件"></a>launch启动文件</h3><p>每当我们需要运行一个ROS节点或工具时，都需要打开一个新的终端运行一个命令。当系统中的节点数量不断增加时，每个节点一个终端的模式会变得非常麻烦。启动文件（Launch File）便是ROS中一种同时启动多个节点的途径，还可以自动启动ROSMaster节点管理器，而且可以实现每个节点的各种配置，为多个节点的操作提供了很大便利。</p>
 <p>下面是一个最简单的launch文件</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;turtlesim&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sim1&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtlesim_node&quot;</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;turtlesim&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sim2&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtlesim_node&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <h4 id="基本元素"><a href="#基本元素" class="headerlink" title="基本元素"></a>基本元素</h4><ol>
 <li><p><code>&lt;launch&gt;</code></p>
 <p> XML文件必须要包含一个根元素，launch文件中的根元素采用<code>&lt;launch&gt;</code>标签定义，文件中的其他内容都必须包含在这个标签之中：</p>
- <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">……</span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">……</span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p><code>&lt;node&gt;</code></p>
 <p> 启动文件的核心是启动ROS节点，采用<code>&lt;node&gt;</code>标签定义，语法如下：</p>
  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;package-name&quot;</span> <span class="attr">name</span>=<span class="string">&quot;node-name&quot;</span> <span class="attr">type</span>=<span class="string">&quot;executable-name&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p> 从上边的定义规则可以看出，在启动文件中启动一个节点需要三个属性：name、pkg和type。</p>
 <ul>
 <li><p><code>name</code> : 节点运行的名称，将覆盖节点中<code>ros::init()</code>定义的节点名称；</p>
@@ -604,37 +763,10 @@
 <li><p><code>pkg</code> : 节点所在的功能包名称</p>
 </li>
 <li><p><code>type</code> : 节点的可执行文件名称</p>
+<p>在某些情况下，我们还有可能用到以下属性：</p>
+<p>| 属性                 | 属性作用                                                     |<br>| :—————————- | —————————————————————————————— |<br>| <code>output=&quot;screen&quot;</code>    | 终端输出转储在当前的控制台上，而不是在日志文件中             |<br>| <code>respawn=&quot;true&quot;</code>     | 当roslaunch启动完所有该启动的节点之后，会监测每一个节点，保证它们正常的运行状态。对于任意节点，当它终止时，roslaunch 会将该节点重启 |<br>| <code>required=&quot;true&quot;</code>    | 当被此属性标记的节点终止时，roslaunch会将其他的节点一并终止。注意此属性不可以与<code>respawn=&quot;true&quot;</code>一起描述同一个节点 |<br>| <code>ns = &quot;NAME_SPACE&quot;</code>  | 这个属性可以让你在自定义的命名空间里运行节点                 |<br>| <code>args = &quot;arguments&quot;</code> | 节点需要的输入参数                                           |</p>
 </li>
 </ul>
-<p> 在某些情况下，我们还有可能用到以下属性：</p>
-<table>
-<thead>
-<tr>
-<th align="left">属性</th>
-<th>属性作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>output=&quot;screen&quot;</code></td>
-<td>终端输出转储在当前的控制台上，而不是在日志文件中</td>
-</tr>
-<tr>
-<td align="left"><code>respawn=&quot;true&quot;</code></td>
-<td>当roslaunch启动完所有该启动的节点之后，会监测每一个节点，保证它们正常的运行状态。对于任意节点，当它终止时，roslaunch 会将该节点重启</td>
-</tr>
-<tr>
-<td align="left"><code>required=&quot;true&quot;</code></td>
-<td>当被此属性标记的节点终止时，roslaunch会将其他的节点一并终止。注意此属性不可以与<code>respawn=&quot;true&quot;</code>一起描述同一个节点</td>
-</tr>
-<tr>
-<td align="left"><code>ns = &quot;NAME_SPACE&quot;</code></td>
-<td>这个属性可以让你在自定义的命名空间里运行节点</td>
-</tr>
-<tr>
-<td align="left"><code>args = &quot;arguments&quot;</code></td>
-<td>节点需要的输入参数</td>
-</tr>
-</tbody></table>
 </li>
 </ol>
 <h4 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h4><ol>
@@ -643,26 +775,20 @@
 <p> 每个活跃的节点都可以通过 ros::param::get()接口来获取parameter的值，用户也可以在终端中通过rosparam命令获得parameter的值。</p>
 <p> <code>&lt;param&gt;</code>使用方法:</p>
  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;output_frame&quot;</span> <span class="attr">value</span>=<span class="string">&quot;odom&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p> 运行launch文件后，output_frame这个parameter的值就设置为odom，并且加载到ROS参数服务器上了。但是在很多复杂的系统中，参数的数量很多，如果这样一个一个的设置会非常麻烦，ROS也为我们提供了另外一种类似的参数加载方式:<code>&lt;rosparam&gt;</code></p>
 <p> <code>&lt;rosparam&gt;</code>使用方法</p>
  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">rosparam</span> <span class="attr">file</span>=<span class="string">&quot;$(find 2dnav_pr2)/config/costmap_common_params.yaml&quot;</span> <span class="attr">command</span>=<span class="string">&quot;load&quot;</span> <span class="attr">ns</span>=<span class="string">&quot;local_costmap&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p> <code>&lt;rosparam&gt;</code>可以帮助我们将一个yaml格式文件中的参数全部加载到ROS参数服务器中，需要设置command属性为“load”，还可以选择设置命名空间“ns”。</p>
 </li>
 <li><p><code>&lt;arg&gt;</code></p>
 <p> argument是launch文件内部的局部变量,仅限于launch文件内部使用,便于launch文件的重构,与ROS节点内部无关</p>
  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;MyArg&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p> 像上面这样，就简单地声明了一个参数，名叫demo，但是声明不等于定义，我们需要给他赋值，在赋值之后参数才能够发挥作用。</p>
  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;MyArg1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;123&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;MyArg2&quot;</span> <span class="attr">default</span>=<span class="string">&quot;123&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p> 以上是两种简单的赋值方法，两者的区别是使用后者赋值的参数可以在命令行中像下面这样被修改，前者则不行。</p>
  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">roslaunch xxx xxx.launch MyArg2=1234</span><br></pre></td></tr></table></figure>
-
 <p> launch文件中需要使用到argument时，可以使用如下方式调用：</p>
  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;arg-name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;123&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;foo&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$(arg arg-name)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;node&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;package&quot;</span> <span class="attr">type</span>=<span class="string">&quot;type &quot;</span><span class="attr">args</span>=<span class="string">&quot;$(arg arg-name)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p> 当<code>$(arg arg_name)</code>出现在launch文件任意位置时，将会自动替代为所给参数的值。</p>
 </li>
 </ol>
@@ -670,30 +796,24 @@
 <p>ROS提供一种重映射的机制，简单来说就是取别名，类似于C++中的别名机制，我们不需要修改别人功能包的接口，只需要将接口名称重映射一下，取个别名，我们的系统就认识了（接口的数据类型必须相同）。launch文件中的<code>&lt;remap&gt;</code>标签顾名思义重映射，emap标签里包含一个<code>original-name</code>和一个<code>new-name</code>，及原名称和新名称。</p>
 <p>比如turtlebot的键盘控制节点，发布的速度控制指令话题可能是<code>/turtlebot/cmd_vel</code>，但是我们自己的机器人订阅的速度控制话题是<code>/cmd_vel</code>，这个时候使用<code>&lt;remap&gt;</code>就可以轻松解决问题，将<code>/turtlebot/cmd_vel</code>重映射为<code>/cmd_vel</code>，我们的机器人就可以接收到速度控制指令了：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;/turtlebot/cmd_vel&quot;</span> <span class="attr">to</span>=<span class="string">&quot;/cmd_vel&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>重映射机制在ROS中的使用非常广泛，也非常重要，方法不止这一种，也可以在终端rosrun命令中实现重映射.</p>
 <h4 id="嵌套复用"><a href="#嵌套复用" class="headerlink" title="嵌套复用"></a>嵌套复用</h4><p>在复杂的系统当中，launch文件往往有很多，这些launch文件之间也会存在依赖关系。如果需要直接复用一个已有launch文件中的内容，可以使用<code>&lt;include&gt;</code>标签包含其他launch文件，这和C语言中的include几乎是一样的。</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">&quot;$(dirname)/other.launch&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>launch是ROS框架中非常实用、灵活的功能，它类似于一种高级编程语言，可以帮助我们管理启动系统时的方方面面。在使用ROS的过程中，很多情况下我们并不需要编写大量代码，仅需要使用已有的功能包，编辑一下launch文件，就可以完成很多机器人功能。</p>
 <ul>
 <li><p>注 : 使用 <code>roslaunch</code> 命令 和 使用 <code>rosrun</code> 命令 单独运行每个节点之间的重要区别</p>
 <p>默认情况下，roslaunch 命令 从启动节点开始，标准输出信息会重定向到一个日志文件中，而不会像 rosrun 命令那样，将 log 信息显示在终端(console)上。日志文件所在路径： <code>∼/.ros/log/run_id/node_name-number-stdout.log</code>.如果想将标准输出信息显示在终端(console)上,需要在 node 元素中使用 output 属性：output=”screen”.但node 元素的 output 属性只能影响这个节点自己。除了 output 属性，我们可以使用 roslaunch命令行工具的 –screen 命令行选项强制性的在终端的窗口中显示所有节点的输出信息。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">roslaunch --screen package-name launch-file-name</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">roslaunch --screen package-name launch-file-name</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="TF坐标变换"><a href="#TF坐标变换" class="headerlink" title="TF坐标变换"></a>TF坐标变换</h3><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ROS-ABTF%E5%8F%98%E6%8D%A2.png" alt="ROS-ABTF变换" style="zoom: 33%;">
-
+<h3 id="TF坐标变换"><a href="#TF坐标变换" class="headerlink" title="TF坐标变换"></a>TF坐标变换</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ROS-ABTF%E5%8F%98%E6%8D%A2.png" alt="ROS-ABTF变换" style="zoom: 33%;"></p>
 <p>如图所示A,B两个坐标系,A坐标系下的位姿可以通过平移和旋转变换成B坐标系下的位姿,这里的平移和旋转可以用一个4*4的变换矩阵来描述(详见机器人学)</p>
 <h4 id="创建TF广播器"><a href="#创建TF广播器" class="headerlink" title="创建TF广播器"></a>创建TF广播器</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * turtle_tf_broadcaster.cpp</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ros/ros.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tf/transform_broadcaster.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;turtlesim/Pose.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::string turtle_name;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">poseCallback</span><span class="params">(<span class="keyword">const</span> turtlesim::PoseConstPtr&amp; msg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// tf广播器</span></span><br><span class="line">    <span class="keyword">static</span> tf::TransformBroadcaster br;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据乌龟当前的位姿，设置相对于世界坐标系的坐标变换</span></span><br><span class="line">    tf::Transform transform;</span><br><span class="line">    transform.<span class="built_in">setOrigin</span>( tf::<span class="built_in">Vector3</span>(msg-&gt;x, msg-&gt;y, <span class="number">0.0</span>) );</span><br><span class="line">    tf::Quaternion q;</span><br><span class="line">    q.<span class="built_in">setRPY</span>(<span class="number">0</span>, <span class="number">0</span>, msg-&gt;theta);</span><br><span class="line">    transform.<span class="built_in">setRotation</span>(q);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 发布坐标变换</span></span><br><span class="line">    br.<span class="built_in">sendTransform</span>(tf::<span class="built_in">StampedTransform</span>(transform, ros::Time::<span class="built_in">now</span>(), <span class="string">&quot;world&quot;</span>, turtle_name));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 初始化节点</span></span><br><span class="line">    ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;my_tf_broadcaster&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">ROS_ERROR</span>(<span class="string">&quot;need turtle name as argument&quot;</span>); </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    turtle_name = argv[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 订阅乌龟的pose信息</span></span><br><span class="line">    ros::NodeHandle node;</span><br><span class="line">    ros::Subscriber sub = node.<span class="built_in">subscribe</span>(turtle_name+<span class="string">&quot;/pose&quot;</span>, <span class="number">10</span>, &amp;poseCallback);</span><br><span class="line"></span><br><span class="line">    ros::<span class="built_in">spin</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="创建TF监听器"><a href="#创建TF监听器" class="headerlink" title="创建TF监听器"></a>创建TF监听器</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * turtle_tf_listener.cpp</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ros/ros.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tf/transform_listener.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;geometry_msgs/Twist.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;turtlesim/Spawn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 初始化节点</span></span><br><span class="line">    ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;my_tf_listener&quot;</span>);</span><br><span class="line"></span><br><span class="line">    ros::NodeHandle node;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过服务调用，产生第二只乌龟turtle2</span></span><br><span class="line">    ros::service::<span class="built_in">waitForService</span>(<span class="string">&quot;spawn&quot;</span>);</span><br><span class="line">    ros::ServiceClient add_turtle = node.serviceClient&lt;turtlesim::Spawn&gt;(<span class="string">&quot;spawn&quot;</span>);</span><br><span class="line">    turtlesim::Spawn srv;</span><br><span class="line">    add_turtle.<span class="built_in">call</span>(srv);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义turtle2的速度控制发布器</span></span><br><span class="line">    ros::Publisher turtle_vel = node.advertise&lt;geometry_msgs::Twist&gt;(<span class="string">&quot;turtle2/cmd_vel&quot;</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// tf监听器</span></span><br><span class="line">    tf::TransformListener listener;</span><br><span class="line"></span><br><span class="line">    <span class="function">ros::Rate <span class="title">rate</span><span class="params">(<span class="number">10.0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (node.<span class="built_in">ok</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        tf::StampedTransform transform;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 查找turtle2与turtle1的坐标变换</span></span><br><span class="line">            listener.<span class="built_in">waitForTransform</span>(<span class="string">&quot;/turtle2&quot;</span>, <span class="string">&quot;/turtle1&quot;</span>, ros::<span class="built_in">Time</span>(<span class="number">0</span>), ros::<span class="built_in">Duration</span>(<span class="number">3.0</span>));</span><br><span class="line">            listener.<span class="built_in">lookupTransform</span>(<span class="string">&quot;/turtle2&quot;</span>, <span class="string">&quot;/turtle1&quot;</span>, ros::<span class="built_in">Time</span>(<span class="number">0</span>), transform);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in"><span class="keyword">catch</span></span> (tf::TransformException &amp;ex) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">ROS_ERROR</span>(<span class="string">&quot;%s&quot;</span>,ex.<span class="built_in">what</span>());</span><br><span class="line">            ros::<span class="built_in">Duration</span>(<span class="number">1.0</span>).<span class="built_in">sleep</span>();</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据turtle1和turtle2之间的坐标变换，计算turtle2需要运动的线速度和角速度</span></span><br><span class="line">        <span class="comment">// 并发布速度控制指令，使turtle2向turtle1移动</span></span><br><span class="line">        geometry_msgs::Twist vel_msg;</span><br><span class="line">        vel_msg.angular.z = <span class="number">4.0</span> * <span class="built_in">atan2</span>(transform.<span class="built_in">getOrigin</span>().<span class="built_in">y</span>(),</span><br><span class="line">                                        transform.<span class="built_in">getOrigin</span>().<span class="built_in">x</span>());</span><br><span class="line">        vel_msg.linear.x = <span class="number">0.5</span> * <span class="built_in">sqrt</span>(<span class="built_in">pow</span>(transform.<span class="built_in">getOrigin</span>().<span class="built_in">x</span>(), <span class="number">2</span>) +</span><br><span class="line">                                      <span class="built_in">pow</span>(transform.<span class="built_in">getOrigin</span>().<span class="built_in">y</span>(), <span class="number">2</span>));</span><br><span class="line">        turtle_vel.<span class="built_in">publish</span>(vel_msg);</span><br><span class="line"></span><br><span class="line">        rate.<span class="built_in">sleep</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="编译功能包-2"><a href="#编译功能包-2" class="headerlink" title="编译功能包"></a>编译功能包</h4><p>设置编译规则<code>CmakeList.txt</code></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">add_executable(turtle_tf_broadcaster src/turtle_tf_broadcaster.cpp)</span><br><span class="line">target_link_libraries(turtle_tf_broadcaster <span class="variable">$&#123;catkin_LIBRARIES&#125;</span>)</span><br><span class="line"></span><br><span class="line">add_executable(turtle_tf_listener src/turtle_tf_listener.cpp)</span><br><span class="line">target_link_libraries(turtle_tf_listener <span class="variable">$&#123;catkin_LIBRARIES&#125;</span>)</span><br></pre></td></tr></table></figure>
-
 <p>catkin_make编译,刷新环境变量</p>
 <h4 id="launch文件启动"><a href="#launch文件启动" class="headerlink" title="launch文件启动"></a>launch文件启动</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- 海龟仿真器 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;turtlesim&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtlesim_node&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sim&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- 键盘控制 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;turtlesim&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtle_teleop_key&quot;</span> <span class="attr">name</span>=<span class="string">&quot;teleop&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- 两只海龟的tf广播 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;learning_tf&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtle_tf_broadcaster&quot;</span> <span class="attr">args</span>=<span class="string">&quot;/turtle1&quot;</span> <span class="attr">name</span>=<span class="string">&quot;turtle1_tf_broadcaster&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;learning_tf&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtle_tf_broadcaster&quot;</span> <span class="attr">args</span>=<span class="string">&quot;/turtle2&quot;</span> <span class="attr">name</span>=<span class="string">&quot;turtle2_tf_broadcaster&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- 监听tf广播，并且控制turtle2移动 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;learning_tf&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtle_tf_listener&quot;</span> <span class="attr">name</span>=<span class="string">&quot;listener&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>ROS机器人学习</category>
@@ -716,27 +836,29 @@
 </li>
 </ul>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">  	<span class="keyword">uint16_t</span> GPIO_Pin;                           <span class="comment">//指定要初始化的IO口         </span></span><br><span class="line">    GPIOSpeed_TypeDef GPIO_Speed; <span class="comment">//设置IO口输出速度</span></span><br><span class="line">    GPIOMode_TypeDef GPIO_Mode;    <span class="comment">//设置工作模式：8种中的一个</span></span><br><span class="line">	&#125;GPIO_InitTypeDef;</span><br><span class="line"></span><br><span class="line">GPIOx: GPIOA~GPIOG</span><br></pre></td></tr></table></figure>
-
 <p>​    GPIO_Init函数初始化样例：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_InitTypeDef  GPIO_InitStructure;</span><br><span class="line">	</span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5; <span class="comment">//LED0--&gt;PB.5 端口配置</span></span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;  <span class="comment">//推挽输出</span></span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; <span class="comment">//IO口速度为50MHz</span></span><br><span class="line">GPIO_Init(GPIOB, &amp;GPIO_InitStructure);	 <span class="comment">//根据设定参数初始化GPIOB.5</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>2个读取输入电平函数：</p>
 <ul>
 <li><p><code>uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);</code><br>作用：读取某个GPIO的输入电平。实际操作的是GPIOx_IDR寄存器。</p>
 <p>例：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_5);<span class="comment">//读取GPIOA.5的输入电平</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_5);<span class="comment">//读取GPIOA.5的输入电平</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p><code>uint16_t GPIO_ReadInputData(GPIO_TypeDef* GPIOx);</code><br>作用：读取某组GPIO的输入电平。实际操作的是GPIOx_IDR寄存器。<br>例：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_ReadInputData(GPIOA);<span class="comment">//读取GPIOA组中所有io口输入电平</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_ReadInputData(GPIOA);<span class="comment">//读取GPIOA组中所有io口输入电平</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p>2个读取输出电平函数：</p>
 <ul>
 <li><p><code>uint8_t GPIO_ReadOutputDataBit (GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);</code><br>作用：读取某个GPIO的输出电平。实际操作的是GPIO_ODR寄存器。</p>
 <p>例如：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_5);<span class="comment">//读取GPIOA.5的输出电平</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_5);<span class="comment">//读取GPIOA.5的输出电平</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p><code>uint16_t GPIO_ReadOutputData(GPIO_TypeDef* GPIOx);</code><br>作用：读取某组GPIO的输出电平。实际操作的是GPIO_ODR寄存器。<br>例如：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_ReadOutputData(GPIOA);<span class="comment">//读取GPIOA组中所有io口输出电平</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_ReadOutputData(GPIOA);<span class="comment">//读取GPIOA组中所有io口输出电平</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p>4个设置输出电平函数：</p>
@@ -749,9 +871,6 @@
 </li>
 </ul>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//按键输入：</span></span><br><span class="line"><span class="function">u8 <span class="title">KEY_Scan</span><span class="params">(u8 mode)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">     <span class="keyword">static</span> u8 key_up=<span class="number">1</span>;</span><br><span class="line">     <span class="keyword">if</span>(mode==<span class="number">1</span>) key_up=<span class="number">1</span>;<span class="comment">//支持连续按</span></span><br><span class="line">      <span class="keyword">if</span>（key_up &amp;&amp;  KEY按下）</span><br><span class="line">      &#123;</span><br><span class="line">        delay_ms(<span class="number">10</span>);<span class="comment">//延时，防抖</span></span><br><span class="line">        key_up=<span class="number">0</span>;<span class="comment">//标记这次key已经按下</span></span><br><span class="line">        <span class="keyword">if</span>(KEY确实按下)</span><br><span class="line">          &#123;</span><br><span class="line">           <span class="keyword">return</span> KEY_VALUE;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(KEY没有按下)  key_up=<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">return</span> 没有按下</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <hr>
 <h2 id="RCC"><a href="#RCC" class="headerlink" title="RCC"></a>RCC</h2><p>头文件: stm32f10x_rcc.h</p>
 <p>源文件:stm32f10x_rcc.c</p>
@@ -770,7 +889,7 @@
 </li>
 <li><p>状态参数获取参数：<br> <code>RCC_GetClocksFreq();</code><br> <code>RCC_GetSYSCLKSource();</code><br> <code>RCC_GetFlagStatus()</code></p>
 </li>
-<li><p>RCC中断相关函数 :<br> <code>RCC_ITConfig()</code> 、<code> RCC_GetITStatus()</code> 、 <code>RCC_ClearITPendingBit()</code>…</p>
+<li><p>RCC中断相关函数 :<br> <code>RCC_ITConfig()</code> 、<code>RCC_GetITStatus()</code> 、 <code>RCC_ClearITPendingBit()</code>…</p>
 </li>
 </ol>
 <hr>
@@ -787,13 +906,18 @@
 <li><p>一般情况下，系统代码执行过程中，只设置一次中断优先级分组，比如分组2，设置好分组之后一般不会再改变分组。随意改变分组会导致中断管理混乱，程序出现意想不到的执行结果。</p>
 </li>
 <li><p>中断优先级分组函数：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NVIC_PriorityGroupConfig</span><span class="params">(<span class="keyword">uint32_t</span> NVIC_PriorityGroup)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NVIC_PriorityGroupConfig</span><span class="params">(<span class="keyword">uint32_t</span> NVIC_PriorityGroup)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  assert_param(IS_NVIC_PRIORITY_GROUP(NVIC_PriorityGroup));</span><br><span class="line">  SCB-&gt;AIRCR = AIRCR_VECTKEY_MASK | NVIC_PriorityGroup;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NVIC_PriorityGroupConfig</span><span class="params">(<span class="keyword">uint32_t</span> NVIC_PriorityGroup)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NVIC_PriorityGroupConfig</span><span class="params">(<span class="keyword">uint32_t</span> NVIC_PriorityGroup)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  assert_param(IS_NVIC_PRIORITY_GROUP(NVIC_PriorityGroup));</span><br><span class="line">  SCB-&gt;AIRCR = AIRCR_VECTKEY_MASK | NVIC_PriorityGroup;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li><p>中断参数初始化函数：</p>
 <p><code>void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct);</code></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span> NVIC_IRQChannel; <span class="comment">//设置中断通道</span></span><br><span class="line">  <span class="keyword">uint8_t</span> NVIC_IRQChannelPreemptionPriority;<span class="comment">//设置响应优先级</span></span><br><span class="line">  <span class="keyword">uint8_t</span> NVIC_IRQChannelSubPriority; <span class="comment">//设置抢占优先级</span></span><br><span class="line">  FunctionalState NVIC_IRQChannelCmd; <span class="comment">//使能/使能</span></span><br><span class="line">&#125; NVIC_InitTypeDef;</span><br></pre></td></tr></table></figure>
-
 <p>例：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NVIC_InitTypeDef   NVIC_InitStructure;</span><br><span class="line"></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;<span class="comment">//串口1中断</span></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=<span class="number">1</span> ;<span class="comment">// 抢占优先级为1</span></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">2</span>;<span class="comment">// 子优先级位2</span></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;<span class="comment">//IRQ通道使能</span></span><br><span class="line">NVIC_Init(&amp;NVIC_InitStructure);	<span class="comment">//根据上面指定的参数初始化NVIC寄存器</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NVIC_InitTypeDef   NVIC_InitStructure;</span><br><span class="line"></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;<span class="comment">//串口1中断</span></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=<span class="number">1</span> ;<span class="comment">// 抢占优先级为1</span></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">2</span>;<span class="comment">// 子优先级位2</span></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;<span class="comment">//IRQ通道使能</span></span><br><span class="line">NVIC_Init(&amp;NVIC_InitStructure);	<span class="comment">//根据上面指定的参数初始化NVIC寄存器</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li><p>中断优先级设置步骤：</p>
 <ol>
 <li>系统运行后先设置中断优先级分组。调用函数：<br>void NVIC_PriorityGroupConfig(uint32_t NVIC_PriorityGroup);<br> （整个系统执行过程中，只设置一次中断分组。）</li>
@@ -804,7 +928,6 @@
 </ul>
 <hr>
 <h2 id="串口"><a href="#串口" class="headerlink" title="串口"></a>串口</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">USART_Init</span><span class="params">()</span></span>; <span class="comment">//串口初始化：波特率，数据字长，奇偶校验，硬件流控以及收发使能</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">USART_Cmd</span><span class="params">()</span></span>;<span class="comment">//使能串口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">USART_ITConfig</span><span class="params">()</span></span>;<span class="comment">//使能相关中断</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">USART_SendData</span><span class="params">()</span></span>;<span class="comment">//发送数据到串口，DR</span></span><br><span class="line"><span class="function"><span class="keyword">uint16_t</span> <span class="title">USART_ReceiveData</span><span class="params">()</span></span>;<span class="comment">//接受数据，从DR读取接受到的数据</span></span><br><span class="line"></span><br><span class="line"><span class="function">FlagStatus <span class="title">USART_GetFlagStatus</span><span class="params">()</span></span>;<span class="comment">//获取状态标志位</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">USART_ClearFlag</span><span class="params">()</span></span>;<span class="comment">//清除状态标志位</span></span><br><span class="line"><span class="function">ITStatus <span class="title">USART_GetITStatus</span><span class="params">()</span></span>;<span class="comment">//获取中断状态标志位</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">USART_ClearITPendingBit</span><span class="params">()</span></span>;<span class="comment">//清除中断状态标志位</span></span><br></pre></td></tr></table></figure>
-
 <p>波特率计算方法</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/stm32-learn-2.png" alt="2"></p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/stm32-learn-3.png" alt="3"></p>
@@ -816,22 +939,26 @@
 <li>串口参数初始化：USART_Init();</li>
 <li>开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤）<pre><code>  NVIC_Init();
   USART_ITConfig();
-</code></pre>
-</li>
+</code></pre></li>
 <li>使能串口:USART_Cmd();</li>
 <li>编写中断处理函数：USARTx_IRQHandler();</li>
 <li>串口数据收发：<br>void USART_SendData();//发送数据到串口，DR<br>uint16_t USART_ReceiveData();//接受数据，从DR读取接受到的数据</li>
-<li>串口传输状态获取：<br>FlagStatus USART_GetFlagStatus(USART_TypeDef* USARTx, uint16_t USART_FLAG);<br>void USART_ClearITPendingBit(USART_TypeDef* USARTx, uint16_t USART_IT);</li>
+<li>串口传输状态获取：<br>FlagStatus USART_GetFlagStatus(USART_TypeDef<em> USARTx, uint16_t USART_FLAG);<br>void USART_ClearITPendingBit(USART_TypeDef</em> USARTx, uint16_t USART_IT);</li>
 </ol>
 <hr>
 <h2 id="外部中断"><a href="#外部中断" class="headerlink" title="外部中断"></a>外部中断</h2><ul>
 <li><p><code>void GPIO_EXTILineConfig(uint8_t GPIO_PortSource, uint8_t GPIO_PinSource);</code><br>   //设置IO口与中断线的映射关系</p>
 <p>   例:  </p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_EXTILineConfig(GPIO_PortSourceGPIOE,GPIO_PinSource2);</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_EXTILineConfig(GPIO_PortSourceGPIOE,GPIO_PinSource2);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li><p><code>void EXTI_Init(EXTI_InitTypeDef* EXTI_InitStruct);</code><br> //初始化中断线：触发方式等</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">uint32_t</span> EXTI_Line;   <span class="comment">//指定要配置的中断线           </span></span><br><span class="line">  EXTIMode_TypeDef EXTI_Mode;   <span class="comment">//模式：事件 OR中断</span></span><br><span class="line">  EXTITrigger_TypeDef EXTI_Trigger;<span class="comment">//触发方式：上升沿/下降沿/双沿触发</span></span><br><span class="line">  FunctionalState EXTI_LineCmd;  <span class="comment">//使能 OR失能</span></span><br><span class="line">&#125;EXTI_InitTypeDef;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">EXTI_InitStructure.EXTI_Line=EXTI_Line2;	 </span><br><span class="line">EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;	</span><br><span class="line">EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;</span><br><span class="line">EXTI_InitStructure.EXTI_LineCmd = ENABLE;</span><br><span class="line">EXTI_Init(&amp;EXTI_InitStructure);	 	</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">EXTI_InitStructure.EXTI_Line=EXTI_Line2;	 </span><br><span class="line">EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;	</span><br><span class="line">EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;</span><br><span class="line">EXTI_InitStructure.EXTI_LineCmd = ENABLE;</span><br><span class="line">EXTI_Init(&amp;EXTI_InitStructure);	 	</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li><p><code>ITStatus EXTI_GetITStatus(uint32_t EXTI_Line);</code><br>//判断中断线中断状态，是否发生</p>
 </li>
 <li><p><code>void EXTI_ClearITPendingBit(uint32_t EXTI_Line);</code><br>//清除中断线上的中断标志位</p>
@@ -839,26 +966,19 @@
 <li><p>外部中断的一般配置步骤：</p>
 <ol>
 <li>初始化IO口为输入。<pre><code>GPIO_Init();
-</code></pre>
-</li>
+</code></pre></li>
 <li>开启IO口复用时钟。<pre><code>RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);
-</code></pre>
-</li>
+</code></pre></li>
 <li>设置IO口与中断线的映射关系。<pre><code>void GPIO_EXTILineConfig();
-</code></pre>
-</li>
+</code></pre></li>
 <li>初始化线上中断，设置触发条件等。<pre><code>   EXTI_Init();
-</code></pre>
-</li>
+</code></pre></li>
 <li>配置中断分组（NVIC），并使能中断。<pre><code>   NVIC_Init();
-</code></pre>
-</li>
+</code></pre></li>
 <li>编写中断服务函数。<pre><code>  EXTIx_IRQHandler();
-</code></pre>
-</li>
+</code></pre></li>
 <li>清除中断标志位<pre><code>  EXTI_ClearITPendingBit();
-</code></pre>
-</li>
+</code></pre></li>
 </ol>
 </li>
 </ul>
@@ -867,8 +987,8 @@
 <li><p>定时器参数初始化：         </p>
 <p><code>void TIM_TimeBaseInit(TIM_TypeDef* TIMx, TIM_TimeBaseInitTypeDef* TIM_TimeBaseInitStruct);</code></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_Prescaler;        </span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_CounterMode;     </span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_Period;        </span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_ClockDivision;  </span><br><span class="line">  <span class="keyword">uint8_t</span> TIM_RepetitionCounter;</span><br><span class="line">&#125; TIM_TimeBaseInitTypeDef; </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TIM_TimeBaseStructure.TIM_Period = <span class="number">4999</span>; TIM_TimeBaseStructure.TIM_Prescaler =<span class="number">7199</span>; TIM_TimeBaseStructure.TIM_ClockDivision =   TIM_CKD_DIV1; TIM_TimeBaseStructure.TIM_CounterMode =   TIM_CounterMode_Up; </span><br><span class="line">TIM_TimeBaseInit(TIM3, &amp;TIM_TimeBaseStructure); </span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TIM_TimeBaseStructure.TIM_Period = <span class="number">4999</span>; TIM_TimeBaseStructure.TIM_Prescaler =<span class="number">7199</span>; TIM_TimeBaseStructure.TIM_ClockDivision =   TIM_CKD_DIV1; TIM_TimeBaseStructure.TIM_CounterMode =   TIM_CounterMode_Up; </span><br><span class="line">TIM_TimeBaseInit(TIM3, &amp;TIM_TimeBaseStructure); </span><br></pre></td></tr></table></figure>
+</li>
 <li><p>定时器使能函数：</p>
 <p><code>void TIM_Cmd(TIM_TypeDef* TIMx, FunctionalState NewState)</code></p>
 </li>
@@ -881,21 +1001,16 @@
 <li><p>定时器中断实现步骤</p>
 <ol>
 <li>能定时器时钟。<pre><code>  RCC_APB1PeriphClockCmd();
-</code></pre>
-</li>
+</code></pre></li>
 <li>初始化定时器，配置ARR,PSC。<pre><code>TIM_TimeBaseInit();
-</code></pre>
-</li>
+</code></pre></li>
 <li>开启定时器中断，配置NVIC。<pre><code>void TIM_ITConfig();
 NVIC_Init();
-</code></pre>
-</li>
+</code></pre></li>
 <li>使能定时器。<pre><code>TIM_Cmd();
-</code></pre>
-</li>
+</code></pre></li>
 <li>编写中断服务函数。<pre><code>TIMx_IRQHandler();
-</code></pre>
-</li>
+</code></pre></li>
 </ol>
 </li>
 </ul>
@@ -904,8 +1019,10 @@ NVIC_Init();
 <li><p>初始化：</p>
 <p><code>void TIM_OCxInit(TIM_TypeDef* TIMx, TIM_OCInitTypeDef* TIM_OCInitStruct);</code></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_OCMode;  <span class="comment">//PWM模式1或者模式2</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_OutputState; <span class="comment">//输出使能 OR失能</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_OutputNState;</span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_Pulse; <span class="comment">//比较值，写CCRx</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_OCPolarity; <span class="comment">//比较输出极性</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_OCNPolarity; </span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_OCIdleState;  </span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_OCNIdleState; </span><br><span class="line">&#125; TIM_OCInitTypeDef;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2; <span class="comment">//PWM模式2</span></span><br><span class="line">TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; <span class="comment">//比较输出使能</span></span><br><span class="line">TIM_OCInitStructure. TIM_Pulse=<span class="number">100</span>;</span><br><span class="line">TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High; <span class="comment">//输出极性:TIM输出比较极性高</span></span><br><span class="line">TIM_OC2Init(TIM3, &amp;TIM_OCInitStructure);  <span class="comment">//根据T指定的参数初始化外设TIM3 OC2</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2; <span class="comment">//PWM模式2</span></span><br><span class="line">TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; <span class="comment">//比较输出使能</span></span><br><span class="line">TIM_OCInitStructure. TIM_Pulse=<span class="number">100</span>;</span><br><span class="line">TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High; <span class="comment">//输出极性:TIM输出比较极性高</span></span><br><span class="line">TIM_OC2Init(TIM3, &amp;TIM_OCInitStructure);  <span class="comment">//根据T指定的参数初始化外设TIM3 OC2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
 <li><p>设置比较值函数：</p>
 <p><code>void TIM_SetCompareX(TIM_TypeDef* TIMx, uint16_t Compare2);</code></p>
 </li>
@@ -919,16 +1036,13 @@ NVIC_Init();
 <ol>
 <li>使能定时器3和相关IO口时钟。<pre><code>使能定时器3时钟：RCC_APB1PeriphClockCmd();
 使能GPIOB时钟：RCC_APB2PeriphClockCmd();
-</code></pre>
-</li>
+</code></pre></li>
 <li>初始化IO口为复用功能输出。函数：GPIO_Init();<pre><code>GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;      
-</code></pre>
-</li>
+</code></pre></li>
 <li>这里我们是要把PB5用作定时器的PWM输出引脚，所以要重映射配置，<pre><code>所以需要开启AFIO时钟。同时设置重映射。
  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);
  GPIO_PinRemapConfig(GPIO_PartialRemap_TIM3, ENABLE); 
-</code></pre>
-</li>
+</code></pre></li>
 <li>初始化定时器：ARR,PSC等：TIM_TimeBaseInit();</li>
 <li>初始化输出比较参数:TIM_OC2Init()</li>
 <li>使能预装载寄存器： TIM_OC2PreloadConfig(TIM3, TIM_OCPreload_Enable); </li>
@@ -942,8 +1056,8 @@ NVIC_Init();
 <li><p>初始化函数：</p>
 <p><code>void TIM_ICInit(TIM_TypeDef* TIMx, TIM_ICInitTypeDef* TIM_ICInitStruct);</code></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_Channel; <span class="comment">//捕获通道1-4   </span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_ICPolarity; <span class="comment">//捕获极性</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_ICSelection; <span class="comment">//映射关系</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_ICPrescaler; <span class="comment">//分频系数</span></span><br><span class="line">  <span class="keyword">uint16_t</span> TIM_ICFilter;  <span class="comment">//滤波器</span></span><br><span class="line">&#125; TIM_ICInitTypeDef;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TIM5_ICInitStructure.TIM_Channel = TIM_Channel_1; TIM5_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;</span><br><span class="line">TIM5_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; </span><br><span class="line">TIM5_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;</span><br><span class="line">TIM5_ICInitStructure.TIM_ICFilter = <span class="number">0x00</span>;</span><br><span class="line">TIM_ICInit(TIM5, &amp;TIM5_ICInitStructure);</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">TIM5_ICInitStructure.TIM_Channel = TIM_Channel_1; TIM5_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;</span><br><span class="line">TIM5_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; </span><br><span class="line">TIM5_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;</span><br><span class="line">TIM5_ICInitStructure.TIM_ICFilter = <span class="number">0x00</span>;</span><br><span class="line">TIM_ICInit(TIM5, &amp;TIM5_ICInitStructure);</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>通道极性设置独立函数：</p>
 <p><code>void TIM_OCxPolarityConfig(TIM_TypeDef* TIMx, uint16_t TIM_OCPolarity)；</code></p>
 </li>
@@ -956,14 +1070,12 @@ NVIC_Init();
 <ol>
 <li>初始化定时器和通道对应IO的时钟。</li>
 <li>初始化IO口，模式为输入：GPIO_Init();<pre><code>GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; //PA0 输入
-</code></pre>
-</li>
+</code></pre></li>
 <li>初始化定时器ARR，PSC<br>TIM_TimeBaseInit();</li>
 <li>初始化输入捕获通道<br>TIM_ICInit();</li>
 <li>如果要开启捕获中断，<pre><code>TIM_ITConfig();
 NVIC_Init();
-</code></pre>
-</li>
+</code></pre></li>
 <li>使能定时器：TIM_Cmd();</li>
 <li>编写中断服务函数：TIMx_IRQHandler();</li>
 </ol>
@@ -984,7 +1096,7 @@ NVIC_Init();
 </li>
 <li><p>2个传输数据量函数</p>
 <ul>
-<li><code>void DMA_SetCurrDataCounter(DMA_Channel_TypeDef* DMAy_Channelx, uint16_t DataNumber); </code>//设置DMA通道的传输数据量（DMA处于关闭状态）</li>
+<li><code>void DMA_SetCurrDataCounter(DMA_Channel_TypeDef* DMAy_Channelx, uint16_t DataNumber);</code>//设置DMA通道的传输数据量（DMA处于关闭状态）</li>
 <li><code>uint16_t DMA_GetCurrDataCounter(DMA_Channel_TypeDef* DMAy_Channelx);</code>//获取当前DMA通道传输剩余数据量（DMA处于开启状态）</li>
 </ul>
 </li>
@@ -1013,141 +1125,110 @@ NVIC_Init();
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Hexo个人博客搭建教程"><a href="#Hexo个人博客搭建教程" class="headerlink" title="Hexo个人博客搭建教程"></a>Hexo个人博客搭建教程</h1><h2 id="1-搭建前准备"><a href="#1-搭建前准备" class="headerlink" title="1 搭建前准备"></a>1 搭建前准备</h2><h3 id="1-1-环境配置"><a href="#1-1-环境配置" class="headerlink" title="1.1 环境配置"></a>1.1 环境配置</h3><p>需要安装git、node，最后安装hexo</p>
 <h4 id="1-1-1-安装Git："><a href="#1-1-1-安装Git：" class="headerlink" title="1.1.1 安装Git："></a>1.1.1 安装Git：</h4><p>首先看电脑是否已经安装了git</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git</span><br></pre></td></tr></table></figure>
-
 <p>若提示not founded则进行安装</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#未安装homebrew则先安装homebrew</span></span><br><span class="line">$ /bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装git</span></span><br><span class="line">$ brew install git</span><br></pre></td></tr></table></figure>
-
 <p>查看git版本</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git --version</span><br></pre></td></tr></table></figure>
-
 <p>显示如下则安装成功</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fanziqi@macbook-pro blog % git --version</span><br><span class="line">git version 2.21.0 (Apple Git-122)</span><br></pre></td></tr></table></figure>
-
 <h4 id="1-1-2-安装node"><a href="#1-1-2-安装node" class="headerlink" title="1.1.2 安装node"></a>1.1.2 安装node</h4><p>点击访问 <a href="http://nodejs.cn/download/">node官网</a> 下载安装</p>
 <p>查看node版本</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git --version</span><br></pre></td></tr></table></figure>
-
 <h4 id="1-1-3-安装并配置Hexo"><a href="#1-1-3-安装并配置Hexo" class="headerlink" title="1.1.3 安装并配置Hexo"></a>1.1.3 安装并配置Hexo</h4><p>安装hexo</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
 <p>创建blog文件夹</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 此目录可以任意更改</span></span><br><span class="line">$ mkdir blog</span><br><span class="line"><span class="comment"># 进入blog文件夹</span></span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># init初始化hexo</span></span><br><span class="line">$ hexo init</span><br><span class="line">开启本地服务</span><br><span class="line"><span class="comment"># hexo s</span></span><br></pre></td></tr></table></figure>
-
 <p>若出现</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
-
-<p>则在浏览器输入 <a href="http://localhost:4000/">http://localhost:4000</a> 即可看到本地运行的博客首页</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-2.png"></p>
+<p>则在浏览器输入 <a href="http://localhost:4000">http://localhost:4000</a> 即可看到本地运行的博客首页</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-2.png" alt></p>
 <h3 id="1-2-注册并创建仓库"><a href="#1-2-注册并创建仓库" class="headerlink" title="1.2 注册并创建仓库"></a>1.2 注册并创建仓库</h3><p>这里讲解两个仓库</p>
 <h4 id="1-2-1-GitHub仓库"><a href="#1-2-1-GitHub仓库" class="headerlink" title="1.2.1 GitHub仓库"></a>1.2.1 GitHub仓库</h4><p>进入<a href="https://github.com/">GitHub</a>官网注册一个账号，并记住用户名，下一步要用到</p>
 <p>新建一个仓库，点击new repository</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-3.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-3.png" alt></p>
 <p>进入这一步，仓库名字必须是<strong>用户名.github.io</strong>，然后点击创建</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-4.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-4.png" alt></p>
 <p>配置ssh key</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> .ssh</span><br></pre></td></tr></table></figure>
-
 <p>新建ssh key</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;你的邮件地址&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>出现</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/Users/fanziqi/.ssh/id_rsa): </span><br></pre></td></tr></table></figure>
-
 <p>则输入ssh的名字，比如GitHub，然后回车</p>
 <p>再连续按两次回车，最终会生成一个文件在用户目录下，打开用户目录，找到<code>.ssh\刚刚起的名字.pub</code>文件，打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-6.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-6.png" alt></p>
 <p>粘贴到key里面，title任意，点击保存。</p>
 <p>测试是否成功</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
 <p>提示 <code>Are you sure you want to continue connecting (yes/no)?</code>输入yes，提示</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">You’ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
-
 <p>则配置成功</p>
 <h4 id="1-2-2-Coding仓库"><a href="#1-2-2-Coding仓库" class="headerlink" title="1.2.2 Coding仓库"></a>1.2.2 Coding仓库</h4><p>由于GitHub服务器在国外，访问速度非常慢。所以建议使用国内的Coding</p>
 <p>进入<a href="https://coding.net/">coding官网</a>，点击免费注册</p>
-<p>注册成功后新建一个代码托管项目，名称是用户名，并勾选readme<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-5.png"></p>
-<p>进入代码仓库，点击左下角项目设置–项目与成员–功能开关–打开持续部署</p>
-<p>进入项目–持续部署–静态网站</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-7.png"></p>
+<p>注册成功后新建一个代码托管项目，名称是用户名，并勾选readme<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-5.png" alt></p>
+<p>进入代码仓库，点击左下角项目设置—项目与成员—功能开关—打开持续部署</p>
+<p>进入项目—持续部署—静态网站</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-7.png" alt></p>
 <p>填好名称后并保存</p>
 <p>经测试，coding使用ssh公钥无法上传代码，则通过普通的输入用户名密码的方法上传。</p>
 <h3 id="1-3-关联到仓库"><a href="#1-3-关联到仓库" class="headerlink" title="1.3 关联到仓库"></a>1.3 关联到仓库</h3><p>在创建的blog文件夹里找到_config.yml文件并打开，在文档最后找到</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br></pre></td></tr></table></figure>
-
 <p>将其修改为</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br><span class="line">    <span class="attr">github:</span></span><br><span class="line">      <span class="string">git@github.com:你的GitHub账号/你的GitHub账号.github.io.git</span></span><br><span class="line">    <span class="attr">coding:</span></span><br><span class="line">      <span class="string">https://e.coding.net/你的coding账号/你的coding账号/你的coding账号.git</span></span><br><span class="line">      <span class="comment">#git@e.coding.net:fanis/fanis/fanis.git 此方法暂时不好用</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-
 <p>然后执行</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#产生静态网页</span></span><br><span class="line">$ hexo g</span><br><span class="line"><span class="comment"># 部署到GitHub/coding上</span></span><br><span class="line">$ hexo d</span><br><span class="line"></span><br><span class="line"><span class="comment">#也可使用hexo g &amp;&amp; hexo d</span></span><br></pre></td></tr></table></figure>
-
 <p>进入<code>http://你的名字.github.io/</code>或<code>http://coding静态网站中的一串代码.coding-pages.com/</code>即可看到hexo博客</p>
 <h3 id="1-4-绑定个人域名"><a href="#1-4-绑定个人域名" class="headerlink" title="1.4 绑定个人域名"></a>1.4 绑定个人域名</h3><p>如果想使用自己购买的域名进行访问，则需要将个人域名cname解析到<code>你的名字.github.io/</code>或<code>coding静态网站中的一串代码.coding-pages.com/</code>上</p>
 <h4 id="1-4-1-域名配置"><a href="#1-4-1-域名配置" class="headerlink" title="1.4.1 域名配置"></a>1.4.1 域名配置</h4><p>我的域名购买于阿里云，别的域名注册商大同小异。</p>
 <p>打开域名解析页面</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-8.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-8.png" alt></p>
 <p>天价一个CNAME类型的解析，解析到coding或GitHub上</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-9.png"></p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-10.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-9.png" alt></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-10.png" alt></p>
 <p>然后在blog/source/文件夹下创建一个名为CNAME文件，不要后缀。写上你的域名。</p>
 <p>注意⚠️国内访问GitHub很慢，如果想达到分流的效果在解析的时候GitHub解析线路选择境外，coding选择境内，即可实现国外用户访问GitHub而国内用户访问coding。</p>
 <h4 id="1-4-2-GitHub设置"><a href="#1-4-2-GitHub设置" class="headerlink" title="1.4.2 GitHub设置"></a>1.4.2 GitHub设置</h4><p>登录GitHub，进入之前创建的仓库，点击settings，设置Custom domain，输入你的域名</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-11.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-11.png" alt></p>
 <h4 id="1-4-3-coding设置"><a href="#1-4-3-coding设置" class="headerlink" title="1.4.3 coding设置"></a>1.4.3 coding设置</h4><p>进入项目，点击持续部署下的静态网站，设置之前创建的静态网站，下拉找到自定义域名，绑定自己的域名，并获取证书</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-12.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-12.png" alt></p>
 <h4 id="1-4-4-配置CNAME文件"><a href="#1-4-4-配置CNAME文件" class="headerlink" title="1.4.4 配置CNAME文件"></a>1.4.4 配置CNAME文件</h4><p>在blog/source/中创建一个名为CNAME文件，不要后缀。写上你的域名。</p>
 <p>最后重新生成静态网站并上传，就可以通过访问自己的域名来访问GitHub/coding上的blog了</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-
 <h2 id="2-使用博客"><a href="#2-使用博客" class="headerlink" title="2 使用博客"></a>2 使用博客</h2><h3 id="2-1-基本配置"><a href="#2-1-基本配置" class="headerlink" title="2.1 基本配置"></a>2.1 基本配置</h3><p>hexo最主要的配置是_config.yml这个文件，详细可参考<a href="https://hexo.io/zh-cn/docs/configuration">官方的配置</a>描述。这里举几个常用的例子</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span>  <span class="comment">#网页标题</span></span><br><span class="line"><span class="attr">author:</span> <span class="comment">#作者名字</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span> <span class="comment">#修改网页语言为英文</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://你的网站</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="2-2-更换主题"><a href="#2-2-更换主题" class="headerlink" title="2.2 更换主题"></a>2.2 更换主题</h3><p>默认的主题很丑，<a href="https://hexo.io/themes/">hexo官方主题页</a>这里的主题都可以更换。我选的是butterfly主题，界面美观功能强大。</p>
 <h4 id="2-2-1-安装主题"><a href="#2-2-1-安装主题" class="headerlink" title="2.2.1 安装主题"></a>2.2.1 安装主题</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
-
 <p>应用主题</p>
 <p>修改站點配置文件_config.yml，把主題改為butterfly</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
-
 <p>安装pub渲染器</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure>
-
 <h4 id="2-2-2-配置主题"><a href="#2-2-2-配置主题" class="headerlink" title="2.2.2 配置主题"></a>2.2.2 配置主题</h4><p>为了主題的平滑升級, Butterfly 使用了 data files 特性。</p>
 <p>推薦把主題默認的配置文件_config.yml複製到 Hexo 工作目錄下的source/_data/butterfly.yml，如果source/_data的目錄不存在那就創建一個。</p>
 <p>打开source/_data/butterfly.yml</p>
 <p>首先汉化导航栏，更改将第一段代码更改为</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="string">首页:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fas</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="string">时间轴:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fas</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="string">标签:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fas</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="string">分类:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fas</span> <span class="string">fa-folder-open</span></span><br><span class="line">  <span class="string">菜单||fas</span> <span class="attr">fa-list:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">音乐</span> <span class="string">||</span> <span class="string">/music/</span> <span class="string">||</span> <span class="string">fas</span> <span class="string">fa-music</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">电影</span> <span class="string">||</span> <span class="string">/movies/</span> <span class="string">||</span> <span class="string">fas</span> <span class="string">fa-video</span></span><br><span class="line">  <span class="string">留言板:</span> <span class="string">/messageboard/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-paper-plane</span></span><br><span class="line">  <span class="string">友链:</span> <span class="string">/link/</span> <span class="string">||</span> <span class="string">fas</span> <span class="string">fa-link</span></span><br><span class="line">  <span class="string">关于:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">fas</span> <span class="string">fa-heart</span></span><br></pre></td></tr></table></figure>
-
 <p>创建标签页</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure>
-
 <p>找到source/tags/index.md这个文件，修改为</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2018-01-05 00:00:00</span><br><span class="line"><span class="section">type: &quot;tags&quot;</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
-
 <p>创建分类页</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure>
-
 <p>找到source/categories/index.md这个文件，修改为</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2018-01-05 00:00:00</span><br><span class="line"><span class="section">type: &quot;categories&quot;</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
-
 <p>创建友情链接页</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new page link</span><br></pre></td></tr></table></figure>
-
 <p>找到source/link/index.md这个文件，修改为</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 友情链接</span><br><span class="line">date: 2018-01-05 00:00:00</span><br><span class="line"><span class="section">type: &quot;link&quot;</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
-
 <p>添加友情链接</p>
 <p>在Hexo博客目錄中的source/_data，創建一個文件link.yml</p>
 <p>内容如下</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">class:</span></span><br><span class="line">  <span class="attr">class_name:</span> <span class="string">友情链接</span></span><br><span class="line">  <span class="attr">link_list:</span></span><br><span class="line">    <span class="attr">1:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">ZSTU</span> <span class="comment">#这里举一个例子</span></span><br><span class="line">      <span class="attr">link:</span> <span class="string">http://www.zstu.edu.cn/</span></span><br><span class="line">      <span class="attr">avatar:</span> <span class="string">http://www.zstu.edu.cn//avatar.png</span></span><br><span class="line">      <span class="attr">descr:</span> <span class="string">浙江理工大学官网</span></span><br><span class="line"><span class="comment">#    2:</span></span><br><span class="line"><span class="comment">#      name: xxxxxx</span></span><br><span class="line"><span class="comment">#      link: https://www.xxxxxxcn/</span></span><br><span class="line"><span class="comment">#      avatar: https://xxxxx/avatar.png</span></span><br><span class="line"><span class="comment">#      descr: xxxxxxx</span></span><br></pre></td></tr></table></figure>
-
 <p>注：class_name和class_desc支持html格式書寫，如不需要，也可以留空。</p>
 <p>音乐页使用插件<a href="https://github.com/MoePlayer/hexo-tag-aplayer">hexo-tag-aplayer</a>，电影页使用插件<a href="https://github.com/mythsman/hexo-douban">hexo-douban</a>，请自行查看网页上的使用说明，这里不再赘述。</p>
 <p>404页面</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># A simple 404 page</span></span><br><span class="line"><span class="attr">error_404:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">subtitle:</span> <span class="string">&quot;頁面沒有找到&quot;</span></span><br><span class="line">  <span class="attr">background:</span></span><br></pre></td></tr></table></figure>
-
 <p>代码</p>
 <p>代码高亮主题</p>
 <p>Butterfly 支持6種代碼高亮樣式：</p>
@@ -1169,7 +1250,6 @@ NVIC_Init();
 <p>mac：<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-18.png" alt="mac"></p>
 <p>代码复制功能</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">highlight_copy:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
 <p>代碼框展開/關閉</p>
 <p>在默認情況下，代碼框自動展開，可設置是否所有代碼框都關閉狀態，點擊&gt;可展開代碼</p>
 <ul>
@@ -1178,68 +1258,52 @@ NVIC_Init();
 <li>none 不顯示&gt;按鈕</li>
 </ul>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">highlight_shrink:</span> <span class="literal">true</span> <span class="comment">#代碼框不展開，需點擊 &#x27;&gt;&#x27; 打開</span></span><br></pre></td></tr></table></figure>
-
 <p>社交图标</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># social settings (社交圖標設置)</span></span><br><span class="line"><span class="comment"># formal:</span></span><br><span class="line"><span class="comment">#   icon: link || the description</span></span><br><span class="line"><span class="attr">social:</span></span><br><span class="line">  <span class="attr">fab fa-github:</span> <span class="string">https://github.com/fanziqi614</span> <span class="string">||</span> <span class="string">Github</span></span><br><span class="line">  <span class="attr">fas fa-envelope:</span> <span class="string">mailto:fzq614@qq.com</span> <span class="string">||</span> <span class="string">Email</span></span><br></pre></td></tr></table></figure>
-
 <p>这会展示在主页头像下面</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-19.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-19.png" alt></p>
 <p>顶部图</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># the banner image of home page 将路径填到这里</span></span><br><span class="line"><span class="attr">index_img:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># if the banner of page not setting,it will show the top_img</span></span><br><span class="line"><span class="attr">default_top_img:</span> <span class="string">https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg</span></span><br></pre></td></tr></table></figure>
-
 <p>文档封面</p>
 <p>修改position即可改变封面位置</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">cover:</span></span><br><span class="line">  <span class="comment"># display the cover or not (是否顯示文章封面)</span></span><br><span class="line">  <span class="attr">index_enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">aside_enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">archives_enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># the position of cover in home page (封面顯示的位置)</span></span><br><span class="line">  <span class="comment"># left/right/both</span></span><br><span class="line">  <span class="attr">position:</span> <span class="string">left</span></span><br><span class="line">  <span class="comment"># When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)</span></span><br><span class="line">  <span class="attr">default_cover:</span> </span><br><span class="line"><span class="comment">#    - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg</span></span><br></pre></td></tr></table></figure>
-
 <p>文章版权</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_copyright:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">decode:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">CC</span> <span class="string">BY-NC-SA</span> <span class="number">4.0</span></span><br><span class="line">  <span class="attr">license_url:</span> <span class="string">https://creativecommons.org/licenses/by-nc-sa/4.0/</span></span><br></pre></td></tr></table></figure>
-
 <p>打赏功能</p>
 <p>在文末显示</p>
 <p>在/blog/themes/butterfly/source/下创建wechat.jpg和alipay.jpg收款码图片</p>
 <p>然后更改butterfly代码</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Sponsor/reward</span></span><br><span class="line"><span class="attr">reward:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">QR_code:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">img:</span> <span class="string">/img/wechat.jpg</span></span><br><span class="line">      <span class="attr">link:</span></span><br><span class="line">      <span class="attr">text:</span> <span class="string">wechat</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">img:</span> <span class="string">/img/alipay.jpg</span></span><br><span class="line">      <span class="attr">link:</span></span><br><span class="line">      <span class="attr">text:</span> <span class="string">alipay</span></span><br></pre></td></tr></table></figure>
-
 <p>头像</p>
 <p>在/blog/themes/butterfly/source/下创建avatar.png作为头像</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">vatar:</span></span><br><span class="line">  <span class="attr">img:</span> <span class="string">/img/avatar.png</span></span><br><span class="line">  <span class="attr">effect:</span> <span class="literal">true</span> <span class="comment"># 頭像會一直轉圈</span></span><br></pre></td></tr></table></figure>
-
 <p>评论系统</p>
 <p>我选择的是valine评论系统，更加美观大方，易于管理。</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-20.png"></p>
-<p>进入<a href="https://leancloud.cn/%EF%BC%8C%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81%E9%AA%8C%E8%AF%81%E9%82%AE%E7%AE%B1%EF%BC%8C%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8">https://leancloud.cn/，注册账号实名认证验证邮箱，创建应用</a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-20.png" alt></p>
+<p>进入<a href="https://leancloud.cn/，注册账号实名认证验证邮箱，创建应用">https://leancloud.cn/，注册账号实名认证验证邮箱，创建应用</a></p>
 <p>在设置中记下应用keys</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-21.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-21.png" alt></p>
 <p>填到下面的对应位置，并修改enable为true</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># valine</span></span><br><span class="line"><span class="comment"># https://valine.js.org</span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># if you want use valine,please set this value is true</span></span><br><span class="line">  <span class="attr">appId:</span>  <span class="comment"># leancloud application app id</span></span><br><span class="line">  <span class="attr">appKey:</span>  <span class="comment"># leancloud application app key</span></span><br><span class="line">  <span class="attr">pageSize:</span> <span class="number">10</span> <span class="comment"># comment list page size</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">monsterid</span> <span class="comment"># gravatar style https://valine.js.org/#/avatar</span></span><br><span class="line">  <span class="attr">lang:</span> <span class="string">zh-CN</span> <span class="comment"># i18n: zh-CN/zh-TW/en/ja</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">Please</span> <span class="string">leave</span> <span class="string">your</span> <span class="string">footprints</span> <span class="comment"># valine comment input placeholder(like: Please leave your footprints )</span></span><br><span class="line">  <span class="attr">guest_info:</span> <span class="string">nick</span> <span class="comment">#valine comment header info (nick/mail/link)</span></span><br><span class="line">  <span class="attr">recordIP:</span> <span class="literal">true</span> <span class="comment"># Record reviewer IP</span></span><br><span class="line">  <span class="attr">serverURLs:</span> <span class="comment"># This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)</span></span><br><span class="line">  <span class="attr">bg:</span> <span class="comment"># valine background</span></span><br><span class="line">  <span class="attr">emojiCDN:</span> <span class="comment"># emoji CDN</span></span><br><span class="line">  <span class="attr">enableQQ:</span> <span class="literal">false</span> <span class="comment"># enable the Nickname box to automatically get QQ Nickname and QQ Avatar</span></span><br><span class="line">  <span class="attr">requiredFields:</span> <span class="string">nick</span> <span class="comment"># required fields (nick/mail)</span></span><br><span class="line">  <span class="attr">count:</span> <span class="literal">true</span> <span class="comment"># dispaly comment count in top_img</span></span><br></pre></td></tr></table></figure>
-
 <p>注意⚠️guest_info:和requiredFields:一定要对应，否则无法发送评论。</p>
 <p>侧边栏设置</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-22.png"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-22.png" alt></p>
 <p>可自行设置应用的开关</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">aside:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mobile:</span> <span class="literal">true</span> <span class="comment"># 手機頁面（ 顯示寬度 &lt; 768px ）是否顯示aside內容</span></span><br><span class="line">  <span class="attr">position:</span> <span class="string">right</span> <span class="comment"># left or right</span></span><br><span class="line">  <span class="attr">card_author:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">description:</span></span><br><span class="line">  <span class="attr">card_announcement:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">content:</span> <span class="string">This</span> <span class="string">is</span> <span class="string">my</span> <span class="string">Blog</span></span><br><span class="line">  <span class="attr">card_recent_post:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">limit:</span> <span class="number">5</span> <span class="comment"># if set 0 will show all</span></span><br><span class="line">  <span class="attr">card_categories:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">limit:</span> <span class="number">8</span> <span class="comment"># if set 0 will show all</span></span><br><span class="line">    <span class="attr">expand:</span> <span class="string">none</span> <span class="comment"># none/true/false</span></span><br><span class="line">  <span class="attr">card_tags:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">limit:</span> <span class="number">40</span> <span class="comment"># if set 0 will show all</span></span><br><span class="line">    <span class="attr">color:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">card_archives:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">monthly</span> <span class="comment"># yearly or monthly</span></span><br><span class="line">    <span class="attr">format:</span> <span class="string">MMMM</span> <span class="string">YYYY</span> <span class="comment"># eg: YYYY年MM月</span></span><br><span class="line">    <span class="attr">order:</span> <span class="number">-1</span> <span class="comment"># Sort of order. 1, asc for ascending; -1, desc for descending</span></span><br><span class="line">    <span class="attr">limit:</span> <span class="number">8</span> <span class="comment"># if set 0 will show all</span></span><br><span class="line">  <span class="attr">card_webinfo:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
 <p>动画效果</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Background effects (背景特效)</span></span><br><span class="line"><span class="comment"># --------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># canvas_ribbon (靜止彩帶背景)</span></span><br><span class="line"><span class="comment"># See: https://github.com/hustcc/ribbon.js</span></span><br><span class="line"><span class="attr">canvas_ribbon:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">size:</span> <span class="number">150</span></span><br><span class="line">  <span class="attr">alpha:</span> <span class="number">0.6</span></span><br><span class="line">  <span class="attr">zIndex:</span> <span class="number">-1</span></span><br><span class="line">  <span class="attr">click_to_change:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mobile:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dynamic ribbon (動態彩帶)</span></span><br><span class="line"><span class="attr">canvas_ribbon_piao:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mobile:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># canvas_nest</span></span><br><span class="line"><span class="comment"># https://github.com/hustcc/canvas-nest.js</span></span><br><span class="line"><span class="attr">canvas_nest:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">color:</span> <span class="string">&#x27;0,0,255&#x27;</span> <span class="comment">#color of lines, default: &#x27;0,0,0&#x27;; RGB values: (R,G,B).(<span class="doctag">note:</span> use &#x27;,&#x27; to separate.)</span></span><br><span class="line">  <span class="attr">opacity:</span> <span class="number">0.7</span> <span class="comment"># the opacity of line (0~1), default: 0.5.</span></span><br><span class="line">  <span class="attr">zIndex:</span> <span class="number">-1</span> <span class="comment"># z-index property of the background, default: -1.</span></span><br><span class="line">  <span class="attr">count:</span> <span class="number">99</span> <span class="comment"># the number of lines, default: 99.</span></span><br><span class="line">  <span class="attr">mobile:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="2-3-创建新博客"><a href="#2-3-创建新博客" class="headerlink" title="2.3 创建新博客"></a>2.3 创建新博客</h3><p>在_config.yml配置文件中，修改为 post_asset_folder: true， 然后新建一篇文章</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new post <span class="string">&quot;文件名&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>这个时候source下会出现一个.md文件和 同名文件夹</p>
 <p>用typora等md编辑器即可编辑，图片放在同名文件夹中。</p>
-<p>打开md文件，Front-matter 是檔案最上方以 — 分隔的區域，用於指定個別檔案的變數。</p>
+<p>打开md文件，Front-matter 是檔案最上方以 —- 分隔的區域，用於指定個別檔案的變數。</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title:</span><br><span class="line">date:</span><br><span class="line">updated:</span><br><span class="line">tags:</span><br><span class="line">categories:</span><br><span class="line">keywords:</span><br><span class="line">description:</span><br><span class="line">top<span class="emphasis">_img:</span></span><br><span class="line"><span class="emphasis">comments：</span></span><br><span class="line"><span class="emphasis">cover:  </span></span><br><span class="line"><span class="emphasis">toc:  </span></span><br><span class="line"><span class="emphasis">toc_</span>number:</span><br><span class="line">auto<span class="emphasis">_open:</span></span><br><span class="line"><span class="emphasis">copyright:</span></span><br><span class="line"><span class="emphasis">mathjax:</span></span><br><span class="line"><span class="emphasis">katex:</span></span><br><span class="line"><span class="emphasis">aplayer：</span></span><br><span class="line"><span class="emphasis">highlight_</span>shrink：</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>参数用法：<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-23.png"></p>
+<p>参数用法：<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/website-building-tutorial-23.png" alt></p>
 <p>文章写在Front-matter下方</p>
 <p>写好后</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo g %% hexo d</span><br></pre></td></tr></table></figure>
-
 <p>即可在网站上看到</p>
 <h2 id="3-hexo常用命令"><a href="#3-hexo常用命令" class="headerlink" title="3 hexo常用命令"></a>3 hexo常用命令</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo n <span class="string">&quot;我的博客&quot;</span> == hexo new <span class="string">&quot;我的博客&quot;</span> <span class="comment">#新建⽂章</span></span><br><span class="line">hexo p == hexo publish</span><br><span class="line">hexo g == hexo generate<span class="comment">#⽣成</span></span><br><span class="line">hexo s == hexo server <span class="comment">#启动服务预览</span></span><br><span class="line">hexo d == hexo deploy<span class="comment">#部署</span></span><br><span class="line"></span><br><span class="line">hexo server <span class="comment">#Hexo 会监视⽂件变动并⾃动更新，您⽆须重启服务器。</span></span><br><span class="line">hexo server -s <span class="comment">#静态模式</span></span><br><span class="line">hexo server -p 5000 <span class="comment">#更改端⼝</span></span><br><span class="line">hexo server -i 192.168.1.1 <span class="comment">#⾃定义 IP</span></span><br><span class="line">hexo clean <span class="comment">#清除缓存 ⽹⻚正常情况下可以忽略此条命令</span></span><br><span class="line">hexo g <span class="comment">#⽣成静态⽹⻚</span></span><br><span class="line">hexo d <span class="comment">#开始部署</span></span><br><span class="line"></span><br><span class="line">hexo generate <span class="comment">#使⽤ Hexo ⽣成静态⽂件快速⽽且简单</span></span><br><span class="line">hexo generate --watch <span class="comment">#监视⽂件变动</span></span><br><span class="line"></span><br><span class="line">两个命令的作⽤是相同的</span><br><span class="line">hexo generate --deploy</span><br><span class="line">hexo deploy --generate</span><br><span class="line"></span><br><span class="line">hexo new <span class="string">&quot;postName&quot;</span> <span class="comment">#新建⽂章</span></span><br><span class="line">hexo new page <span class="string">&quot;pageName&quot;</span> <span class="comment">#新建⻚⾯</span></span><br><span class="line">hexo generate <span class="comment">#⽣成静态⻚⾯⾄public⽬录</span></span><br><span class="line">hexo server <span class="comment">#开启预览访问端⼝（默认端⼝4000，&#x27;ctrl + c&#x27;关闭server）</span></span><br><span class="line">hexo deploy <span class="comment">#将.deploy⽬录部署到GitHub</span></span><br><span class="line">hexo new [layout] &lt;title&gt;</span><br><span class="line">hexo new photo <span class="string">&quot;My Gallery&quot;</span></span><br><span class="line">hexo new <span class="string">&quot;Hello World&quot;</span> --lang tw</span><br></pre></td></tr></table></figure>
-
-
-
 <p>祝建站成功～</p>
 ]]></content>
       <categories>
