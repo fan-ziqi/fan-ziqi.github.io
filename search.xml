@@ -59,28 +59,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Chrome多设备书签同步方案</title>
-    <url>/posts/a53da602.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Chrome多设备书签同步方案"><a href="#Chrome多设备书签同步方案" class="headerlink" title="Chrome多设备书签同步方案"></a>Chrome多设备书签同步方案</h1><p>众所周知因为某些原因Chrome无法与它的服务器正常通讯,这就影响到了我们书签的同步,这里介绍一个插件,将书签同步到GitHub或GItee上.</p>
-<p>项目地址: ↓ </p>
-<p><a href="https://github.com/CLDeveloping/chrome-bookmark">Github项目</a> | <a href="https://gitee.com/CLCoding/chrome-bookmark">Gitee项目</a></p>
-<ul>
-<li>将项目整个下载下来,解压缩,在浏览器地址栏输入：<code>chrome://extensions/</code>，进入扩展程序管理界面</li>
-<li>点击【加载已解压的扩展程序】-&gt; 选择项目根目录，导入源码文件夹</li>
-<li>这里只介绍GitHub操作.进入自己的GitHub创建一个私有项目,随便命名</li>
-<li>获取Github项目<a href="https://github.com/settings/tokens">私有访问Token</a>（如何获取：Github -&gt; Settings -&gt; Developer settings -&gt; Personal access tokens -&gt; Generate new token）选择repo,时间选无限,将生成的token拷贝下来,这个只会出现一次,最好拿小本本记下来</li>
-<li>点击书签工具配置,将仓库地址和token填入,选择保存配置</li>
-<li>重新点击书签图标工具，就可以选择上传或者下载书签了</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技能</category>
-      </categories>
-      <tags>
-        <tag>Chrome</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git操作</title>
     <url>/posts/c4c88997.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Git操作"><a href="#Git操作" class="headerlink" title="Git操作"></a>Git操作</h1><ul>
@@ -143,6 +121,28 @@
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Chrome多设备书签同步方案</title>
+    <url>/posts/a53da602.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Chrome多设备书签同步方案"><a href="#Chrome多设备书签同步方案" class="headerlink" title="Chrome多设备书签同步方案"></a>Chrome多设备书签同步方案</h1><p>众所周知因为某些原因Chrome无法与它的服务器正常通讯,这就影响到了我们书签的同步,这里介绍一个插件,将书签同步到GitHub或GItee上.</p>
+<p>项目地址: ↓ </p>
+<p><a href="https://github.com/CLDeveloping/chrome-bookmark">Github项目</a> | <a href="https://gitee.com/CLCoding/chrome-bookmark">Gitee项目</a></p>
+<ul>
+<li>将项目整个下载下来,解压缩,在浏览器地址栏输入：<code>chrome://extensions/</code>，进入扩展程序管理界面</li>
+<li>点击【加载已解压的扩展程序】-&gt; 选择项目根目录，导入源码文件夹</li>
+<li>这里只介绍GitHub操作.进入自己的GitHub创建一个私有项目,随便命名</li>
+<li>获取Github项目<a href="https://github.com/settings/tokens">私有访问Token</a>（如何获取：Github -&gt; Settings -&gt; Developer settings -&gt; Personal access tokens -&gt; Generate new token）选择repo,时间选无限,将生成的token拷贝下来,这个只会出现一次,最好拿小本本记下来</li>
+<li>点击书签工具配置,将仓库地址和token填入,选择保存配置</li>
+<li>重新点击书签图标工具，就可以选择上传或者下载书签了</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>Chrome</tag>
       </tags>
   </entry>
   <entry>
@@ -355,6 +355,101 @@
       </tags>
   </entry>
   <entry>
+    <title>32单片机缩写</title>
+    <url>/posts/f382e178.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>IRQ: Interrupt Request 中断请求</p>
+<p>RCC: Rest and Clock Control 复位与时钟控制</p>
+<p>HAL: Hardware Abstraction Layer硬件抽象层,代表HAL库</p>
+<p>DMA: Direct Memory Access 直接内存存取</p>
+<p>EX: extended 延伸，扩展</p>
+<p>PWR: Power Controller 电源控制</p>
+<p>Conf: configuration</p>
+<p>It: interrupt</p>
+<p>MSP: Mixed Signal Processor混合信号处理器</p>
+<p>RSSI: Received Signal Strength Indication接收的信号强度指示</p>
+<p>SNR: 信噪比SIGNAL-NOISE RATIO</p>
+<p>上下行同信：上行（终端-&gt;网关；上传），下行（网关-&gt;终端；接收</p>
+<p>EXTI: （External interrupt/event controller）—外部中断/事件控制器</p>
+<p>idel: 空闲</p>
+<p>RF_CAD:The radio is doing channel activity detection</p>
+<p>FSK:Frequency-shift keying频移键控，是信息传输中使用得较早的一种调制方式,它的主要优点是: 实现起来较容易,抗噪声与抗衰减的性能较好。在中低速数据传输中得到了广泛的应用。</p>
+<p>PHY: Port Physical Layer，中文可称之为端口物理层，是一个对OSI模型物理层的共同简称。</p>
+<p>MAC：Media Access Control 介质访问控制</p>
+<p>PLL: PhaseLockedLoop锁相环</p>
+<p>APB: Advanced Peripheral BUS 外围总线</p>
+<p>AHB，是Advanced High performance Bus的缩写，译作高级高性能总线，这是一种“系统总线”。</p>
+<p>MSP: MCU Specific Package</p>
+<p>Int 初始化 deint反初始化</p>
+<p>Transmit：传输；传播；发射；传达；遗传，发送</p>
+<p>Init：初始化（initialization）</p>
+<p>clock：时钟；计时器</p>
+<p>system：制度，体制；系统；方法</p>
+<p>Config：配置，布局；显示配置信息命令</p>
+<p>USART：代表串口(Universal Synchronous/Asynchronous Receiver/Transmitter)通用同步/异步串行接收/发送器</p>
+<p>GPIO：general purpose input/output 代表引脚， （通用输入/输出）简称为GPIO</p>
+<p>SPI：SPI是串行外设接口（Serial Peripheral Interface）的缩写</p>
+<p>RTC：实时时钟（Real-Time Clock）</p>
+<p>ADC：ADC,Analog-to-Digital Converter的缩写,指模/数转换器或者模数转换器</p>
+<p>Channel： 通道；频道；海峡</p>
+<p>ARM：Advanced RISC Machine</p>
+<p>AAPCS：ARM Architecture Process call standard</p>
+<p>ARM 体系结构过程调用标准</p>
+<p>RISC： Reduced Instruction Set Computer 精简指令集计算机</p>
+<p>RTOS：Real Time Operating System 实时操作系统</p>
+<p>DMA：Direct Memory Access 存储器直接访问</p>
+<p>EXTI: External Interrupts 外部中断</p>
+<p>FSMC: Flexible static memory controller 可变静态存储控制器</p>
+<p>FPB：flash patch and breakpoint FLASH 转换及断电单元</p>
+<p>HSE：Hign speed external</p>
+<p>HSI: High speed internal</p>
+<p>LSE: Low Speed external</p>
+<p>LSI: Low Speed Internal</p>
+<p>LSU: load store unit 存取单元</p>
+<p>PFU: prefetch unit 预取单元</p>
+<p>ISR：Interrupt Service Routines 中断服务程序</p>
+<p>NMI: Nonmaskable Interrupt 不可屏蔽中断</p>
+<p>NVIC: Nested Vectored Interrupt Controller 嵌套向量中断控制器</p>
+<p>MPU: Memory Protection Unit 内存保护单元</p>
+<p>MIPS:million instructions per second 每秒能执行的百万条指令的条数</p>
+<p>RCC：Reset and clock control 复位和时钟控制</p>
+<p>RTC: Real-Time Clock 实时时钟</p>
+<p>IWDG: independent watchdog 独立看门狗</p>
+<p>WWDG：Window watchdog 窗口看门狗</p>
+<p>TIM：timer 定时器</p>
+<p>GAL:generic array logic 通用阵列逻辑</p>
+<p>PAL:programmable array logic 可编程阵列逻辑</p>
+<p>ASIC:Application Specific Integrated Circuit 专用集成电路</p>
+<p>FPGA:Field－Programmable Gate Array 现场可编程门阵列</p>
+<p>CPLD:Complex Programmable Logic Device 可编程逻辑器件</p>
+<p>端口</p>
+<p>AFIO：alternate function IO 复用 IO 端口</p>
+<p>GPIO：general purpose input/output 通用 IO 端口</p>
+<p>IOP（A-G）:IO port A - IO port G (例如：IOPA:IO port A)</p>
+<p>CAN：Controller area network 控制器局域网</p>
+<p>FLITF：The Flash memory interface 闪存存储器接口</p>
+<p>I2C： Inter-integrated circuit 微集成电路</p>
+<p>IIS： integrate interface of sound 集成音频接口</p>
+<p>JTAG：joint test action group 联合测试行动小组</p>
+<p>SPI：Serial Peripheral Interface 串行外围设备接口 SDIO: SD I/O</p>
+<p>UART: Universal Synchr./Asynch. Receiver Transmitter 通用异步接收/发送装置</p>
+<p>USB: Universal Serial Bus 通用串行总线</p>
+<p>寄存器相关</p>
+<p>CPSP： Current Program Status Register 当前程序状态寄存器</p>
+<p>SPSP： saved program status register 程序状态备份寄存器</p>
+<p>CSR：clock control/status register 时钟控制状态寄存器</p>
+<p>LR： link register 链接寄存器</p>
+<p>SP： stack pointer 堆栈指针</p>
+<p>MSP: main stack pointer 主堆栈指针</p>
+<p>PSP：process stack pointer</p>
+]]></content>
+      <categories>
+        <category>stm32</category>
+      </categories>
+      <tags>
+        <tag>stm32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>stm32库函数及缩写</title>
     <url>/posts/2ed78409.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="缩写定义"><a href="#缩写定义" class="headerlink" title="缩写定义"></a>缩写定义</h2><div class="table-container">
@@ -461,101 +556,6 @@
 <p>名为 <strong>PPP_ClearFlag</strong> 的函数，其功能为清除外设 PPP 标志位，例如：<strong>I2C_ClearFlag</strong>. </p>
 <p>名为 <strong>PPP_GetITStatus</strong> 的函数，其功能为判断来自外设 PPP 的中断发生与否，例如：<strong>I2C_GetITStatus</strong>. </p>
 <p>名 为 <strong>PPP_ClearITPendingBit</strong> 的函数，其功能为清除外设 PPP 中断待处理标志位，例如：<strong>I2C_ClearITPendingBit</strong>. </p>
-]]></content>
-      <categories>
-        <category>stm32</category>
-      </categories>
-      <tags>
-        <tag>stm32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>32单片机缩写</title>
-    <url>/posts/f382e178.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>IRQ: Interrupt Request 中断请求</p>
-<p>RCC: Rest and Clock Control 复位与时钟控制</p>
-<p>HAL: Hardware Abstraction Layer硬件抽象层,代表HAL库</p>
-<p>DMA: Direct Memory Access 直接内存存取</p>
-<p>EX: extended 延伸，扩展</p>
-<p>PWR: Power Controller 电源控制</p>
-<p>Conf: configuration</p>
-<p>It: interrupt</p>
-<p>MSP: Mixed Signal Processor混合信号处理器</p>
-<p>RSSI: Received Signal Strength Indication接收的信号强度指示</p>
-<p>SNR: 信噪比SIGNAL-NOISE RATIO</p>
-<p>上下行同信：上行（终端-&gt;网关；上传），下行（网关-&gt;终端；接收</p>
-<p>EXTI: （External interrupt/event controller）—外部中断/事件控制器</p>
-<p>idel: 空闲</p>
-<p>RF_CAD:The radio is doing channel activity detection</p>
-<p>FSK:Frequency-shift keying频移键控，是信息传输中使用得较早的一种调制方式,它的主要优点是: 实现起来较容易,抗噪声与抗衰减的性能较好。在中低速数据传输中得到了广泛的应用。</p>
-<p>PHY: Port Physical Layer，中文可称之为端口物理层，是一个对OSI模型物理层的共同简称。</p>
-<p>MAC：Media Access Control 介质访问控制</p>
-<p>PLL: PhaseLockedLoop锁相环</p>
-<p>APB: Advanced Peripheral BUS 外围总线</p>
-<p>AHB，是Advanced High performance Bus的缩写，译作高级高性能总线，这是一种“系统总线”。</p>
-<p>MSP: MCU Specific Package</p>
-<p>Int 初始化 deint反初始化</p>
-<p>Transmit：传输；传播；发射；传达；遗传，发送</p>
-<p>Init：初始化（initialization）</p>
-<p>clock：时钟；计时器</p>
-<p>system：制度，体制；系统；方法</p>
-<p>Config：配置，布局；显示配置信息命令</p>
-<p>USART：代表串口(Universal Synchronous/Asynchronous Receiver/Transmitter)通用同步/异步串行接收/发送器</p>
-<p>GPIO：general purpose input/output 代表引脚， （通用输入/输出）简称为GPIO</p>
-<p>SPI：SPI是串行外设接口（Serial Peripheral Interface）的缩写</p>
-<p>RTC：实时时钟（Real-Time Clock）</p>
-<p>ADC：ADC,Analog-to-Digital Converter的缩写,指模/数转换器或者模数转换器</p>
-<p>Channel： 通道；频道；海峡</p>
-<p>ARM：Advanced RISC Machine</p>
-<p>AAPCS：ARM Architecture Process call standard</p>
-<p>ARM 体系结构过程调用标准</p>
-<p>RISC： Reduced Instruction Set Computer 精简指令集计算机</p>
-<p>RTOS：Real Time Operating System 实时操作系统</p>
-<p>DMA：Direct Memory Access 存储器直接访问</p>
-<p>EXTI: External Interrupts 外部中断</p>
-<p>FSMC: Flexible static memory controller 可变静态存储控制器</p>
-<p>FPB：flash patch and breakpoint FLASH 转换及断电单元</p>
-<p>HSE：Hign speed external</p>
-<p>HSI: High speed internal</p>
-<p>LSE: Low Speed external</p>
-<p>LSI: Low Speed Internal</p>
-<p>LSU: load store unit 存取单元</p>
-<p>PFU: prefetch unit 预取单元</p>
-<p>ISR：Interrupt Service Routines 中断服务程序</p>
-<p>NMI: Nonmaskable Interrupt 不可屏蔽中断</p>
-<p>NVIC: Nested Vectored Interrupt Controller 嵌套向量中断控制器</p>
-<p>MPU: Memory Protection Unit 内存保护单元</p>
-<p>MIPS:million instructions per second 每秒能执行的百万条指令的条数</p>
-<p>RCC：Reset and clock control 复位和时钟控制</p>
-<p>RTC: Real-Time Clock 实时时钟</p>
-<p>IWDG: independent watchdog 独立看门狗</p>
-<p>WWDG：Window watchdog 窗口看门狗</p>
-<p>TIM：timer 定时器</p>
-<p>GAL:generic array logic 通用阵列逻辑</p>
-<p>PAL:programmable array logic 可编程阵列逻辑</p>
-<p>ASIC:Application Specific Integrated Circuit 专用集成电路</p>
-<p>FPGA:Field－Programmable Gate Array 现场可编程门阵列</p>
-<p>CPLD:Complex Programmable Logic Device 可编程逻辑器件</p>
-<p>端口</p>
-<p>AFIO：alternate function IO 复用 IO 端口</p>
-<p>GPIO：general purpose input/output 通用 IO 端口</p>
-<p>IOP（A-G）:IO port A - IO port G (例如：IOPA:IO port A)</p>
-<p>CAN：Controller area network 控制器局域网</p>
-<p>FLITF：The Flash memory interface 闪存存储器接口</p>
-<p>I2C： Inter-integrated circuit 微集成电路</p>
-<p>IIS： integrate interface of sound 集成音频接口</p>
-<p>JTAG：joint test action group 联合测试行动小组</p>
-<p>SPI：Serial Peripheral Interface 串行外围设备接口 SDIO: SD I/O</p>
-<p>UART: Universal Synchr./Asynch. Receiver Transmitter 通用异步接收/发送装置</p>
-<p>USB: Universal Serial Bus 通用串行总线</p>
-<p>寄存器相关</p>
-<p>CPSP： Current Program Status Register 当前程序状态寄存器</p>
-<p>SPSP： saved program status register 程序状态备份寄存器</p>
-<p>CSR：clock control/status register 时钟控制状态寄存器</p>
-<p>LR： link register 链接寄存器</p>
-<p>SP： stack pointer 堆栈指针</p>
-<p>MSP: main stack pointer 主堆栈指针</p>
-<p>PSP：process stack pointer</p>
 ]]></content>
       <categories>
         <category>stm32</category>
