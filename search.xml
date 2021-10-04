@@ -1765,7 +1765,7 @@ NVIC_Init();
 <p>还有一种更优雅地方式，那就是直接在服务器上搭建<code>git仓库</code>，hexo三连直接<code>deploy</code>上去（跟搭建在github pages上的方式一样）。</p>
 <h2 id="为什么要部署至服务器？"><a href="#为什么要部署至服务器？" class="headerlink" title="为什么要部署至服务器？"></a>为什么要部署至服务器？</h2><p>个人感觉手头有闲置的网速较快的服务器，可以尝试部署至服务器。</p>
 <p>比如我手头有一个<code>腾讯云香港二区 2核 4GB 5M的服务器。</code>对比了一下我放在又拍云cdn上的主站网速，可以看到：</p>
-<p><a href="https://picup.heson10.com/img/upyun/2020/12/Snipaste_2020-12-18_11-11-36.png"><img src="https://picup.heson10.com/img/upyun/2020/12/Snipaste_2020-12-18_11-11-36.png" alt="Snipaste_2020-12-18_11-11-36"></a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/hexo-bt-1.png" alt="hexo-bt-1"></p>
 <p><strong>这速度可谓不相上下。</strong></p>
 <p>相比起github pages的慢、coding pages的抽（移动宽带经常抽），服务器部署还是有一定优势的。</p>
 <p>当然，如果域名<code>备案</code>了，手头没有闲置的<code>服务器</code>，还是建议嫖上国内的CDN（又拍云）。</p>
@@ -1780,13 +1780,13 @@ NVIC_Init();
 <p>2.本地生成ssh秘钥备用</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;GitHub用户名&quot;</span><br><span class="line">git config --global user.email &quot;GitHub的邮箱&quot;</span><br><span class="line">ssh-keygen -t rsa -C &quot;GitHub的邮箱&quot;</span><br></pre></td></tr></table></figure>
 <h3 id="连接服务器终端"><a href="#连接服务器终端" class="headerlink" title="连接服务器终端"></a>连接服务器终端</h3><p>宝塔面板用户可直接左侧导航栏<code>终端</code>登录（如图）</p>
-<p><a href="https://cdn.jsdelivr.net/gh/heson10/pic@master/pic/image-20201218232100536.png"><img src="https://cdn.jsdelivr.net/gh/heson10/pic@master/pic/image-20201218232100536.png" alt="宝塔终端登录"></a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/hexo-bt-2.png" alt="hexo-bt-2"></p>
 <ul>
 <li>切换到 <code>root</code> 账号</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo su root</span><br></pre></td></tr></table></figure>
 <p>宝塔默认是root账号，注意看图：</p>
-<p><a href="https://picup.heson10.com/img/upyun/2020/12/image-20201218232821791.png"><img src="https://picup.heson10.com/img/upyun/2020/12/image-20201218232821791.png" alt="image-20201218232821791"></a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/hexo-bt-3.png" alt="hexo-bt-3"></p>
 <ul>
 <li>安装 <code>git</code></li>
 </ul>
@@ -1798,7 +1798,7 @@ NVIC_Init();
 <p>按<code>i</code>键进入编辑模式，找到<code>root ALL=(ALL) ALL</code>，在其下方加入：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git     ALL=(ALL)     ALL</span><br></pre></td></tr></table></figure>
 <p>如图所示：</p>
-<p><a href="https://picup.heson10.com/img/upyun/2020/12/image-20201218233157429.png"><img src="https://picup.heson10.com/img/upyun/2020/12/image-20201218233157429.png" alt="image-20201218233157429"></a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/hexo-bt-4.png" alt="hexo-bt-4"></p>
 <p>输入完成后按<code>esc</code>，再输入<code>:wq</code>，保存退出。</p>
 <p>更变<code>/etc/sudoers</code>权限</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chmod 400 /etc/sudoers</span><br></pre></td></tr></table></figure>
@@ -1828,7 +1828,7 @@ NVIC_Init();
 <p>更改权限</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chown -R git:git /var/repo/hexo.git/hooks/post-receive</span><br><span class="line">chmod +x /var/repo/hexo.git/hooks/post-receive</span><br></pre></td></tr></table></figure>
 <h3 id="宝塔网站配置"><a href="#宝塔网站配置" class="headerlink" title="宝塔网站配置"></a>宝塔网站配置</h3><p>创建一个网站</p>
-<p><a href="https://picup.heson10.com/img/upyun/2020/12/image-20201218235031007.png"><img src="https://picup.heson10.com/img/upyun/2020/12/image-20201218235031007.png" alt="image-20201218235031007"></a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/hexo-bt-5.png" alt="hexo-bt-5"></p>
 <h3 id="本地-Git-deploy-设置"><a href="#本地-Git-deploy-设置" class="headerlink" title="本地 Git deploy 设置"></a>本地 Git deploy 设置</h3><p>安装git部署插件</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <p>在博客根目录配置</p>
