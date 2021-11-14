@@ -1846,4 +1846,228 @@ NVIC_Init();
         <tag>hexo</tag>
       </tags>
   </entry>
+  <entry>
+    <title>范子琦第二次作业</title>
+    <url>/posts/337c96c3.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="第二次作业"><a href="#第二次作业" class="headerlink" title="第二次作业"></a>第二次作业</h1><p><strong>范子琦 2019330301153 机器人工程(1)班</strong></p>
+<p>下文坐标系定义原则: $\left\{\begin{matrix}<br>x_i\parallel z_{i-1}\\<br>x_i\perp z_{i-1}<br>\end{matrix}\right.$​</p>
+<p>图注:</p>
+<ol>
+<li><p>相同颜色为同一坐标系, 绿色虚线为延长线</p>
+</li>
+<li><p>有尺寸的以数字表示, 无尺寸的参照图中定义</p>
+</li>
+</ol>
+<h2 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h2><p>平面三连杆机械臂的坐标系定义如下图所示:</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/test1.jpeg" alt="test1" style="zoom:50%;"></p>
+<p>由上图坐标系配置可求得平面三连杆机械臂的DH参数:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$i$</th>
+<th style="text-align:left">$\theta_i$</th>
+<th>$d_i$</th>
+<th>$a_i$</th>
+<th>$\alpha_i$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$1$</td>
+<td style="text-align:left">${\theta_1}^*+90\degree$</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$90\degree$</td>
+</tr>
+<tr>
+<td>$2$</td>
+<td style="text-align:left">$0$</td>
+<td>$L_1+{d_2}^*$</td>
+<td>$0$</td>
+<td>$-90\degree$</td>
+</tr>
+<tr>
+<td>$3$</td>
+<td style="text-align:left">${\theta_3}^*$</td>
+<td>$0$</td>
+<td>$L_3$</td>
+<td>$0$​</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>MATLAB代码:</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear;clc;</span><br><span class="line">syms t1 d2 t3 L1 L3</span><br><span class="line"><span class="comment">%          theta   d          a         alpha     sigma</span></span><br><span class="line">L(<span class="number">1</span>)=Link([t1+<span class="built_in">pi</span>/<span class="number">2</span> <span class="number">0</span>          <span class="number">0</span>         <span class="built_in">pi</span>/<span class="number">2</span>        <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">2</span>)=Link([<span class="number">0</span>       L1+d2      <span class="number">0</span>        -<span class="built_in">pi</span>/<span class="number">2</span>        <span class="number">1</span>     ]);</span><br><span class="line">L(<span class="number">3</span>)=Link([t3      <span class="number">0</span>          L3        <span class="number">0</span>           <span class="number">0</span>     ]);</span><br><span class="line">robot=SerialLink(L,<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;Three&#x27;</span>)</span><br><span class="line">T=robot.fkine([t1 d2 t3])</span><br></pre></td></tr></table></figure>
+<p>运动学正解矩阵:</p>
+<script type="math/tex; mode=display">
+^0T_3=
+\begin{bmatrix}
+cos(\theta_1 + \theta_3) & -sin(\theta_1 + \theta_3) & 0 & L_3*cos(\theta_1 + \theta_3) + d_2*sin(\theta_1) \\ 
+sin(\theta_1 + \theta_3) &  cos(\theta_1 + \theta_3) & 0 & L_3*sin(\theta_1 + \theta_3) - d_2*cos(\theta_1) \\ 
+           0 &             0 & 1 &                            0 \\ 
+           0 &             0 & 0 &                            1 
+\end{bmatrix}</script><h2 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a>第二题</h2><p>PUMA260的坐标系定义如下图所示:</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/test2.jpeg" alt="test2" style="zoom:50%;"></p>
+<p>由上图坐标系配置可求得PUMA260的DH参数:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$i$</th>
+<th style="text-align:left">$\theta_i$</th>
+<th>$d_i$</th>
+<th>$a_i$</th>
+<th>$\alpha_i$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$1$</td>
+<td style="text-align:left">${\theta_1}^*$</td>
+<td>$13$</td>
+<td>$0$</td>
+<td>$-90\degree$</td>
+</tr>
+<tr>
+<td>$2$</td>
+<td style="text-align:left">${\theta_2}^*$</td>
+<td>$-d_2$</td>
+<td>$8$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>$3$</td>
+<td style="text-align:left">${\theta_3}^*+90\degree$</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$90\degree$</td>
+</tr>
+<tr>
+<td>$4$</td>
+<td style="text-align:left">${\theta_4}^*$</td>
+<td>$8$</td>
+<td>$0$</td>
+<td>$-90\degree$</td>
+</tr>
+<tr>
+<td>$5$</td>
+<td style="text-align:left">${\theta_5}^*-90\degree$</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$90\degree$</td>
+</tr>
+<tr>
+<td>$6$</td>
+<td style="text-align:left">${\theta_6}^*$</td>
+<td>$d_6$</td>
+<td>$0$</td>
+<td>$0$​</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>MATLAB代码:</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear;clc;</span><br><span class="line">syms t1 t2 t3 t4 t5 t6 d2 d6</span><br><span class="line"><span class="comment">%          theta   d          a         alpha     sigma</span></span><br><span class="line">L(<span class="number">1</span>)=Link([t1      <span class="number">13</span>         <span class="number">0</span>         -<span class="built_in">pi</span>/<span class="number">2</span>       <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">2</span>)=Link([t2      -d2        <span class="number">8</span>         <span class="number">0</span>           <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">3</span>)=Link([t3+<span class="built_in">pi</span>/<span class="number">2</span> <span class="number">0</span>          <span class="number">0</span>         <span class="built_in">pi</span>/<span class="number">2</span>        <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">4</span>)=Link([t4      <span class="number">8</span>          <span class="number">0</span>         -<span class="built_in">pi</span>/<span class="number">2</span>       <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">5</span>)=Link([t5-<span class="built_in">pi</span>/<span class="number">2</span> <span class="number">0</span>          <span class="number">0</span>         <span class="built_in">pi</span>/<span class="number">2</span>        <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">6</span>)=Link([t6      d6         <span class="number">0</span>         <span class="number">0</span>           <span class="number">0</span>     ]);</span><br><span class="line">robot=SerialLink(L,<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;PUMA260&#x27;</span>)</span><br><span class="line">T=robot.fkine([t1 t2 t3 t4 t5 t6])</span><br></pre></td></tr></table></figure>
+<p>运动学正解矩阵:</p>
+<script type="math/tex; mode=display">
+^0T_3=
+\begin{bmatrix}
+
+ - sin(\theta_6)*(cos(\theta_4)*sin(\theta_1) - sin(\theta_4)*(cos(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_1)*cos(\theta_2)*cos(\theta_3))) - cos(\theta_6)*(cos(\theta_5)*(sin(\theta_1)*sin(\theta_4) + cos(\theta_4)*(cos(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_1)*cos(\theta_2)*cos(\theta_3))) + sin(\theta_5)*(cos(\theta_1)*cos(\theta_2)*sin(\theta_3) + cos(\theta_1)*cos(\theta_3)*sin(\theta_2)))& sin(\theta_6)*(cos(\theta_5)*(sin(\theta_1)*sin(\theta_4) + cos(\theta_4)*(cos(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_1)*cos(\theta_2)*cos(\theta_3))) + sin(\theta_5)*(cos(\theta_1)*cos(\theta_2)*sin(\theta_3) + cos(\theta_1)*cos(\theta_3)*sin(\theta_2))) - cos(\theta_6)*(cos(\theta_4)*sin(\theta_1) - sin(\theta_4)*(cos(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_1)*cos(\theta_2)*cos(\theta_3)))& cos(\theta_5)*(cos(\theta_1)*cos(\theta_2)*sin(\theta_3) + cos(\theta_1)*cos(\theta_3)*sin(\theta_2)) - sin(\theta_5)*(sin(\theta_1)*sin(\theta_4) + cos(\theta_4)*(cos(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_1)*cos(\theta_2)*cos(\theta_3)))& 8*cos(\theta_1)*cos(\theta_2) + d_2*sin(\theta_1) - d_6*(sin(\theta_5)*(sin(\theta_1)*sin(\theta_4) + cos(\theta_4)*(cos(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_1)*cos(\theta_2)*cos(\theta_3))) - cos(\theta_5)*(cos(\theta_1)*cos(\theta_2)*sin(\theta_3) + cos(\theta_1)*cos(\theta_3)*sin(\theta_2))) + 8*cos(\theta_1)*cos(\theta_2)*sin(\theta_3) + 8*cos(\theta_1)*cos(\theta_3)*sin(\theta_2)\\
+   sin(\theta_6)*(cos(\theta_1)*cos(\theta_4) + sin(\theta_4)*(sin(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_2)*cos(\theta_3)*sin(\theta_1))) + cos(\theta_6)*(cos(\theta_5)*(cos(\theta_1)*sin(\theta_4) - cos(\theta_4)*(sin(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_2)*cos(\theta_3)*sin(\theta_1))) - sin(\theta_5)*(cos(\theta_2)*sin(\theta_1)*sin(\theta_3) + cos(\theta_3)*sin(\theta_1)*sin(\theta_2)))& cos(\theta_6)*(cos(\theta_1)*cos(\theta_4) + sin(\theta_4)*(sin(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_2)*cos(\theta_3)*sin(\theta_1))) - sin(\theta_6)*(cos(\theta_5)*(cos(\theta_1)*sin(\theta_4) - cos(\theta_4)*(sin(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_2)*cos(\theta_3)*sin(\theta_1))) - sin(\theta_5)*(cos(\theta_2)*sin(\theta_1)*sin(\theta_3) + cos(\theta_3)*sin(\theta_1)*sin(\theta_2)))& sin(\theta_5)*(cos(\theta_1)*sin(\theta_4) - cos(\theta_4)*(sin(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_2)*cos(\theta_3)*sin(\theta_1))) + cos(\theta_5)*(cos(\theta_2)*sin(\theta_1)*sin(\theta_3) + cos(\theta_3)*sin(\theta_1)*sin(\theta_2))& 8*cos(\theta_2)*sin(\theta_1) + d_6*(sin(\theta_5)*(cos(\theta_1)*sin(\theta_4) - cos(\theta_4)*(sin(\theta_1)*sin(\theta_2)*sin(\theta_3) - cos(\theta_2)*cos(\theta_3)*sin(\theta_1))) + cos(\theta_5)*(cos(\theta_2)*sin(\theta_1)*sin(\theta_3) + cos(\theta_3)*sin(\theta_1)*sin(\theta_2))) - d_2*cos(\theta_1) + 8*cos(\theta_2)*sin(\theta_1)*sin(\theta_3) + 8*cos(\theta_3)*sin(\theta_1)*sin(\theta_2)\\
+                                                                                                                                                                sin(\theta_2 + \theta_3)*sin(\theta_4)*sin(\theta_6) - cos(\theta_6)*(cos(\theta_2 + \theta_3)*sin(\theta_5) + sin(\theta_2 + \theta_3)*cos(\theta_4)*cos(\theta_5))&                                                                                                                                                              sin(\theta_6)*(cos(\theta_2 + \theta_3)*sin(\theta_5) + sin(\theta_2 + \theta_3)*cos(\theta_4)*cos(\theta_5)) + sin(\theta_2 + \theta_3)*cos(\theta_6)*sin(\theta_4)&                                                                                                   cos(\theta_2 + \theta_3)*cos(\theta_5) - sin(\theta_2 + \theta_3)*cos(\theta_4)*sin(\theta_5)&                                                                                                                     8*cos(\theta_2 + \theta_3) - 8*sin(\theta_2) - (d_6*sin(\theta_2 + \theta_3)*sin(\theta_4 + \theta_5))/2 + d_6*cos(\theta_2 + \theta_3)*cos(\theta_5) + (d_6*sin(\theta_4 - \theta_5)*sin(\theta_2 + \theta_3))/2 + 13\\
+0&0&0&1
+
+\end{bmatrix}</script><h2 id="第三题"><a href="#第三题" class="headerlink" title="第三题"></a>第三题</h2><p>JAKA ZU3的坐标系定义如下图所示:</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/test3.jpeg" alt="test3" style="zoom:50%;"></p>
+<p>由上图坐标系配置可求得JAKA ZU3的DH参数:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$i$</th>
+<th style="text-align:left">$\theta_i$</th>
+<th>$d_i$</th>
+<th>$a_i$</th>
+<th>$\alpha_i$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$1$</td>
+<td style="text-align:left">${\theta_1}^*$</td>
+<td>$150.55$</td>
+<td>$0$</td>
+<td>$-90\degree$</td>
+</tr>
+<tr>
+<td>$2$</td>
+<td style="text-align:left">${\theta_2}^*-90\degree$</td>
+<td>$115$</td>
+<td>$246$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>$3$</td>
+<td style="text-align:left">${\theta_3}^*$</td>
+<td>$-116.3$</td>
+<td>$190$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>$4$</td>
+<td style="text-align:left">${\theta_4}^*+90\degree$</td>
+<td>$117.5$</td>
+<td>$0$</td>
+<td>$90\degree$</td>
+</tr>
+<tr>
+<td>$5$</td>
+<td style="text-align:left">${\theta_5}^*$</td>
+<td>$117.5$</td>
+<td>$0$</td>
+<td>$-90\degree$</td>
+</tr>
+<tr>
+<td>$6$</td>
+<td style="text-align:left">${\theta_6}^*+180\degree$</td>
+<td>$-105$</td>
+<td>$0$</td>
+<td>$180$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>MATLAB代码:</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear;clc;</span><br><span class="line">syms t1 t2 t3 t4 t5 t6</span><br><span class="line"><span class="comment">%          theta   d          a         alpha     sigma</span></span><br><span class="line">L(<span class="number">1</span>)=Link([t1      <span class="number">150.55</span>     <span class="number">0</span>         -<span class="built_in">pi</span>/<span class="number">2</span>       <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">2</span>)=Link([t2-<span class="built_in">pi</span>/<span class="number">2</span> <span class="number">115</span>        <span class="number">246</span>       <span class="number">0</span>           <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">3</span>)=Link([t3      <span class="number">-116.3</span>     <span class="number">190</span>       <span class="number">0</span>           <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">4</span>)=Link([t4+<span class="built_in">pi</span>/<span class="number">2</span> <span class="number">117.5</span>      <span class="number">0</span>         <span class="built_in">pi</span>/<span class="number">2</span>        <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">5</span>)=Link([t5      <span class="number">117.5</span>      <span class="number">0</span>         -<span class="built_in">pi</span>/<span class="number">2</span>       <span class="number">0</span>     ]);</span><br><span class="line">L(<span class="number">6</span>)=Link([t6+<span class="built_in">pi</span>   <span class="number">-105</span>       <span class="number">0</span>         <span class="number">180</span>         <span class="number">0</span>     ]);</span><br><span class="line">robot=SerialLink(L,<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;JAKA-ZU3&#x27;</span>)</span><br><span class="line">T=robot.fkine([t1 t2 t3 t4 t5 t6])</span><br></pre></td></tr></table></figure>
+<p>运动学正解矩阵:</p>
+<script type="math/tex; mode=display">
+^0T_3=
+\begin{bmatrix}
+
+
+ - cos(\theta_6)*(sin(\theta_1)*sin(\theta_5) - cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_1)*cos(\theta_5)) - sin(\theta_2 + \theta_3 + \theta_4)*cos(\theta_1)*sin(\theta_6), cos(180)*sin(\theta_6)*(sin(\theta_1)*sin(\theta_5) - cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_1)*cos(\theta_5)) - sin(180)*(cos(\theta_5)*sin(\theta_1) + cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_1)*sin(\theta_5)) - sin(\theta_2 + \theta_3 + \theta_4)*cos(180)*cos(\theta_1)*cos(\theta_6), sin(\theta_2 + \theta_3 + \theta_4)*sin(180)*cos(\theta_1)*cos(\theta_6) - sin(180)*sin(\theta_6)*(sin(\theta_1)*sin(\theta_5) - cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_1)*cos(\theta_5)) - cos(180)*(cos(\theta_5)*sin(\theta_1) + cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_1)*sin(\theta_5)), 246*cos(\theta_1)*cos(\theta_2) - (581*sin(\theta_1))/5 + 105*cos(\theta_5)*sin(\theta_1) - 190*cos(\theta_1)*sin(\theta_2)*sin(\theta_3) + 105*cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_1)*sin(\theta_5) + (235*cos(\theta_2 + \theta_3)*cos(\theta_1)*sin(\theta_4))/2 + (235*sin(\theta_2 + \theta_3)*cos(\theta_1)*cos(\theta_4))/2 + 190*cos(\theta_1)*cos(\theta_2)*cos(\theta_3)\\
+   cos(\theta_6)*(cos(\theta_1)*sin(\theta_5) + cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_5)*sin(\theta_1)) - sin(\theta_2 + \theta_3 + \theta_4)*sin(\theta_1)*sin(\theta_6), sin(180)*(cos(\theta_1)*cos(\theta_5) - cos(\theta_2 + \theta_3 + \theta_4)*sin(\theta_1)*sin(\theta_5)) - cos(180)*sin(\theta_6)*(cos(\theta_1)*sin(\theta_5) + cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_5)*sin(\theta_1)) - sin(\theta_2 + \theta_3 + \theta_4)*cos(180)*cos(\theta_6)*sin(\theta_1), cos(180)*(cos(\theta_1)*cos(\theta_5) - cos(\theta_2 + \theta_3 + \theta_4)*sin(\theta_1)*sin(\theta_5)) + sin(180)*sin(\theta_6)*(cos(\theta_1)*sin(\theta_5) + cos(\theta_2 + \theta_3 + \theta_4)*cos(\theta_5)*sin(\theta_1)) + sin(\theta_2 + \theta_3 + \theta_4)*sin(180)*cos(\theta_6)*sin(\theta_1), (581*cos(\theta_1))/5 - 105*cos(\theta_1)*cos(\theta_5) + 246*cos(\theta_2)*sin(\theta_1) - 190*sin(\theta_1)*sin(\theta_2)*sin(\theta_3) + 105*cos(\theta_2 + \theta_3 + \theta_4)*sin(\theta_1)*sin(\theta_5) + (235*cos(\theta_2 + \theta_3)*sin(\theta_1)*sin(\theta_4))/2 + (235*sin(\theta_2 + \theta_3)*cos(\theta_4)*sin(\theta_1))/2 + 190*cos(\theta_2)*cos(\theta_3)*sin(\theta_1)\\
+                                     - cos(\theta_2 + \theta_3 + \theta_4)*sin(\theta_6) - sin(\theta_2 + \theta_3 + \theta_4)*cos(\theta_5)*cos(\theta_6),                                                                 sin(\theta_2 + \theta_3 + \theta_4)*sin(180)*sin(\theta_5) - cos(\theta_2 + \theta_3 + \theta_4)*cos(180)*cos(\theta_6) + sin(\theta_2 + \theta_3 + \theta_4)*cos(180)*cos(\theta_5)*sin(\theta_6),                                                                 cos(\theta_2 + \theta_3 + \theta_4)*sin(180)*cos(\theta_6) + sin(\theta_2 + \theta_3 + \theta_4)*cos(180)*sin(\theta_5) - sin(\theta_2 + \theta_3 + \theta_4)*sin(180)*cos(\theta_5)*sin(\theta_6),                                                                        (235*cos(\theta_2 + \theta_3)*cos(\theta_4))/2 - 246*sin(\theta_2) - (235*sin(\theta_2 + \theta_3)*sin(\theta_4))/2 - sin(\theta_5)*(105*cos(\theta_2 + \theta_3)*sin(\theta_4) + 105*sin(\theta_2 + \theta_3)*cos(\theta_4)) - 190*sin(\theta_2 + \theta_3) + 3011/20\\
+0,0,0,1
+
+
+\end{bmatrix}</script><p>运动学逆解</p>
+<p>建立仿真环境</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear;clc;</span><br><span class="line">L(<span class="number">1</span>)=Link(<span class="string">&#x27;d&#x27;</span>,<span class="number">150.55</span>, <span class="string">&#x27;a&#x27;</span>,<span class="number">0</span>,   <span class="string">&#x27;alpha&#x27;</span>,-<span class="built_in">pi</span>/<span class="number">2</span>, <span class="string">&#x27;qlim&#x27;</span>,[-<span class="built_in">pi</span>,<span class="built_in">pi</span>]);</span><br><span class="line">L(<span class="number">2</span>)=Link(<span class="string">&#x27;d&#x27;</span>,<span class="number">115</span>,    <span class="string">&#x27;a&#x27;</span>,<span class="number">246</span>, <span class="string">&#x27;alpha&#x27;</span>,<span class="number">0</span>,     <span class="string">&#x27;qlim&#x27;</span>,[-<span class="built_in">pi</span>,<span class="built_in">pi</span>]);</span><br><span class="line">L(<span class="number">3</span>)=Link(<span class="string">&#x27;d&#x27;</span>,<span class="number">-116.3</span>, <span class="string">&#x27;a&#x27;</span>,<span class="number">190</span>, <span class="string">&#x27;alpha&#x27;</span>,<span class="number">0</span>,     <span class="string">&#x27;qlim&#x27;</span>,[-<span class="built_in">pi</span>,<span class="built_in">pi</span>]);</span><br><span class="line">L(<span class="number">4</span>)=Link(<span class="string">&#x27;d&#x27;</span>,<span class="number">117.5</span>,  <span class="string">&#x27;a&#x27;</span>,<span class="number">0</span>,   <span class="string">&#x27;alpha&#x27;</span>,<span class="built_in">pi</span>/<span class="number">2</span>,  <span class="string">&#x27;qlim&#x27;</span>,[-<span class="built_in">pi</span>,<span class="built_in">pi</span>]);</span><br><span class="line">L(<span class="number">5</span>)=Link(<span class="string">&#x27;d&#x27;</span>,<span class="number">117.5</span>,  <span class="string">&#x27;a&#x27;</span>,<span class="number">0</span>,   <span class="string">&#x27;alpha&#x27;</span>,-<span class="built_in">pi</span>/<span class="number">2</span>, <span class="string">&#x27;qlim&#x27;</span>,[-<span class="built_in">pi</span>,<span class="built_in">pi</span>]);</span><br><span class="line">L(<span class="number">6</span>)=Link(<span class="string">&#x27;d&#x27;</span>,<span class="number">-105</span>,   <span class="string">&#x27;a&#x27;</span>,<span class="number">0</span>,   <span class="string">&#x27;alpha&#x27;</span>,<span class="built_in">pi</span>,    <span class="string">&#x27;qlim&#x27;</span>,[-<span class="built_in">pi</span>,<span class="built_in">pi</span>]);</span><br><span class="line">robot=SerialLink(L,<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;JAKA-ZU3&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>第一组数据</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">view(<span class="number">3</span>)</span><br><span class="line">robot.teach([<span class="number">0</span>+<span class="number">0</span> <span class="built_in">pi</span>/<span class="number">2</span>-<span class="built_in">pi</span> <span class="number">0</span>+<span class="number">0</span> <span class="built_in">pi</span>/<span class="number">2</span>+<span class="number">0</span> <span class="built_in">pi</span>+<span class="number">0</span> <span class="number">0</span>+<span class="built_in">pi</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/%E6%88%AA%E5%B1%8F2021-11-14%20%E4%B8%8B%E5%8D%8810.11.06.png" alt="截屏2021-11-14 下午10.11.06" style="zoom:50%;"></p>
+<p>第二组数据</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">view(<span class="number">3</span>)</span><br><span class="line">robot.teach([<span class="number">30.906</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="number">0</span> <span class="number">72.993</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)-<span class="built_in">pi</span> <span class="number">-68.722</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="number">0</span> <span class="number">84.098</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="number">0</span> <span class="number">91.007</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="number">0</span> <span class="number">0.051</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="built_in">pi</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/%E6%88%AA%E5%B1%8F2021-11-14%20%E4%B8%8B%E5%8D%8810.09.30.png" alt="截屏2021-11-14 下午10.09.30" style="zoom:50%;"></p>
+]]></content>
+      <categories>
+        <category>ROS机器人学习</category>
+      </categories>
+      <tags>
+        <tag>ROS</tag>
+      </tags>
+  </entry>
 </search>
