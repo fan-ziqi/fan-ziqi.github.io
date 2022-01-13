@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.fanziqi.site/posts/358fc8e8.html</loc>
+    
+    <lastmod>2022-01-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/posts/f00798b9.html</loc>
+    
+    <lastmod>2022-01-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/posts/7b613e40.html</loc>
+    
+    <lastmod>2022-01-13</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.fanziqi.site/posts/337c96c3.html</loc>
     
     <lastmod>2021-11-14</lastmod>
@@ -270,7 +291,7 @@
 
   <url>
     <loc>http://www.fanziqi.site/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -278,63 +299,70 @@
   
   <url>
     <loc>http://www.fanziqi.site/tags/PCB/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/Git/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/Chrome/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/stm32/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/ROS/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/hexo/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/Ubuntu/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/tags/web/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/tags/STM32/</loc>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -343,35 +371,42 @@
   
   <url>
     <loc>http://www.fanziqi.site/categories/Altium-Designer/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/categories/%E6%8A%80%E8%83%BD/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/categories/stm32/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.fanziqi.site/categories/%E7%BD%91%E7%AB%99/</loc>
-    <lastmod>2021-11-14</lastmod>
+    <lastmod>2022-01-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.fanziqi.site/categories/STM32/</loc>
+    <lastmod>2022-01-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

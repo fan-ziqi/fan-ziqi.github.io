@@ -2070,4 +2070,102 @@ sin(\theta_1 + \theta_3) &  cos(\theta_1 + \theta_3) & 0 & L_3*sin(\theta_1 + \t
         <tag>ROS</tag>
       </tags>
   </entry>
+  <entry>
+    <title>CubeMX配置SPI-Flash(W25Q256)</title>
+    <url>/posts/7b613e40.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="CubeMX配置SPI-Flash-W25Q256"><a href="#CubeMX配置SPI-Flash-W25Q256" class="headerlink" title="CubeMX配置SPI-Flash(W25Q256)"></a>CubeMX配置SPI-Flash(W25Q256)</h1><p>W25Q256（256Mb）将32M（字节byte）的容量分为512个块（block），每个块大小为64K字节，每个块又分为16个扇区（sector）,每个扇区4K字节。最小擦除单位为一个扇区，也就是4K字节。</p>
+<p>首先应该配置SPI,但是这里有个大坑.</p>
+<p>按照标准的SPI协议，当SPI被配置为主机模式后，通过SPI对从设备进行操作时，其NSS应该自动置低，从而选中（使能）从设备；一旦不对从设备进行操作，NSS立刻置为高。</p>
+<p>但是，我在实际调试过程中发现：STM32 SPI NSS无法自动实现跳变。 一旦SPI初始化完成并使能SPI，NSS立刻置低，然后保持不变。</p>
+<p>这个问题一直无法解决，直到我在ST官方论坛上看到国外有些技术人员也在讨论这个问题，他们得出的结论是：STM32 SPI NSS无法自动跳变。</p>
+<p>ST官方技术人员也证实：STM32 SPI NSS是不会自动置位和复位的。按照官方说法，ST已经将其列入了改进计划。</p>
+<p>对于这个问题，可以采用下面的方法解决：</p>
+<p>在SPI初始化时，采用NSS soft模式，然后使能NSS输出功能。从而将NSS当做GPIO使用，通过软件set和reset来实现NSS的置位和复位。</p>
+<p>具体在CubeMX中应将FLASH的NSS当成GPIO Output配置而不是SPI NSS.配置如图所示:</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220113160700854.png" alt="image-20220113160700854"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220113160802730.png" alt="image-20220113160802730"></p>
+<p>因为需要在flash中存入浮点数,所以需要类型转换,这里使用union联合体实现:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">float</span> union_float;</span><br><span class="line">    <span class="keyword">uint8_t</span> union_int8[<span class="number">4</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>测试代码:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">test</span> <span class="title">Test_write</span>,<span class="title">Test_read</span>;</span></span><br><span class="line">Test_write.union_float=<span class="number">1.23</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读flash的id</span></span><br><span class="line">BSP_W25Q256_Read_ID(id);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;ID = 0x%02X%02X\r\n&quot;</span>, id[<span class="number">0</span>], id[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试flash的擦读写</span></span><br><span class="line">BSP_W25Q256_Erase_Block(<span class="number">0</span>);</span><br><span class="line">BSP_W25Q256_Write(Test_write.union_int8, <span class="number">0</span>, <span class="keyword">sizeof</span>(Test_write.union_int8));</span><br><span class="line">BSP_W25Q256_Read(Test_read.union_int8, <span class="number">0</span>, <span class="keyword">sizeof</span>(Test_read.union_int8));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Ready to write:  float: %f, trans to uint8: 0x%x 0x%x 0x%x 0x%x\r\n&quot;</span>, </span><br><span class="line">       Test_write.union_float, </span><br><span class="line">       Test_write.union_int8[<span class="number">0</span>],</span><br><span class="line">       Test_write.union_int8[<span class="number">1</span>], </span><br><span class="line">       Test_write.union_int8[<span class="number">2</span>],</span><br><span class="line">       Test_write.union_int8[<span class="number">3</span>]);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Read from Flash: uint8: 0x%x 0x%x 0x%x 0x%x, trans to float: %f\r\n&quot;</span>, </span><br><span class="line">       Test_read.union_int8[<span class="number">0</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">1</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">2</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">3</span>],</span><br><span class="line">       Test_read.union_float);</span><br></pre></td></tr></table></figure>
+<p>参考:</p>
+<p>关于STM32 SPI NSS的讨论 <a href="https://blog.csdn.net/chseangs/article/details/4520733">https://blog.csdn.net/chseangs/article/details/4520733</a></p>
+<p>SPI problem with hardware NSS management <a href="https://community.st.com/s/question/0D50X00009XkbvdSAB/spi-problem-with-hardware-nss-management">https://community.st.com/s/question/0D50X00009XkbvdSAB/spi-problem-with-hardware-nss-management</a></p>
+<p>STM32CbueMX之W25Q256 <a href="https://blog.csdn.net/sudaroot/article/details/93158309">https://blog.csdn.net/sudaroot/article/details/93158309</a></p>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32CubeMX重定向printf输出至串口</title>
+    <url>/posts/f00798b9.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="STM32CubeMX重定向printf输出至串口"><a href="#STM32CubeMX重定向printf输出至串口" class="headerlink" title="STM32CubeMX重定向printf输出至串口"></a>STM32CubeMX重定向printf输出至串口</h1><p>第一步,CubeMX配置串口(GPIO配置略)</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220113161902135.png" alt="image-20220113161902135"></p>
+<p>第二步,包含头文件</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>第三步,勾选Use Microlib</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220113161451008.png" alt="image-20220113161451008"></p>
+<p>第四步,重定向printf,此处需要将huart2改为上面配置的串口</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputc</span><span class="params">(<span class="keyword">int</span> c, FILE *stream)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HAL_UART_Transmit(&amp;huart2, (<span class="keyword">unsigned</span> <span class="keyword">char</span> *)&amp;c, <span class="number">1</span>, <span class="number">1000</span>);   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时即可使用</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\r\n&quot;</span>,num);</span><br></pre></td></tr></table></figure>
+<p>代替</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">buf_len = <span class="built_in">sprintf</span>(buf, <span class="string">&quot;%d\r\n&quot;</span>,num);</span><br><span class="line">HAL_UART_Transmit(&amp;huart2, (<span class="keyword">uint8_t</span> *)buf, buf_len, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RT-Thread配置SPI-Flash(W25Q256)</title>
+    <url>/posts/358fc8e8.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="RT-Thread配置SPI-Flash-W25Q256"><a href="#RT-Thread配置SPI-Flash-W25Q256" class="headerlink" title="RT-Thread配置SPI-Flash(W25Q256)"></a>RT-Thread配置SPI-Flash(W25Q256)</h1><h3 id="1-开启SPI总线"><a href="#1-开启SPI总线" class="headerlink" title="1.开启SPI总线"></a>1.开启SPI总线</h3><p>新建一个空白的RT-Thread项目，本文基于STM32F103芯片。<br>首先在drivers目录下打开board.h文件，找到SPI对应部分。根据指导，一步一步做下去。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201204143331118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="1-1打开SPI及SFUD"><a href="#1-1打开SPI及SFUD" class="headerlink" title="1.1打开SPI及SFUD"></a>1.1打开SPI及SFUD</h4><p>打开RT-Thread Settings,点击更多配置来到组件一栏，勾选如下。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201204144847310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="1-2打开SPI宏定义"><a href="#1-2打开SPI宏定义" class="headerlink" title="1.2打开SPI宏定义"></a>1.2打开SPI宏定义</h4><p>board.h文件中，打开SPI宏定义。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201204145854510.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="1-3产生初始化函数"><a href="#1-3产生初始化函数" class="headerlink" title="1.3产生初始化函数"></a>1.3产生初始化函数</h4><p>使用stm32cubemx产生初始化函数，将其粘贴于board.c文件末尾。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201204152938102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>然后选择芯片型号-&gt;填写项目名称，双击IOC文件后如图操作。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201204153731512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>复制初始化函数到<code>board.c</code>文件。<img src="https://img-blog.csdnimg.cn/20201204154654140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="1-4打开SPI驱动"><a href="#1-4打开SPI驱动" class="headerlink" title="1.4打开SPI驱动"></a>1.4打开SPI驱动</h4><p>在drivers目录下的stm32f1xx_hal_conf.h文件中打开SPI驱动。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201204160217954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>配置完成，编译下载,使用list_device指令查看设备，可以看到SPI总线已经存在了。</p>
+<p><img src="https://img-blog.csdnimg.cn/2020120416192982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-挂载片外flash"><a href="#2-挂载片外flash" class="headerlink" title="2.挂载片外flash"></a>2.挂载片外flash</h3><p>接下来，我们将片外flash(W25Q256)挂到SPI总线上。</p>
+<p>在application目录下，新增flash.c文件。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">rt_hw_spi_flash_init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//此处为片选引脚</span></span><br><span class="line">    rt_hw_spi_device_attach(W25Q_SPI_BUS_NAME, W25Q_SPI_DEVICE_NAME, GPIOA, GPIO_PIN_4);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//flash名称要正确</span></span><br><span class="line">    <span class="keyword">if</span> (RT_NULL == rt_sfud_flash_probe(<span class="string">&quot;W25Q256&quot;</span>, W25Q_SPI_DEVICE_NAME))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> -RT_ERROR;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> RT_EOK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 导出到自动初始化 */</span></span><br><span class="line">INIT_COMPONENT_EXPORT(rt_hw_spi_flash_init);</span><br></pre></td></tr></table></figure>
+<p>经过验证，flash已经挂载成功.</p>
+<p><img src="https://img-blog.csdnimg.cn/20201204164850870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>下面开始搭建FAL。</p>
+<h3 id="3-搭建FAL抽象层"><a href="#3-搭建FAL抽象层" class="headerlink" title="3.搭建FAL抽象层"></a>3.搭建FAL抽象层</h3><p>FAL是RT-Thread的一个软件包，主要是用于Flash 抽象层的实现，负责管理 Flash 设备和 Flash 分区。关于FAL的详细功能，大家可以参考RT-Thread软件包友情链接。文档非常详细，这里也参考了文档中的内容。</p>
+<h4 id="3-1添加FAL"><a href="#3-1添加FAL" class="headerlink" title="3.1添加FAL"></a>3.1添加FAL</h4><p>打开RT-Thread Settings点击立即添加，然后搜索FAL。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201206161335974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201206161344745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/2020120616140293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201209201814662.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="3-2配置FAL"><a href="#3-2配置FAL" class="headerlink" title="3.2配置FAL"></a>3.2配置FAL</h4><p>因为我们只用到了片外flash，所以可以将fal_cfg.h中关于片外flash的部分删除，并且定义自己的分区表。</p>
+<p>将<code>samples-&gt;porting-&gt;fal_cfg.h</code>复制到<code>inc</code>中并修改为:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _FAL_CFG_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _FAL_CFG_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;rtconfig.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;board.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NOR_FLASH_DEV_NAME             <span class="meta-string">&quot;W25Q256&quot;</span>    <span class="comment">/*一定要改为自己的flash名称*/</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* ===================== Flash device Configuration ========================= */</span></span><br><span class="line"><span class="keyword">extern</span> <span class="class"><span class="keyword">struct</span> <span class="title">fal_flash_dev</span> <span class="title">nor_flash0</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* flash device table(定义设备表，删掉了片上flash) */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAL_FLASH_DEV_TABLE                                          \</span></span><br><span class="line"><span class="meta">&#123;                                                                    \</span></span><br><span class="line"><span class="meta">    &amp;nor_flash0,                                                     \</span></span><br><span class="line"><span class="meta">&#125;</span></span><br><span class="line"><span class="comment">/* ====================== Partition Configuration ========================== */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> FAL_PART_HAS_TABLE_CFG</span></span><br><span class="line"><span class="comment">/* partition table ps：可根据需要自行分区*/</span> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAL_PART_TABLE                                                               \</span></span><br><span class="line"><span class="meta">&#123;                                                                                   \</span></span><br><span class="line"><span class="meta">    &#123;FAL_PART_MAGIC_WORD, <span class="meta-string">&quot;easyflash&quot;</span>, NOR_FLASH_DEV_NAME,         0, 1024*1024, 0&#125;, \</span></span><br><span class="line"><span class="meta">    &#123;FAL_PART_MAGIC_WORD,  <span class="meta-string">&quot;download&quot;</span>, NOR_FLASH_DEV_NAME, 1024*1024, 1024*1024, 0&#125;, \</span></span><br><span class="line"><span class="meta">&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* FAL_PART_HAS_TABLE_CFG */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* _FAL_CFG_H_ */</span></span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>此处暂时并未做太大改动,可以根据需要自行分区、命名。</p>
+<h4 id="3-3初始化FAL"><a href="#3-3初始化FAL" class="headerlink" title="3.3初始化FAL"></a>3.3初始化FAL</h4><p>在<code>main.c</code>文件中，包含<code>fal.h</code>并调用<code>fal_init()</code>初始化程序。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201204174654126.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="3-4验证"><a href="#3-4验证" class="headerlink" title="3.4验证"></a>3.4验证</h4><p><img src="https://img-blog.csdnimg.cn/20201204175752858.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
 </search>
