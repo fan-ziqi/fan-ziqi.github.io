@@ -236,10 +236,13 @@
  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/new</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>新建目录</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">touch README //README 文件用于描述该项目  </span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git checkout -b main //切换本地分支为main</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>提交</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add README  //提交README</span><br><span class="line">git commit -m &quot;first commit&quot; //-m 用于指定本次提交的描述信息 </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git push -u origin master  </span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add . //添加文件</span><br><span class="line">git commit -am &quot;first commit&quot; //-m指定本次提交的描述信息 </span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置set-upstream</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/main main</span><br><span class="line">git push //之后push用这个</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -248,14 +251,22 @@
 <li><p>clone下来</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:fan-ziqi/My_ROS_Robot.git</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>新建目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git checkout -b main //切换本地分支为main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pull下来</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置set-upstream</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/main main</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>提交</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .   // .代表添加所有文件  </span><br><span class="line">git commit -m &quot;对文件操作的简易描述&quot;  </span><br><span class="line">git push -u origin master </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .   // .代表添加所有文件  </span><br><span class="line">git commit -am &quot;对文件操作的简易描述&quot;  </span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ul>
-<hr>
-<h1 id="0903更新"><a href="#0903更新" class="headerlink" title="0903更新"></a>0903更新</h1><p>出现错误<code>error: failed to push some refs to &#39;https://github.com/xxx/xxx.git&#39;</code></p>
+<p>出现错误<code>error: failed to push some refs to &#39;https://github.com/xxx/xxx.git&#39;</code></p>
 <p>出现错误的原因是github中的某些文件不在本地代码目录中。</p>
 <p>也就是说我们需要先将远程代码库中的任何文件先pull到本地代码库中，才能push新的代码到github代码库中。</p>
 <p>使用如下命令：git pull —rebase origin main</p>
