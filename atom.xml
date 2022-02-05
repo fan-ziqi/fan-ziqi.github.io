@@ -6,7 +6,7 @@
   <link href="http://www.fanziqi.site/atom.xml" rel="self"/>
   
   <link href="http://www.fanziqi.site/"/>
-  <updated>2022-02-04T10:37:19.166Z</updated>
+  <updated>2022-02-05T15:45:18.105Z</updated>
   <id>http://www.fanziqi.site/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深入学习C++——16指针</title>
+    <link href="http://www.fanziqi.site/posts/49c7378a.html"/>
+    <id>http://www.fanziqi.site/posts/49c7378a.html</id>
+    <published>2022-02-05T15:42:00.000Z</published>
+    <updated>2022-02-05T15:45:18.105Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——16指针"><a href="#深入学习C-——16指针" class="headerlink" title="深入学习C++——16指针"></a>深入学习C++——16指针</h1><p>什么是指针？<strong>指针是一个整数，一种存储内存地址的数字。</strong>指针只是一个数字而已，不要想太多。指针的类型对指针来说是毫无意义的，只能说是这个地址的数据被假设为我们给的类型。指针类型并不会改变指针的实质，指针只是一个内存地址，一个数组而已。 </p><p>首先我们创建一个最纯粹的空指针，我并不关心这个指针的类型，因为我只想保存一个内存地址。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr = <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></figure><p>其中<code>nullptr</code>代表空指针的意思，也可写成NULL。但不可写成0，因为当内存地址为0的时候程序会崩溃。</p><p>每个变量都有一个内存地址，使用引用<code>&amp;</code>运算符（reference）得到这个变量的内存地址。创建一个变量名为var，使用ptr存放var的内存地址：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> var = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">void</span>* ptr = &amp;var;</span><br></pre></td></tr></table></figure><p>如果此时加断点调试，可以看到<code>var</code>的值为<code>8</code>，<code>ptr</code>的值为<code>0xef045ff954</code>，这是一个十六进制的数字，即为var变量的内存地址。我们在内存中转到这个地址，可以看到<code>08 00 00 00</code>，就是<code>var</code>的值<code>8</code>（int占用4个字节）。</p><p>指针的类型对指针无关紧要，将<code>void</code>改为<code>int</code>，再次在内存中转到此地址，效果是完全一样的。指针的类型只在读写时有作用，跟指针本身是完全无关的。<strong>指针只是一个整数</strong>而已。</p><p>如果我们想读写指针指向的数据，需要使用逆向引用<code>*</code>运算符（dereference）。在指针前加上<code>*</code>即可读取这个指针指向的数据。如前例，ptr为var的指针，使用<code>*ptr = 10</code>即可将var的值改为10。但是此时会报错，因为此时指针为void空指针，计算机并不知道这个“10”需要多少字节的数据，自然而然无法将其写入。所以此时需要指定字节数，即将前文改为<code>int* ptr = &amp;var;</code>。记住，类型跟指针毫无关系，类型的目的只是告诉编译器在读写时应该寻找几个字节。此时重新运行程序可以看到var的值被成功修改为10。</p><p>如果需要分配一些空间，可以这么操作：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//new char[8]分配了8个字节的内存，并返回一个指向那块内存开始的指针。</span></span><br><span class="line"><span class="keyword">char</span>* buffer = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">8</span>];</span><br><span class="line"><span class="comment">//使用memset函数用指定的数据填充一个内存块：第一个参数为内存块开始的指针，第二个值为要填充的值，第三个参数为大小。</span></span><br><span class="line"><span class="built_in">memset</span>(buffer, <span class="number">0</span>, <span class="number">8</span>);</span><br></pre></td></tr></table></figure><p>调试程序，转到buffer地址，可以看到<code>00 00 00 00   00 00 00 00</code>。之后需要释放这个内存，使用<code>delete[] buffer;</code></p><p>指针也是一个变量，因此指针也可以指向指针。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>** ptr = &amp;buffer;</span><br></pre></td></tr></table></figure><p>查看内存：buffer的值为<code>0x193a7d41b60</code>。ptr的值为<code>0x843b7ffb30</code>，即为buffer指针存放的地址。跳转进去可以看到<code>60 1b d4 a7   93 01 00 00</code>，这也就是buffer的值。（计算机中存储顺序为倒序）</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="C++" scheme="http://www.fanziqi.site/categories/C/"/>
+    
+    
+    <category term="C++" scheme="http://www.fanziqi.site/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>boost库使用串口</title>
     <link href="http://www.fanziqi.site/posts/e4966ae8.html"/>
     <id>http://www.fanziqi.site/posts/e4966ae8.html</id>
     <published>2022-02-04T10:40:00.000Z</published>
-    <updated>2022-02-04T10:37:19.166Z</updated>
+    <updated>2022-02-04T10:38:10.068Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="boost库使用串口"><a href="#boost库使用串口" class="headerlink" title="boost库使用串口"></a>boost库使用串口</h1><h2 id="一、使用普通指针"><a href="#一、使用普通指针" class="headerlink" title="一、使用普通指针"></a>一、使用普通指针</h2><h3 id="1-头文件声明"><a href="#1-头文件声明" class="headerlink" title="1. 头文件声明"></a>1. 头文件声明</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">boost::system::error_code error_code_;</span><br><span class="line">boost::asio::io_service io_service_;</span><br><span class="line">boost::asio::serial_port *serial_port_;</span><br></pre></td></tr></table></figure><h3 id="2-使用new分配内存"><a href="#2-使用new分配内存" class="headerlink" title="2. 使用new分配内存"></a>2. 使用new分配内存</h3><p>创建串口然后使用open开启</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serial_port_ = <span class="keyword">new</span> boost::asio::<span class="built_in">serial_port</span>(io_service_);</span><br><span class="line">serial_port_-&gt;<span class="built_in">open</span>(port_name_, error_code_);</span><br></pre></td></tr></table></figure><p>或者直接开启</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serial_port_ = <span class="keyword">new</span> boost::asio::<span class="built_in">serial_port</span>(io_service_, port_name_);</span><br></pre></td></tr></table></figure><h3 id="3-释放内存"><a href="#3-释放内存" class="headerlink" title="3. 释放内存"></a>3. 释放内存</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> serial_port_;</span><br></pre></td></tr></table></figure><h2 id="二、使用共享指针"><a href="#二、使用共享指针" class="headerlink" title="二、使用共享指针"></a>二、使用共享指针</h2><h3 id="1-头文件声明-1"><a href="#1-头文件声明-1" class="headerlink" title="1. 头文件声明"></a>1. 头文件声明</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">boost::system::error_code error_code_;</span><br><span class="line">boost::asio::io_service io_service_;</span><br><span class="line">std::shared_ptr&lt;boost::asio::serial_port&gt; serial_port_;</span><br></pre></td></tr></table></figure><h3 id="2-使用make-shared分配内存"><a href="#2-使用make-shared分配内存" class="headerlink" title="2. 使用make_shared分配内存"></a>2. 使用make_shared分配内存</h3><p>创建串口然后使用open开启</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serial_port_ = std::make_shared&lt;boost::asio::serial_port&gt;(io_service_);</span><br><span class="line">serial_port_-&gt;<span class="built_in">open</span>(port_name_, error_code_);</span><br></pre></td></tr></table></figure><p>或者直接开启</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serial_port_ = std::make_shared&lt;boost::asio::serial_port&gt;(io_service_, port_name_);</span><br></pre></td></tr></table></figure><h3 id="3-释放内存-1"><a href="#3-释放内存-1" class="headerlink" title="3. 释放内存"></a>3. 释放内存</h3><p>使用智能指针不需要delete释放内存</p>]]></content>
     
@@ -473,30 +497,6 @@
     
     
     <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Typora快捷键</title>
-    <link href="http://www.fanziqi.site/posts/5e339248.html"/>
-    <id>http://www.fanziqi.site/posts/5e339248.html</id>
-    <published>2021-08-25T07:00:00.000Z</published>
-    <updated>2021-08-25T15:17:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Typora快捷键"><a href="#Typora快捷键" class="headerlink" title="Typora快捷键"></a>Typora快捷键</h1><ol><li>最大标题：command + 1 或者：#</li><li>大标题：command + 2 或者：##</li><li>标准标题：command + 3 或者：###</li><li>中标题：command + 4 或者：####</li><li>小标题：command + 5 或者：#####</li><li>插入表格：command + T</li><li>插入代码：command + alt +c</li><li>行间公式 command + Alt + b</li><li>段落：command + 0</li><li>竖线 ： command + Alt +q</li><li>有序列表（1. 2.） ：输入数字+“.”之后输入空格 或者：command + Alt + o</li><li>黑点标记：command + Alt + u</li><li>隔离线shift + command + -</li><li>超链接：command + Alt + l</li><li>插入链接：command +k</li><li>下划线：command +u</li><li>加粗：command +b</li><li>搜索：command +f</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="技能" scheme="http://www.fanziqi.site/categories/%E6%8A%80%E8%83%BD/"/>
-    
-    
-    <category term="快捷键" scheme="http://www.fanziqi.site/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
     
   </entry>
   
