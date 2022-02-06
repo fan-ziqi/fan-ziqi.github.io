@@ -2354,4 +2354,37 @@ v_{ty}=\frac{v_3-v_1}{2}\\
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>深入学习C++——17引用</title>
+    <url>/posts/55bfc346.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——17引用"><a href="#深入学习C-——17引用" class="headerlink" title="深入学习C++——17引用"></a>深入学习C++——17引用</h1><p><strong>引用</strong>是一种引用现有变量的方式。与指针不同，指针可以创建空指针，而引用不行。引用必须引用已存在的变量。引用本身不是一个新变量，它不占用内存，没有自己的存储空间。</p>
+<p>我们创建一个变量，并给这个变量创建一个引用。声明引用时需要指定变量类型：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span>&amp; ref = a;</span><br></pre></td></tr></table></figure>
+<p>这里的ref就是a的别名，它本身不是一个真正的变量，ref变量实际并不存在，它只存在于代码中。</p>
+<p>此时我们可以给ref赋值，然后输出a的值：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ref = <span class="number">2</span>;</span><br><span class="line">std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+<p>运行程序，可以看到a的值变成了2。</p>
+<p>下面来看一个更复杂的例子。我们创建一个变量递增函数，并在main中调用，把a作为参数传递进去，只是通过值传递给它。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	value++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(a);</span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行程序，可以看到a的值仍为5，并没有递增。实际上a传入Increment函数后创建了一个全新的变量value且等于a的值，其作用大致等效于：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> value = <span class="number">5</span>;</span><br><span class="line">	value++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>前面我们讲了指针，自然而然可以想到：我们并不直接把a的值传进函数，而是将a的内存地址传进去，然后在函数内寻找这个内存地址上的数据并对其进行操作即可。所以程序修改为：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span>* value)</span><span class="comment">//传入一个指针</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//value++;//错误。这样只会递增value指针的地址，只是把一个指针递增了而已</span></span><br><span class="line">	<span class="comment">//*value++;//错误。这样写操作顺序为先递增内存地址再逆向引用</span></span><br><span class="line">	(*value)++;<span class="comment">//先逆向引用，再将值自增</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(&amp;a);<span class="comment">//传入变量的内存地址</span></span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时运行程序可以看到a的值被成功修改成了6。</p>
+<p>有没有觉得使用指针的时候<code>*</code>和<code>&amp;</code>满天乱飞，本文讲了引用，那我们就通过另一种更为简洁的方法实现以上功能：我们可以用引用代替指针：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span>&amp; value)</span><span class="comment">//传入一个引用</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	value++;<span class="comment">//这里也不需要逆向引用*了</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(a);<span class="comment">//只需传递a即可</span></span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行程序，a成功地被修改成了6。</p>
+<p>综上，指针比引用更强大，能用引用的地方也一定能用指针，但是能用引用就用引用，这样会使程序更为简洁和干净。</p>
+<p>不过要注意，声明引用的时候也必须给引用赋值，因为它并不是一个真正的变量，不能为空。并且一旦声明了一个引用，不能改变它引用的东西。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">int</span>&amp; ref = a;</span><br><span class="line">ref = b;</span><br><span class="line"><span class="comment">// now a = 8, b = 8</span></span><br></pre></td></tr></table></figure>
+<p>这段程序只是将b的值赋给了a，并没有改变ref引用的东西。如果想要实现这个功能只能使用指针：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">int</span>* ref = &amp;a;</span><br><span class="line">*ref = <span class="number">2</span>;</span><br><span class="line">ref = &amp;b;</span><br><span class="line">*ref = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// now a = 2, b = 1</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
 </search>
