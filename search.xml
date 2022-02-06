@@ -2289,7 +2289,7 @@ v_{ty}=\frac{v_3-v_1}{2}\\
   <entry>
     <title>深入学习C++——16指针</title>
     <url>/posts/49c7378a.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——16指针"><a href="#深入学习C-——16指针" class="headerlink" title="深入学习C++——16指针"></a>深入学习C++——16指针</h1><p>什么是指针？<strong>指针是一个整数，一种存储内存地址的数字。</strong>指针只是一个数字而已，不要想太多。指针的类型对指针来说是毫无意义的，只能说是这个地址的数据被假设为我们给的类型。指针类型并不会改变指针的实质，指针只是一个内存地址，一个数组而已。 </p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——16指针"><a href="#深入学习C-——16指针" class="headerlink" title="深入学习C++——16指针"></a>深入学习C++——16指针</h1><p>什么是指针？<strong>指针是一个整数，一种存储内存地址的数字。</strong>指针只是一个数字而已，不要想太多。指针的类型对指针来说是毫无意义的，只能说是这个地址的数据被假设为我们给的类型。指针类型并不会改变指针的实质，指针只是一个内存地址，一个数字而已。 </p>
 <p>首先我们创建一个最纯粹的空指针，我并不关心这个指针的类型，因为我只想保存一个内存地址。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr = <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></figure>
 <p>其中<code>nullptr</code>代表空指针的意思，也可写成NULL。但不可写成0，因为当内存地址为0的时候程序会崩溃。</p>
@@ -2304,6 +2304,48 @@ v_{ty}=\frac{v_3-v_1}{2}\\
 <p>指针也是一个变量，因此指针也可以指向指针。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>** ptr = &amp;buffer;</span><br></pre></td></tr></table></figure>
 <p>查看内存：buffer的值为<code>0x193a7d41b60</code>。ptr的值为<code>0x843b7ffb30</code>，即为buffer指针存放的地址。跳转进去可以看到<code>60 1b d4 a7   93 01 00 00</code>，这也就是buffer的值。（计算机中存储顺序为倒序）</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入学习C++——44智能指针</title>
+    <url>/posts/b0f9a474.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——44智能指针"><a href="#深入学习C-——44智能指针" class="headerlink" title="深入学习C++——44智能指针"></a>深入学习C++——44智能指针</h1><p>我们都知道使用new在堆上分配内存，使用delete释放内存，因为它不会自动释放内存。智能指针本质上是一个原始指针的包装类，当创建一个智能指针，它会调用new并为其分配内存，基于这个智能指针，这些内存会在某一时刻自动释放。下面介绍三种智能指针</p>
+<p>使用智能指针的时候要包含memory头文件</p>
+<h2 id="作用域指针unique-ptr"><a href="#作用域指针unique-ptr" class="headerlink" title="作用域指针unique_ptr"></a>作用域指针unique_ptr</h2><p><code>unique_ptr</code>是作用域指针，超出作用域时会被销毁，然后调用delete。<br>我们不能复制一个unique_ptr，因为如果复制一个unique_ptr，那么他们会指向同一个内存块。如果其中一个死了，它会释放那段内存，而指向同一块内存的另一个指针就会指向已经被释放的内存。</p>
+<p>我们首先创建一个类来理解智能指针，类中只包含构造和析构函数</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Entity</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Created Entity&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">Entity</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Destroyed Entity&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在特定的作用域下创建一个unique_ptr：在main中创建一对大括号，括号内即为空作用域。在里面使用unique_ptr来分配Entity：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::unique_ptr&lt;Entity&gt; entity = <span class="keyword">new</span> <span class="built_in">Entity</span>(); <span class="comment">//错误</span></span><br></pre></td></tr></table></figure>
+<p>这样构造会报错，因为unique_ptr的构造函数是explicit的，需要显式调用构造函数，没有构造函数的隐式转换，所以应该：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::unique_ptr&lt;Entity&gt; <span class="title">entity</span><span class="params">(<span class="keyword">new</span> Entity())</span></span>; <span class="comment">//正确</span></span><br></pre></td></tr></table></figure>
+<p>不过更推荐使用下面这种方法！原因是出于异常安全。如果构造函数碰巧抛出异常，使用make_unique会保证你最终得到的不是没有引用的悬空指针，从而造成内存泄漏。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::unique_ptr&lt;Entity&gt; entity = std::make_unique&lt;Entity&gt;();</span><br></pre></td></tr></table></figure>
+<p>然后就可以跟原始指针一样地使用智能指针，比如使用箭头操作符调用函数：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">entity-&gt;<span class="built_in">Print</span>();</span><br></pre></td></tr></table></figure>
+<p>单步调试，可以看到程序在进入作用域{时输出<code>Created Entity</code>，出作用域}时输出<code>Destroyed Entity</code>，即为智能指针的自动创建与销毁。</p>
+<p>如果需要拷贝或共享这个指针，使得这个指针可以被传递到一个函数中或一个类中，unique_ptr将不可用。如果试图复制一个unique_ptr：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::unique_ptr&lt;Entity&gt; entity = std::make_unique&lt;Entity&gt;();</span><br><span class="line">std::unique_ptr&lt;Entity&gt; e0 = entity;</span><br></pre></td></tr></table></figure>
+<p>这样会报错，因为在unique_ptr的定义中，删除了拷贝构造函数和拷贝构造操作符，因为这是不被允许的。这是为了防止你跳到大坑里，因为其中一个unique_ptr死了，这个堆分配对象的底层内存会被释放，另一个unique_ptr会指向这个不存在的内存。所以出现了共享指针shared_ptr：</p>
+<h2 id="共享指针shared-ptr"><a href="#共享指针shared-ptr" class="headerlink" title="共享指针shared_ptr"></a>共享指针shared_ptr</h2><p>共享指针shared_ptr更牛逼一点，shared_ptr实现的方式实际上取决于编译器和你在编译器中使用的标准库，在大多数情况下，它使用的是引用计数。引用计数基本上是一种方法，可以跟踪你的指针有多少个引用，一旦引用计数达到0，它就会被删除。如果我创建了一个shared_ptr，又创建了另外一个shared_ptr来复制他，此时的引用计数就是2，当第一个shared_ptr死了，引用计数减1变成1，当最后一个shared_ptr也死了，引用计数变为0，这个指针也就会被销毁内存被释放。</p>
+<p>但是不要这样写！！！</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::shared_ptr&lt;Entity&gt; <span class="title">entity</span><span class="params">(<span class="keyword">new</span> Entity())</span></span>;</span><br></pre></td></tr></table></figure>
+<p>在unique_ptr中不直接调用new的原因是因为异常安全，而在shared_ptr中有所不同。因为shared_ptr需要分配另一块内存，叫做控制块，用来存储引用计数。如果使用new创建一个Entity然后传递给shared_ptr构造函数，那么它必须做两次内存分配：先做一次new Entity的分配，然后是shared_ptr的控制内存块的分配。使用make_shared就可以将两个步骤合起来：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br></pre></td></tr></table></figure>
+<p>shared_ptr可以被复制。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::shared_ptr&lt;Entity&gt; entity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">std::shared_ptr&lt;Entity&gt; e0 = sharedEntity;</span><br></pre></td></tr></table></figure>
+<p>我们更改一下main函数，创建两个作用域来演示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;<span class="comment">//作用域1</span></span><br><span class="line">		std::shared_ptr&lt;Entity&gt; e0;</span><br><span class="line">		&#123;<span class="comment">//作用域2</span></span><br><span class="line">			std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">			e0 = sharedEntity;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 此时SharedEntity已经死亡，但是e0还存活（引用计数为1），所以这里没有调用析构函数</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//这里e0也死亡了（引用计数为0），此时调用析构函数。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单步调试，进入作用域1时输出<code>Created Entity</code>，此时出作用域2，并没有析构Entity，因为e0还存活，并且持有对该Entity的引用。出作用域1，输出<code>Destroyed Entity</code>，所有的引用此时都消失。</p>
+<h2 id="弱指针weak-ptr"><a href="#弱指针weak-ptr" class="headerlink" title="弱指针weak_ptr"></a>弱指针weak_ptr</h2><p>将一个shared_ptr赋值给另一个shared_ptr时会增加引用计数，但是将一个shared_ptr赋值给一个weak_ptr时不会增加引用计数。这常用于：如果你不想要Entity的所有权，例如你在排序一个Entity列表，你不关心他们是否有效，只需要存储一个他们的引用，这时就可以使用weak_ptr。可以询问weak_ptr底层对象是否还存活，但它不会保持底层对象存活，因为它不会增加引用计数。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;<span class="comment">//作用域1</span></span><br><span class="line">		std::weak_ptr&lt;Entity&gt; e0;</span><br><span class="line">		&#123;<span class="comment">//作用域2</span></span><br><span class="line">			std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">			e0 = sharedEntity; <span class="comment">// 弱指针不会引用计数</span></span><br><span class="line">		&#125;<span class="comment">//出作用域2的时候就调用了析构函数</span></span><br><span class="line">		<span class="comment">//此时weak_ptr为一个无效指针</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>综上，使用智能指针可以使内存管理自动化，防止忘记调用delete而造成内存泄露。优先选用unique_ptr，如需在作用域之间复制共享就使用shared_ptr。</p>
 ]]></content>
       <categories>
         <category>C++</category>
