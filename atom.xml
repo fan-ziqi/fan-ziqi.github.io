@@ -6,7 +6,7 @@
   <link href="http://www.fanziqi.site/atom.xml" rel="self"/>
   
   <link href="http://www.fanziqi.site/"/>
-  <updated>2022-02-07T09:01:10.972Z</updated>
+  <updated>2022-02-07T12:47:59.646Z</updated>
   <id>http://www.fanziqi.site/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Gitbook</title>
+    <link href="http://www.fanziqi.site/posts/d5c8f039.html"/>
+    <id>http://www.fanziqi.site/posts/d5c8f039.html</id>
+    <published>2022-02-07T12:47:00.000Z</published>
+    <updated>2022-02-07T12:47:59.646Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Gitbook"><a href="#Gitbook" class="headerlink" title="Gitbook"></a>Gitbook</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="安装gitbook"><a href="#安装gitbook" class="headerlink" title="安装gitbook"></a>安装gitbook</h3><p>gitbook基于Node.js，所以要先安装Node.js，<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fnodejs.org%2Fen%2F">官网</a>。</p><p>安装好node后，安装gitbook</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//全局安装</span><br><span class="line">npm install -g gitbook-cli</span><br><span class="line">//当前目录下安装</span><br><span class="line">npm install gitbook-cli</span><br></pre></td></tr></table></figure><h3 id="检查版本"><a href="#检查版本" class="headerlink" title="检查版本"></a>检查版本</h3><p>安装好之后执行<code>gitbook -V</code>检查版本，不出意外应该会报错：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CLI version: 2.3.2</span><br><span class="line">Installing GitBook 3.2.3</span><br><span class="line">/xxx/nodejs/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287</span><br><span class="line">      <span class="keyword">if</span> (cb) cb.apply(this, arguments)</span><br><span class="line">                 ^</span><br><span class="line"></span><br><span class="line">TypeError: cb.apply is not a <span class="keyword">function</span></span><br><span class="line">    at /data/soft/nodejs/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287:18</span><br><span class="line">    at FSReqCallback.oncomplete (fs.js:169:5)</span><br></pre></td></tr></table></figure><p>此时需要进入上面给出的目录，找到polyfills.js，将62-64注释掉</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fs.stat = statFix(fs.stat)</span></span><br><span class="line"><span class="comment">//fs.fstat = statFix(fs.fstat)</span></span><br><span class="line"><span class="comment">//fs.lstat = statFix(fs.lstat)</span></span><br></pre></td></tr></table></figure><p>此时运行<code>gitbook -V</code>不会报错。</p><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>新建一个工程目录，在目录下执行<code>gitbook init</code>，应该又报错了。这是因为node的版本太高了，需要对node进行降级。这里我推荐使用nvm来管理nodeJs的版本。因为我还有使用高版本node的需求，而且降级也挺麻烦的。nvm的<a href="https://github.com/coreybutler/nvm-windows/releases">下载地址</a>，选择nvm-setup.zip，安装时第二个路径要选择nodejs的安装路径。</p><p>查看安装的nodejs版本</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm list</span><br></pre></td></tr></table></figure><p>安装低版本nodejs，这个版本经测试可用</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install v12.22.3</span><br></pre></td></tr></table></figure><p>等待安装完，切换版本</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm use v12.22.3</span><br></pre></td></tr></table></figure><p>回到工程根目录再次初始化</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook init</span><br></pre></td></tr></table></figure><p>初始化成功，创建了<code>README.md</code>（书籍的介绍）和<code>SUMMARY.md</code>（书籍的目录结构）</p><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>这里拿自动目录插件举例，在工程根目录下创建一个<code>book.json</code>，写入：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;plugins&quot;</span>: [<span class="string">&quot;summary&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在根目录下执行<code>gitbook install ./</code>即可安装插件。启动服务后这个插件会自动生成目录。下文会讲解如何生成目录。</p><h2 id="加入文章"><a href="#加入文章" class="headerlink" title="加入文章"></a>加入文章</h2><p>在根目录下创建文件夹，以数字和短横线开头：<code>0-Example</code>，同样<code>0-Example</code>下也可以创建子文件夹。每一个文件夹相当于一个目录，子文件夹就是多级目录。</p><p>每一个子文件夹下要有一个命名为<code>0-README.md</code>的文件，用于放置这个目录的简介，其他md文件也要以数字和短横线开头：<code>1-TestPage.md</code></p><h2 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h2><p>加入好文章之后，启动本地服务，前文安装的summary插件会自动生成层级目录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook serve</span><br></pre></td></tr></table></figure><p>然后在浏览器中打开<a href="http://localhost:4000/，检验你的成果！">http://localhost:4000/，检验你的成果！</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="小技能" scheme="http://www.fanziqi.site/categories/%E5%B0%8F%E6%8A%80%E8%83%BD/"/>
+    
+    
+    <category term="Gitbook" scheme="http://www.fanziqi.site/tags/Gitbook/"/>
+    
+  </entry>
   
   <entry>
     <title>深入学习C++——21~23静态</title>
@@ -473,30 +497,6 @@
     <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
     
     <category term="Ubuntu" scheme="http://www.fanziqi.site/tags/Ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ROS机器人学习——TF坐标变换</title>
-    <link href="http://www.fanziqi.site/posts/5b37128a.html"/>
-    <id>http://www.fanziqi.site/posts/5b37128a.html</id>
-    <published>2021-09-04T08:00:00.000Z</published>
-    <updated>2021-09-07T06:42:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="ROS机器人学习——TF坐标变换"><a href="#ROS机器人学习——TF坐标变换" class="headerlink" title="ROS机器人学习——TF坐标变换"></a>ROS机器人学习——TF坐标变换</h1><h2 id="什么是TF"><a href="#什么是TF" class="headerlink" title="什么是TF"></a>什么是TF</h2><p><a href="http://wiki.ros.org/tf">tf-wiki</a></p><blockquote><p>tf is a package that lets the user keep track of multiple coordinate frames over time. tf maintains the relationship between coordinate frames in a tree structure buffered in time, and lets the user transform points, vectors, etc between any two coordinate frames at any desired point in time.</p></blockquote><p>将多个坐标系联系起来,使用tf树定义不同坐标系之间的平移与旋转变换关系，并且持续追踪多个坐标系内的变化情况。</p><h2 id="为什么需要坐标变换"><a href="#为什么需要坐标变换" class="headerlink" title="为什么需要坐标变换?"></a>为什么需要坐标变换?</h2><p>在ROS中定义了许多坐标系，有机器人坐标系(base_link)，有雷达坐标系(base_laser)，地图坐标系(map)，里程计坐标系(odom)等。以机器人中心为原点的坐标系，称为base_link坐标系，以激光雷达中心为原点的坐标系，称为base_laser坐标系。以下图机器人与激光雷达为例</p><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros-tf-1.png" alt="ros-tf-1"></p><p>机器人在运行过程中，激光雷达可以采集到周围障碍物的数据，这些数据是以激光雷达为原点(base_laser参考系)下的测量值。如果我们想使用这些数据帮助机器人完成避障功能，由于激光雷达并不在机器人的中心(base_link)之上，会始终存在一个雷达与机器人中心的偏差值。这个时候，如果我们采用一种坐标变换，将激光数据从base_laser参考系变换到base_link参考下，问题就解决了。所以我们需要定义这两个坐标系之间的变换关系,也就是<strong>TF坐标变换</strong></p><h2 id="TF变换实例"><a href="#TF变换实例" class="headerlink" title="TF变换实例"></a>TF变换实例</h2><p>在 <a href="https://www.fanziqi.site/posts/b6e9d4e.html">麦克纳姆轮运动学解算</a> 一文中,我提到了ROS的坐标系统与单位制,这里不再累述,请读者自行阅读</p><p>以机器人四轮与地面的接触面为X-Y平面，四轮轴心连线的点做垂线，与x-y平面的交点为base_link坐标系原点，车头朝向方向为X轴，正左方向为Y轴，向上为Z轴。如图所示:</p><p><strong>TODO:添加图片</strong></p><p>以思岚激光雷达为例，我们一般在安装时都习惯将雷达不带线的一端朝车头方向，雷达USB端的朝车尾方向,如图所示:</p><p><strong>TODO:添加图片</strong></p><p>雷达正中心为坐标原点，USB端的方向为X轴正方向，正左方向为Y轴，向上为Z轴。</p><p>测量雷达中心相对机器人坐标原点(0,0,0)的距离，得到雷达在机器人坐标系中(x:0.1,y:0.0,z:0.2)。前面我们提到，思岚雷达的X轴正方向与机器人的X轴正方向为相反方向，雷达坐标系需要绕Z轴顺时针旋转180度才能与机器人base_link坐标系重合 ，旋转(yaw:3.14,roll:0,pitch:0)。</p><p>根据这些数据，当我们获取激光数据后，采用(x: 0.1m, y: 0.0m, z: 0.2m, yaw:3.14, roll:0, pitch:0)的坐标变换，就可以将数据从base_laser参考系变换到base_link参考系，这就定义出了两个参考系之间的变换关系。</p><p>为了定义和存储base_link和base_laser两个参考系之间的关系，我们需要将他们添加到tf树中。从树的概念上来讲，tf树中的每个节点都对应一个参考系，而节点之间的边对应于参考系之间的变换关系。tf就是使用这样的树结构，保证每两个参考系之间只有一种遍历方式，而且所有变换关系，都是母节点到子节点的变换。</p><p>为了定义参考系，我们需要定义两个节点，一个对应于base_link参考系，一个对应于base_laser参考系。为了创建两个节点之间的边，我们首先需要决定哪一个节点作为母节点，哪一个节点作为子节点，这一点在tf树中是非常重要的。这里我们选择base_link作为母节点，这样会方便后边为机器人添加更多的传感器作为子节点.</p><h2 id="发布TF变换"><a href="#发布TF变换" class="headerlink" title="发布TF变换"></a>发布TF变换</h2><p>我们最常使用的是tf包中的static_transform_publisher，它即可在命令行直接运行，也可写在launch文件中配置坐标转换关系。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;node pkg=<span class="string">&quot;tf&quot;</span> type=<span class="string">&quot;static_transform_publisher&quot;</span> name=<span class="string">&quot;base_link_to_laser&quot;</span> args=<span class="string">&quot;0.065 0.0 0.245 1.57 0.0 0.0 /base_link /lidar 50&quot;</span> /&gt;</span><br></pre></td></tr></table></figure><ul><li>pkg：包名，tf</li><li>type：类型，static_transform_publisher</li><li>name：名称，自定，便于理解</li><li>arg：tf参数， x y z yaw pitch roll frame_id child_frame_id period_in_ms<ul><li>x y z 分别代表着相应轴的平移，单位是 米。</li><li>yaw pitch roll 分别代表着绕z y x 三个轴的转动，单位是 弧度。</li><li>frame_id 为坐标系变换中的父坐标系， child_frame_id为坐标系变换中的子坐标系。(传感器的frame_id的名称根据厂商或有不同，一般在驱动启动launch可查看，思岚激光雷达的frame_id为/lidar)</li><li>period_in_ms 为发布频率，单位为 毫秒。通常取100。一毫秒为一秒的千分之一，100毫秒即为0.1秒，也就是10Hz。</li></ul></li></ul><h2 id="TF常用工具"><a href="#TF常用工具" class="headerlink" title="TF常用工具"></a>TF常用工具</h2><ul><li><p>tf_monitor 打印tf树中所有参考系信息</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf_monitor &lt;source_frame&gt; &lt;target_frame&gt;</span><br></pre></td></tr></table></figure></li><li><p>tf_echo 查看指定作消息之间的变换关系</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf_echo &lt;source_frame&gt; &lt;target_frame&gt;</span><br></pre></td></tr></table></figure></li><li><p>static_transform_publisher 发布两个参考系之间的的静态坐标关系</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static_transform_publisher x y z yaw pitch roll frame id child frame id period</span><br></pre></td></tr></table></figure></li><li><p>view_frame 可视化的调试工具,可以生成pdf文件显示tf树信息</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun tf view_frames</span><br></pre></td></tr></table></figure></li></ul><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://blog.csdn.net/autolabor/article/details/86492895">https://blog.csdn.net/autolabor/article/details/86492895</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="ROS机器人学习" scheme="http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-    <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
     
   </entry>
   
