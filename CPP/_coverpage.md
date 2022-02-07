@@ -1,4 +1,4 @@
-<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/CPP-Cover-1.png" alt="logo" style="zoom:15%;" />
+<img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/CPP-Cover-1.png" alt="logo" style="zoom:10%;" />
 
 # 深入学习C++
 
@@ -12,4 +12,4 @@
 
 [GitHub](https://github.com/fan-ziqi)
 [Blog](https://www.fanziqi.site/)
-[Get Started](/C++/)
+[开始阅读](/C++/)
