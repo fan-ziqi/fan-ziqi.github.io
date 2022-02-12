@@ -3,11 +3,11 @@
   <title>范子琦的博客</title>
   
   
-  <link href="http://www.fanziqi.site/atom.xml" rel="self"/>
+  <link href="http://www.robotsfan.com/atom.xml" rel="self"/>
   
-  <link href="http://www.fanziqi.site/"/>
+  <link href="http://www.robotsfan.com/"/>
   <updated>2022-02-07T12:48:48.561Z</updated>
-  <id>http://www.fanziqi.site/</id>
+  <id>http://www.robotsfan.com/</id>
   
   <author>
     <name>Fan Ziqi</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Gitbook</title>
-    <link href="http://www.fanziqi.site/posts/d5c8f039.html"/>
-    <id>http://www.fanziqi.site/posts/d5c8f039.html</id>
+    <link href="http://www.robotsfan.com/posts/d5c8f039.html"/>
+    <id>http://www.robotsfan.com/posts/d5c8f039.html</id>
     <published>2022-02-07T12:47:00.000Z</published>
     <updated>2022-02-07T12:48:48.561Z</updated>
     
@@ -33,17 +33,17 @@
     
     
     
-    <category term="小技能" scheme="http://www.fanziqi.site/categories/%E5%B0%8F%E6%8A%80%E8%83%BD/"/>
+    <category term="小技能" scheme="http://www.robotsfan.com/categories/%E5%B0%8F%E6%8A%80%E8%83%BD/"/>
     
     
-    <category term="Gitbook" scheme="http://www.fanziqi.site/tags/Gitbook/"/>
+    <category term="Gitbook" scheme="http://www.robotsfan.com/tags/Gitbook/"/>
     
   </entry>
   
   <entry>
     <title>深入学习C++——21~23静态</title>
-    <link href="http://www.fanziqi.site/posts/fd77a296.html"/>
-    <id>http://www.fanziqi.site/posts/fd77a296.html</id>
+    <link href="http://www.robotsfan.com/posts/fd77a296.html"/>
+    <id>http://www.robotsfan.com/posts/fd77a296.html</id>
     <published>2022-02-07T08:45:00.000Z</published>
     <updated>2022-02-07T09:01:10.972Z</updated>
     
@@ -57,17 +57,17 @@
     
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/categories/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/categories/C/"/>
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/tags/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>深入学习C++——18~20类</title>
-    <link href="http://www.fanziqi.site/posts/cc7823d2.html"/>
-    <id>http://www.fanziqi.site/posts/cc7823d2.html</id>
+    <link href="http://www.robotsfan.com/posts/cc7823d2.html"/>
+    <id>http://www.robotsfan.com/posts/cc7823d2.html</id>
     <published>2022-02-06T14:05:00.000Z</published>
     <updated>2022-02-07T08:49:29.606Z</updated>
     
@@ -81,17 +81,17 @@
     
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/categories/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/categories/C/"/>
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/tags/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>深入学习C++——17引用</title>
-    <link href="http://www.fanziqi.site/posts/55bfc346.html"/>
-    <id>http://www.fanziqi.site/posts/55bfc346.html</id>
+    <link href="http://www.robotsfan.com/posts/55bfc346.html"/>
+    <id>http://www.robotsfan.com/posts/55bfc346.html</id>
     <published>2022-02-06T08:30:00.000Z</published>
     <updated>2022-02-06T08:30:37.961Z</updated>
     
@@ -105,17 +105,17 @@
     
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/categories/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/categories/C/"/>
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/tags/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>深入学习C++——44智能指针</title>
-    <link href="http://www.fanziqi.site/posts/b0f9a474.html"/>
-    <id>http://www.fanziqi.site/posts/b0f9a474.html</id>
+    <link href="http://www.robotsfan.com/posts/b0f9a474.html"/>
+    <id>http://www.robotsfan.com/posts/b0f9a474.html</id>
     <published>2022-02-06T04:17:00.000Z</published>
     <updated>2022-02-06T04:45:10.198Z</updated>
     
@@ -129,17 +129,17 @@
     
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/categories/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/categories/C/"/>
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/tags/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>深入学习C++——16指针</title>
-    <link href="http://www.fanziqi.site/posts/49c7378a.html"/>
-    <id>http://www.fanziqi.site/posts/49c7378a.html</id>
+    <link href="http://www.robotsfan.com/posts/49c7378a.html"/>
+    <id>http://www.robotsfan.com/posts/49c7378a.html</id>
     <published>2022-02-05T15:42:00.000Z</published>
     <updated>2022-02-06T04:18:46.936Z</updated>
     
@@ -153,17 +153,17 @@
     
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/categories/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/categories/C/"/>
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/tags/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>boost库使用串口</title>
-    <link href="http://www.fanziqi.site/posts/e4966ae8.html"/>
-    <id>http://www.fanziqi.site/posts/e4966ae8.html</id>
+    <link href="http://www.robotsfan.com/posts/e4966ae8.html"/>
+    <id>http://www.robotsfan.com/posts/e4966ae8.html</id>
     <published>2022-02-04T10:40:00.000Z</published>
     <updated>2022-02-04T10:38:10.068Z</updated>
     
@@ -177,17 +177,17 @@
     
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/categories/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/categories/C/"/>
     
     
-    <category term="C++" scheme="http://www.fanziqi.site/tags/C/"/>
+    <category term="C++" scheme="http://www.robotsfan.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>Git操作</title>
-    <link href="http://www.fanziqi.site/posts/c4c88997.html"/>
-    <id>http://www.fanziqi.site/posts/c4c88997.html</id>
+    <link href="http://www.robotsfan.com/posts/c4c88997.html"/>
+    <id>http://www.robotsfan.com/posts/c4c88997.html</id>
     <published>2022-02-03T16:24:00.000Z</published>
     <updated>2022-02-03T16:24:44.932Z</updated>
     
@@ -201,17 +201,17 @@
     
     
     
-    <category term="技能" scheme="http://www.fanziqi.site/categories/%E6%8A%80%E8%83%BD/"/>
+    <category term="技能" scheme="http://www.robotsfan.com/categories/%E6%8A%80%E8%83%BD/"/>
     
     
-    <category term="Git" scheme="http://www.fanziqi.site/tags/Git/"/>
+    <category term="Git" scheme="http://www.robotsfan.com/tags/Git/"/>
     
   </entry>
   
   <entry>
     <title>树莓派压缩备份</title>
-    <link href="http://www.fanziqi.site/posts/f438cf8d.html"/>
-    <id>http://www.fanziqi.site/posts/f438cf8d.html</id>
+    <link href="http://www.robotsfan.com/posts/f438cf8d.html"/>
+    <id>http://www.robotsfan.com/posts/f438cf8d.html</id>
     <published>2022-02-01T01:15:00.000Z</published>
     <updated>2022-02-01T04:08:31.908Z</updated>
     
@@ -225,17 +225,17 @@
     
     
     
-    <category term="ROS" scheme="http://www.fanziqi.site/categories/ROS/"/>
+    <category term="ROS" scheme="http://www.robotsfan.com/categories/ROS/"/>
     
     
-    <category term="树莓派" scheme="http://www.fanziqi.site/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    <category term="树莓派" scheme="http://www.robotsfan.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
     
   </entry>
   
   <entry>
     <title>树莓派4b安装Ubuntu20.04桌面版并安装ROS1-Noetic和ROS2-Foxy</title>
-    <link href="http://www.fanziqi.site/posts/e9a394b1.html"/>
-    <id>http://www.fanziqi.site/posts/e9a394b1.html</id>
+    <link href="http://www.robotsfan.com/posts/e9a394b1.html"/>
+    <id>http://www.robotsfan.com/posts/e9a394b1.html</id>
     <published>2022-01-16T11:40:00.000Z</published>
     <updated>2022-01-16T11:43:44.283Z</updated>
     
@@ -249,17 +249,17 @@
     
     
     
-    <category term="ROS机器人学习" scheme="http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
+    <category term="ROS机器人学习" scheme="http://www.robotsfan.com/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
+    <category term="ROS" scheme="http://www.robotsfan.com/tags/ROS/"/>
     
   </entry>
   
   <entry>
     <title>STM32CubeMX重定向printf输出至串口</title>
-    <link href="http://www.fanziqi.site/posts/f00798b9.html"/>
-    <id>http://www.fanziqi.site/posts/f00798b9.html</id>
+    <link href="http://www.robotsfan.com/posts/f00798b9.html"/>
+    <id>http://www.robotsfan.com/posts/f00798b9.html</id>
     <published>2022-01-13T08:40:00.000Z</published>
     <updated>2022-01-13T08:57:24.828Z</updated>
     
@@ -273,17 +273,17 @@
     
     
     
-    <category term="STM32" scheme="http://www.fanziqi.site/categories/STM32/"/>
+    <category term="STM32" scheme="http://www.robotsfan.com/categories/STM32/"/>
     
     
-    <category term="STM32" scheme="http://www.fanziqi.site/tags/STM32/"/>
+    <category term="STM32" scheme="http://www.robotsfan.com/tags/STM32/"/>
     
   </entry>
   
   <entry>
     <title>CubeMX配置SPI-Flash(W25Q256)</title>
-    <link href="http://www.fanziqi.site/posts/7b613e40.html"/>
-    <id>http://www.fanziqi.site/posts/7b613e40.html</id>
+    <link href="http://www.robotsfan.com/posts/7b613e40.html"/>
+    <id>http://www.robotsfan.com/posts/7b613e40.html</id>
     <published>2022-01-13T08:30:00.000Z</published>
     <updated>2022-01-13T08:57:24.827Z</updated>
     
@@ -297,17 +297,17 @@
     
     
     
-    <category term="STM32" scheme="http://www.fanziqi.site/categories/STM32/"/>
+    <category term="STM32" scheme="http://www.robotsfan.com/categories/STM32/"/>
     
     
-    <category term="STM32" scheme="http://www.fanziqi.site/tags/STM32/"/>
+    <category term="STM32" scheme="http://www.robotsfan.com/tags/STM32/"/>
     
   </entry>
   
   <entry>
     <title>RT-Thread配置SPI-Flash(W25Q256)</title>
-    <link href="http://www.fanziqi.site/posts/358fc8e8.html"/>
-    <id>http://www.fanziqi.site/posts/358fc8e8.html</id>
+    <link href="http://www.robotsfan.com/posts/358fc8e8.html"/>
+    <id>http://www.robotsfan.com/posts/358fc8e8.html</id>
     <published>2021-12-20T06:30:00.000Z</published>
     <updated>2022-01-13T08:57:24.829Z</updated>
     
@@ -321,17 +321,17 @@
     
     
     
-    <category term="STM32" scheme="http://www.fanziqi.site/categories/STM32/"/>
+    <category term="STM32" scheme="http://www.robotsfan.com/categories/STM32/"/>
     
     
-    <category term="STM32" scheme="http://www.fanziqi.site/tags/STM32/"/>
+    <category term="STM32" scheme="http://www.robotsfan.com/tags/STM32/"/>
     
   </entry>
   
   <entry>
     <title>范子琦第二次作业</title>
-    <link href="http://www.fanziqi.site/posts/337c96c3.html"/>
-    <id>http://www.fanziqi.site/posts/337c96c3.html</id>
+    <link href="http://www.robotsfan.com/posts/337c96c3.html"/>
+    <id>http://www.robotsfan.com/posts/337c96c3.html</id>
     <published>2021-10-14T14:00:00.000Z</published>
     <updated>2021-11-14T14:18:57.000Z</updated>
     
@@ -345,17 +345,17 @@
     
     
     
-    <category term="ROS机器人学习" scheme="http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
+    <category term="ROS机器人学习" scheme="http://www.robotsfan.com/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
+    <category term="ROS" scheme="http://www.robotsfan.com/tags/ROS/"/>
     
   </entry>
   
   <entry>
     <title>Hexo部署至云服务器的宝塔面板</title>
-    <link href="http://www.fanziqi.site/posts/6b69667c.html"/>
-    <id>http://www.fanziqi.site/posts/6b69667c.html</id>
+    <link href="http://www.robotsfan.com/posts/6b69667c.html"/>
+    <id>http://www.robotsfan.com/posts/6b69667c.html</id>
     <published>2021-10-04T10:40:00.000Z</published>
     <updated>2021-10-04T10:53:15.000Z</updated>
     
@@ -369,19 +369,19 @@
     
     
     
-    <category term="技能" scheme="http://www.fanziqi.site/categories/%E6%8A%80%E8%83%BD/"/>
+    <category term="技能" scheme="http://www.robotsfan.com/categories/%E6%8A%80%E8%83%BD/"/>
     
     
-    <category term="Git" scheme="http://www.fanziqi.site/tags/Git/"/>
+    <category term="Git" scheme="http://www.robotsfan.com/tags/Git/"/>
     
-    <category term="hexo" scheme="http://www.fanziqi.site/tags/hexo/"/>
+    <category term="hexo" scheme="http://www.robotsfan.com/tags/hexo/"/>
     
   </entry>
   
   <entry>
     <title>ROS2——参数的使用</title>
-    <link href="http://www.fanziqi.site/posts/7219ca14.html"/>
-    <id>http://www.fanziqi.site/posts/7219ca14.html</id>
+    <link href="http://www.robotsfan.com/posts/7219ca14.html"/>
+    <id>http://www.robotsfan.com/posts/7219ca14.html</id>
     <published>2021-10-04T09:30:00.000Z</published>
     <updated>2021-10-04T09:34:17.000Z</updated>
     
@@ -395,17 +395,17 @@
     
     
     
-    <category term="ROS机器人学习" scheme="http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
+    <category term="ROS机器人学习" scheme="http://www.robotsfan.com/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
+    <category term="ROS" scheme="http://www.robotsfan.com/tags/ROS/"/>
     
   </entry>
   
   <entry>
     <title>ROS2——手把手编写一个服务</title>
-    <link href="http://www.fanziqi.site/posts/fa9bc3ba.html"/>
-    <id>http://www.fanziqi.site/posts/fa9bc3ba.html</id>
+    <link href="http://www.robotsfan.com/posts/fa9bc3ba.html"/>
+    <id>http://www.robotsfan.com/posts/fa9bc3ba.html</id>
     <published>2021-10-03T07:00:00.000Z</published>
     <updated>2021-10-03T07:00:03.000Z</updated>
     
@@ -419,17 +419,17 @@
     
     
     
-    <category term="ROS机器人学习" scheme="http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
+    <category term="ROS机器人学习" scheme="http://www.robotsfan.com/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
+    <category term="ROS" scheme="http://www.robotsfan.com/tags/ROS/"/>
     
   </entry>
   
   <entry>
     <title>ROS2——什么是接口</title>
-    <link href="http://www.fanziqi.site/posts/333442d9.html"/>
-    <id>http://www.fanziqi.site/posts/333442d9.html</id>
+    <link href="http://www.robotsfan.com/posts/333442d9.html"/>
+    <id>http://www.robotsfan.com/posts/333442d9.html</id>
     <published>2021-10-02T05:00:00.000Z</published>
     <updated>2021-10-02T13:01:23.000Z</updated>
     
@@ -443,17 +443,17 @@
     
     
     
-    <category term="ROS机器人学习" scheme="http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
+    <category term="ROS机器人学习" scheme="http://www.robotsfan.com/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
+    <category term="ROS" scheme="http://www.robotsfan.com/tags/ROS/"/>
     
   </entry>
   
   <entry>
     <title>ROS2——手把手编写一个话题</title>
-    <link href="http://www.fanziqi.site/posts/7d4be8c5.html"/>
-    <id>http://www.fanziqi.site/posts/7d4be8c5.html</id>
+    <link href="http://www.robotsfan.com/posts/7d4be8c5.html"/>
+    <id>http://www.robotsfan.com/posts/7d4be8c5.html</id>
     <published>2021-10-01T14:00:00.000Z</published>
     <updated>2021-10-01T14:40:59.000Z</updated>
     
@@ -467,17 +467,17 @@
     
     
     
-    <category term="ROS机器人学习" scheme="http://www.fanziqi.site/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
+    <category term="ROS机器人学习" scheme="http://www.robotsfan.com/categories/ROS%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
+    <category term="ROS" scheme="http://www.robotsfan.com/tags/ROS/"/>
     
   </entry>
   
   <entry>
     <title>固定Ubuntu下的端口号</title>
-    <link href="http://www.fanziqi.site/posts/408ef5ae.html"/>
-    <id>http://www.fanziqi.site/posts/408ef5ae.html</id>
+    <link href="http://www.robotsfan.com/posts/408ef5ae.html"/>
+    <id>http://www.robotsfan.com/posts/408ef5ae.html</id>
     <published>2021-09-07T08:00:00.000Z</published>
     <updated>2021-09-07T06:41:35.000Z</updated>
     
@@ -491,12 +491,12 @@
     
     
     
-    <category term="技能" scheme="http://www.fanziqi.site/categories/%E6%8A%80%E8%83%BD/"/>
+    <category term="技能" scheme="http://www.robotsfan.com/categories/%E6%8A%80%E8%83%BD/"/>
     
     
-    <category term="ROS" scheme="http://www.fanziqi.site/tags/ROS/"/>
+    <category term="ROS" scheme="http://www.robotsfan.com/tags/ROS/"/>
     
-    <category term="Ubuntu" scheme="http://www.fanziqi.site/tags/Ubuntu/"/>
+    <category term="Ubuntu" scheme="http://www.robotsfan.com/tags/Ubuntu/"/>
     
   </entry>
   
