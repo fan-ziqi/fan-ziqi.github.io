@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Chrome多设备书签同步方案</title>
+    <url>/posts/a53da602.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Chrome多设备书签同步方案"><a href="#Chrome多设备书签同步方案" class="headerlink" title="Chrome多设备书签同步方案"></a>Chrome多设备书签同步方案</h1><p>众所周知因为某些原因Chrome无法与它的服务器正常通讯,这就影响到了我们书签的同步,这里介绍一个插件,将书签同步到GitHub或GItee上.</p>
+<p>项目地址: ↓ </p>
+<p><a href="https://github.com/CLDeveloping/chrome-bookmark">Github项目</a> | <a href="https://gitee.com/CLCoding/chrome-bookmark">Gitee项目</a></p>
+<ul>
+<li>将项目整个下载下来,解压缩,在浏览器地址栏输入：<code>chrome://extensions/</code>，进入扩展程序管理界面</li>
+<li>点击【加载已解压的扩展程序】-&gt; 选择项目根目录，导入源码文件夹</li>
+<li>这里只介绍GitHub操作.进入自己的GitHub创建一个私有项目,随便命名</li>
+<li>获取Github项目<a href="https://github.com/settings/tokens">私有访问Token</a>（如何获取：Github -&gt; Settings -&gt; Developer settings -&gt; Personal access tokens -&gt; Generate new token）选择repo,时间选无限,将生成的token拷贝下来,这个只会出现一次,最好拿小本本记下来</li>
+<li>点击书签工具配置,将仓库地址和token填入,选择保存配置</li>
+<li>重新点击书签图标工具，就可以选择上传或者下载书签了</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>Chrome</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Altium Designer导出Gerber文件的一般步骤</title>
     <url>/posts/a1423033.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Altium-Designer导出Gerber文件的一般步骤"><a href="#Altium-Designer导出Gerber文件的一般步骤" class="headerlink" title="Altium Designer导出Gerber文件的一般步骤"></a>Altium Designer导出Gerber文件的一般步骤</h1><p>PCB画完之后，需要生成Gerber文件提交给PCB工厂进行生产，本文将介绍生成Gerber的一般步骤</p>
@@ -59,25 +81,146 @@
       </tags>
   </entry>
   <entry>
-    <title>Chrome多设备书签同步方案</title>
-    <url>/posts/a53da602.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Chrome多设备书签同步方案"><a href="#Chrome多设备书签同步方案" class="headerlink" title="Chrome多设备书签同步方案"></a>Chrome多设备书签同步方案</h1><p>众所周知因为某些原因Chrome无法与它的服务器正常通讯,这就影响到了我们书签的同步,这里介绍一个插件,将书签同步到GitHub或GItee上.</p>
-<p>项目地址: ↓ </p>
-<p><a href="https://github.com/CLDeveloping/chrome-bookmark">Github项目</a> | <a href="https://gitee.com/CLCoding/chrome-bookmark">Gitee项目</a></p>
+    <title>CubeMX配置SPI-Flash(W25Q256)</title>
+    <url>/posts/7b613e40.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="CubeMX配置SPI-Flash-W25Q256"><a href="#CubeMX配置SPI-Flash-W25Q256" class="headerlink" title="CubeMX配置SPI-Flash(W25Q256)"></a>CubeMX配置SPI-Flash(W25Q256)</h1><p>W25Q256（256Mb）将32M（字节byte）的容量分为512个块（block），每个块大小为64K字节，每个块又分为16个扇区（sector）,每个扇区4K字节。最小擦除单位为一个扇区，也就是4K字节。</p>
+<p>首先应该配置SPI,但是这里有个大坑.</p>
+<p>按照标准的SPI协议，当SPI被配置为主机模式后，通过SPI对从设备进行操作时，其NSS应该自动置低，从而选中（使能）从设备；一旦不对从设备进行操作，NSS立刻置为高。</p>
+<p>但是，我在实际调试过程中发现：STM32 SPI NSS无法自动实现跳变。 一旦SPI初始化完成并使能SPI，NSS立刻置低，然后保持不变。</p>
+<p>这个问题一直无法解决，直到我在ST官方论坛上看到国外有些技术人员也在讨论这个问题，他们得出的结论是：STM32 SPI NSS无法自动跳变。</p>
+<p>ST官方技术人员也证实：STM32 SPI NSS是不会自动置位和复位的。按照官方说法，ST已经将其列入了改进计划。</p>
+<p>对于这个问题，可以采用下面的方法解决：</p>
+<p>在SPI初始化时，采用NSS soft模式，然后使能NSS输出功能。从而将NSS当做GPIO使用，通过软件set和reset来实现NSS的置位和复位。</p>
+<p>具体在CubeMX中应将FLASH的NSS当成GPIO Output配置而不是SPI NSS.配置如图所示:</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220113160700854.png" alt="image-20220113160700854"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220113160802730.png" alt="image-20220113160802730"></p>
+<p>因为需要在flash中存入浮点数,所以需要类型转换,这里使用union联合体实现:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">float</span> union_float;</span><br><span class="line">    <span class="keyword">uint8_t</span> union_int8[<span class="number">4</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>测试代码:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">test</span> <span class="title">Test_write</span>,<span class="title">Test_read</span>;</span></span><br><span class="line">Test_write.union_float=<span class="number">1.23</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读flash的id</span></span><br><span class="line">BSP_W25Q256_Read_ID(id);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;ID = 0x%02X%02X\r\n&quot;</span>, id[<span class="number">0</span>], id[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试flash的擦读写</span></span><br><span class="line">BSP_W25Q256_Erase_Block(<span class="number">0</span>);</span><br><span class="line">BSP_W25Q256_Write(Test_write.union_int8, <span class="number">0</span>, <span class="keyword">sizeof</span>(Test_write.union_int8));</span><br><span class="line">BSP_W25Q256_Read(Test_read.union_int8, <span class="number">0</span>, <span class="keyword">sizeof</span>(Test_read.union_int8));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Ready to write:  float: %f, trans to uint8: 0x%x 0x%x 0x%x 0x%x\r\n&quot;</span>, </span><br><span class="line">       Test_write.union_float, </span><br><span class="line">       Test_write.union_int8[<span class="number">0</span>],</span><br><span class="line">       Test_write.union_int8[<span class="number">1</span>], </span><br><span class="line">       Test_write.union_int8[<span class="number">2</span>],</span><br><span class="line">       Test_write.union_int8[<span class="number">3</span>]);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Read from Flash: uint8: 0x%x 0x%x 0x%x 0x%x, trans to float: %f\r\n&quot;</span>, </span><br><span class="line">       Test_read.union_int8[<span class="number">0</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">1</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">2</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">3</span>],</span><br><span class="line">       Test_read.union_float);</span><br></pre></td></tr></table></figure>
+<p>参考:</p>
+<p>关于STM32 SPI NSS的讨论 <a href="https://blog.csdn.net/chseangs/article/details/4520733">https://blog.csdn.net/chseangs/article/details/4520733</a></p>
+<p>SPI problem with hardware NSS management <a href="https://community.st.com/s/question/0D50X00009XkbvdSAB/spi-problem-with-hardware-nss-management">https://community.st.com/s/question/0D50X00009XkbvdSAB/spi-problem-with-hardware-nss-management</a></p>
+<p>STM32CbueMX之W25Q256 <a href="https://blog.csdn.net/sudaroot/article/details/93158309">https://blog.csdn.net/sudaroot/article/details/93158309</a></p>
+]]></content>
+      <categories>
+        <category>STM32</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gitbook</title>
+    <url>/posts/d5c8f039.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Gitbook"><a href="#Gitbook" class="headerlink" title="Gitbook"></a>Gitbook</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="安装gitbook"><a href="#安装gitbook" class="headerlink" title="安装gitbook"></a>安装gitbook</h3><p>gitbook基于Node.js，所以要先安装Node.js，<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fnodejs.org%2Fen%2F">官网</a>。</p>
+<p>安装好node后，安装gitbook</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//全局安装</span><br><span class="line">npm install -g gitbook-cli</span><br><span class="line">//当前目录下安装</span><br><span class="line">npm install gitbook-cli</span><br></pre></td></tr></table></figure>
+<h3 id="检查版本"><a href="#检查版本" class="headerlink" title="检查版本"></a>检查版本</h3><p>安装好之后执行<code>gitbook -V</code>检查版本，不出意外应该会报错：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">CLI version: 2.3.2</span><br><span class="line">Installing GitBook 3.2.3</span><br><span class="line">/xxx/nodejs/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287</span><br><span class="line">      <span class="keyword">if</span> (cb) cb.apply(this, arguments)</span><br><span class="line">                 ^</span><br><span class="line"></span><br><span class="line">TypeError: cb.apply is not a <span class="keyword">function</span></span><br><span class="line">    at /data/soft/nodejs/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287:18</span><br><span class="line">    at FSReqCallback.oncomplete (fs.js:169:5)</span><br></pre></td></tr></table></figure>
+<p>此时需要进入上面给出的目录，找到polyfills.js，将62-64注释掉</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//fs.stat = statFix(fs.stat)</span></span><br><span class="line"><span class="comment">//fs.fstat = statFix(fs.fstat)</span></span><br><span class="line"><span class="comment">//fs.lstat = statFix(fs.lstat)</span></span><br></pre></td></tr></table></figure>
+<p>此时运行<code>gitbook -V</code>不会报错。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>新建一个工程目录，在目录下执行<code>gitbook init</code>，应该又报错了。这是因为node的版本太高了，需要对node进行降级。这里我推荐使用nvm来管理nodeJs的版本。因为我还有使用高版本node的需求，而且降级也挺麻烦的。nvm的<a href="https://github.com/coreybutler/nvm-windows/releases">下载地址</a>，选择nvm-setup.zip，安装时第二个路径要选择nodejs的安装路径。</p>
+<p>查看安装的nodejs版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvm list</span><br></pre></td></tr></table></figure>
+<p>安装低版本nodejs，这个版本经测试可用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvm install v12.22.3</span><br></pre></td></tr></table></figure>
+<p>等待安装完，切换版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvm use v12.22.3</span><br></pre></td></tr></table></figure>
+<p>回到工程根目录再次初始化</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook init</span><br></pre></td></tr></table></figure>
+<p>初始化成功，创建了<code>README.md</code>（书籍的介绍）和<code>SUMMARY.md</code>（书籍的目录结构）</p>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>这里拿自动目录插件举例，在工程根目录下创建一个<code>book.json</code>，写入：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;plugins&quot;</span>: [<span class="string">&quot;summary&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在根目录下执行<code>gitbook install ./</code>即可安装插件。启动服务后这个插件会自动生成目录。下文会讲解如何生成目录。</p>
+<h2 id="加入文章"><a href="#加入文章" class="headerlink" title="加入文章"></a>加入文章</h2><p>在根目录下创建文件夹，以数字和短横线开头：<code>0-Example</code>，同样<code>0-Example</code>下也可以创建子文件夹。每一个文件夹相当于一个目录，子文件夹就是多级目录。</p>
+<p>每一个子文件夹下要有一个命名为<code>0-README.md</code>的文件，用于放置这个目录的简介，其他md文件也要以数字和短横线开头：<code>1-TestPage.md</code></p>
+<h2 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h2><p>加入好文章之后，启动本地服务，前文安装的summary插件会自动生成层级目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook serve</span><br></pre></td></tr></table></figure>
+<p>然后在浏览器中打开<a href="http://localhost:4000/，检验你的成果！">http://localhost:4000/，检验你的成果！</a></p>
+]]></content>
+      <categories>
+        <category>小技能</category>
+      </categories>
+      <tags>
+        <tag>Gitbook</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git操作</title>
+    <url>/posts/c4c88997.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Git操作"><a href="#Git操作" class="headerlink" title="Git操作"></a>Git操作</h1><ul>
+<li><p>安装</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看版本</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成密钥</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看公钥</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GIthub -&gt; Settings -&gt; SSH and GPG keys -&gt; New SSH key</p>
+</li>
+<li><p>检查本地是否能远程访问github服务器，出现You’ve successfully authenticated，说明认证通过。</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置自己的名称和电子邮件地址</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;YOURNAME&quot;</span><br><span class="line">git config --global user.email &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看设置</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新项目</p>
 <ul>
-<li>将项目整个下载下来,解压缩,在浏览器地址栏输入：<code>chrome://extensions/</code>，进入扩展程序管理界面</li>
-<li>点击【加载已解压的扩展程序】-&gt; 选择项目根目录，导入源码文件夹</li>
-<li>这里只介绍GitHub操作.进入自己的GitHub创建一个私有项目,随便命名</li>
-<li>获取Github项目<a href="https://github.com/settings/tokens">私有访问Token</a>（如何获取：Github -&gt; Settings -&gt; Developer settings -&gt; Personal access tokens -&gt; Generate new token）选择repo,时间选无限,将生成的token拷贝下来,这个只会出现一次,最好拿小本本记下来</li>
-<li>点击书签工具配置,将仓库地址和token填入,选择保存配置</li>
-<li>重新点击书签图标工具，就可以选择上传或者下载书签了</li>
+<li><p>建立新的repository</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/new</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建目录</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git checkout -b main //切换本地分支为main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add . //添加文件</span><br><span class="line">git commit -am &quot;first commit&quot; //-m指定本次提交的描述信息 </span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置set-upstream</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/main main</span><br><span class="line">git push //之后push用这个</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+</li>
+<li><p>已有项目</p>
+<ul>
+<li><p>clone下来</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:fan-ziqi/My_ROS_Robot.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git checkout -b main //切换本地分支为main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pull下来</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置set-upstream</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/main main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .   // .代表添加所有文件  </span><br><span class="line">git commit -am &quot;对文件操作的简易描述&quot;  </span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>出现错误<code>error: failed to push some refs to &#39;https://github.com/xxx/xxx.git&#39;</code></p>
+<p>出现错误的原因是github中的某些文件不在本地代码目录中。</p>
+<p>也就是说我们需要先将远程代码库中的任何文件先pull到本地代码库中，才能push新的代码到github代码库中。</p>
+<p>使用如下命令：git pull —rebase origin main</p>
+<p>然后再进行上传: git push -u origin main</p>
 ]]></content>
       <categories>
         <category>技能</category>
       </categories>
       <tags>
-        <tag>Chrome</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -171,112 +314,6 @@
       <tags>
         <tag>Git</tag>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CubeMX配置SPI-Flash(W25Q256)</title>
-    <url>/posts/7b613e40.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="CubeMX配置SPI-Flash-W25Q256"><a href="#CubeMX配置SPI-Flash-W25Q256" class="headerlink" title="CubeMX配置SPI-Flash(W25Q256)"></a>CubeMX配置SPI-Flash(W25Q256)</h1><p>W25Q256（256Mb）将32M（字节byte）的容量分为512个块（block），每个块大小为64K字节，每个块又分为16个扇区（sector）,每个扇区4K字节。最小擦除单位为一个扇区，也就是4K字节。</p>
-<p>首先应该配置SPI,但是这里有个大坑.</p>
-<p>按照标准的SPI协议，当SPI被配置为主机模式后，通过SPI对从设备进行操作时，其NSS应该自动置低，从而选中（使能）从设备；一旦不对从设备进行操作，NSS立刻置为高。</p>
-<p>但是，我在实际调试过程中发现：STM32 SPI NSS无法自动实现跳变。 一旦SPI初始化完成并使能SPI，NSS立刻置低，然后保持不变。</p>
-<p>这个问题一直无法解决，直到我在ST官方论坛上看到国外有些技术人员也在讨论这个问题，他们得出的结论是：STM32 SPI NSS无法自动跳变。</p>
-<p>ST官方技术人员也证实：STM32 SPI NSS是不会自动置位和复位的。按照官方说法，ST已经将其列入了改进计划。</p>
-<p>对于这个问题，可以采用下面的方法解决：</p>
-<p>在SPI初始化时，采用NSS soft模式，然后使能NSS输出功能。从而将NSS当做GPIO使用，通过软件set和reset来实现NSS的置位和复位。</p>
-<p>具体在CubeMX中应将FLASH的NSS当成GPIO Output配置而不是SPI NSS.配置如图所示:</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220113160700854.png" alt="image-20220113160700854"></p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220113160802730.png" alt="image-20220113160802730"></p>
-<p>因为需要在flash中存入浮点数,所以需要类型转换,这里使用union联合体实现:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">float</span> union_float;</span><br><span class="line">    <span class="keyword">uint8_t</span> union_int8[<span class="number">4</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>测试代码:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">test</span> <span class="title">Test_write</span>,<span class="title">Test_read</span>;</span></span><br><span class="line">Test_write.union_float=<span class="number">1.23</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读flash的id</span></span><br><span class="line">BSP_W25Q256_Read_ID(id);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;ID = 0x%02X%02X\r\n&quot;</span>, id[<span class="number">0</span>], id[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试flash的擦读写</span></span><br><span class="line">BSP_W25Q256_Erase_Block(<span class="number">0</span>);</span><br><span class="line">BSP_W25Q256_Write(Test_write.union_int8, <span class="number">0</span>, <span class="keyword">sizeof</span>(Test_write.union_int8));</span><br><span class="line">BSP_W25Q256_Read(Test_read.union_int8, <span class="number">0</span>, <span class="keyword">sizeof</span>(Test_read.union_int8));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Ready to write:  float: %f, trans to uint8: 0x%x 0x%x 0x%x 0x%x\r\n&quot;</span>, </span><br><span class="line">       Test_write.union_float, </span><br><span class="line">       Test_write.union_int8[<span class="number">0</span>],</span><br><span class="line">       Test_write.union_int8[<span class="number">1</span>], </span><br><span class="line">       Test_write.union_int8[<span class="number">2</span>],</span><br><span class="line">       Test_write.union_int8[<span class="number">3</span>]);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Read from Flash: uint8: 0x%x 0x%x 0x%x 0x%x, trans to float: %f\r\n&quot;</span>, </span><br><span class="line">       Test_read.union_int8[<span class="number">0</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">1</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">2</span>],</span><br><span class="line">       Test_read.union_int8[<span class="number">3</span>],</span><br><span class="line">       Test_read.union_float);</span><br></pre></td></tr></table></figure>
-<p>参考:</p>
-<p>关于STM32 SPI NSS的讨论 <a href="https://blog.csdn.net/chseangs/article/details/4520733">https://blog.csdn.net/chseangs/article/details/4520733</a></p>
-<p>SPI problem with hardware NSS management <a href="https://community.st.com/s/question/0D50X00009XkbvdSAB/spi-problem-with-hardware-nss-management">https://community.st.com/s/question/0D50X00009XkbvdSAB/spi-problem-with-hardware-nss-management</a></p>
-<p>STM32CbueMX之W25Q256 <a href="https://blog.csdn.net/sudaroot/article/details/93158309">https://blog.csdn.net/sudaroot/article/details/93158309</a></p>
-]]></content>
-      <categories>
-        <category>STM32</category>
-      </categories>
-      <tags>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git操作</title>
-    <url>/posts/c4c88997.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Git操作"><a href="#Git操作" class="headerlink" title="Git操作"></a>Git操作</h1><ul>
-<li><p>安装</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看版本</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成密钥</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看公钥</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>GIthub -&gt; Settings -&gt; SSH and GPG keys -&gt; New SSH key</p>
-</li>
-<li><p>检查本地是否能远程访问github服务器，出现You’ve successfully authenticated，说明认证通过。</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置自己的名称和电子邮件地址</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;YOURNAME&quot;</span><br><span class="line">git config --global user.email &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看设置</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新项目</p>
-<ul>
-<li><p>建立新的repository</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/new</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建目录</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git checkout -b main //切换本地分支为main</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>提交</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add . //添加文件</span><br><span class="line">git commit -am &quot;first commit&quot; //-m指定本次提交的描述信息 </span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置set-upstream</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/main main</span><br><span class="line">git push //之后push用这个</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>已有项目</p>
-<ul>
-<li><p>clone下来</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:fan-ziqi/My_ROS_Robot.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git checkout -b main //切换本地分支为main</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>pull下来</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin main</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置set-upstream</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/main main</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>提交</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .   // .代表添加所有文件  </span><br><span class="line">git commit -am &quot;对文件操作的简易描述&quot;  </span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<p>出现错误<code>error: failed to push some refs to &#39;https://github.com/xxx/xxx.git&#39;</code></p>
-<p>出现错误的原因是github中的某些文件不在本地代码目录中。</p>
-<p>也就是说我们需要先将远程代码库中的任何文件先pull到本地代码库中，才能push新的代码到github代码库中。</p>
-<p>使用如下命令：git pull —rebase origin main</p>
-<p>然后再进行上传: git push -u origin main</p>
-]]></content>
-      <categories>
-        <category>技能</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -647,64 +684,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ROS机器人学习——TF坐标变换</title>
-    <url>/posts/5b37128a.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="ROS机器人学习——TF坐标变换"><a href="#ROS机器人学习——TF坐标变换" class="headerlink" title="ROS机器人学习——TF坐标变换"></a>ROS机器人学习——TF坐标变换</h1><h2 id="什么是TF"><a href="#什么是TF" class="headerlink" title="什么是TF"></a>什么是TF</h2><p><a href="http://wiki.ros.org/tf">tf-wiki</a></p>
-<blockquote>
-<p>tf is a package that lets the user keep track of multiple coordinate frames over time. tf maintains the relationship between coordinate frames in a tree structure buffered in time, and lets the user transform points, vectors, etc between any two coordinate frames at any desired point in time.</p>
-</blockquote>
-<p>将多个坐标系联系起来,使用tf树定义不同坐标系之间的平移与旋转变换关系，并且持续追踪多个坐标系内的变化情况。</p>
-<h2 id="为什么需要坐标变换"><a href="#为什么需要坐标变换" class="headerlink" title="为什么需要坐标变换?"></a>为什么需要坐标变换?</h2><p>在ROS中定义了许多坐标系，有机器人坐标系(base_link)，有雷达坐标系(base_laser)，地图坐标系(map)，里程计坐标系(odom)等。以机器人中心为原点的坐标系，称为base_link坐标系，以激光雷达中心为原点的坐标系，称为base_laser坐标系。以下图机器人与激光雷达为例</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros-tf-1.png" alt="ros-tf-1"></p>
-<p>机器人在运行过程中，激光雷达可以采集到周围障碍物的数据，这些数据是以激光雷达为原点(base_laser参考系)下的测量值。如果我们想使用这些数据帮助机器人完成避障功能，由于激光雷达并不在机器人的中心(base_link)之上，会始终存在一个雷达与机器人中心的偏差值。这个时候，如果我们采用一种坐标变换，将激光数据从base_laser参考系变换到base_link参考下，问题就解决了。所以我们需要定义这两个坐标系之间的变换关系,也就是<strong>TF坐标变换</strong></p>
-<h2 id="TF变换实例"><a href="#TF变换实例" class="headerlink" title="TF变换实例"></a>TF变换实例</h2><p>在 <a href="https://www.fanziqi.site/posts/b6e9d4e.html">麦克纳姆轮运动学解算</a> 一文中,我提到了ROS的坐标系统与单位制,这里不再累述,请读者自行阅读</p>
-<p>以机器人四轮与地面的接触面为X-Y平面，四轮轴心连线的点做垂线，与x-y平面的交点为base_link坐标系原点，车头朝向方向为X轴，正左方向为Y轴，向上为Z轴。如图所示:</p>
-<p><strong>TODO:添加图片</strong></p>
-<p>以思岚激光雷达为例，我们一般在安装时都习惯将雷达不带线的一端朝车头方向，雷达USB端的朝车尾方向,如图所示:</p>
-<p><strong>TODO:添加图片</strong></p>
-<p>雷达正中心为坐标原点，USB端的方向为X轴正方向，正左方向为Y轴，向上为Z轴。</p>
-<p>测量雷达中心相对机器人坐标原点(0,0,0)的距离，得到雷达在机器人坐标系中(x:0.1,y:0.0,z:0.2)。前面我们提到，思岚雷达的X轴正方向与机器人的X轴正方向为相反方向，雷达坐标系需要绕Z轴顺时针旋转180度才能与机器人base_link坐标系重合 ，旋转(yaw:3.14,roll:0,pitch:0)。</p>
-<p>根据这些数据，当我们获取激光数据后，采用(x: 0.1m, y: 0.0m, z: 0.2m, yaw:3.14, roll:0, pitch:0)的坐标变换，就可以将数据从base_laser参考系变换到base_link参考系，这就定义出了两个参考系之间的变换关系。</p>
-<p>为了定义和存储base_link和base_laser两个参考系之间的关系，我们需要将他们添加到tf树中。从树的概念上来讲，tf树中的每个节点都对应一个参考系，而节点之间的边对应于参考系之间的变换关系。tf就是使用这样的树结构，保证每两个参考系之间只有一种遍历方式，而且所有变换关系，都是母节点到子节点的变换。</p>
-<p>为了定义参考系，我们需要定义两个节点，一个对应于base_link参考系，一个对应于base_laser参考系。为了创建两个节点之间的边，我们首先需要决定哪一个节点作为母节点，哪一个节点作为子节点，这一点在tf树中是非常重要的。这里我们选择base_link作为母节点，这样会方便后边为机器人添加更多的传感器作为子节点.</p>
-<h2 id="发布TF变换"><a href="#发布TF变换" class="headerlink" title="发布TF变换"></a>发布TF变换</h2><p>我们最常使用的是tf包中的static_transform_publisher，它即可在命令行直接运行，也可写在launch文件中配置坐标转换关系。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&lt;node pkg=<span class="string">&quot;tf&quot;</span> type=<span class="string">&quot;static_transform_publisher&quot;</span> name=<span class="string">&quot;base_link_to_laser&quot;</span> args=<span class="string">&quot;0.065 0.0 0.245 1.57 0.0 0.0 /base_link /lidar 50&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>pkg：包名，tf</li>
-<li>type：类型，static_transform_publisher</li>
-<li>name：名称，自定，便于理解</li>
-<li>arg：tf参数， x y z yaw pitch roll frame_id child_frame_id period_in_ms<ul>
-<li>x y z 分别代表着相应轴的平移，单位是 米。</li>
-<li>yaw pitch roll 分别代表着绕z y x 三个轴的转动，单位是 弧度。</li>
-<li>frame_id 为坐标系变换中的父坐标系， child_frame_id为坐标系变换中的子坐标系。(传感器的frame_id的名称根据厂商或有不同，一般在驱动启动launch可查看，思岚激光雷达的frame_id为/lidar)</li>
-<li>period_in_ms 为发布频率，单位为 毫秒。通常取100。一毫秒为一秒的千分之一，100毫秒即为0.1秒，也就是10Hz。</li>
-</ul>
-</li>
-</ul>
-<h2 id="TF常用工具"><a href="#TF常用工具" class="headerlink" title="TF常用工具"></a>TF常用工具</h2><ul>
-<li><p>tf_monitor 打印tf树中所有参考系信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tf_monitor &lt;source_frame&gt; &lt;target_frame&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>tf_echo 查看指定作消息之间的变换关系</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tf_echo &lt;source_frame&gt; &lt;target_frame&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>static_transform_publisher 发布两个参考系之间的的静态坐标关系</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">static_transform_publisher x y z yaw pitch roll frame id child frame id period</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>view_frame 可视化的调试工具,可以生成pdf文件显示tf树信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rosrun tf view_frames</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://blog.csdn.net/autolabor/article/details/86492895">https://blog.csdn.net/autolabor/article/details/86492895</a></p>
-]]></content>
-      <categories>
-        <category>ROS机器人学习</category>
-      </categories>
-      <tags>
-        <tag>ROS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ROS机器人学习——ROS基础</title>
     <url>/posts/eb3a5cff.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="ROS机器人学习——ROS基础"><a href="#ROS机器人学习——ROS基础" class="headerlink" title="ROS机器人学习——ROS基础"></a>ROS机器人学习——ROS基础</h1><h2 id="ROS系统结构"><a href="#ROS系统结构" class="headerlink" title="ROS系统结构"></a>ROS系统结构</h2><ol>
@@ -984,6 +963,64 @@
       </tags>
   </entry>
   <entry>
+    <title>ROS机器人学习——TF坐标变换</title>
+    <url>/posts/5b37128a.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="ROS机器人学习——TF坐标变换"><a href="#ROS机器人学习——TF坐标变换" class="headerlink" title="ROS机器人学习——TF坐标变换"></a>ROS机器人学习——TF坐标变换</h1><h2 id="什么是TF"><a href="#什么是TF" class="headerlink" title="什么是TF"></a>什么是TF</h2><p><a href="http://wiki.ros.org/tf">tf-wiki</a></p>
+<blockquote>
+<p>tf is a package that lets the user keep track of multiple coordinate frames over time. tf maintains the relationship between coordinate frames in a tree structure buffered in time, and lets the user transform points, vectors, etc between any two coordinate frames at any desired point in time.</p>
+</blockquote>
+<p>将多个坐标系联系起来,使用tf树定义不同坐标系之间的平移与旋转变换关系，并且持续追踪多个坐标系内的变化情况。</p>
+<h2 id="为什么需要坐标变换"><a href="#为什么需要坐标变换" class="headerlink" title="为什么需要坐标变换?"></a>为什么需要坐标变换?</h2><p>在ROS中定义了许多坐标系，有机器人坐标系(base_link)，有雷达坐标系(base_laser)，地图坐标系(map)，里程计坐标系(odom)等。以机器人中心为原点的坐标系，称为base_link坐标系，以激光雷达中心为原点的坐标系，称为base_laser坐标系。以下图机器人与激光雷达为例</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros-tf-1.png" alt="ros-tf-1"></p>
+<p>机器人在运行过程中，激光雷达可以采集到周围障碍物的数据，这些数据是以激光雷达为原点(base_laser参考系)下的测量值。如果我们想使用这些数据帮助机器人完成避障功能，由于激光雷达并不在机器人的中心(base_link)之上，会始终存在一个雷达与机器人中心的偏差值。这个时候，如果我们采用一种坐标变换，将激光数据从base_laser参考系变换到base_link参考下，问题就解决了。所以我们需要定义这两个坐标系之间的变换关系,也就是<strong>TF坐标变换</strong></p>
+<h2 id="TF变换实例"><a href="#TF变换实例" class="headerlink" title="TF变换实例"></a>TF变换实例</h2><p>在 <a href="https://www.fanziqi.site/posts/b6e9d4e.html">麦克纳姆轮运动学解算</a> 一文中,我提到了ROS的坐标系统与单位制,这里不再累述,请读者自行阅读</p>
+<p>以机器人四轮与地面的接触面为X-Y平面，四轮轴心连线的点做垂线，与x-y平面的交点为base_link坐标系原点，车头朝向方向为X轴，正左方向为Y轴，向上为Z轴。如图所示:</p>
+<p><strong>TODO:添加图片</strong></p>
+<p>以思岚激光雷达为例，我们一般在安装时都习惯将雷达不带线的一端朝车头方向，雷达USB端的朝车尾方向,如图所示:</p>
+<p><strong>TODO:添加图片</strong></p>
+<p>雷达正中心为坐标原点，USB端的方向为X轴正方向，正左方向为Y轴，向上为Z轴。</p>
+<p>测量雷达中心相对机器人坐标原点(0,0,0)的距离，得到雷达在机器人坐标系中(x:0.1,y:0.0,z:0.2)。前面我们提到，思岚雷达的X轴正方向与机器人的X轴正方向为相反方向，雷达坐标系需要绕Z轴顺时针旋转180度才能与机器人base_link坐标系重合 ，旋转(yaw:3.14,roll:0,pitch:0)。</p>
+<p>根据这些数据，当我们获取激光数据后，采用(x: 0.1m, y: 0.0m, z: 0.2m, yaw:3.14, roll:0, pitch:0)的坐标变换，就可以将数据从base_laser参考系变换到base_link参考系，这就定义出了两个参考系之间的变换关系。</p>
+<p>为了定义和存储base_link和base_laser两个参考系之间的关系，我们需要将他们添加到tf树中。从树的概念上来讲，tf树中的每个节点都对应一个参考系，而节点之间的边对应于参考系之间的变换关系。tf就是使用这样的树结构，保证每两个参考系之间只有一种遍历方式，而且所有变换关系，都是母节点到子节点的变换。</p>
+<p>为了定义参考系，我们需要定义两个节点，一个对应于base_link参考系，一个对应于base_laser参考系。为了创建两个节点之间的边，我们首先需要决定哪一个节点作为母节点，哪一个节点作为子节点，这一点在tf树中是非常重要的。这里我们选择base_link作为母节点，这样会方便后边为机器人添加更多的传感器作为子节点.</p>
+<h2 id="发布TF变换"><a href="#发布TF变换" class="headerlink" title="发布TF变换"></a>发布TF变换</h2><p>我们最常使用的是tf包中的static_transform_publisher，它即可在命令行直接运行，也可写在launch文件中配置坐标转换关系。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&lt;node pkg=<span class="string">&quot;tf&quot;</span> type=<span class="string">&quot;static_transform_publisher&quot;</span> name=<span class="string">&quot;base_link_to_laser&quot;</span> args=<span class="string">&quot;0.065 0.0 0.245 1.57 0.0 0.0 /base_link /lidar 50&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>pkg：包名，tf</li>
+<li>type：类型，static_transform_publisher</li>
+<li>name：名称，自定，便于理解</li>
+<li>arg：tf参数， x y z yaw pitch roll frame_id child_frame_id period_in_ms<ul>
+<li>x y z 分别代表着相应轴的平移，单位是 米。</li>
+<li>yaw pitch roll 分别代表着绕z y x 三个轴的转动，单位是 弧度。</li>
+<li>frame_id 为坐标系变换中的父坐标系， child_frame_id为坐标系变换中的子坐标系。(传感器的frame_id的名称根据厂商或有不同，一般在驱动启动launch可查看，思岚激光雷达的frame_id为/lidar)</li>
+<li>period_in_ms 为发布频率，单位为 毫秒。通常取100。一毫秒为一秒的千分之一，100毫秒即为0.1秒，也就是10Hz。</li>
+</ul>
+</li>
+</ul>
+<h2 id="TF常用工具"><a href="#TF常用工具" class="headerlink" title="TF常用工具"></a>TF常用工具</h2><ul>
+<li><p>tf_monitor 打印tf树中所有参考系信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tf_monitor &lt;source_frame&gt; &lt;target_frame&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>tf_echo 查看指定作消息之间的变换关系</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tf_echo &lt;source_frame&gt; &lt;target_frame&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>static_transform_publisher 发布两个参考系之间的的静态坐标关系</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">static_transform_publisher x y z yaw pitch roll frame id child frame id period</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>view_frame 可视化的调试工具,可以生成pdf文件显示tf树信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rosrun tf view_frames</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://blog.csdn.net/autolabor/article/details/86492895">https://blog.csdn.net/autolabor/article/details/86492895</a></p>
+]]></content>
+      <categories>
+        <category>ROS机器人学习</category>
+      </categories>
+      <tags>
+        <tag>ROS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RT-Thread配置SPI-Flash(W25Q256)</title>
     <url>/posts/358fc8e8.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="RT-Thread配置SPI-Flash-W25Q256"><a href="#RT-Thread配置SPI-Flash-W25Q256" class="headerlink" title="RT-Thread配置SPI-Flash(W25Q256)"></a>RT-Thread配置SPI-Flash(W25Q256)</h1><h3 id="1-开启SPI总线"><a href="#1-开启SPI总线" class="headerlink" title="1.开启SPI总线"></a>1.开启SPI总线</h3><p>新建一个空白的RT-Thread项目，本文基于STM32F103芯片。<br>首先在drivers目录下打开board.h文件，找到SPI对应部分。根据指导，一步一步做下去。</p>
@@ -1049,6 +1086,175 @@
       </categories>
       <tags>
         <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Typora快捷键</title>
+    <url>/posts/5e339248.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Typora快捷键"><a href="#Typora快捷键" class="headerlink" title="Typora快捷键"></a>Typora快捷键</h1><ol>
+<li>最大标题：command + 1 或者：#</li>
+<li>大标题：command + 2 或者：##</li>
+<li>标准标题：command + 3 或者：###</li>
+<li>中标题：command + 4 或者：####</li>
+<li>小标题：command + 5 或者：#####</li>
+<li>插入表格：command + T</li>
+<li>插入代码：command + alt +c</li>
+<li>行间公式 command + Alt + b</li>
+<li>段落：command + 0</li>
+<li>竖线 ： command + Alt +q</li>
+<li>有序列表（1. 2.） ：输入数字+“.”之后输入空格 或者：command + Alt + o</li>
+<li>黑点标记：command + Alt + u</li>
+<li>隔离线shift + command + -</li>
+<li>超链接：command + Alt + l</li>
+<li>插入链接：command +k</li>
+<li>下划线：command +u</li>
+<li>加粗：command +b</li>
+<li>搜索：command +f</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>快捷键</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>boost库使用串口</title>
+    <url>/posts/e4966ae8.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="boost库使用串口"><a href="#boost库使用串口" class="headerlink" title="boost库使用串口"></a>boost库使用串口</h1><h2 id="一、使用普通指针"><a href="#一、使用普通指针" class="headerlink" title="一、使用普通指针"></a>一、使用普通指针</h2><h3 id="1-头文件声明"><a href="#1-头文件声明" class="headerlink" title="1. 头文件声明"></a>1. 头文件声明</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">boost::system::error_code error_code_;</span><br><span class="line">boost::asio::io_service io_service_;</span><br><span class="line">boost::asio::serial_port *serial_port_;</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用new分配内存"><a href="#2-使用new分配内存" class="headerlink" title="2. 使用new分配内存"></a>2. 使用new分配内存</h3><p>创建串口然后使用open开启</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">serial_port_ = <span class="keyword">new</span> boost::asio::<span class="built_in">serial_port</span>(io_service_);</span><br><span class="line">serial_port_-&gt;<span class="built_in">open</span>(port_name_, error_code_);</span><br></pre></td></tr></table></figure>
+<p>或者直接开启</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">serial_port_ = <span class="keyword">new</span> boost::asio::<span class="built_in">serial_port</span>(io_service_, port_name_);</span><br></pre></td></tr></table></figure>
+<h3 id="3-释放内存"><a href="#3-释放内存" class="headerlink" title="3. 释放内存"></a>3. 释放内存</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> serial_port_;</span><br></pre></td></tr></table></figure>
+<h2 id="二、使用共享指针"><a href="#二、使用共享指针" class="headerlink" title="二、使用共享指针"></a>二、使用共享指针</h2><h3 id="1-头文件声明-1"><a href="#1-头文件声明-1" class="headerlink" title="1. 头文件声明"></a>1. 头文件声明</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">boost::system::error_code error_code_;</span><br><span class="line">boost::asio::io_service io_service_;</span><br><span class="line">std::shared_ptr&lt;boost::asio::serial_port&gt; serial_port_;</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用make-shared分配内存"><a href="#2-使用make-shared分配内存" class="headerlink" title="2. 使用make_shared分配内存"></a>2. 使用make_shared分配内存</h3><p>创建串口然后使用open开启</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">serial_port_ = std::make_shared&lt;boost::asio::serial_port&gt;(io_service_);</span><br><span class="line">serial_port_-&gt;<span class="built_in">open</span>(port_name_, error_code_);</span><br></pre></td></tr></table></figure>
+<p>或者直接开启</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">serial_port_ = std::make_shared&lt;boost::asio::serial_port&gt;(io_service_, port_name_);</span><br></pre></td></tr></table></figure>
+<h3 id="3-释放内存-1"><a href="#3-释放内存-1" class="headerlink" title="3. 释放内存"></a>3. 释放内存</h3><p>使用智能指针不需要delete释放内存</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>stm32库函数及缩写</title>
+    <url>/posts/2ed78409.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="缩写定义"><a href="#缩写定义" class="headerlink" title="缩写定义"></a>缩写定义</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">缩写</th>
+<th>外设/单元</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ADC</td>
+<td>模数转换器</td>
+</tr>
+<tr>
+<td style="text-align:left">BKP</td>
+<td>备份寄存器</td>
+</tr>
+<tr>
+<td style="text-align:left">CAN</td>
+<td>控制器局域网模块</td>
+</tr>
+<tr>
+<td style="text-align:left">DMA</td>
+<td>直接内存存取控制器</td>
+</tr>
+<tr>
+<td style="text-align:left">EXTI</td>
+<td>外部中断事件控制器</td>
+</tr>
+<tr>
+<td style="text-align:left">FLASH</td>
+<td>闪存存储器</td>
+</tr>
+<tr>
+<td style="text-align:left">GPIO</td>
+<td>通用输入输出</td>
+</tr>
+<tr>
+<td style="text-align:left">I2C</td>
+<td>内部集成电路</td>
+</tr>
+<tr>
+<td style="text-align:left">IWDG</td>
+<td>独立看门狗</td>
+</tr>
+<tr>
+<td style="text-align:left">NVIC</td>
+<td>嵌套中断向量列表控制器</td>
+</tr>
+<tr>
+<td style="text-align:left">PWR</td>
+<td>电源/功耗控制</td>
+</tr>
+<tr>
+<td style="text-align:left">RCC</td>
+<td>复位与时钟控制器</td>
+</tr>
+<tr>
+<td style="text-align:left">RTC</td>
+<td>实时时钟</td>
+</tr>
+<tr>
+<td style="text-align:left">SPI</td>
+<td>串行外设接口</td>
+</tr>
+<tr>
+<td style="text-align:left">SysTick</td>
+<td>系统嘀嗒定时器</td>
+</tr>
+<tr>
+<td style="text-align:left">TIM</td>
+<td>通用定时器</td>
+</tr>
+<tr>
+<td style="text-align:left">TIM1</td>
+<td>高级控制定时器</td>
+</tr>
+<tr>
+<td style="text-align:left">USART</td>
+<td>通用同步异步接收发射端</td>
+</tr>
+<tr>
+<td style="text-align:left">WWDG</td>
+<td>窗口看门狗</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="固态函数库命名规则"><a href="#固态函数库命名规则" class="headerlink" title="固态函数库命名规则"></a>固态函数库命名规则</h2><p>PPP 表示任一外设缩写，例如：ADC。</p>
+<p>系统、源程序文件和头文件命名都以<strong>“stm32f10x_”</strong>作为开头，例如：<strong>stm32f10x_conf.h</strong>。</p>
+<p>常量仅被应用于一个文件的，定义于该文件中；被应用于多个文件的，在对应头文件中定义。所有常量都由英文字母大写书写。</p>
+<p>寄存器作为常量处理。他们的命名都由英文字母大写书写。在大多数情况下，他们采用与缩写规范与本用户手册一致。</p>
+<p>外设函数的命名以该外设的缩写加下划线为开头。每个单词的第一个字母都由英文字母大写书写，例如：<strong>SPI_SendData**</strong>。** 在函数名中，只允许存在一个下划线，用以分隔外设缩写和函数名的其它部分。</p>
+<p>名为 <strong>PPP_Init</strong> 的函数，其功能是根据 <strong>PPP_InitTypeDef</strong> 中指定的参数，初始化外设 PPP，例如 <strong>TIM_Init</strong>. 文档和库规范</p>
+<p>名为 <strong>PPP_DeInit</strong> 的函数，其功能为复位外设 PPP 的所有寄存器至缺省值，例如 <strong>TIM_DeInit</strong>. </p>
+<p>名为 <strong>PPP_StructInit</strong> 的函数，其功能为通过设置 <strong>PPP_InitTypeDef</strong> 结构中的各种参数来定义外设的功能，例如：<strong>USART_StructInit</strong></p>
+<p>名为 <strong>PPP_Cmd</strong> 的函数，其功能为使能或者失能外设 PPP，例如： <strong>SPI_Cmd</strong>. </p>
+<p>名为 <strong>PPP_ITConfig</strong> 的函数，其功能为使能或者失能来自外设 PPP 某中断源，例如： <strong>RCC_ITConfig</strong>. </p>
+<p>名为 <strong>PPP_DMAConfig</strong> 的函数，其功能为使能或者失能外设 PPP 的 DMA 接口，例如：<strong>TIM1_DMAConfig</strong>. </p>
+<p>用以配置外设功能的函数，总是以字符串“Config”结尾，例如 <strong>GPIO_PinRemapConfig</strong>. </p>
+<p>名为 <strong>PPP_GetFlagStatus</strong> 的函数，其功能为检查外设 PPP 某标志位被设置与否，例如：<strong>I2C_GetFlagStatus</strong>. </p>
+<p>名为 <strong>PPP_ClearFlag</strong> 的函数，其功能为清除外设 PPP 标志位，例如：<strong>I2C_ClearFlag</strong>. </p>
+<p>名为 <strong>PPP_GetITStatus</strong> 的函数，其功能为判断来自外设 PPP 的中断发生与否，例如：<strong>I2C_GetITStatus</strong>. </p>
+<p>名 为 <strong>PPP_ClearITPendingBit</strong> 的函数，其功能为清除外设 PPP 中断待处理标志位，例如：<strong>I2C_ClearITPendingBit</strong>. </p>
+]]></content>
+      <categories>
+        <category>stm32</category>
+      </categories>
+      <tags>
+        <tag>stm32</tag>
       </tags>
   </entry>
   <entry>
@@ -1349,152 +1555,6 @@ NVIC_Init();
       </tags>
   </entry>
   <entry>
-    <title>Typora快捷键</title>
-    <url>/posts/5e339248.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Typora快捷键"><a href="#Typora快捷键" class="headerlink" title="Typora快捷键"></a>Typora快捷键</h1><ol>
-<li>最大标题：command + 1 或者：#</li>
-<li>大标题：command + 2 或者：##</li>
-<li>标准标题：command + 3 或者：###</li>
-<li>中标题：command + 4 或者：####</li>
-<li>小标题：command + 5 或者：#####</li>
-<li>插入表格：command + T</li>
-<li>插入代码：command + alt +c</li>
-<li>行间公式 command + Alt + b</li>
-<li>段落：command + 0</li>
-<li>竖线 ： command + Alt +q</li>
-<li>有序列表（1. 2.） ：输入数字+“.”之后输入空格 或者：command + Alt + o</li>
-<li>黑点标记：command + Alt + u</li>
-<li>隔离线shift + command + -</li>
-<li>超链接：command + Alt + l</li>
-<li>插入链接：command +k</li>
-<li>下划线：command +u</li>
-<li>加粗：command +b</li>
-<li>搜索：command +f</li>
-</ol>
-]]></content>
-      <categories>
-        <category>技能</category>
-      </categories>
-      <tags>
-        <tag>快捷键</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>stm32库函数及缩写</title>
-    <url>/posts/2ed78409.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="缩写定义"><a href="#缩写定义" class="headerlink" title="缩写定义"></a>缩写定义</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">缩写</th>
-<th>外设/单元</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">ADC</td>
-<td>模数转换器</td>
-</tr>
-<tr>
-<td style="text-align:left">BKP</td>
-<td>备份寄存器</td>
-</tr>
-<tr>
-<td style="text-align:left">CAN</td>
-<td>控制器局域网模块</td>
-</tr>
-<tr>
-<td style="text-align:left">DMA</td>
-<td>直接内存存取控制器</td>
-</tr>
-<tr>
-<td style="text-align:left">EXTI</td>
-<td>外部中断事件控制器</td>
-</tr>
-<tr>
-<td style="text-align:left">FLASH</td>
-<td>闪存存储器</td>
-</tr>
-<tr>
-<td style="text-align:left">GPIO</td>
-<td>通用输入输出</td>
-</tr>
-<tr>
-<td style="text-align:left">I2C</td>
-<td>内部集成电路</td>
-</tr>
-<tr>
-<td style="text-align:left">IWDG</td>
-<td>独立看门狗</td>
-</tr>
-<tr>
-<td style="text-align:left">NVIC</td>
-<td>嵌套中断向量列表控制器</td>
-</tr>
-<tr>
-<td style="text-align:left">PWR</td>
-<td>电源/功耗控制</td>
-</tr>
-<tr>
-<td style="text-align:left">RCC</td>
-<td>复位与时钟控制器</td>
-</tr>
-<tr>
-<td style="text-align:left">RTC</td>
-<td>实时时钟</td>
-</tr>
-<tr>
-<td style="text-align:left">SPI</td>
-<td>串行外设接口</td>
-</tr>
-<tr>
-<td style="text-align:left">SysTick</td>
-<td>系统嘀嗒定时器</td>
-</tr>
-<tr>
-<td style="text-align:left">TIM</td>
-<td>通用定时器</td>
-</tr>
-<tr>
-<td style="text-align:left">TIM1</td>
-<td>高级控制定时器</td>
-</tr>
-<tr>
-<td style="text-align:left">USART</td>
-<td>通用同步异步接收发射端</td>
-</tr>
-<tr>
-<td style="text-align:left">WWDG</td>
-<td>窗口看门狗</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="固态函数库命名规则"><a href="#固态函数库命名规则" class="headerlink" title="固态函数库命名规则"></a>固态函数库命名规则</h2><p>PPP 表示任一外设缩写，例如：ADC。</p>
-<p>系统、源程序文件和头文件命名都以<strong>“stm32f10x_”</strong>作为开头，例如：<strong>stm32f10x_conf.h</strong>。</p>
-<p>常量仅被应用于一个文件的，定义于该文件中；被应用于多个文件的，在对应头文件中定义。所有常量都由英文字母大写书写。</p>
-<p>寄存器作为常量处理。他们的命名都由英文字母大写书写。在大多数情况下，他们采用与缩写规范与本用户手册一致。</p>
-<p>外设函数的命名以该外设的缩写加下划线为开头。每个单词的第一个字母都由英文字母大写书写，例如：<strong>SPI_SendData**</strong>。** 在函数名中，只允许存在一个下划线，用以分隔外设缩写和函数名的其它部分。</p>
-<p>名为 <strong>PPP_Init</strong> 的函数，其功能是根据 <strong>PPP_InitTypeDef</strong> 中指定的参数，初始化外设 PPP，例如 <strong>TIM_Init</strong>. 文档和库规范</p>
-<p>名为 <strong>PPP_DeInit</strong> 的函数，其功能为复位外设 PPP 的所有寄存器至缺省值，例如 <strong>TIM_DeInit</strong>. </p>
-<p>名为 <strong>PPP_StructInit</strong> 的函数，其功能为通过设置 <strong>PPP_InitTypeDef</strong> 结构中的各种参数来定义外设的功能，例如：<strong>USART_StructInit</strong></p>
-<p>名为 <strong>PPP_Cmd</strong> 的函数，其功能为使能或者失能外设 PPP，例如： <strong>SPI_Cmd</strong>. </p>
-<p>名为 <strong>PPP_ITConfig</strong> 的函数，其功能为使能或者失能来自外设 PPP 某中断源，例如： <strong>RCC_ITConfig</strong>. </p>
-<p>名为 <strong>PPP_DMAConfig</strong> 的函数，其功能为使能或者失能外设 PPP 的 DMA 接口，例如：<strong>TIM1_DMAConfig</strong>. </p>
-<p>用以配置外设功能的函数，总是以字符串“Config”结尾，例如 <strong>GPIO_PinRemapConfig</strong>. </p>
-<p>名为 <strong>PPP_GetFlagStatus</strong> 的函数，其功能为检查外设 PPP 某标志位被设置与否，例如：<strong>I2C_GetFlagStatus</strong>. </p>
-<p>名为 <strong>PPP_ClearFlag</strong> 的函数，其功能为清除外设 PPP 标志位，例如：<strong>I2C_ClearFlag</strong>. </p>
-<p>名为 <strong>PPP_GetITStatus</strong> 的函数，其功能为判断来自外设 PPP 的中断发生与否，例如：<strong>I2C_GetITStatus</strong>. </p>
-<p>名 为 <strong>PPP_ClearITPendingBit</strong> 的函数，其功能为清除外设 PPP 中断待处理标志位，例如：<strong>I2C_ClearITPendingBit</strong>. </p>
-]]></content>
-      <categories>
-        <category>stm32</category>
-      </categories>
-      <tags>
-        <tag>stm32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>32单片机缩写</title>
     <url>/posts/f382e178.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>IRQ: Interrupt Request 中断请求</p>
@@ -1784,6 +1844,38 @@ NVIC_Init();
       </tags>
   </entry>
   <entry>
+    <title>手把手教你配置哔哔点啥</title>
+    <url>/posts/af935eab.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="手把手教你配置哔哔点啥"><a href="#手把手教你配置哔哔点啥" class="headerlink" title="手把手教你配置哔哔点啥"></a>手把手教你配置哔哔点啥</h1><p>有一些闲言碎语不知道去哪说，所以搭建了一个哔哔点啥页面</p>
+<h1 id="一、服务部署"><a href="#一、服务部署" class="headerlink" title="一、服务部署"></a>一、服务部署</h1><h3 id="1-首先保证成功激活腾讯云开发"><a href="#1-首先保证成功激活腾讯云开发" class="headerlink" title="1. 首先保证成功激活腾讯云开发"></a>1. 首先保证成功激活腾讯云开发</h3><h3 id="2-点击一键部署至云开发"><a href="#2-点击一键部署至云开发" class="headerlink" title="2. 点击一键部署至云开发"></a>2. <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&amp;appUrl=https%3A%2F%2Fgithub.com%2Flmm214%2Fbber&amp;branch=main">点击一键部署至云开发</a></h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-1.png" alt="image-20210807160349972"></p>
+<h3 id="3-进入环境-登录授权，启用“匿名登录”"><a href="#3-进入环境-登录授权，启用“匿名登录”" class="headerlink" title="3. 进入环境-登录授权，启用“匿名登录”"></a>3. 进入<a href="https://console.cloud.tencent.com/tcb/env/login">环境-登录授权</a>，启用“匿名登录”</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-2.png" alt="image-20210807160443690"></p>
+<h3 id="4-进入环境-安全配置，将博客网址添加到“WEB安全域名”"><a href="#4-进入环境-安全配置，将博客网址添加到“WEB安全域名”" class="headerlink" title="4. 进入环境-安全配置，将博客网址添加到“WEB安全域名”"></a>4. 进入<a href="https://console.cloud.tencent.com/tcb/env/safety">环境-安全配置</a>，将博客网址添加到“WEB安全域名”</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-3.png" alt="image-20210807160514198"></p>
+<h3 id="5-进入环境-HTTP访问服务，复制链接备用。"><a href="#5-进入环境-HTTP访问服务，复制链接备用。" class="headerlink" title="5. 进入环境-HTTP访问服务，复制链接备用。"></a>5. 进入<a href="https://console.cloud.tencent.com/tcb/env/access">环境-HTTP访问服务</a>，复制链接备用。</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-4.png" alt="image-20210807160549968"></p>
+<h3 id="6-进入云函数，修改自定义serverkey-bber-并保存备用。"><a href="#6-进入云函数，修改自定义serverkey-bber-并保存备用。" class="headerlink" title="6. 进入云函数，修改自定义serverkey bber 并保存备用。"></a>6. 进入<a href="https://console.cloud.tencent.com/tcb/scf/index">云函数</a>，修改自定义serverkey <code>bber</code> 并保存备用。</h3><p>记录下这个key，后面需要用</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-5.png" alt="image-20210807160730497"></p>
+<h3 id="7-扫码进入公众号，输入命名绑定"><a href="#7-扫码进入公众号，输入命名绑定" class="headerlink" title="7. 扫码进入公众号，输入命名绑定"></a>7. 扫码进入公众号，输入命名绑定</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-0.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/bber 你刚刚设置的key,https://你的云函数HTTP访问地址/bber</span><br><span class="line"></span><br><span class="line">比如: /bber mykey,https://balabala.ap-shanghai.app.tcloudbase.com/bber</span><br></pre></td></tr></table></figure>
+<h3 id="8-手动添加一条哔哔-必须要有"><a href="#8-手动添加一条哔哔-必须要有" class="headerlink" title="8. 手动添加一条哔哔  必须要有"></a>8. 手动添加一条哔哔  <em>必须要有</em></h3><p>进入腾讯云数据库-&gt;talks-&gt;文档列表-&gt;添加文档</p>
+<p>字段: content</p>
+<p>类型: string</p>
+<p>值: 随便</p>
+<p>点击确定</p>
+<h3 id="9-验证微信发送"><a href="#9-验证微信发送" class="headerlink" title="9. 验证微信发送"></a>9. 验证微信发送</h3><p>微信发送一条文字，返回哔哔成功，talks文档列表里多出来一条，即为服务部署成功</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-6.png" alt="image-20210807161419278"></p>
+<h2 id="二、前端部署"><a href="#二、前端部署" class="headerlink" title="二、前端部署"></a>二、前端部署</h2><h3 id="1-新建一个markdown文件"><a href="#1-新建一个markdown文件" class="headerlink" title="1. 新建一个markdown文件"></a>1. 新建一个<em>markdown</em>文件</h3><p>以源代码模式编辑，复制以下内容</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&#x27;speak-bber&#x27;</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">speak</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/ispeak-bber@1.1.1-beta/ispeak-bber.min.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> &gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line">ispeakBber</span><br><span class="line"><span class="code">    .init(&#123;</span></span><br><span class="line"><span class="code">      el: &#x27;#speak-bber&#x27;,</span></span><br><span class="line"><span class="code">      name: &#x27;DreamyTZK 🦄&#x27;, // 显示的昵称</span></span><br><span class="line"><span class="code">      envId: &#x27;腾讯云开发环境id&#x27;, // 环境id</span></span><br><span class="line"><span class="code">      region: &#x27;ap-shanghai&#x27;, // 腾讯云地址，默认为上海</span></span><br><span class="line"><span class="code">      limit: 10, // 每次加载的条数，默认为5</span></span><br><span class="line"><span class="code">      avatar: &#x27;https://cdn.jsdelivr.net/npm/kang-static@latest/avatar.jpg&#x27;,</span></span><br><span class="line"><span class="code">      fromcolor:&#x27;rgb(245, 150, 170)&#x27;</span></span><br><span class="line"><span class="code">    &#125;)</span></span><br><span class="line"><span class="code">    .then(function() &#123;</span></span><br><span class="line"><span class="code">      console.log(&#x27;ispeak 加载完成&#x27;)</span></span><br><span class="line"><span class="code">    &#125;)</span></span><br><span class="line"><span class="code">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>退出源代码模式后应该看不见上面的代码</p>
+<h3 id="2-重新生成hexo静态网站"><a href="#2-重新生成hexo静态网站" class="headerlink" title="2. 重新生成hexo静态网站"></a>2. 重新生成hexo静态网站</h3><p>此处不再赘述</p>
+<h3 id="3-查看哔哔页面"><a href="#3-查看哔哔页面" class="headerlink" title="3.查看哔哔页面"></a>3.查看哔哔页面</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-7.png" alt="image-20210807161821445"></p>
+]]></content>
+      <categories>
+        <category>网站</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>固定Ubuntu下的端口号</title>
     <url>/posts/408ef5ae.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="固定Ubuntu下的端口号"><a href="#固定Ubuntu下的端口号" class="headerlink" title="固定Ubuntu下的端口号"></a>固定Ubuntu下的端口号</h1><p>Ubuntu下ttyUSB0和ttyUSB1经常不固定,序号取决于插入顺序,先插上的序号小</p>
@@ -1818,38 +1910,6 @@ NVIC_Init();
       <tags>
         <tag>ROS</tag>
         <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>手把手教你配置哔哔点啥</title>
-    <url>/posts/af935eab.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="手把手教你配置哔哔点啥"><a href="#手把手教你配置哔哔点啥" class="headerlink" title="手把手教你配置哔哔点啥"></a>手把手教你配置哔哔点啥</h1><p>有一些闲言碎语不知道去哪说，所以搭建了一个哔哔点啥页面</p>
-<h1 id="一、服务部署"><a href="#一、服务部署" class="headerlink" title="一、服务部署"></a>一、服务部署</h1><h3 id="1-首先保证成功激活腾讯云开发"><a href="#1-首先保证成功激活腾讯云开发" class="headerlink" title="1. 首先保证成功激活腾讯云开发"></a>1. 首先保证成功激活腾讯云开发</h3><h3 id="2-点击一键部署至云开发"><a href="#2-点击一键部署至云开发" class="headerlink" title="2. 点击一键部署至云开发"></a>2. <a href="https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&amp;appUrl=https%3A%2F%2Fgithub.com%2Flmm214%2Fbber&amp;branch=main">点击一键部署至云开发</a></h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-1.png" alt="image-20210807160349972"></p>
-<h3 id="3-进入环境-登录授权，启用“匿名登录”"><a href="#3-进入环境-登录授权，启用“匿名登录”" class="headerlink" title="3. 进入环境-登录授权，启用“匿名登录”"></a>3. 进入<a href="https://console.cloud.tencent.com/tcb/env/login">环境-登录授权</a>，启用“匿名登录”</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-2.png" alt="image-20210807160443690"></p>
-<h3 id="4-进入环境-安全配置，将博客网址添加到“WEB安全域名”"><a href="#4-进入环境-安全配置，将博客网址添加到“WEB安全域名”" class="headerlink" title="4. 进入环境-安全配置，将博客网址添加到“WEB安全域名”"></a>4. 进入<a href="https://console.cloud.tencent.com/tcb/env/safety">环境-安全配置</a>，将博客网址添加到“WEB安全域名”</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-3.png" alt="image-20210807160514198"></p>
-<h3 id="5-进入环境-HTTP访问服务，复制链接备用。"><a href="#5-进入环境-HTTP访问服务，复制链接备用。" class="headerlink" title="5. 进入环境-HTTP访问服务，复制链接备用。"></a>5. 进入<a href="https://console.cloud.tencent.com/tcb/env/access">环境-HTTP访问服务</a>，复制链接备用。</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-4.png" alt="image-20210807160549968"></p>
-<h3 id="6-进入云函数，修改自定义serverkey-bber-并保存备用。"><a href="#6-进入云函数，修改自定义serverkey-bber-并保存备用。" class="headerlink" title="6. 进入云函数，修改自定义serverkey bber 并保存备用。"></a>6. 进入<a href="https://console.cloud.tencent.com/tcb/scf/index">云函数</a>，修改自定义serverkey <code>bber</code> 并保存备用。</h3><p>记录下这个key，后面需要用</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-5.png" alt="image-20210807160730497"></p>
-<h3 id="7-扫码进入公众号，输入命名绑定"><a href="#7-扫码进入公众号，输入命名绑定" class="headerlink" title="7. 扫码进入公众号，输入命名绑定"></a>7. 扫码进入公众号，输入命名绑定</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-0.png" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/bber 你刚刚设置的key,https://你的云函数HTTP访问地址/bber</span><br><span class="line"></span><br><span class="line">比如: /bber mykey,https://balabala.ap-shanghai.app.tcloudbase.com/bber</span><br></pre></td></tr></table></figure>
-<h3 id="8-手动添加一条哔哔-必须要有"><a href="#8-手动添加一条哔哔-必须要有" class="headerlink" title="8. 手动添加一条哔哔  必须要有"></a>8. 手动添加一条哔哔  <em>必须要有</em></h3><p>进入腾讯云数据库-&gt;talks-&gt;文档列表-&gt;添加文档</p>
-<p>字段: content</p>
-<p>类型: string</p>
-<p>值: 随便</p>
-<p>点击确定</p>
-<h3 id="9-验证微信发送"><a href="#9-验证微信发送" class="headerlink" title="9. 验证微信发送"></a>9. 验证微信发送</h3><p>微信发送一条文字，返回哔哔成功，talks文档列表里多出来一条，即为服务部署成功</p>
-<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-6.png" alt="image-20210807161419278"></p>
-<h2 id="二、前端部署"><a href="#二、前端部署" class="headerlink" title="二、前端部署"></a>二、前端部署</h2><h3 id="1-新建一个markdown文件"><a href="#1-新建一个markdown文件" class="headerlink" title="1. 新建一个markdown文件"></a>1. 新建一个<em>markdown</em>文件</h3><p>以源代码模式编辑，复制以下内容</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&#x27;speak-bber&#x27;</span>&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">speak</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/ispeak-bber@1.1.1-beta/ispeak-bber.min.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> &gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line">ispeakBber</span><br><span class="line"><span class="code">    .init(&#123;</span></span><br><span class="line"><span class="code">      el: &#x27;#speak-bber&#x27;,</span></span><br><span class="line"><span class="code">      name: &#x27;DreamyTZK 🦄&#x27;, // 显示的昵称</span></span><br><span class="line"><span class="code">      envId: &#x27;腾讯云开发环境id&#x27;, // 环境id</span></span><br><span class="line"><span class="code">      region: &#x27;ap-shanghai&#x27;, // 腾讯云地址，默认为上海</span></span><br><span class="line"><span class="code">      limit: 10, // 每次加载的条数，默认为5</span></span><br><span class="line"><span class="code">      avatar: &#x27;https://cdn.jsdelivr.net/npm/kang-static@latest/avatar.jpg&#x27;,</span></span><br><span class="line"><span class="code">      fromcolor:&#x27;rgb(245, 150, 170)&#x27;</span></span><br><span class="line"><span class="code">    &#125;)</span></span><br><span class="line"><span class="code">    .then(function() &#123;</span></span><br><span class="line"><span class="code">      console.log(&#x27;ispeak 加载完成&#x27;)</span></span><br><span class="line"><span class="code">    &#125;)</span></span><br><span class="line"><span class="code">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>退出源代码模式后应该看不见上面的代码</p>
-<h3 id="2-重新生成hexo静态网站"><a href="#2-重新生成hexo静态网站" class="headerlink" title="2. 重新生成hexo静态网站"></a>2. 重新生成hexo静态网站</h3><p>此处不再赘述</p>
-<h3 id="3-查看哔哔页面"><a href="#3-查看哔哔页面" class="headerlink" title="3.查看哔哔页面"></a>3.查看哔哔页面</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/bibi-7.png" alt="image-20210807161821445"></p>
-]]></content>
-      <categories>
-        <category>网站</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1918,6 +1978,156 @@ NVIC_Init();
       </categories>
       <tags>
         <tag>ROS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入学习C++——16指针</title>
+    <url>/posts/49c7378a.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——16指针"><a href="#深入学习C-——16指针" class="headerlink" title="深入学习C++——16指针"></a>深入学习C++——16指针</h1><p>什么是指针？<strong>指针是一个整数，一种存储内存地址的数字。</strong>指针只是一个数字而已，不要想太多。指针的类型对指针来说是毫无意义的，只能说是这个地址的数据被假设为我们给的类型。指针类型并不会改变指针的实质，指针只是一个内存地址，一个数字而已。 </p>
+<p>首先我们创建一个最纯粹的空指针，我并不关心这个指针的类型，因为我只想保存一个内存地址。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr = <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></figure>
+<p>其中<code>nullptr</code>代表空指针的意思，也可写成NULL。但不可写成0，因为当内存地址为0的时候程序会崩溃。</p>
+<p>每个变量都有一个内存地址，使用引用<code>&amp;</code>运算符（reference）得到这个变量的内存地址。创建一个变量名为var，使用ptr存放var的内存地址：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> var = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">void</span>* ptr = &amp;var;</span><br></pre></td></tr></table></figure>
+<p>如果此时加断点调试，可以看到<code>var</code>的值为<code>8</code>，<code>ptr</code>的值为<code>0xef045ff954</code>，这是一个十六进制的数字，即为var变量的内存地址。我们在内存中转到这个地址，可以看到<code>08 00 00 00</code>，就是<code>var</code>的值<code>8</code>（int占用4个字节）。</p>
+<p>指针的类型对指针无关紧要，将<code>void</code>改为<code>int</code>，再次在内存中转到此地址，效果是完全一样的。指针的类型只在读写时有作用，跟指针本身是完全无关的。<strong>指针只是一个整数</strong>而已。</p>
+<p>如果我们想读写指针指向的数据，需要使用逆向引用<code>*</code>运算符（dereference）。在指针前加上<code>*</code>即可读取这个指针指向的数据。如前例，ptr为var的指针，使用<code>*ptr = 10</code>即可将var的值改为10。但是此时会报错，因为此时指针为void空指针，计算机并不知道这个“10”需要多少字节的数据，自然而然无法将其写入。所以此时需要指定字节数，即将前文改为<code>int* ptr = &amp;var;</code>。记住，类型跟指针毫无关系，类型的目的只是告诉编译器在读写时应该寻找几个字节。此时重新运行程序可以看到var的值被成功修改为10。</p>
+<p>如果需要分配一些空间，可以这么操作：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//new char[8]分配了8个字节的内存，并返回一个指向那块内存开始的指针。</span></span><br><span class="line"><span class="keyword">char</span>* buffer = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">8</span>];</span><br><span class="line"><span class="comment">//使用memset函数用指定的数据填充一个内存块：第一个参数为内存块开始的指针，第二个值为要填充的值，第三个参数为大小。</span></span><br><span class="line"><span class="built_in">memset</span>(buffer, <span class="number">0</span>, <span class="number">8</span>);</span><br></pre></td></tr></table></figure>
+<p>调试程序，转到buffer地址，可以看到<code>00 00 00 00   00 00 00 00</code>。之后需要释放这个内存，使用<code>delete[] buffer;</code></p>
+<p>指针也是一个变量，因此指针也可以指向指针。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>** ptr = &amp;buffer;</span><br></pre></td></tr></table></figure>
+<p>查看内存：buffer的值为<code>0x193a7d41b60</code>。ptr的值为<code>0x843b7ffb30</code>，即为buffer指针存放的地址。跳转进去可以看到<code>60 1b d4 a7   93 01 00 00</code>，这也就是buffer的值。（计算机中存储顺序为倒序）</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派压缩备份</title>
+    <url>/posts/f438cf8d.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="树莓派压缩备份"><a href="#树莓派压缩备份" class="headerlink" title="树莓派压缩备份"></a>树莓派压缩备份</h1><p>配置环境真的太折磨人了，如果使用简单的全盘备份，备份出来的文件和SD卡大小相同，且无法存入相同大小的的卡内。所以本文将介绍一种一键压缩备份的方法</p>
+<h2 id="1-首先-clone-该脚本："><a href="#1-首先-clone-该脚本：" class="headerlink" title="1.首先 clone 该脚本："></a>1.首先 clone 该脚本：</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/nanhantianyi/rpi-backup.git &amp;&amp; <span class="built_in">cd</span> rpi-backup</span><br></pre></td></tr></table></figure>
+<h2 id="2-备份"><a href="#2-备份" class="headerlink" title="2.备份"></a>2.备份</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo bash back.sh 这里换成名字.img</span><br></pre></td></tr></table></figure>
+<h2 id="3-恢复"><a href="#3-恢复" class="headerlink" title="3.恢复"></a>3.恢复</h2><p>使用任意一种镜像烧写工具烧录到另外一张空SD卡中，然后执行扩容脚本扩容root分区</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo bash resize.sh</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>ROS</category>
+      </categories>
+      <tags>
+        <tag>树莓派</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入学习C++——17引用</title>
+    <url>/posts/55bfc346.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——17引用"><a href="#深入学习C-——17引用" class="headerlink" title="深入学习C++——17引用"></a>深入学习C++——17引用</h1><p><strong>引用</strong>是一种引用现有变量的方式。与指针不同，指针可以创建空指针，而引用不行。引用必须引用已存在的变量。引用本身不是一个新变量，它不占用内存，没有自己的存储空间。</p>
+<p>我们创建一个变量，并给这个变量创建一个引用。声明引用时需要指定变量类型：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span>&amp; ref = a;</span><br></pre></td></tr></table></figure>
+<p>这里的ref就是a的别名，它本身不是一个真正的变量，ref变量实际并不存在，它只存在于代码中。</p>
+<p>此时我们可以给ref赋值，然后输出a的值：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ref = <span class="number">2</span>;</span><br><span class="line">std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+<p>运行程序，可以看到a的值变成了2。</p>
+<p>下面来看一个更复杂的例子。我们创建一个变量递增函数，并在main中调用，把a作为参数传递进去，只是通过值传递给它。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	value++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(a);</span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行程序，可以看到a的值仍为5，并没有递增。实际上a传入Increment函数后创建了一个全新的变量value且等于a的值，其作用大致等效于：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> value = <span class="number">5</span>;</span><br><span class="line">	value++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>前面我们讲了指针，自然而然可以想到：我们并不直接把a的值传进函数，而是将a的内存地址传进去，然后在函数内寻找这个内存地址上的数据并对其进行操作即可。所以程序修改为：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span>* value)</span><span class="comment">//传入一个指针</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//value++;//错误。这样只会递增value指针的地址，只是把一个指针递增了而已</span></span><br><span class="line">	<span class="comment">//*value++;//错误。这样写操作顺序为先递增内存地址再逆向引用</span></span><br><span class="line">	(*value)++;<span class="comment">//先逆向引用，再将值自增</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(&amp;a);<span class="comment">//传入变量的内存地址</span></span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时运行程序可以看到a的值被成功修改成了6。</p>
+<p>有没有觉得使用指针的时候<code>*</code>和<code>&amp;</code>满天乱飞，本文讲了引用，那我们就通过另一种更为简洁的方法实现以上功能：我们可以用引用代替指针：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span>&amp; value)</span><span class="comment">//传入一个引用</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	value++;<span class="comment">//这里也不需要逆向引用*了</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(a);<span class="comment">//只需传递a即可</span></span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行程序，a成功地被修改成了6。</p>
+<p>综上，指针比引用更强大，能用引用的地方也一定能用指针，但是能用引用就用引用，这样会使程序更为简洁和干净。</p>
+<p>不过要注意，声明引用的时候也必须给引用赋值，因为它并不是一个真正的变量，不能为空。并且一旦声明了一个引用，不能改变它引用的东西。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">int</span>&amp; ref = a;</span><br><span class="line">ref = b;</span><br><span class="line"><span class="comment">// now a = 8, b = 8</span></span><br></pre></td></tr></table></figure>
+<p>这段程序只是将b的值赋给了a，并没有改变ref引用的东西。如果想要实现这个功能只能使用指针：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">int</span>* ref = &amp;a;</span><br><span class="line">*ref = <span class="number">2</span>;</span><br><span class="line">ref = &amp;b;</span><br><span class="line">*ref = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// now a = 2, b = 1</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入学习C++——18~20类</title>
+    <url>/posts/cc7823d2.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——18-19类"><a href="#深入学习C-——18-19类" class="headerlink" title="深入学习C++——18~19类"></a>深入学习C++——18~19类</h1><h2 id="18-类的基础认识"><a href="#18-类的基础认识" class="headerlink" title="18.类的基础认识"></a>18.类的基础认识</h2><p>与C语言不同，C++支持面向对象编程，因为C语言没有类、对象这些概念。</p>
+<p>类是对数据和功能组合在一起的一种方法。如果在游戏中需要一些代表角色的东西，就需要一堆变量。如果这时有两个人物，就要把同样的代码复制两份。这样一来代码会非常混乱且重复，难以维护。使用类可以简化，创建一个叫做player的类：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">	<span class="keyword">int</span> speed;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>类的本质是一个类型，可以把他当成其他变量来创建。我们使用<code>Player player;</code>创建一个新变量叫做player，类型为Player。由类这种类型构成的变量称为对象，新的对象变量称为实例。这一句所做的是实例化了一个Player对象。若需给变量赋值，使用<code>player.</code>加变量名即可访问。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Player player;</span><br><span class="line">	player.x = <span class="number">5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时会报错<code>error: &#39;int Player::x&#39; is private within this context</code>，这是因为x实际上是私有成员。类中的内容有可见性这一说，默认情况下一个类中所有的东西都是私有的（private），意味着只有类中的函数才能访问这些变量。如果需要在类外访问这些变量，我们需要将其设为公有的（public）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">	<span class="keyword">int</span> speed;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>此时如果需要写一个函数来操作x和y，需要使用引用传递，因为需要修改Player对象：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Move</span><span class="params">(Player&amp; player, <span class="keyword">int</span> xa, <span class="keyword">int</span> ya)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	player.x += xa * player.speed;</span><br><span class="line">	player.y += ya * player.speed;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Player player;</span><br><span class="line">	<span class="built_in">Move</span>(player, <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类实际上也可以包含函数，类内的函数称为方法。将move函数移动到类中，此时不需要传入player对象，因为已经在Player对象中了。所有的<code>player.</code>也都不需要了，他们指的就是当前对象的变量。main函数中使用<code>player.Move(1, -1);</code>来调用方法。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    <span class="keyword">int</span> speed;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Move</span><span class="params">(<span class="keyword">int</span> xa,<span class="keyword">int</span> ya)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        x += xa * speed;</span><br><span class="line">        y += ya * speed;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Player player;</span><br><span class="line">	player.<span class="built_in">Move</span>(player, <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>综上，类允许我们将变量分组到一个类型中，并为这些变量添加功能。类并没有为变量提供什么新功能，不能用一般代码完成的工作用类同样无法完成。类只是提高了我们维护代码的效率。</p>
+<h2 id="19-类与结构体的对比"><a href="#19-类与结构体的对比" class="headerlink" title="19.类与结构体的对比"></a>19.类与结构体的对比</h2><p>结构体（struct）和类（class）基本上没有什么区别，只有一个关于可见度的小区别，class中默认为private，而struct中默认为public。除此之外没有任何区别，C++中存在结构体的原因是为了与C保持向后兼容性。</p>
+<p>什么时候该用结构体？什么时候该用类？从定义上来看，如果你需要类内变量都是private的那就用class，反之用struct。不过从经验上来谈，如果只是想表示一堆数据，那就用结构体。如果需要大量功能且需要继承，那就用类。这只是个人见解，这两者只是在语义上有可见性的区别，没有严格的规定，如何使用全看个人编程风格。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyStruct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<h2 id="类与结构体的初始化和赋值"><a href="#类与结构体的初始化和赋值" class="headerlink" title="类与结构体的初始化和赋值"></a>类与结构体的初始化和赋值</h2><p>变量的赋值和初始化是不一样的，初始化是在变量定义的时候完成的，是属于变量定义的一部分，赋值是在变量定义完成之后想改变变量值的时候所采取的操作。</p>
+<p>下面拿结构体举例子：</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>如果结构体没有构造函数，可以用<code>指定初始化</code>与<code>顺序初始化</code></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//没有构造函数的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyStruct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定初始化 注意在c++中，顺序不能变。</span></span><br><span class="line">MyStruct ms = &#123;.x = <span class="number">2</span>, .y = <span class="number">3</span>&#125;;</span><br><span class="line">MyStruct ms = &#123;x:<span class="number">2</span>, y:<span class="number">3</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//顺序初始化</span></span><br><span class="line">MyStruct ms = &#123;<span class="number">2</span>, <span class="number">3</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>C++的结构体也可以有构造函数，如果有构造函数则可以用构造函数初始化：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//有构造函数的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyStruct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">MyStruct</span>(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;x=x;</span><br><span class="line">		<span class="keyword">this</span>-&gt;y=y;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造函数初始化</span></span><br><span class="line"><span class="function">MyStruct <span class="title">ms</span><span class="params">(<span class="number">2</span>, <span class="number">3</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依次给每一个结构体成员变量进行赋值</span></span><br><span class="line">MyStruct ms;</span><br><span class="line">ms.x = <span class="number">2</span>;</span><br><span class="line">ms.y = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//错误！结构体变量的赋值不能采用大括号方式</span></span><br><span class="line">MyStruct ms;</span><br><span class="line">ms = &#123;<span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用现有结构体变量给另一个结构体变量赋值</span></span><br><span class="line">MyStruct ms = &#123;<span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">MyStruct ms1;</span><br><span class="line">ms1 = ms;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体初始化后默认为随机值，初始化后置空用memset</span></span><br><span class="line">MyStruct ms;</span><br><span class="line"><span class="built_in">memset</span>(&amp;ms, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(ms));</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p><strong>类的内容又多又杂，将会持续更新</strong></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入学习C++——21~23静态</title>
+    <url>/posts/fd77a296.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——21-23静态"><a href="#深入学习C-——21-23静态" class="headerlink" title="深入学习C++——21~23静态"></a>深入学习C++——21~23静态</h1><p>static在C++中有两种含义，分为<strong>类和结构体外的静态</strong>和<strong>类和结构体内的静态</strong></p>
+<h2 id="21-类和结构体外的静态"><a href="#21-类和结构体外的静态" class="headerlink" title="21.类和结构体外的静态"></a>21.类和结构体外的静态</h2><p>类和结构体外部的static，意味着你声明为static的符号只在当前文件内部链接，它只对它所在的翻译单元可见。有关翻译单元请看<strong>深入学习C++——6~7编译器和链接器</strong></p>
+<p>新建一个源文件命名为<code>CStatic.cpp</code>，在<code>main.cpp</code>和<code>Cstatic.cpp</code>中同时定义一个变量和一个函数，编译器在链接阶段会报错<code>multiple definition of XXX</code>，这是因为这个变量/函数已经在另一个编译单元中定义了。所以我们不能有两个同名的全局变量/函数。其中一种修改方式是使用<code>extern</code>关键字，extern意味着它会在外部翻译单元中寻找这个变量/函数。我们把<code>main.cpp</code>中的定义加上static，再次编译无报错。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*CStatic.cpp*/</span></span><br><span class="line"><span class="keyword">int</span> Variable = <span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Function in CStatic&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*main.cpp*/</span></span><br><span class="line"><span class="comment">//int Variable = 5; //multiple definition of Variable</span></span><br><span class="line"><span class="comment">//void Function() //multiple definition of `Function()&#x27;</span></span><br><span class="line"><span class="comment">//&#123;</span></span><br><span class="line"><span class="comment">//	std::cout &lt;&lt; &quot;Variable&quot; &lt;&lt; std::endl;</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> Variable;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span>; <span class="comment">//函数默认都是extern，这里删掉extern也可以编译通过</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	std::cout &lt;&lt; Variable &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一种解决方法是使用<code>static</code>关键字。static的意思是这个变量/函数只会在这个翻译单元内部链接。这有点像在类中定义私有变量/函数，其他所有的翻译单元都不能看到这个变量/函数。链接器在全局作用域下将不会看到这个变量/函数。把<code>CStatic.cpp</code>中的变量与函数均改成静态的，编译会报错，因为他们在main中不可见，跨翻译单元是找不到他的。将main.cpp中的变量和函数修改为全局的，此时编译通过，且输出的是main中定义的变量值和函数。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*CStatic.cpp*/</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> Variable = <span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Function in CStatic&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*main.cpp*/</span></span><br><span class="line"><span class="comment">//extern int Variable; //undefined reference to `Function()&#x27;</span></span><br><span class="line"><span class="comment">//extern void Function(); //undefined reference to `Variable&#x27;</span></span><br><span class="line"><span class="keyword">int</span> Variable = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Function in main&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	std::cout &lt;&lt; Variable &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在类和结构体外使用静态，意味着当你声明静态函数和静态变量时，它只会在它被声明的C++文件中被“看到”。如果在一个头文件中声明静态变量并将该头文件包含在两个不同的C++文件中，就相当于在两个翻译单元中都声明了那个变量为静态变量。（包含头文件时，编译器会复制所有头文件中的内容到C++文件中）</p>
+<p>为什么要用static？可以类比为什么要在类中用private。当不需要变量是全局变量时，尽可能地用静态变量。因为一旦在全局作用域下声明东西的时候，编译器会跨编译单元进行链接，这个变量在任何地方都可以被使用，可能会导致一些很严重的bug。</p>
+<p>综上，尽可能地标记函数或变量为静态的，除非你真的需要他们跨翻译单元链接。</p>
+<h2 id="22-类和结构体内的静态"><a href="#22-类和结构体内的静态" class="headerlink" title="22.类和结构体内的静态"></a>22.类和结构体内的静态</h2><p>在类和结构体内部定义的静态变量，在类的所有实例中这个变量只有一个实例，这意味着该变量实际上将与类的所有实例共享内存。对于静态函数来说，没有实例会传递给一个静态函数。</p>
+<p>下面用结构体举例子（类也一样，只是因为结构体默认是public的）</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		std::cout &lt;&lt; num &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Entity e1;</span><br><span class="line">	e1.num = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	Entity e2;</span><br><span class="line">	e2.num = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">	e1.<span class="built_in">Print</span>();</span><br><span class="line">	e2.<span class="built_in">Print</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很显然，这样会输出2和5。如果将结构体内的x和y变成静态的，会报错<code>undefined reference to ‘Entity::num’</code>，因为x和y要在某个地方被定义，加上<code>int Entity::num;</code>，程序修改为：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> num;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		std::cout &lt;&lt; num &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Entity::num;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Entity e1;</span><br><span class="line">	e1.num = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	Entity e2;</span><br><span class="line">	e2.num = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">	e1.<span class="built_in">Print</span>();</span><br><span class="line">	e2.<span class="built_in">Print</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时运行会输出5和5.这是因为num变量在Entity类的所有实例中只有一个实例，这意味着e1.num和e2.num指向的是相同的内存，所以<code>e1.num</code>和<code>e2.num</code>这样写是没有意义的。可以直接写成<code>Entity::num = 5</code>。这就像是在一个名为Entity的命名空间中创建了一个变量，他们实际上并不属于类，但是他们可以是private的也可以是public的，所以他们仍是类的一部分。但是在应用上来说他们其实和在命名空间中一样。</p>
+<p>静态方法跟静态变量一样，如果将Print也改为静态的，调用时同样需要使用<code>Entity::Print();</code></p>
+<p>但静态方法不能访问非静态变量，将num改为非静态变量，Print保持为静态方法，这时编译会报错<code>error: invalid use of member &#39;Entity::num&#39; in static member function</code>，原因是静态方法没有类实例。每个非静态方法总是会获得当前类的一个实例作为参数，这我们是看不见的，在底层通过隐藏参数发挥作用，而静态方法不会得到那个隐藏参数。类中的静态方法拿到类外面在编译的时候实际上是这个样子的，实际上传进去了一个实例参数，这样就不会报错：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span><span class="params">(Entity e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; e.num &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Entity e;</span><br><span class="line">	e.num = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Print</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>综上所述，当你需要跨类使用变量时，类内静态变量将会派上用场。那这么说创建一个全局变量或者静态变量不也一样吗？NO！如果你有一条消息，想要在所有实例之间共享数据，把这个消息变量放在类中是有意义的，因为它在逻辑上跟这个类有关。要想组织好你的代码，最好在类中创建一个静态变量，而不是将全局或者静态变量到处乱写。</p>
+<h2 id="23-局部静态"><a href="#23-局部静态" class="headerlink" title="23.局部静态"></a>23.局部静态</h2><p>局部静态允许我们创建一个变量，它的生存周期基本相当于整个程序的生存期，但是作用范围被限制在这个域中。来看一段程序：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	i++;</span><br><span class="line">	std::cout &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显而易见输出为11111。要是想将i每次递增实现输出12345，你的第一反应可能是将i改为全局变量。但是这样做会使每个人都能访问这个变量，如果要避免这个问题，可以在局部作用域下将i声明为static。这样程序也可以输出12345，与全局变量效果相同，但是此时i只是函数作用域下的局部变量。</p>
+<p>使用局部静态的主要作用是可以使代码更干净，我们来看另一个例子。创建一个单例类（单例类是只存在一个实例的类），如果不使用静态局部作用域来创建单例类，就需要创建静态的单例实例，可能是一个指针，并返回一个引用，即为创建的实例：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">static</span> Singleton* s_Instance;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> Singleton&amp; <span class="title">Get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> *s_Instance;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Hello&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::s_Instance = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Singleton::<span class="built_in">Get</span>().<span class="built_in">Hello</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果使用局部静态来创建，代码会变得干净很多：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> Singleton&amp; <span class="title">Get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">static</span> Singleton instance;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Hello&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Singleton::<span class="built_in">Get</span>().<span class="built_in">Hello</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码里如果没有static，当代码运行到函数右花括号处，即函数作用域结束时，instance就会被销毁。通过添加static，它的生存周期被延长到永远，在第一次调用Get的时候，实际上会构造一个单例实例，接下来它只会返回这个已存在的实例。</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -2145,6 +2355,48 @@ sin(\theta_1 + \theta_3) &  cos(\theta_1 + \theta_3) & 0 & L_3*sin(\theta_1 + \t
       </tags>
   </entry>
   <entry>
+    <title>深入学习C++——44智能指针</title>
+    <url>/posts/b0f9a474.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——44智能指针"><a href="#深入学习C-——44智能指针" class="headerlink" title="深入学习C++——44智能指针"></a>深入学习C++——44智能指针</h1><p>我们都知道使用new在堆上分配内存，使用delete释放内存，因为它不会自动释放内存。智能指针本质上是一个原始指针的包装类，当创建一个智能指针，它会调用new并为其分配内存，基于这个智能指针，这些内存会在某一时刻自动释放。下面介绍三种智能指针</p>
+<p>使用智能指针的时候要包含memory头文件</p>
+<h2 id="作用域指针unique-ptr"><a href="#作用域指针unique-ptr" class="headerlink" title="作用域指针unique_ptr"></a>作用域指针unique_ptr</h2><p><code>unique_ptr</code>是作用域指针，超出作用域时会被销毁，然后调用delete。<br>我们不能复制一个unique_ptr，因为如果复制一个unique_ptr，那么他们会指向同一个内存块。如果其中一个死了，它会释放那段内存，而指向同一块内存的另一个指针就会指向已经被释放的内存。</p>
+<p>我们首先创建一个类来理解智能指针，类中只包含构造和析构函数</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Entity</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Created Entity&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">Entity</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Destroyed Entity&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在特定的作用域下创建一个unique_ptr：在main中创建一对大括号，括号内即为空作用域。在里面使用unique_ptr来分配Entity：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; entity = <span class="keyword">new</span> <span class="built_in">Entity</span>(); <span class="comment">//错误</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样构造会报错，因为unique_ptr的构造函数是explicit的，需要显式调用构造函数，没有构造函数的隐式转换，所以应该：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="function">std::unique_ptr&lt;Entity&gt; <span class="title">entity</span><span class="params">(<span class="keyword">new</span> Entity())</span></span>; <span class="comment">//正确</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过更推荐使用下面这种方法！原因是出于异常安全。如果构造函数碰巧抛出异常，使用make_unique会保证你最终得到的不是没有引用的悬空指针，从而造成内存泄漏。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; entity = std::make_unique&lt;Entity&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后就可以跟原始指针一样地使用智能指针，比如使用箭头操作符调用函数：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; entity = std::make_unique&lt;Entity&gt;();</span><br><span class="line">		entity-&gt;<span class="built_in">Print</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单步调试，可以看到程序在进入作用域{时输出<code>Created Entity</code>，出作用域}时输出<code>Destroyed Entity</code>，即为智能指针的自动创建与销毁。</p>
+<p>如果需要拷贝或共享这个指针，使得这个指针可以被传递到一个函数中或一个类中，unique_ptr将不可用。如果试图复制一个unique_ptr：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; entity = std::make_unique&lt;Entity&gt;();</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; e0 = entity;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样会报错，因为在unique_ptr的定义中，删除了拷贝构造函数和拷贝构造操作符，因为这是不被允许的。这是为了防止你跳到大坑里，因为其中一个unique_ptr死了，这个堆分配对象的底层内存会被释放，另一个unique_ptr会指向这个不存在的内存。所以出现了共享指针shared_ptr：</p>
+<h2 id="共享指针shared-ptr"><a href="#共享指针shared-ptr" class="headerlink" title="共享指针shared_ptr"></a>共享指针shared_ptr</h2><p>共享指针shared_ptr更牛逼一点，shared_ptr实现的方式实际上取决于编译器和你在编译器中使用的标准库，在大多数情况下，它使用的是引用计数。引用计数基本上是一种方法，可以跟踪你的指针有多少个引用，一旦引用计数达到0，它就会被删除。如果我创建了一个shared_ptr，又创建了另外一个shared_ptr来复制他，此时的引用计数就是2，当第一个shared_ptr死了，引用计数减1变成1，当最后一个shared_ptr也死了，引用计数变为0，这个指针也就会被销毁内存被释放。</p>
+<p>但是不要这样写！！！</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;	</span><br><span class="line">		<span class="function">std::shared_ptr&lt;Entity&gt; <span class="title">entity</span><span class="params">(<span class="keyword">new</span> Entity())</span></span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在unique_ptr中不直接调用new的原因是因为异常安全，而在shared_ptr中有所不同。因为shared_ptr需要分配另一块内存，叫做控制块，用来存储引用计数。如果使用new创建一个Entity然后传递给shared_ptr构造函数，那么它必须做两次内存分配：先做一次new Entity的分配，然后是shared_ptr的控制内存块的分配。使用make_shared就可以将两个步骤合起来：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;	</span><br><span class="line">		std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>shared_ptr可以被复制。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;	</span><br><span class="line">		std::shared_ptr&lt;Entity&gt; entity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">		std::shared_ptr&lt;Entity&gt; e0 = sharedEntity;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们更改一下main函数，创建两个作用域来演示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;<span class="comment">//作用域1</span></span><br><span class="line">		std::shared_ptr&lt;Entity&gt; e0;</span><br><span class="line">		&#123;<span class="comment">//作用域2</span></span><br><span class="line">			std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">			e0 = sharedEntity;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 此时SharedEntity已经死亡，但是e0还存活（引用计数为1），所以这里没有调用析构函数</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//这里e0也死亡了（引用计数为0），此时调用析构函数。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单步调试，进入作用域1时输出<code>Created Entity</code>，此时出作用域2，并没有析构Entity，因为e0还存活，并且持有对该Entity的引用。出作用域1，输出<code>Destroyed Entity</code>，所有的引用此时都消失。</p>
+<h2 id="弱指针weak-ptr"><a href="#弱指针weak-ptr" class="headerlink" title="弱指针weak_ptr"></a>弱指针weak_ptr</h2><p>将一个shared_ptr赋值给另一个shared_ptr时会增加引用计数，但是将一个shared_ptr赋值给一个weak_ptr时不会增加引用计数。这常用于：如果你不想要Entity的所有权，例如你在排序一个Entity列表，你不关心他们是否有效，只需要存储一个他们的引用，这时就可以使用weak_ptr。可以询问weak_ptr底层对象是否还存活，但它不会保持底层对象存活，因为它不会增加引用计数。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;<span class="comment">//作用域1</span></span><br><span class="line">		std::weak_ptr&lt;Entity&gt; e0;</span><br><span class="line">		&#123;<span class="comment">//作用域2</span></span><br><span class="line">			std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">			e0 = sharedEntity; <span class="comment">// 弱指针不会引用计数</span></span><br><span class="line">		&#125;<span class="comment">//出作用域2的时候就调用了析构函数</span></span><br><span class="line">		<span class="comment">//此时weak_ptr为一个无效指针</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>综上，使用智能指针可以使内存管理自动化，防止忘记调用delete而造成内存泄露。优先选用unique_ptr，如需在作用域之间复制共享就使用shared_ptr。</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>麦克纳姆轮运动学解算</title>
     <url>/posts/b6e9d4e.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="麦克纳姆轮运动学解算"><a href="#麦克纳姆轮运动学解算" class="headerlink" title="麦克纳姆轮运动学解算"></a>麦克纳姆轮运动学解算</h1><h2 id="一、麦克纳姆轮介绍"><a href="#一、麦克纳姆轮介绍" class="headerlink" title="一、麦克纳姆轮介绍"></a>一、麦克纳姆轮介绍</h2><p>了解过Robomaster的同学都知道，RM战车所用的轮子均为麦克纳姆轮，这种轮子安装方式与普通轮子无异，可安装于平行轴上，但是麦克纳姆轮可以实现全向移动，即<strong>前后运动</strong>、<strong>水平移动</strong>、<strong>绕中心自转</strong>。正因为以上优点，许多工业上的全向移动平台都会应用这种轮子。缺点也有，就是不耐磨，需要定期更换。</p>
@@ -2245,258 +2497,6 @@ v_{ty}=\frac{v_3-v_1}{2}\\
       </categories>
       <tags>
         <tag>ROS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>树莓派压缩备份</title>
-    <url>/posts/f438cf8d.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="树莓派压缩备份"><a href="#树莓派压缩备份" class="headerlink" title="树莓派压缩备份"></a>树莓派压缩备份</h1><p>配置环境真的太折磨人了，如果使用简单的全盘备份，备份出来的文件和SD卡大小相同，且无法存入相同大小的的卡内。所以本文将介绍一种一键压缩备份的方法</p>
-<h2 id="1-首先-clone-该脚本："><a href="#1-首先-clone-该脚本：" class="headerlink" title="1.首先 clone 该脚本："></a>1.首先 clone 该脚本：</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/nanhantianyi/rpi-backup.git &amp;&amp; <span class="built_in">cd</span> rpi-backup</span><br></pre></td></tr></table></figure>
-<h2 id="2-备份"><a href="#2-备份" class="headerlink" title="2.备份"></a>2.备份</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo bash back.sh 这里换成名字.img</span><br></pre></td></tr></table></figure>
-<h2 id="3-恢复"><a href="#3-恢复" class="headerlink" title="3.恢复"></a>3.恢复</h2><p>使用任意一种镜像烧写工具烧录到另外一张空SD卡中，然后执行扩容脚本扩容root分区</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo bash resize.sh</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>ROS</category>
-      </categories>
-      <tags>
-        <tag>树莓派</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>boost库使用串口</title>
-    <url>/posts/e4966ae8.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="boost库使用串口"><a href="#boost库使用串口" class="headerlink" title="boost库使用串口"></a>boost库使用串口</h1><h2 id="一、使用普通指针"><a href="#一、使用普通指针" class="headerlink" title="一、使用普通指针"></a>一、使用普通指针</h2><h3 id="1-头文件声明"><a href="#1-头文件声明" class="headerlink" title="1. 头文件声明"></a>1. 头文件声明</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">boost::system::error_code error_code_;</span><br><span class="line">boost::asio::io_service io_service_;</span><br><span class="line">boost::asio::serial_port *serial_port_;</span><br></pre></td></tr></table></figure>
-<h3 id="2-使用new分配内存"><a href="#2-使用new分配内存" class="headerlink" title="2. 使用new分配内存"></a>2. 使用new分配内存</h3><p>创建串口然后使用open开启</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">serial_port_ = <span class="keyword">new</span> boost::asio::<span class="built_in">serial_port</span>(io_service_);</span><br><span class="line">serial_port_-&gt;<span class="built_in">open</span>(port_name_, error_code_);</span><br></pre></td></tr></table></figure>
-<p>或者直接开启</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">serial_port_ = <span class="keyword">new</span> boost::asio::<span class="built_in">serial_port</span>(io_service_, port_name_);</span><br></pre></td></tr></table></figure>
-<h3 id="3-释放内存"><a href="#3-释放内存" class="headerlink" title="3. 释放内存"></a>3. 释放内存</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> serial_port_;</span><br></pre></td></tr></table></figure>
-<h2 id="二、使用共享指针"><a href="#二、使用共享指针" class="headerlink" title="二、使用共享指针"></a>二、使用共享指针</h2><h3 id="1-头文件声明-1"><a href="#1-头文件声明-1" class="headerlink" title="1. 头文件声明"></a>1. 头文件声明</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">boost::system::error_code error_code_;</span><br><span class="line">boost::asio::io_service io_service_;</span><br><span class="line">std::shared_ptr&lt;boost::asio::serial_port&gt; serial_port_;</span><br></pre></td></tr></table></figure>
-<h3 id="2-使用make-shared分配内存"><a href="#2-使用make-shared分配内存" class="headerlink" title="2. 使用make_shared分配内存"></a>2. 使用make_shared分配内存</h3><p>创建串口然后使用open开启</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">serial_port_ = std::make_shared&lt;boost::asio::serial_port&gt;(io_service_);</span><br><span class="line">serial_port_-&gt;<span class="built_in">open</span>(port_name_, error_code_);</span><br></pre></td></tr></table></figure>
-<p>或者直接开启</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">serial_port_ = std::make_shared&lt;boost::asio::serial_port&gt;(io_service_, port_name_);</span><br></pre></td></tr></table></figure>
-<h3 id="3-释放内存-1"><a href="#3-释放内存-1" class="headerlink" title="3. 释放内存"></a>3. 释放内存</h3><p>使用智能指针不需要delete释放内存</p>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深入学习C++——16指针</title>
-    <url>/posts/49c7378a.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——16指针"><a href="#深入学习C-——16指针" class="headerlink" title="深入学习C++——16指针"></a>深入学习C++——16指针</h1><p>什么是指针？<strong>指针是一个整数，一种存储内存地址的数字。</strong>指针只是一个数字而已，不要想太多。指针的类型对指针来说是毫无意义的，只能说是这个地址的数据被假设为我们给的类型。指针类型并不会改变指针的实质，指针只是一个内存地址，一个数字而已。 </p>
-<p>首先我们创建一个最纯粹的空指针，我并不关心这个指针的类型，因为我只想保存一个内存地址。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr = <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></figure>
-<p>其中<code>nullptr</code>代表空指针的意思，也可写成NULL。但不可写成0，因为当内存地址为0的时候程序会崩溃。</p>
-<p>每个变量都有一个内存地址，使用引用<code>&amp;</code>运算符（reference）得到这个变量的内存地址。创建一个变量名为var，使用ptr存放var的内存地址：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> var = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">void</span>* ptr = &amp;var;</span><br></pre></td></tr></table></figure>
-<p>如果此时加断点调试，可以看到<code>var</code>的值为<code>8</code>，<code>ptr</code>的值为<code>0xef045ff954</code>，这是一个十六进制的数字，即为var变量的内存地址。我们在内存中转到这个地址，可以看到<code>08 00 00 00</code>，就是<code>var</code>的值<code>8</code>（int占用4个字节）。</p>
-<p>指针的类型对指针无关紧要，将<code>void</code>改为<code>int</code>，再次在内存中转到此地址，效果是完全一样的。指针的类型只在读写时有作用，跟指针本身是完全无关的。<strong>指针只是一个整数</strong>而已。</p>
-<p>如果我们想读写指针指向的数据，需要使用逆向引用<code>*</code>运算符（dereference）。在指针前加上<code>*</code>即可读取这个指针指向的数据。如前例，ptr为var的指针，使用<code>*ptr = 10</code>即可将var的值改为10。但是此时会报错，因为此时指针为void空指针，计算机并不知道这个“10”需要多少字节的数据，自然而然无法将其写入。所以此时需要指定字节数，即将前文改为<code>int* ptr = &amp;var;</code>。记住，类型跟指针毫无关系，类型的目的只是告诉编译器在读写时应该寻找几个字节。此时重新运行程序可以看到var的值被成功修改为10。</p>
-<p>如果需要分配一些空间，可以这么操作：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//new char[8]分配了8个字节的内存，并返回一个指向那块内存开始的指针。</span></span><br><span class="line"><span class="keyword">char</span>* buffer = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">8</span>];</span><br><span class="line"><span class="comment">//使用memset函数用指定的数据填充一个内存块：第一个参数为内存块开始的指针，第二个值为要填充的值，第三个参数为大小。</span></span><br><span class="line"><span class="built_in">memset</span>(buffer, <span class="number">0</span>, <span class="number">8</span>);</span><br></pre></td></tr></table></figure>
-<p>调试程序，转到buffer地址，可以看到<code>00 00 00 00   00 00 00 00</code>。之后需要释放这个内存，使用<code>delete[] buffer;</code></p>
-<p>指针也是一个变量，因此指针也可以指向指针。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>** ptr = &amp;buffer;</span><br></pre></td></tr></table></figure>
-<p>查看内存：buffer的值为<code>0x193a7d41b60</code>。ptr的值为<code>0x843b7ffb30</code>，即为buffer指针存放的地址。跳转进去可以看到<code>60 1b d4 a7   93 01 00 00</code>，这也就是buffer的值。（计算机中存储顺序为倒序）</p>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深入学习C++——44智能指针</title>
-    <url>/posts/b0f9a474.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——44智能指针"><a href="#深入学习C-——44智能指针" class="headerlink" title="深入学习C++——44智能指针"></a>深入学习C++——44智能指针</h1><p>我们都知道使用new在堆上分配内存，使用delete释放内存，因为它不会自动释放内存。智能指针本质上是一个原始指针的包装类，当创建一个智能指针，它会调用new并为其分配内存，基于这个智能指针，这些内存会在某一时刻自动释放。下面介绍三种智能指针</p>
-<p>使用智能指针的时候要包含memory头文件</p>
-<h2 id="作用域指针unique-ptr"><a href="#作用域指针unique-ptr" class="headerlink" title="作用域指针unique_ptr"></a>作用域指针unique_ptr</h2><p><code>unique_ptr</code>是作用域指针，超出作用域时会被销毁，然后调用delete。<br>我们不能复制一个unique_ptr，因为如果复制一个unique_ptr，那么他们会指向同一个内存块。如果其中一个死了，它会释放那段内存，而指向同一块内存的另一个指针就会指向已经被释放的内存。</p>
-<p>我们首先创建一个类来理解智能指针，类中只包含构造和析构函数</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Entity</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Created Entity&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">Entity</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Destroyed Entity&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在特定的作用域下创建一个unique_ptr：在main中创建一对大括号，括号内即为空作用域。在里面使用unique_ptr来分配Entity：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; entity = <span class="keyword">new</span> <span class="built_in">Entity</span>(); <span class="comment">//错误</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样构造会报错，因为unique_ptr的构造函数是explicit的，需要显式调用构造函数，没有构造函数的隐式转换，所以应该：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="function">std::unique_ptr&lt;Entity&gt; <span class="title">entity</span><span class="params">(<span class="keyword">new</span> Entity())</span></span>; <span class="comment">//正确</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不过更推荐使用下面这种方法！原因是出于异常安全。如果构造函数碰巧抛出异常，使用make_unique会保证你最终得到的不是没有引用的悬空指针，从而造成内存泄漏。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; entity = std::make_unique&lt;Entity&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后就可以跟原始指针一样地使用智能指针，比如使用箭头操作符调用函数：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; entity = std::make_unique&lt;Entity&gt;();</span><br><span class="line">		entity-&gt;<span class="built_in">Print</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>单步调试，可以看到程序在进入作用域{时输出<code>Created Entity</code>，出作用域}时输出<code>Destroyed Entity</code>，即为智能指针的自动创建与销毁。</p>
-<p>如果需要拷贝或共享这个指针，使得这个指针可以被传递到一个函数中或一个类中，unique_ptr将不可用。如果试图复制一个unique_ptr：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; entity = std::make_unique&lt;Entity&gt;();</span><br><span class="line">		std::unique_ptr&lt;Entity&gt; e0 = entity;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样会报错，因为在unique_ptr的定义中，删除了拷贝构造函数和拷贝构造操作符，因为这是不被允许的。这是为了防止你跳到大坑里，因为其中一个unique_ptr死了，这个堆分配对象的底层内存会被释放，另一个unique_ptr会指向这个不存在的内存。所以出现了共享指针shared_ptr：</p>
-<h2 id="共享指针shared-ptr"><a href="#共享指针shared-ptr" class="headerlink" title="共享指针shared_ptr"></a>共享指针shared_ptr</h2><p>共享指针shared_ptr更牛逼一点，shared_ptr实现的方式实际上取决于编译器和你在编译器中使用的标准库，在大多数情况下，它使用的是引用计数。引用计数基本上是一种方法，可以跟踪你的指针有多少个引用，一旦引用计数达到0，它就会被删除。如果我创建了一个shared_ptr，又创建了另外一个shared_ptr来复制他，此时的引用计数就是2，当第一个shared_ptr死了，引用计数减1变成1，当最后一个shared_ptr也死了，引用计数变为0，这个指针也就会被销毁内存被释放。</p>
-<p>但是不要这样写！！！</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;	</span><br><span class="line">		<span class="function">std::shared_ptr&lt;Entity&gt; <span class="title">entity</span><span class="params">(<span class="keyword">new</span> Entity())</span></span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在unique_ptr中不直接调用new的原因是因为异常安全，而在shared_ptr中有所不同。因为shared_ptr需要分配另一块内存，叫做控制块，用来存储引用计数。如果使用new创建一个Entity然后传递给shared_ptr构造函数，那么它必须做两次内存分配：先做一次new Entity的分配，然后是shared_ptr的控制内存块的分配。使用make_shared就可以将两个步骤合起来：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;	</span><br><span class="line">		std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>shared_ptr可以被复制。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;	</span><br><span class="line">		std::shared_ptr&lt;Entity&gt; entity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">		std::shared_ptr&lt;Entity&gt; e0 = sharedEntity;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们更改一下main函数，创建两个作用域来演示：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;<span class="comment">//作用域1</span></span><br><span class="line">		std::shared_ptr&lt;Entity&gt; e0;</span><br><span class="line">		&#123;<span class="comment">//作用域2</span></span><br><span class="line">			std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">			e0 = sharedEntity;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 此时SharedEntity已经死亡，但是e0还存活（引用计数为1），所以这里没有调用析构函数</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//这里e0也死亡了（引用计数为0），此时调用析构函数。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>单步调试，进入作用域1时输出<code>Created Entity</code>，此时出作用域2，并没有析构Entity，因为e0还存活，并且持有对该Entity的引用。出作用域1，输出<code>Destroyed Entity</code>，所有的引用此时都消失。</p>
-<h2 id="弱指针weak-ptr"><a href="#弱指针weak-ptr" class="headerlink" title="弱指针weak_ptr"></a>弱指针weak_ptr</h2><p>将一个shared_ptr赋值给另一个shared_ptr时会增加引用计数，但是将一个shared_ptr赋值给一个weak_ptr时不会增加引用计数。这常用于：如果你不想要Entity的所有权，例如你在排序一个Entity列表，你不关心他们是否有效，只需要存储一个他们的引用，这时就可以使用weak_ptr。可以询问weak_ptr底层对象是否还存活，但它不会保持底层对象存活，因为它不会增加引用计数。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	&#123;<span class="comment">//作用域1</span></span><br><span class="line">		std::weak_ptr&lt;Entity&gt; e0;</span><br><span class="line">		&#123;<span class="comment">//作用域2</span></span><br><span class="line">			std::shared_ptr&lt;Entity&gt; sharedEntity = std::make_shared&lt;Entity&gt;();</span><br><span class="line">			e0 = sharedEntity; <span class="comment">// 弱指针不会引用计数</span></span><br><span class="line">		&#125;<span class="comment">//出作用域2的时候就调用了析构函数</span></span><br><span class="line">		<span class="comment">//此时weak_ptr为一个无效指针</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>综上，使用智能指针可以使内存管理自动化，防止忘记调用delete而造成内存泄露。优先选用unique_ptr，如需在作用域之间复制共享就使用shared_ptr。</p>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深入学习C++——17引用</title>
-    <url>/posts/55bfc346.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——17引用"><a href="#深入学习C-——17引用" class="headerlink" title="深入学习C++——17引用"></a>深入学习C++——17引用</h1><p><strong>引用</strong>是一种引用现有变量的方式。与指针不同，指针可以创建空指针，而引用不行。引用必须引用已存在的变量。引用本身不是一个新变量，它不占用内存，没有自己的存储空间。</p>
-<p>我们创建一个变量，并给这个变量创建一个引用。声明引用时需要指定变量类型：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span>&amp; ref = a;</span><br></pre></td></tr></table></figure>
-<p>这里的ref就是a的别名，它本身不是一个真正的变量，ref变量实际并不存在，它只存在于代码中。</p>
-<p>此时我们可以给ref赋值，然后输出a的值：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ref = <span class="number">2</span>;</span><br><span class="line">std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-<p>运行程序，可以看到a的值变成了2。</p>
-<p>下面来看一个更复杂的例子。我们创建一个变量递增函数，并在main中调用，把a作为参数传递进去，只是通过值传递给它。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	value++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(a);</span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行程序，可以看到a的值仍为5，并没有递增。实际上a传入Increment函数后创建了一个全新的变量value且等于a的值，其作用大致等效于：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> value = <span class="number">5</span>;</span><br><span class="line">	value++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>前面我们讲了指针，自然而然可以想到：我们并不直接把a的值传进函数，而是将a的内存地址传进去，然后在函数内寻找这个内存地址上的数据并对其进行操作即可。所以程序修改为：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span>* value)</span><span class="comment">//传入一个指针</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//value++;//错误。这样只会递增value指针的地址，只是把一个指针递增了而已</span></span><br><span class="line">	<span class="comment">//*value++;//错误。这样写操作顺序为先递增内存地址再逆向引用</span></span><br><span class="line">	(*value)++;<span class="comment">//先逆向引用，再将值自增</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(&amp;a);<span class="comment">//传入变量的内存地址</span></span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时运行程序可以看到a的值被成功修改成了6。</p>
-<p>有没有觉得使用指针的时候<code>*</code>和<code>&amp;</code>满天乱飞，本文讲了引用，那我们就通过另一种更为简洁的方法实现以上功能：我们可以用引用代替指针：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Increment</span><span class="params">(<span class="keyword">int</span>&amp; value)</span><span class="comment">//传入一个引用</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	value++;<span class="comment">//这里也不需要逆向引用*了</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Increment</span>(a);<span class="comment">//只需传递a即可</span></span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行程序，a成功地被修改成了6。</p>
-<p>综上，指针比引用更强大，能用引用的地方也一定能用指针，但是能用引用就用引用，这样会使程序更为简洁和干净。</p>
-<p>不过要注意，声明引用的时候也必须给引用赋值，因为它并不是一个真正的变量，不能为空。并且一旦声明了一个引用，不能改变它引用的东西。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">int</span>&amp; ref = a;</span><br><span class="line">ref = b;</span><br><span class="line"><span class="comment">// now a = 8, b = 8</span></span><br></pre></td></tr></table></figure>
-<p>这段程序只是将b的值赋给了a，并没有改变ref引用的东西。如果想要实现这个功能只能使用指针：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">int</span>* ref = &amp;a;</span><br><span class="line">*ref = <span class="number">2</span>;</span><br><span class="line">ref = &amp;b;</span><br><span class="line">*ref = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// now a = 2, b = 1</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深入学习C++——18~20类</title>
-    <url>/posts/cc7823d2.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——18-19类"><a href="#深入学习C-——18-19类" class="headerlink" title="深入学习C++——18~19类"></a>深入学习C++——18~19类</h1><h2 id="18-类的基础认识"><a href="#18-类的基础认识" class="headerlink" title="18.类的基础认识"></a>18.类的基础认识</h2><p>与C语言不同，C++支持面向对象编程，因为C语言没有类、对象这些概念。</p>
-<p>类是对数据和功能组合在一起的一种方法。如果在游戏中需要一些代表角色的东西，就需要一堆变量。如果这时有两个人物，就要把同样的代码复制两份。这样一来代码会非常混乱且重复，难以维护。使用类可以简化，创建一个叫做player的类：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">	<span class="keyword">int</span> speed;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>类的本质是一个类型，可以把他当成其他变量来创建。我们使用<code>Player player;</code>创建一个新变量叫做player，类型为Player。由类这种类型构成的变量称为对象，新的对象变量称为实例。这一句所做的是实例化了一个Player对象。若需给变量赋值，使用<code>player.</code>加变量名即可访问。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Player player;</span><br><span class="line">	player.x = <span class="number">5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这时会报错<code>error: &#39;int Player::x&#39; is private within this context</code>，这是因为x实际上是私有成员。类中的内容有可见性这一说，默认情况下一个类中所有的东西都是私有的（private），意味着只有类中的函数才能访问这些变量。如果需要在类外访问这些变量，我们需要将其设为公有的（public）：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">	<span class="keyword">int</span> speed;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>此时如果需要写一个函数来操作x和y，需要使用引用传递，因为需要修改Player对象：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Move</span><span class="params">(Player&amp; player, <span class="keyword">int</span> xa, <span class="keyword">int</span> ya)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	player.x += xa * player.speed;</span><br><span class="line">	player.y += ya * player.speed;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Player player;</span><br><span class="line">	<span class="built_in">Move</span>(player, <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>类实际上也可以包含函数，类内的函数称为方法。将move函数移动到类中，此时不需要传入player对象，因为已经在Player对象中了。所有的<code>player.</code>也都不需要了，他们指的就是当前对象的变量。main函数中使用<code>player.Move(1, -1);</code>来调用方法。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    <span class="keyword">int</span> speed;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Move</span><span class="params">(<span class="keyword">int</span> xa,<span class="keyword">int</span> ya)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        x += xa * speed;</span><br><span class="line">        y += ya * speed;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Player player;</span><br><span class="line">	player.<span class="built_in">Move</span>(player, <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>综上，类允许我们将变量分组到一个类型中，并为这些变量添加功能。类并没有为变量提供什么新功能，不能用一般代码完成的工作用类同样无法完成。类只是提高了我们维护代码的效率。</p>
-<h2 id="19-类与结构体的对比"><a href="#19-类与结构体的对比" class="headerlink" title="19.类与结构体的对比"></a>19.类与结构体的对比</h2><p>结构体（struct）和类（class）基本上没有什么区别，只有一个关于可见度的小区别，class中默认为private，而struct中默认为public。除此之外没有任何区别，C++中存在结构体的原因是为了与C保持向后兼容性。</p>
-<p>什么时候该用结构体？什么时候该用类？从定义上来看，如果你需要类内变量都是private的那就用class，反之用struct。不过从经验上来谈，如果只是想表示一堆数据，那就用结构体。如果需要大量功能且需要继承，那就用类。这只是个人见解，这两者只是在语义上有可见性的区别，没有严格的规定，如何使用全看个人编程风格。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyStruct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
-<h2 id="类与结构体的初始化和赋值"><a href="#类与结构体的初始化和赋值" class="headerlink" title="类与结构体的初始化和赋值"></a>类与结构体的初始化和赋值</h2><p>变量的赋值和初始化是不一样的，初始化是在变量定义的时候完成的，是属于变量定义的一部分，赋值是在变量定义完成之后想改变变量值的时候所采取的操作。</p>
-<p>下面拿结构体举例子：</p>
-<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>如果结构体没有构造函数，可以用<code>指定初始化</code>与<code>顺序初始化</code></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//没有构造函数的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyStruct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定初始化 注意在c++中，顺序不能变。</span></span><br><span class="line">MyStruct ms = &#123;.x = <span class="number">2</span>, .y = <span class="number">3</span>&#125;;</span><br><span class="line">MyStruct ms = &#123;x:<span class="number">2</span>, y:<span class="number">3</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//顺序初始化</span></span><br><span class="line">MyStruct ms = &#123;<span class="number">2</span>, <span class="number">3</span>&#125;;</span><br></pre></td></tr></table></figure>
-<p>C++的结构体也可以有构造函数，如果有构造函数则可以用构造函数初始化：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//有构造函数的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyStruct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">MyStruct</span>(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;x=x;</span><br><span class="line">		<span class="keyword">this</span>-&gt;y=y;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造函数初始化</span></span><br><span class="line"><span class="function">MyStruct <span class="title">ms</span><span class="params">(<span class="number">2</span>, <span class="number">3</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依次给每一个结构体成员变量进行赋值</span></span><br><span class="line">MyStruct ms;</span><br><span class="line">ms.x = <span class="number">2</span>;</span><br><span class="line">ms.y = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//错误！结构体变量的赋值不能采用大括号方式</span></span><br><span class="line">MyStruct ms;</span><br><span class="line">ms = &#123;<span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用现有结构体变量给另一个结构体变量赋值</span></span><br><span class="line">MyStruct ms = &#123;<span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">MyStruct ms1;</span><br><span class="line">ms1 = ms;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体初始化后默认为随机值，初始化后置空用memset</span></span><br><span class="line">MyStruct ms;</span><br><span class="line"><span class="built_in">memset</span>(&amp;ms, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(ms));</span><br></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p><strong>类的内容又多又杂，将会持续更新</strong></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深入学习C++——21~23静态</title>
-    <url>/posts/fd77a296.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——21-23静态"><a href="#深入学习C-——21-23静态" class="headerlink" title="深入学习C++——21~23静态"></a>深入学习C++——21~23静态</h1><p>static在C++中有两种含义，分为<strong>类和结构体外的静态</strong>和<strong>类和结构体内的静态</strong></p>
-<h2 id="21-类和结构体外的静态"><a href="#21-类和结构体外的静态" class="headerlink" title="21.类和结构体外的静态"></a>21.类和结构体外的静态</h2><p>类和结构体外部的static，意味着你声明为static的符号只在当前文件内部链接，它只对它所在的翻译单元可见。有关翻译单元请看<strong>深入学习C++——6~7编译器和链接器</strong></p>
-<p>新建一个源文件命名为<code>CStatic.cpp</code>，在<code>main.cpp</code>和<code>Cstatic.cpp</code>中同时定义一个变量和一个函数，编译器在链接阶段会报错<code>multiple definition of XXX</code>，这是因为这个变量/函数已经在另一个编译单元中定义了。所以我们不能有两个同名的全局变量/函数。其中一种修改方式是使用<code>extern</code>关键字，extern意味着它会在外部翻译单元中寻找这个变量/函数。我们把<code>main.cpp</code>中的定义加上static，再次编译无报错。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*CStatic.cpp*/</span></span><br><span class="line"><span class="keyword">int</span> Variable = <span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Function in CStatic&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*main.cpp*/</span></span><br><span class="line"><span class="comment">//int Variable = 5; //multiple definition of Variable</span></span><br><span class="line"><span class="comment">//void Function() //multiple definition of `Function()&#x27;</span></span><br><span class="line"><span class="comment">//&#123;</span></span><br><span class="line"><span class="comment">//	std::cout &lt;&lt; &quot;Variable&quot; &lt;&lt; std::endl;</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> Variable;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span>; <span class="comment">//函数默认都是extern，这里删掉extern也可以编译通过</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	std::cout &lt;&lt; Variable &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另一种解决方法是使用<code>static</code>关键字。static的意思是这个变量/函数只会在这个翻译单元内部链接。这有点像在类中定义私有变量/函数，其他所有的翻译单元都不能看到这个变量/函数。链接器在全局作用域下将不会看到这个变量/函数。把<code>CStatic.cpp</code>中的变量与函数均改成静态的，编译会报错，因为他们在main中不可见，跨翻译单元是找不到他的。将main.cpp中的变量和函数修改为全局的，此时编译通过，且输出的是main中定义的变量值和函数。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*CStatic.cpp*/</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> Variable = <span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Function in CStatic&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*main.cpp*/</span></span><br><span class="line"><span class="comment">//extern int Variable; //undefined reference to `Function()&#x27;</span></span><br><span class="line"><span class="comment">//extern void Function(); //undefined reference to `Variable&#x27;</span></span><br><span class="line"><span class="keyword">int</span> Variable = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Function in main&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	std::cout &lt;&lt; Variable &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在类和结构体外使用静态，意味着当你声明静态函数和静态变量时，它只会在它被声明的C++文件中被“看到”。如果在一个头文件中声明静态变量并将该头文件包含在两个不同的C++文件中，就相当于在两个翻译单元中都声明了那个变量为静态变量。（包含头文件时，编译器会复制所有头文件中的内容到C++文件中）</p>
-<p>为什么要用static？可以类比为什么要在类中用private。当不需要变量是全局变量时，尽可能地用静态变量。因为一旦在全局作用域下声明东西的时候，编译器会跨编译单元进行链接，这个变量在任何地方都可以被使用，可能会导致一些很严重的bug。</p>
-<p>综上，尽可能地标记函数或变量为静态的，除非你真的需要他们跨翻译单元链接。</p>
-<h2 id="22-类和结构体内的静态"><a href="#22-类和结构体内的静态" class="headerlink" title="22.类和结构体内的静态"></a>22.类和结构体内的静态</h2><p>在类和结构体内部定义的静态变量，在类的所有实例中这个变量只有一个实例，这意味着该变量实际上将与类的所有实例共享内存。对于静态函数来说，没有实例会传递给一个静态函数。</p>
-<p>下面用结构体举例子（类也一样，只是因为结构体默认是public的）</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		std::cout &lt;&lt; num &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Entity e1;</span><br><span class="line">	e1.num = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	Entity e2;</span><br><span class="line">	e2.num = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">	e1.<span class="built_in">Print</span>();</span><br><span class="line">	e2.<span class="built_in">Print</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很显然，这样会输出2和5。如果将结构体内的x和y变成静态的，会报错<code>undefined reference to ‘Entity::num’</code>，因为x和y要在某个地方被定义，加上<code>int Entity::num;</code>，程序修改为：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> num;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		std::cout &lt;&lt; num &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Entity::num;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Entity e1;</span><br><span class="line">	e1.num = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	Entity e2;</span><br><span class="line">	e2.num = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">	e1.<span class="built_in">Print</span>();</span><br><span class="line">	e2.<span class="built_in">Print</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这时运行会输出5和5.这是因为num变量在Entity类的所有实例中只有一个实例，这意味着e1.num和e2.num指向的是相同的内存，所以<code>e1.num</code>和<code>e2.num</code>这样写是没有意义的。可以直接写成<code>Entity::num = 5</code>。这就像是在一个名为Entity的命名空间中创建了一个变量，他们实际上并不属于类，但是他们可以是private的也可以是public的，所以他们仍是类的一部分。但是在应用上来说他们其实和在命名空间中一样。</p>
-<p>静态方法跟静态变量一样，如果将Print也改为静态的，调用时同样需要使用<code>Entity::Print();</code></p>
-<p>但静态方法不能访问非静态变量，将num改为非静态变量，Print保持为静态方法，这时编译会报错<code>error: invalid use of member &#39;Entity::num&#39; in static member function</code>，原因是静态方法没有类实例。每个非静态方法总是会获得当前类的一个实例作为参数，这我们是看不见的，在底层通过隐藏参数发挥作用，而静态方法不会得到那个隐藏参数。类中的静态方法拿到类外面在编译的时候实际上是这个样子的，实际上传进去了一个实例参数，这样就不会报错：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Entity</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Print</span><span class="params">(Entity e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; e.num &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Entity e;</span><br><span class="line">	e.num = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">Print</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>综上所述，当你需要跨类使用变量时，类内静态变量将会派上用场。那这么说创建一个全局变量或者静态变量不也一样吗？NO！如果你有一条消息，想要在所有实例之间共享数据，把这个消息变量放在类中是有意义的，因为它在逻辑上跟这个类有关。要想组织好你的代码，最好在类中创建一个静态变量，而不是将全局或者静态变量到处乱写。</p>
-<h2 id="23-局部静态"><a href="#23-局部静态" class="headerlink" title="23.局部静态"></a>23.局部静态</h2><p>局部静态允许我们创建一个变量，它的生存周期基本相当于整个程序的生存期，但是作用范围被限制在这个域中。来看一段程序：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	i++;</span><br><span class="line">	std::cout &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">	<span class="built_in">Function</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>显而易见输出为11111。要是想将i每次递增实现输出12345，你的第一反应可能是将i改为全局变量。但是这样做会使每个人都能访问这个变量，如果要避免这个问题，可以在局部作用域下将i声明为static。这样程序也可以输出12345，与全局变量效果相同，但是此时i只是函数作用域下的局部变量。</p>
-<p>使用局部静态的主要作用是可以使代码更干净，我们来看另一个例子。创建一个单例类（单例类是只存在一个实例的类），如果不使用静态局部作用域来创建单例类，就需要创建静态的单例实例，可能是一个指针，并返回一个引用，即为创建的实例：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">static</span> Singleton* s_Instance;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> Singleton&amp; <span class="title">Get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> *s_Instance;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Hello&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::s_Instance = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Singleton::<span class="built_in">Get</span>().<span class="built_in">Hello</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果使用局部静态来创建，代码会变得干净很多：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> Singleton&amp; <span class="title">Get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">static</span> Singleton instance;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;Hello&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Singleton::<span class="built_in">Get</span>().<span class="built_in">Hello</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码里如果没有static，当代码运行到函数右花括号处，即函数作用域结束时，instance就会被销毁。通过添加static，它的生存周期被延长到永远，在第一次调用Get的时候，实际上会构造一个单例实例，接下来它只会返回这个已存在的实例。</p>
-]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Gitbook</title>
-    <url>/posts/d5c8f039.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Gitbook"><a href="#Gitbook" class="headerlink" title="Gitbook"></a>Gitbook</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="安装gitbook"><a href="#安装gitbook" class="headerlink" title="安装gitbook"></a>安装gitbook</h3><p>gitbook基于Node.js，所以要先安装Node.js，<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fnodejs.org%2Fen%2F">官网</a>。</p>
-<p>安装好node后，安装gitbook</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//全局安装</span><br><span class="line">npm install -g gitbook-cli</span><br><span class="line">//当前目录下安装</span><br><span class="line">npm install gitbook-cli</span><br></pre></td></tr></table></figure>
-<h3 id="检查版本"><a href="#检查版本" class="headerlink" title="检查版本"></a>检查版本</h3><p>安装好之后执行<code>gitbook -V</code>检查版本，不出意外应该会报错：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">CLI version: 2.3.2</span><br><span class="line">Installing GitBook 3.2.3</span><br><span class="line">/xxx/nodejs/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287</span><br><span class="line">      <span class="keyword">if</span> (cb) cb.apply(this, arguments)</span><br><span class="line">                 ^</span><br><span class="line"></span><br><span class="line">TypeError: cb.apply is not a <span class="keyword">function</span></span><br><span class="line">    at /data/soft/nodejs/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287:18</span><br><span class="line">    at FSReqCallback.oncomplete (fs.js:169:5)</span><br></pre></td></tr></table></figure>
-<p>此时需要进入上面给出的目录，找到polyfills.js，将62-64注释掉</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//fs.stat = statFix(fs.stat)</span></span><br><span class="line"><span class="comment">//fs.fstat = statFix(fs.fstat)</span></span><br><span class="line"><span class="comment">//fs.lstat = statFix(fs.lstat)</span></span><br></pre></td></tr></table></figure>
-<p>此时运行<code>gitbook -V</code>不会报错。</p>
-<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>新建一个工程目录，在目录下执行<code>gitbook init</code>，应该又报错了。这是因为node的版本太高了，需要对node进行降级。这里我推荐使用nvm来管理nodeJs的版本。因为我还有使用高版本node的需求，而且降级也挺麻烦的。nvm的<a href="https://github.com/coreybutler/nvm-windows/releases">下载地址</a>，选择nvm-setup.zip，安装时第二个路径要选择nodejs的安装路径。</p>
-<p>查看安装的nodejs版本</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvm list</span><br></pre></td></tr></table></figure>
-<p>安装低版本nodejs，这个版本经测试可用</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvm install v12.22.3</span><br></pre></td></tr></table></figure>
-<p>等待安装完，切换版本</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvm use v12.22.3</span><br></pre></td></tr></table></figure>
-<p>回到工程根目录再次初始化</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook init</span><br></pre></td></tr></table></figure>
-<p>初始化成功，创建了<code>README.md</code>（书籍的介绍）和<code>SUMMARY.md</code>（书籍的目录结构）</p>
-<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>这里拿自动目录插件举例，在工程根目录下创建一个<code>book.json</code>，写入：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;plugins&quot;</span>: [<span class="string">&quot;summary&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在根目录下执行<code>gitbook install ./</code>即可安装插件。启动服务后这个插件会自动生成目录。下文会讲解如何生成目录。</p>
-<h2 id="加入文章"><a href="#加入文章" class="headerlink" title="加入文章"></a>加入文章</h2><p>在根目录下创建文件夹，以数字和短横线开头：<code>0-Example</code>，同样<code>0-Example</code>下也可以创建子文件夹。每一个文件夹相当于一个目录，子文件夹就是多级目录。</p>
-<p>每一个子文件夹下要有一个命名为<code>0-README.md</code>的文件，用于放置这个目录的简介，其他md文件也要以数字和短横线开头：<code>1-TestPage.md</code></p>
-<h2 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h2><p>加入好文章之后，启动本地服务，前文安装的summary插件会自动生成层级目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook serve</span><br></pre></td></tr></table></figure>
-<p>然后在浏览器中打开<a href="http://localhost:4000/，检验你的成果！">http://localhost:4000/，检验你的成果！</a></p>
-]]></content>
-      <categories>
-        <category>小技能</category>
-      </categories>
-      <tags>
-        <tag>Gitbook</tag>
       </tags>
   </entry>
 </search>
