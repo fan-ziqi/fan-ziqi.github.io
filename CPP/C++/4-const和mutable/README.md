@@ -7,7 +7,6 @@
 [C++](/C++/)
 - [4-const和mutable](C++/4-const和mutable/)
   - [34-关键词const](C++/4-const和mutable/34-关键词const.md)
-  - [35-关键词mutable](C++/4-const和mutable/34-关键词mutable.md)
 
 ------
 
