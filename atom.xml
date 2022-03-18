@@ -41,6 +41,30 @@
   </entry>
   
   <entry>
+    <title>树莓派使用串口</title>
+    <link href="http://www.robotsfan.com/posts/dab7fbfc.html"/>
+    <id>http://www.robotsfan.com/posts/dab7fbfc.html</id>
+    <published>2022-03-15T12:30:00.000Z</published>
+    <updated>2022-03-18T12:00:58.909Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="树莓派使用串口"><a href="#树莓派使用串口" class="headerlink" title="树莓派使用串口"></a>树莓派使用串口</h1><p>树莓派默认将 serial0 映射到 外接GPIO的15、16脚。默认将 serial1 映射到 BT蓝牙上。所以如果想要将 ttyAMA0映射到外部 GPIO上，只需要禁用蓝牙，并将 serial0 和serial1 他们链接的对象互换。</p><p>但树莓派4B的更改方式与旧版本不同，终端输入<code>ls -l /dev/serial*</code>，发现只有serial1-&gt;ttyAMA0，没有serial0也没有ttyS0，更没有二者的映射。</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p><strong>不要去修改<code>config.txt</code>里的配置！！！</strong>网上很多教程<strong>误人子弟</strong>，此文件开头就明确声明了禁止修改，用户的修改均要放置到<code>usercfg.txt</code>中！打开<code>config.txt</code>可以看到这个文件引用了<code>syscfg.txt</code>，这个文件里面写了<code>enable_uart=0</code>，也就是说即便在<code>config.txt</code>中修改了<code>enable_uart=1</code>，下面还是会被重新赋值为<code>enable_uart=0</code>。而<code>usercfg.txt</code>是在<code>syscfg.txt</code>后引用的，所以用户的修改项会覆盖上面的所有配置。</p><p>正确方法如下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /boot/firmware</span><br><span class="line">sudo vi usercfg.txt</span><br></pre></td></tr></table></figure><p>在里面添加</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">enable_uart=1</span><br><span class="line">dtoverlay=disable-bt</span><br></pre></td></tr></table></figure><p>保存，然后禁用跟蓝牙有关的开机启动项</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">disable</span> bluetooth</span><br></pre></td></tr></table></figure><p>重启树莓派</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure><p>然后再次<code>ls -l /dev/serial*</code>就可以看到正确的映射关系</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="小技能" scheme="http://www.robotsfan.com/categories/%E5%B0%8F%E6%8A%80%E8%83%BD/"/>
+    
+    
+    <category term="树莓派" scheme="http://www.robotsfan.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>OpenCV文档矫正</title>
     <link href="http://www.robotsfan.com/posts/c780224b.html"/>
     <id>http://www.robotsfan.com/posts/c780224b.html</id>
@@ -469,30 +493,6 @@
     
     
     <category term="C++" scheme="http://www.robotsfan.com/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git操作</title>
-    <link href="http://www.robotsfan.com/posts/c4c88997.html"/>
-    <id>http://www.robotsfan.com/posts/c4c88997.html</id>
-    <published>2022-02-03T16:24:00.000Z</published>
-    <updated>2022-02-03T16:24:44.932Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Git操作"><a href="#Git操作" class="headerlink" title="Git操作"></a>Git操作</h1><ul><li><p>安装</p>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install git</span><br></pre></td></tr></table></figure></li><li><p>查看版本</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure></li><li><p>生成密钥</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure></li><li><p>查看公钥</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub </span><br></pre></td></tr></table></figure></li><li><p>GIthub -&gt; Settings -&gt; SSH and GPG keys -&gt; New SSH key</p></li><li><p>检查本地是否能远程访问github服务器，出现You’ve successfully authenticated，说明认证通过。</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></li><li><p>配置自己的名称和电子邮件地址</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;YOURNAME&quot;</span><br><span class="line">git config --global user.email &quot;YOUREMAIL&quot;</span><br></pre></td></tr></table></figure></li><li><p>查看设置</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure></li><li><p>新项目</p><ul><li><p>建立新的repository</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/new</span><br></pre></td></tr></table></figure></li><li><p>新建目录</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git checkout -b main //切换本地分支为main</span><br></pre></td></tr></table></figure></li><li><p>提交</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add . //添加文件</span><br><span class="line">git commit -am &quot;first commit&quot; //-m指定本次提交的描述信息 </span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure></li><li><p>设置set-upstream</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/main main</span><br><span class="line">git push //之后push用这个</span><br></pre></td></tr></table></figure></li></ul></li><li><p>已有项目</p><ul><li><p>clone下来</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:fan-ziqi/My_ROS_Robot.git</span><br></pre></td></tr></table></figure></li><li><p>新建目录</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/test_project</span><br><span class="line">cd ~/test_project</span><br><span class="line">git init //初始化一个空的git repository  </span><br><span class="line">git remote add origin https://github.com//username//test_project.git //第一次初始化</span><br><span class="line">git checkout -b main //切换本地分支为main</span><br></pre></td></tr></table></figure></li><li><p>pull下来</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin main</span><br></pre></td></tr></table></figure></li><li><p>设置set-upstream</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/main main</span><br></pre></td></tr></table></figure></li><li><p>提交</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .   // .代表添加所有文件  </span><br><span class="line">git commit -am &quot;对文件操作的简易描述&quot;  </span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li></ul></li></ul><p>出现错误<code>error: failed to push some refs to &#39;https://github.com/xxx/xxx.git&#39;</code></p><p>出现错误的原因是github中的某些文件不在本地代码目录中。</p><p>也就是说我们需要先将远程代码库中的任何文件先pull到本地代码库中，才能push新的代码到github代码库中。</p><p>使用如下命令：git pull —rebase origin main</p><p>然后再进行上传: git push -u origin main</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="技能" scheme="http://www.robotsfan.com/categories/%E6%8A%80%E8%83%BD/"/>
-    
-    
-    <category term="Git" scheme="http://www.robotsfan.com/tags/Git/"/>
     
   </entry>
   
