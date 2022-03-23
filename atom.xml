@@ -6,7 +6,7 @@
   <link href="http://www.robotsfan.com/atom.xml" rel="self"/>
   
   <link href="http://www.robotsfan.com/"/>
-  <updated>2022-03-15T12:35:41.198Z</updated>
+  <updated>2022-03-23T08:31:43.855Z</updated>
   <id>http://www.robotsfan.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FOC控制原理——Clark变换和Park变换</title>
+    <link href="http://www.robotsfan.com/posts/9532f19e.html"/>
+    <id>http://www.robotsfan.com/posts/9532f19e.html</id>
+    <published>2022-03-23T08:25:00.000Z</published>
+    <updated>2022-03-23T08:31:43.855Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="FOC控制原理——Clark变换和Park变换"><a href="#FOC控制原理——Clark变换和Park变换" class="headerlink" title="FOC控制原理——Clark变换和Park变换"></a>FOC控制原理——Clark变换和Park变换</h1><h2 id="Clark变换"><a href="#Clark变换" class="headerlink" title="Clark变换"></a>Clark变换</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>Clark变换就是把三向坐标系变成直角坐标系</p><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323153620081.png" alt="image-20220323153620081"></p><p>已知三向坐标系 $(I_a,I_b,I_c)$ ，这三个基向量不是正交的，所以可以将其正交化为一个直角坐标系，命名为 $\alpha-\beta$ 坐标系，变换公式为：</p><script type="math/tex; mode=display">\left\{\begin{array}{l}    \begin{aligned}    I_\alpha&=I_a-I_b\text{cos}60-I_c\text{cos}60 \\            &=I_a-\frac{1}{2}I_b-\frac{1}{2}I_c    \end{aligned} \\    \begin{aligned}    I_\beta&=I_b\text{cos}30-I_c\text{cos}30 \\           &=\frac{\sqrt3}{2}I_b-\frac{\sqrt3}{2}I_c    \end{aligned}\end{array}\right.</script><p>可以将其整理成矩阵形式：</p><script type="math/tex; mode=display">\left[\begin{array}{c}    I_{\alpha} \\    I_{\beta}\end{array}\right]=\left[\begin{array}{ccc}    1 & -\frac{1}{2}       & -\frac{1}{2} \\    0 & \frac{\sqrt{3}}{2} & -\frac{\sqrt{3}}{2}\end{array}\right]\left[\begin{array}{c}    I_{a} \\    I_{b} \\    I_{c}\end{array}\right]</script><p>由基尔霍夫电流定律， $I_a+I_b+I_c=0$ ，故也可整理为：</p><script type="math/tex; mode=display">\left\{\begin{array}{l}    I_\alpha=\frac{3}{2}I_a \\    I_\beta=\frac{\sqrt3}{2}I_a+\sqrt3I_b\end{array}\right.</script><p>反Clark变换则将三向信号转换为两向信号，根据上式可以解得</p><script type="math/tex; mode=display">\left[\begin{array}{c}    I_{a} \\    I_{b} \\    I_{c}\end{array}\right]=\left[\begin{array}{ccc}    \frac{2}{3}  & 0       \\    -\frac{1}{3} & \frac{1}{\sqrt{3}} \\    -\frac{1}{3} & -\frac{1}{\sqrt{3}}\end{array}\right]\left[\begin{array}{c}    I_{\alpha} \\    I_{\beta}\end{array}\right]</script><p>也可通过计算Clark变换常数矩阵的伪逆来确定反Clark变换的常数矩阵（使用MATLAB中的 <code>pinv()</code>函数）</p><h3 id="Simulink仿真"><a href="#Simulink仿真" class="headerlink" title="Simulink仿真"></a>Simulink仿真</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323152939436.png" alt="image-20220323152939436"></p><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323150553068.png" alt="image-20220323150553068"></p><p>通过图像可以看到，输入信号的幅值为1，经过Clark变换后的图像幅值变为1.5，即变为 $\frac{3}{2}$ 倍；进行反Clark变换后幅值又变为1.5，即变为 $\frac{2}{3}$ 倍。所以要进行等幅值变换。修改仿真：</p><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323153007076.png" alt="image-20220323153007076"></p><p>可以看到，经过等幅值变换后，幅值统一为1。</p><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323151818659.png" alt="image-20220323151818659"></p><h2 id="Park变换"><a href="#Park变换" class="headerlink" title="Park变换"></a>Park变换</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>Park变换可以将正弦变量线性化</p><p>将 $\alpha-\beta$ 坐标系旋转 $\theta$ 度变为 $d-q$ 坐标系， $d$ 指向转子中心， $q$ 指向切线方向，其中 $\theta$ 是转子当前的角度。如下图</p><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/v2-d15d057327992a5c50016aea5bb7201b_1440w.jpg" alt="img"></p><p>也就是说 $d-q$ 坐标系始终跟着转子旋转。</p><p>则可以写出</p><script type="math/tex; mode=display">\left\{\begin{array}{l}I_{d}=I_{\alpha} \cos (\theta)+I_{\beta} \sin (\theta) \\I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)\end{array}\right.</script><p>整理成矩阵形式</p><script type="math/tex; mode=display">\left[\begin{array}{l}    I_{d} \\    I_{q}\end{array}\right]=\left[\begin{array}{cc}     \cos \theta & \sin \theta \\    -\sin \theta & \cos \theta\end{array}\right]\left[\begin{array}{l}    I_{\alpha} \\    I_{\beta}\end{array}\right]</script><p>所以如果 $d$ 轴为0，则功率全部输出在 $q$ 轴上。</p><p>同理，可以求得反Park变换</p><script type="math/tex; mode=display">\left[\begin{array}{l}    I_{\alpha} \\    I_{\beta}\end{array}\right]=\left[\begin{array}{cc}     \cos \theta & -\sin \theta \\     \sin \theta & \cos \theta\end{array}\right]\left[\begin{array}{l}    I_{d} \\    I_{q}\end{array}\right]</script><h3 id="Simulink仿真-1"><a href="#Simulink仿真-1" class="headerlink" title="Simulink仿真"></a>Simulink仿真</h3><p>在Clark变换和等幅值变换的基础上添加Park变换</p><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323160805870.png" alt="image-20220323160805870"></p><p>关注Park部分</p><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323160942614.png" alt="image-20220323160942614"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="电机" scheme="http://www.robotsfan.com/categories/%E7%94%B5%E6%9C%BA/"/>
+    
+    
+    <category term="FOC" scheme="http://www.robotsfan.com/tags/FOC/"/>
+    
+  </entry>
   
   <entry>
     <title>机器人动力学——拉格朗日法</title>
@@ -456,30 +480,6 @@
     <updated>2022-02-06T04:18:46.936Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="深入学习C-——16指针"><a href="#深入学习C-——16指针" class="headerlink" title="深入学习C++——16指针"></a>深入学习C++——16指针</h1><p>什么是指针？<strong>指针是一个整数，一种存储内存地址的数字。</strong>指针只是一个数字而已，不要想太多。指针的类型对指针来说是毫无意义的，只能说是这个地址的数据被假设为我们给的类型。指针类型并不会改变指针的实质，指针只是一个内存地址，一个数字而已。 </p><p>首先我们创建一个最纯粹的空指针，我并不关心这个指针的类型，因为我只想保存一个内存地址。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* ptr = <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></figure><p>其中<code>nullptr</code>代表空指针的意思，也可写成NULL。但不可写成0，因为当内存地址为0的时候程序会崩溃。</p><p>每个变量都有一个内存地址，使用引用<code>&amp;</code>运算符（reference）得到这个变量的内存地址。创建一个变量名为var，使用ptr存放var的内存地址：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> var = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">void</span>* ptr = &amp;var;</span><br></pre></td></tr></table></figure><p>如果此时加断点调试，可以看到<code>var</code>的值为<code>8</code>，<code>ptr</code>的值为<code>0xef045ff954</code>，这是一个十六进制的数字，即为var变量的内存地址。我们在内存中转到这个地址，可以看到<code>08 00 00 00</code>，就是<code>var</code>的值<code>8</code>（int占用4个字节）。</p><p>指针的类型对指针无关紧要，将<code>void</code>改为<code>int</code>，再次在内存中转到此地址，效果是完全一样的。指针的类型只在读写时有作用，跟指针本身是完全无关的。<strong>指针只是一个整数</strong>而已。</p><p>如果我们想读写指针指向的数据，需要使用逆向引用<code>*</code>运算符（dereference）。在指针前加上<code>*</code>即可读取这个指针指向的数据。如前例，ptr为var的指针，使用<code>*ptr = 10</code>即可将var的值改为10。但是此时会报错，因为此时指针为void空指针，计算机并不知道这个“10”需要多少字节的数据，自然而然无法将其写入。所以此时需要指定字节数，即将前文改为<code>int* ptr = &amp;var;</code>。记住，类型跟指针毫无关系，类型的目的只是告诉编译器在读写时应该寻找几个字节。此时重新运行程序可以看到var的值被成功修改为10。</p><p>如果需要分配一些空间，可以这么操作：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//new char[8]分配了8个字节的内存，并返回一个指向那块内存开始的指针。</span></span><br><span class="line"><span class="keyword">char</span>* buffer = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">8</span>];</span><br><span class="line"><span class="comment">//使用memset函数用指定的数据填充一个内存块：第一个参数为内存块开始的指针，第二个值为要填充的值，第三个参数为大小。</span></span><br><span class="line"><span class="built_in">memset</span>(buffer, <span class="number">0</span>, <span class="number">8</span>);</span><br></pre></td></tr></table></figure><p>调试程序，转到buffer地址，可以看到<code>00 00 00 00   00 00 00 00</code>。之后需要释放这个内存，使用<code>delete[] buffer;</code></p><p>指针也是一个变量，因此指针也可以指向指针。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>** ptr = &amp;buffer;</span><br></pre></td></tr></table></figure><p>查看内存：buffer的值为<code>0x193a7d41b60</code>。ptr的值为<code>0x843b7ffb30</code>，即为buffer指针存放的地址。跳转进去可以看到<code>60 1b d4 a7   93 01 00 00</code>，这也就是buffer的值。（计算机中存储顺序为倒序）</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="C++" scheme="http://www.robotsfan.com/categories/C/"/>
-    
-    
-    <category term="C++" scheme="http://www.robotsfan.com/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>boost库使用串口</title>
-    <link href="http://www.robotsfan.com/posts/e4966ae8.html"/>
-    <id>http://www.robotsfan.com/posts/e4966ae8.html</id>
-    <published>2022-02-04T10:40:00.000Z</published>
-    <updated>2022-02-04T10:38:10.068Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="boost库使用串口"><a href="#boost库使用串口" class="headerlink" title="boost库使用串口"></a>boost库使用串口</h1><h2 id="一、使用普通指针"><a href="#一、使用普通指针" class="headerlink" title="一、使用普通指针"></a>一、使用普通指针</h2><h3 id="1-头文件声明"><a href="#1-头文件声明" class="headerlink" title="1. 头文件声明"></a>1. 头文件声明</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">boost::system::error_code error_code_;</span><br><span class="line">boost::asio::io_service io_service_;</span><br><span class="line">boost::asio::serial_port *serial_port_;</span><br></pre></td></tr></table></figure><h3 id="2-使用new分配内存"><a href="#2-使用new分配内存" class="headerlink" title="2. 使用new分配内存"></a>2. 使用new分配内存</h3><p>创建串口然后使用open开启</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serial_port_ = <span class="keyword">new</span> boost::asio::<span class="built_in">serial_port</span>(io_service_);</span><br><span class="line">serial_port_-&gt;<span class="built_in">open</span>(port_name_, error_code_);</span><br></pre></td></tr></table></figure><p>或者直接开启</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serial_port_ = <span class="keyword">new</span> boost::asio::<span class="built_in">serial_port</span>(io_service_, port_name_);</span><br></pre></td></tr></table></figure><h3 id="3-释放内存"><a href="#3-释放内存" class="headerlink" title="3. 释放内存"></a>3. 释放内存</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> serial_port_;</span><br></pre></td></tr></table></figure><h2 id="二、使用共享指针"><a href="#二、使用共享指针" class="headerlink" title="二、使用共享指针"></a>二、使用共享指针</h2><h3 id="1-头文件声明-1"><a href="#1-头文件声明-1" class="headerlink" title="1. 头文件声明"></a>1. 头文件声明</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">boost::system::error_code error_code_;</span><br><span class="line">boost::asio::io_service io_service_;</span><br><span class="line">std::shared_ptr&lt;boost::asio::serial_port&gt; serial_port_;</span><br></pre></td></tr></table></figure><h3 id="2-使用make-shared分配内存"><a href="#2-使用make-shared分配内存" class="headerlink" title="2. 使用make_shared分配内存"></a>2. 使用make_shared分配内存</h3><p>创建串口然后使用open开启</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serial_port_ = std::make_shared&lt;boost::asio::serial_port&gt;(io_service_);</span><br><span class="line">serial_port_-&gt;<span class="built_in">open</span>(port_name_, error_code_);</span><br></pre></td></tr></table></figure><p>或者直接开启</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serial_port_ = std::make_shared&lt;boost::asio::serial_port&gt;(io_service_, port_name_);</span><br></pre></td></tr></table></figure><h3 id="3-释放内存-1"><a href="#3-释放内存-1" class="headerlink" title="3. 释放内存"></a>3. 释放内存</h3><p>使用智能指针不需要delete释放内存</p>]]></content>
     
     
       

@@ -2966,4 +2966,109 @@ g(\theta) &=\left[\begin{array}{c}
         <tag>树莓派</tag>
       </tags>
   </entry>
+  <entry>
+    <title>FOC控制原理——Clark变换和Park变换</title>
+    <url>/posts/9532f19e.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="FOC控制原理——Clark变换和Park变换"><a href="#FOC控制原理——Clark变换和Park变换" class="headerlink" title="FOC控制原理——Clark变换和Park变换"></a>FOC控制原理——Clark变换和Park变换</h1><h2 id="Clark变换"><a href="#Clark变换" class="headerlink" title="Clark变换"></a>Clark变换</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>Clark变换就是把三向坐标系变成直角坐标系</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323153620081.png" alt="image-20220323153620081"></p>
+<p>已知三向坐标系 $(I_a,I_b,I_c)$ ，这三个基向量不是正交的，所以可以将其正交化为一个直角坐标系，命名为 $\alpha-\beta$ 坐标系，变换公式为：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}
+    \begin{aligned}
+    I_\alpha&=I_a-I_b\text{cos}60-I_c\text{cos}60 \\
+            &=I_a-\frac{1}{2}I_b-\frac{1}{2}I_c
+    \end{aligned} \\
+    \begin{aligned}
+    I_\beta&=I_b\text{cos}30-I_c\text{cos}30 \\
+           &=\frac{\sqrt3}{2}I_b-\frac{\sqrt3}{2}I_c
+    \end{aligned}
+\end{array}\right.</script><p>可以将其整理成矩阵形式：</p>
+<script type="math/tex; mode=display">
+\left[\begin{array}{c}
+    I_{\alpha} \\
+    I_{\beta}
+\end{array}\right]=
+\left[\begin{array}{ccc}
+    1 & -\frac{1}{2}       & -\frac{1}{2} \\
+    0 & \frac{\sqrt{3}}{2} & -\frac{\sqrt{3}}{2}
+\end{array}\right]
+\left[\begin{array}{c}
+    I_{a} \\
+    I_{b} \\
+    I_{c}
+\end{array}\right]</script><p>由基尔霍夫电流定律， $I_a+I_b+I_c=0$ ，故也可整理为：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}
+    I_\alpha=\frac{3}{2}I_a \\
+    I_\beta=\frac{\sqrt3}{2}I_a+\sqrt3I_b
+\end{array}\right.</script><p>反Clark变换则将三向信号转换为两向信号，根据上式可以解得</p>
+<script type="math/tex; mode=display">
+\left[\begin{array}{c}
+    I_{a} \\
+    I_{b} \\
+    I_{c}
+\end{array}\right]=
+\left[\begin{array}{ccc}
+    \frac{2}{3}  & 0       \\
+    -\frac{1}{3} & \frac{1}{\sqrt{3}} \\
+    -\frac{1}{3} & -\frac{1}{\sqrt{3}}
+\end{array}\right]
+\left[\begin{array}{c}
+    I_{\alpha} \\
+    I_{\beta}
+\end{array}\right]</script><p>也可通过计算Clark变换常数矩阵的伪逆来确定反Clark变换的常数矩阵（使用MATLAB中的 <code>pinv()</code>函数）</p>
+<h3 id="Simulink仿真"><a href="#Simulink仿真" class="headerlink" title="Simulink仿真"></a>Simulink仿真</h3><p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323152939436.png" alt="image-20220323152939436"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323150553068.png" alt="image-20220323150553068"></p>
+<p>通过图像可以看到，输入信号的幅值为1，经过Clark变换后的图像幅值变为1.5，即变为 $\frac{3}{2}$ 倍；进行反Clark变换后幅值又变为1.5，即变为 $\frac{2}{3}$ 倍。所以要进行等幅值变换。修改仿真：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323153007076.png" alt="image-20220323153007076"></p>
+<p>可以看到，经过等幅值变换后，幅值统一为1。</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323151818659.png" alt="image-20220323151818659"></p>
+<h2 id="Park变换"><a href="#Park变换" class="headerlink" title="Park变换"></a>Park变换</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>Park变换可以将正弦变量线性化</p>
+<p>将 $\alpha-\beta$ 坐标系旋转 $\theta$ 度变为 $d-q$ 坐标系， $d$ 指向转子中心， $q$ 指向切线方向，其中 $\theta$ 是转子当前的角度。如下图</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/v2-d15d057327992a5c50016aea5bb7201b_1440w.jpg" alt="img"></p>
+<p>也就是说 $d-q$ 坐标系始终跟着转子旋转。</p>
+<p>则可以写出</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}
+I_{d}=I_{\alpha} \cos (\theta)+I_{\beta} \sin (\theta) \\
+I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
+\end{array}\right.</script><p>整理成矩阵形式</p>
+<script type="math/tex; mode=display">
+\left[\begin{array}{l}
+    I_{d} \\
+    I_{q}
+\end{array}\right]=
+\left[\begin{array}{cc}
+     \cos \theta & \sin \theta \\
+    -\sin \theta & \cos \theta
+\end{array}\right]
+\left[\begin{array}{l}
+    I_{\alpha} \\
+    I_{\beta}
+\end{array}\right]</script><p>所以如果 $d$ 轴为0，则功率全部输出在 $q$ 轴上。</p>
+<p>同理，可以求得反Park变换</p>
+<script type="math/tex; mode=display">
+\left[\begin{array}{l}
+    I_{\alpha} \\
+    I_{\beta}
+\end{array}\right]=
+\left[\begin{array}{cc}
+     \cos \theta & -\sin \theta \\
+     \sin \theta & \cos \theta
+\end{array}\right]
+\left[\begin{array}{l}
+    I_{d} \\
+    I_{q}
+\end{array}\right]</script><h3 id="Simulink仿真-1"><a href="#Simulink仿真-1" class="headerlink" title="Simulink仿真"></a>Simulink仿真</h3><p>在Clark变换和等幅值变换的基础上添加Park变换</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323160805870.png" alt="image-20220323160805870"></p>
+<p>关注Park部分</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220323160942614.png" alt="image-20220323160942614"></p>
+]]></content>
+      <categories>
+        <category>电机</category>
+      </categories>
+      <tags>
+        <tag>FOC</tag>
+      </tags>
+  </entry>
 </search>
