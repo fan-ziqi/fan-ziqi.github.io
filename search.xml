@@ -3292,15 +3292,21 @@ U_{c} = -\frac{1}{2}U_{\beta} - \frac{\sqrt3}{2}U_{\alpha}
 扇区5:U_{\beta} < 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} >0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} > 0\\
 扇区6:U_{\beta} < 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} >0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} < 0
 \end{aligned}</script><p>所以通过计算 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 和 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 的正负可以判断出是1/6扇区，3/4扇区，2扇区，5扇区的哪一组。</p>
-<p>综上，我们的判断条件有： $U_{\beta}$ 、 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 和 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 。综合这三个条件就可以判断是在哪个扇区 。那么有没有一种算法可以将这一堆判断数值化并转换成1~6的数字呢？可以用下面的公式：</p>
+<p>综上，我们的判断条件有： $U_{\beta}$ 、 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 和 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 。我们分别定义：</p>
 <script type="math/tex; mode=display">
-N=A+2B+4C</script><p>式中的ABC代表三个判断条件的正负，大于0为1，小于0为0，其中A代表 $U_{\beta}$ ，B代表 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ ，C代表 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 。最后转换出来的的N即为1~6的数字：</p>
+\begin{array}{l}
+U_a = U_{\beta} \\
+U_b = \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}\\
+U_c = -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}
+\end{array}</script><p>综合这三个条件就可以判断是在哪个扇区 。那么有没有一种算法可以将这一堆判断数值化并转换成1~6的数字呢？可以用下面的公式：</p>
+<script type="math/tex; mode=display">
+N=A+2B+4C</script><p>式中A代表 $U_a$ 的正负，B代表 $U_b$ 的正负，C代表 $U_c$ 的正负，大于0为1，小于0为0。最后转换出来的的N即为1~6的数字：</p>
 <script type="math/tex; mode=display">
 \begin{array}{c}
 扇区 & 1 & 2 & 3 & 4 & 5 & 6 & \\
 N   & 3 & 1 & 5 & 4 & 6 & 2 &
 \end{array}</script><p>至此，我们成功完成了扇区判断。</p>
-<h3 id="相邻矢量作用时长计算"><a href="#相邻矢量作用时长计算" class="headerlink" title="相邻矢量作用时长计算"></a>相邻矢量作用时长计算</h3><p>控制相邻矢量作用时长就可以控制转子到达任意方向，下面进行分析。</p>
+<h3 id="计算相邻矢量作用时长"><a href="#计算相邻矢量作用时长" class="headerlink" title="计算相邻矢量作用时长"></a>计算相邻矢量作用时长</h3><p>控制相邻矢量作用时长就可以控制转子到达任意方向，下面进行分析。</p>
 <h4 id="六个矢量的大小"><a href="#六个矢量的大小" class="headerlink" title="六个矢量的大小"></a>六个矢量的大小</h4><p>六个MOS管可以产生8种状态</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220330152650462.png" alt="image-20220330152650462" style="zoom:50%;"></p>
 <p>设上开下合为0（电流从O往对应的向流），上合下开为1（电流从对应的向往O流），表示其中的六个矢量。</p>
@@ -3334,7 +3340,7 @@ U_{out}=\frac{3}{2}U_m\cdot e^{j\theta}</script><p>合成矢量的电压是相�
 U_{out}=U_{dc}</script><p>即<strong>合成矢量的电压等于母线电压</strong>。所以<strong>SVPWM的电压利用率是100%</strong>。</p>
 <h4 id="SVPWM输出电压是马鞍波"><a href="#SVPWM输出电压是马鞍波" class="headerlink" title="SVPWM输出电压是马鞍波"></a>SVPWM输出电压是马鞍波</h4><p>由于中间连接点N的点位 是浮动的，为三角波，而相电压是每相相对于电机中间连接点N的电压，所以相电压不是一个正弦波，而是一个正弦波与一个三角波叠加而成的，即为马鞍波。网图：</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/d94c427b1d664ffe9b585d58e60482f6.jpg" alt="d94c427b1d664ffe9b585d58e60482f6"></p>
-<h3 id="矢量作用时长"><a href="#矢量作用时长" class="headerlink" title="矢量作用时长"></a>矢量作用时长</h3><p>合成矢量的电压是所在扇区两个矢量与空矢量不同时长的组合：</p>
+<h4 id="矢量作用时长"><a href="#矢量作用时长" class="headerlink" title="矢量作用时长"></a>矢量作用时长</h4><p>合成矢量的电压是所在扇区两个矢量与空矢量不同时长的组合：</p>
 <script type="math/tex; mode=display">
 U_{out}=U_x\frac{T_x}{T_s}+U_y\frac{T_y}{T_s}+U_0\frac{T_0}{T_s}</script><p>由于SVPWM的输入是 $U_{\alpha}$ 和 $U_{\beta}$ ，但是要控制 $T_x$ 和 $T_y$ ，所以要找到他们的对应关系。</p>
 <p>对于第一个扇区，将 $U_{out}$ 在 $\alpha-\beta$ 坐标系中表示：</p>
@@ -3373,23 +3379,64 @@ T_y=\frac{\sqrt{3}T_S}{U_{dc}}(\frac{\sqrt{3}}{2}U_\alpha-\frac{1}{2}U_\beta)
 \begin{array}{l}
 T_x=\frac{\sqrt{3}T_S}{U_{dc}}(\frac{\sqrt{3}}{2}U_\alpha+\frac{1}{2}U_\beta)\\
 T_y=\frac{\sqrt{3}T_S}{U_{dc}}(-U_\beta)
-\end{array}</script><p>六个扇区中都有相同的项，其中包含前文判断扇区所用的那几项： $U_{\beta}$ 、 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 和 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 。直接把前面已经计算过的变量拿过来使用，大大减少了计算量。定义：</p>
+\end{array}</script><p>六个扇区中都有相同的项，其中包含前文判断扇区所用的 $U_1$ 、 $U_2$ 、 $U_3$ 。直接把前面已经计算过的变量拿过来使用，大大减少了计算量。式中的 $\frac{\sqrt{3}T_S}{U_{dc}}$ 为调制比，定义：</p>
 <script type="math/tex; mode=display">
 \begin{array}{l}
-X= \frac{\sqrt{3}T_S}{U_{dc}}U_\beta=\frac{\sqrt{3}T_S}{U_{dc}}A\\
-Y= \frac{\sqrt{3}T_S}{U_{dc}}(\frac{\sqrt{3}}{2}U_\alpha+\frac{1}{2}U_\beta)=-\frac{\sqrt{3}T_S}{U_{dc}}C\\
-Z= \frac{\sqrt{3}T_S}{U_{dc}}(-\frac{\sqrt{3}}{2}U_\alpha+\frac{1}{2}U_\beta)=-\frac{\sqrt{3}T_S}{U_{dc}}B
+U_{mr} = \frac{\sqrt{3}T_S}{U_{dc}} \\
+X= \frac{\sqrt{3}T_S}{U_{dc}}U_\beta=U_{mr}U_1\\
+Y= \frac{\sqrt{3}T_S}{U_{dc}}(\frac{\sqrt{3}}{2}U_\alpha-\frac{1}{2}U_\beta)=U_{mr}U_2\\
+Z= \frac{\sqrt{3}T_S}{U_{dc}}(-\frac{\sqrt{3}}{2}U_\alpha-\frac{1}{2}U_\beta)=U_{mr}U_3
 \end{array}</script><p>可以将六个扇区表示为：</p>
 <script type="math/tex; mode=display">
 \begin{array}{c}
 & T_x & T_y  \\
-扇区1& -Z  &  X  \\
-扇区2&  Z  &  Y  \\
-扇区3&  X  & -Y  \\
-扇区4& -X  &  Z  \\
-扇区5& -Y  & -Z  \\
-扇区6&  Y  & -X  \\
-\end{array}</script><h2 id="电流闭环"><a href="#电流闭环" class="headerlink" title="电流闭环"></a>电流闭环</h2><h2 id="角度和速度"><a href="#角度和速度" class="headerlink" title="角度和速度"></a>角度和速度</h2><h3 id="有感（HALL）"><a href="#有感（HALL）" class="headerlink" title="有感（HALL）"></a>有感（HALL）</h3><h3 id="无感（EKF）"><a href="#无感（EKF）" class="headerlink" title="无感（EKF）"></a>无感（EKF）</h3><h2 id="速度闭环"><a href="#速度闭环" class="headerlink" title="速度闭环"></a>速度闭环</h2>]]></content>
+扇区1&  Y  &  X  \\
+扇区2& -Y  & -Z  \\
+扇区3&  X  &  Z  \\
+扇区4& -X  & -Y  \\
+扇区5&  Z  &  Y  \\
+扇区6& -Z  & -X  \\
+\end{array}</script><h3 id="定时器比较值计算"><a href="#定时器比较值计算" class="headerlink" title="定时器比较值计算"></a>定时器比较值计算</h3><p>我们前文算出来的 $T_x$ 和 $T_y$ 以秒为单位，需要把 $T_x$ 和 $T_y$ 转换为定时器比较值。定时器模式使用中心对齐，只需要控制半个周期的比较值就可以产生相对中心对称的PWM波。</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220331141308347.png" alt="image-20220331141308347" style="zoom:50%;"></p>
+<p>先来看第一扇区。在一个扇区内切换状态的时候，合理使用零矢量可以保证每一次切换只改变一路MOS管。那么第一扇区内的切换顺序就为：</p>
+<script type="math/tex; mode=display">
+000 \to 100 \to 110 \to 111 \to 110 \to 100 \to 000</script><p>可以看到，切换顺序构成了一个环路。在一个周期内我们需要控制三段作用时长：</p>
+<script type="math/tex; mode=display">
+T_s=T_x+T_y+T_N</script><p>六个MOS需要产生六路PWM来控制他们的状态。由于上下半桥是互补的，所以只需要生成三个PWM：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220331151522966.png" alt="image-20220331151522966"></p>
+<p>由于是中心对齐模式，所以只需要控制半个周期的时长 $\frac{T_x}{2}$ 和 $\frac{T_y}{2}$ 。在半个周期内 $T_N$ 出现了两次，分别为000和111，在半个周期内这两段时间平均分配。即为 $\frac{T_S-T_x-T_y}{4}$ 。</p>
+<p>这样就可以计算三个定时器的比较值 $T_1$ 、 $T_2$ 和 $T_3$ ：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+T_1= \frac{T_S-T_x-T_y}{4}\\
+T_2=T_a+\frac{T_x}{2}\\
+T_3=T_b+\frac{T_y}{2}
+\end{array}</script><p>同理，可以计算出所有六个扇区的切换顺序。通过结果可以得到结论：</p>
+<p>设</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+T_a= \frac{T_S-T_x-T_y}{4}\\
+T_b=T_a+\frac{T_x}{2}\\
+T_c=T_b+\frac{T_y}{2}
+\end{array}</script><p>那么六个扇区可以表示为：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+  & 扇区1 & 扇区2 & 扇区3 & 扇区4 & 扇区5 & 扇区6 & \\
+T1& T_a & T_b & T_c & T_c & T_b & T_a &\\
+T2& T_b & T_a & T_a & T_b & T_c & T_c &\\
+T3& T_c & T_c & T_b & T_a & T_a & T_b &
+\end{array}</script><p>至此，SVPWM输出比较值 $T_1$ 、 $T_2$ 、 $T_3$ ，互补得到六个比较值，输入到定时器，输出三路PWM。</p>
+<h4 id="MATLAB仿真-1"><a href="#MATLAB仿真-1" class="headerlink" title="MATLAB仿真"></a>MATLAB仿真</h4><p>设定Udc为24，pwm为18000</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220331163919487.png" alt="image-20220331163919487"></p>
+<p>在foc子模块中，将park反变换的输出输入SVPWM模块：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220331163836635.png" alt="image-20220331163836635"></p>
+<p>SVPWM模块：</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[T1,T2,T3,sector]</span> = <span class="title">fcn</span><span class="params">(Ualpha,Ubeta,Udc,Tpwm)</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 初始化</span></span><br><span class="line">sector = single(<span class="number">0</span>);</span><br><span class="line">T1 = single(<span class="number">0</span>);</span><br><span class="line">T2 = single(<span class="number">0</span>);</span><br><span class="line">T3 = single(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 第一步：扇区判断</span></span><br><span class="line"><span class="comment">% 计算三个临时变量</span></span><br><span class="line">Ua = Ubeta;</span><br><span class="line">Ub = (<span class="built_in">sqrt</span>(<span class="number">3</span>)*Ualpha - Ubeta)/<span class="number">2</span>;</span><br><span class="line">Uc = (-<span class="built_in">sqrt</span>(<span class="number">3</span>)*Ualpha - Ubeta)/<span class="number">2</span>;</span><br><span class="line"><span class="comment">% 计算判断扇区所用的ABC的值</span></span><br><span class="line">A=single(<span class="number">0</span>);B=single(<span class="number">0</span>);C=single(<span class="number">0</span>);N=single(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(Ua&gt;<span class="number">0</span>)</span><br><span class="line">    A = single(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">elseif</span>(Ua&lt;<span class="number">0</span>)</span><br><span class="line">    A = single(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">if</span>(Ub&gt;<span class="number">0</span>)</span><br><span class="line">    B = single(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">elseif</span>(Ub&lt;<span class="number">0</span>)</span><br><span class="line">    B = single(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">if</span>(Uc&gt;<span class="number">0</span>)</span><br><span class="line">    C = single(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">elseif</span>(Uc&lt;<span class="number">0</span>)</span><br><span class="line">    C = single(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">% 计算判断扇区所用的N的值</span></span><br><span class="line">N = A + <span class="number">2</span>*B + <span class="number">4</span>*C;</span><br><span class="line"><span class="comment">% 扇区判断</span></span><br><span class="line"><span class="keyword">switch</span> (N)   </span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span></span><br><span class="line">        sector = single(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span></span><br><span class="line">        sector = single(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span></span><br><span class="line">        sector = single(<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span></span><br><span class="line">        sector = single(<span class="number">4</span>);</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span></span><br><span class="line">        sector = single(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span></span><br><span class="line">        sector = single(<span class="number">6</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 第二步：计算相邻矢量作用时长</span></span><br><span class="line"><span class="comment">% 计算调制比</span></span><br><span class="line">Umr = <span class="built_in">sqrt</span>(<span class="number">3</span>)*Tpwm/Udc;</span><br><span class="line"><span class="comment">% 计算三个临时变量</span></span><br><span class="line">X = Umr * Ua;</span><br><span class="line">Y = Umr * Ub;</span><br><span class="line">Z = Umr * Uc;</span><br><span class="line"><span class="comment">% 分扇区计算Tx和Ty的值</span></span><br><span class="line">Tx=single(<span class="number">0</span>);Ty=single(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">switch</span> (sector)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span></span><br><span class="line">        Tx = Y; Ty = X;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span></span><br><span class="line">        Tx = -Y; Ty = -Z;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span></span><br><span class="line">        Tx = X; Ty = Z;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span></span><br><span class="line">        Tx = -X; Ty = -Y;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span></span><br><span class="line">        Tx = Z; Ty = Y;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span></span><br><span class="line">        Tx = -Z; Ty = -X;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 第三步：定时器比较值计算</span></span><br><span class="line"><span class="comment">% 干啥用的？</span></span><br><span class="line"><span class="keyword">if</span> Tx+Ty &gt; Tpwm</span><br><span class="line">    Tx = Tx/(Tx+Ty);</span><br><span class="line">    Ty = Ty/(Tx+Ty);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    Tx = Tx;</span><br><span class="line">    Ty = Ty;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">% 计算三个临时变量</span></span><br><span class="line">Ta = (Tpwm-Tx-Ty)/<span class="number">4.0</span>;</span><br><span class="line">Tb = Ta+Tx/<span class="number">2.0</span>;</span><br><span class="line">Tc = Tb+Ty/<span class="number">2.0</span>;</span><br><span class="line"><span class="comment">% 分扇区计算定时器比较值T1、T2和T3的值</span></span><br><span class="line"><span class="keyword">switch</span> (sector)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span></span><br><span class="line">        T1 = Ta; T2 = Tb; T3 = Tc;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span></span><br><span class="line">        T1 = Tb; T2 = Ta; T3 = Tc;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span></span><br><span class="line">        T1 = Tc; T2 = Ta; T3 = Tb;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span></span><br><span class="line">        T1 = Tc; T2 = Tb; T3 = Ta;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span></span><br><span class="line">        T1 = Tb; T2 = Tc; T3 = Ta;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span></span><br><span class="line">        T1 = Ta; T2 = Tc; T3 = Tb;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，定时器比较值为马鞍波</p>
+<p><img src="/posts/Users\fanziqi\AppData\Roaming\Typora\typora-user-images\image-20220331165323898.png" alt="image-20220331165323898"></p>
+<p>扇区为从1到6的循环</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220331165348883.png" alt="image-20220331165348883"></p>
+<h2 id="电流闭环"><a href="#电流闭环" class="headerlink" title="电流闭环"></a>电流闭环</h2><h2 id="角度和速度"><a href="#角度和速度" class="headerlink" title="角度和速度"></a>角度和速度</h2><h3 id="有感（HALL）"><a href="#有感（HALL）" class="headerlink" title="有感（HALL）"></a>有感（HALL）</h3><h3 id="无感（EKF）"><a href="#无感（EKF）" class="headerlink" title="无感（EKF）"></a>无感（EKF）</h3><h2 id="速度闭环"><a href="#速度闭环" class="headerlink" title="速度闭环"></a>速度闭环</h2>]]></content>
       <categories>
         <category>电机</category>
       </categories>
