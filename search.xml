@@ -3251,26 +3251,30 @@ U_{\beta} = U_{m}sin\theta
 \theta = arctan(\frac{U_{\beta}}{U_{\alpha}})</script><p>由于除法和反三角函数对于MCU来说计算量比较大。我们来找一个简便算法。</p>
 <p> $U_{\alpha}$ 是关于cos的三角函数， $U_{\beta}$ 是关于sin的三角函数，可以得到：</p>
 <script type="math/tex; mode=display">
+\begin{array}{l}
 扇区1:& U_{\alpha} > 0&,& U_{\beta} > 0\\
 扇区2:& U_{\alpha} >or< 0&,& U_{\beta} > 0\\
 扇区3:& U_{\alpha} < 0&,& U_{\beta} > 0\\
 扇区4:& U_{\alpha} < 0&,& U_{\beta} < 0\\
 扇区5:& U_{\alpha} >or< 0&,& U_{\beta} < 0\\
-扇区6:& U_{\alpha} > 0&,& U_{\beta} < 0</script><p>可以看到，通过 $U_{\beta}$ 的正负可以判断出是1/2/3扇区还是4/5/6扇区。</p>
+扇区6:& U_{\alpha} > 0&,& U_{\beta} < 0
+\end{array}</script><p>可以看到，通过 $U_{\beta}$ 的正负可以判断出是1/2/3扇区还是4/5/6扇区。</p>
 <p>这个条件只将扇区分为两个部分，我们还需要几个条件来更细致地分。将每个扇区的反三角函数范围计算出来：</p>
 <script type="math/tex; mode=display">
-扇区1:& tan0\degree >   \frac{U_{\beta}}{U_{\alpha}} > tan60\degree &\Rightarrow& 
-0 &>        \frac{U_{\beta}}{U_{\alpha}} >& \sqrt{3}  \\
-扇区2:& tan60\degree >  \frac{U_{\beta}}{U_{\alpha}} > tan120\degree &\Rightarrow& 
-\sqrt{3} &> \frac{U_{\beta}}{U_{\alpha}} >& -\sqrt{3} \\
-扇区3:& tan120\degree > \frac{U_{\beta}}{U_{\alpha}} > tan180\degree &\Rightarrow&
--\sqrt{3} &> \frac{U_{\beta}}{U_{\alpha}} >& 0        \\
-扇区4:& tan180\degree > \frac{U_{\beta}}{U_{\alpha}} > tan240\degree &\Rightarrow&
-0        &> \frac{U_{\beta}}{U_{\alpha}} >& \sqrt{3}  \\
-扇区5:& tan240\degree > \frac{U_{\beta}}{U_{\alpha}} > tan300\degree &\Rightarrow&
-\sqrt{3} &> \frac{U_{\beta}}{U_{\alpha}} >& -\sqrt{3} \\
-扇区6:& tan300\degree > \frac{U_{\beta}}{U_{\alpha}} > tan360\degree &\Rightarrow& 
--\sqrt{3} &> \frac{U_{\beta}}{U_{\alpha}} >& 0</script><p>观察这个结论， $U_{\beta}$ 和 $\sqrt{3}U_{\alpha}$ 似乎有关系，回顾反Clark变换， $U_{b}$ 和 $U_{c}$ 的式子就是这种关系。所以可以把上面的结论往反Clark变换上凑。看一下反Clark变换的图像，注意我们需要的关系里的 $\sqrt{3}$ 是乘在 $U_{\alpha}$ 上的，所以我们把 $U_{\beta}$ 和 $U_{\alpha}$ 反一下，对应的公式为：</p>
+\begin{aligned}
+扇区1:& tan0^{\circ} >   \frac{U_{\beta}}{U_{\alpha}} > tan60^{\circ} &\Rightarrow& 
+0 &>&        \frac{U_{\beta}}{U_{\alpha}} >& \sqrt{3}  \\
+扇区2:& tan60^{\circ} >  \frac{U_{\beta}}{U_{\alpha}} > tan120^{\circ} &\Rightarrow& 
+\sqrt{3} &>& \frac{U_{\beta}}{U_{\alpha}} >& -\sqrt{3} \\
+扇区3:& tan120^{\circ} > \frac{U_{\beta}}{U_{\alpha}} > tan180^{\circ} &\Rightarrow&
+-\sqrt{3} &>& \frac{U_{\beta}}{U_{\alpha}} >& 0        \\
+扇区4:& tan180^{\circ} > \frac{U_{\beta}}{U_{\alpha}} > tan240^{\circ} &\Rightarrow&
+0        &>& \frac{U_{\beta}}{U_{\alpha}} >& \sqrt{3}  \\
+扇区5:& tan240^{\circ} > \frac{U_{\beta}}{U_{\alpha}} > tan300^{\circ} &\Rightarrow&
+\sqrt{3} &>& \frac{U_{\beta}}{U_{\alpha}} >& -\sqrt{3} \\
+扇区6:& tan300^{\circ} > \frac{U_{\beta}}{U_{\alpha}} > tan360^{\circ} &\Rightarrow& 
+-\sqrt{3} &>& \frac{U_{\beta}}{U_{\alpha}} >& 0
+\end{aligned}</script><p>观察这个结论， $U_{\beta}$ 和 $\sqrt{3}U_{\alpha}$ 似乎有关系，回顾反Clark变换， $U_{b}$ 和 $U_{c}$ 的式子就是这种关系。所以可以把上面的结论往反Clark变换上凑。看一下反Clark变换的图像，注意我们需要的关系里的 $\sqrt{3}$ 是乘在 $U_{\alpha}$ 上的，所以我们把 $U_{\beta}$ 和 $U_{\alpha}$ 反一下，对应的公式为：</p>
 <script type="math/tex; mode=display">
 \left\{\begin{array}{l}
 U_{a} =  U_{\beta} \\
@@ -3280,18 +3284,22 @@ U_{c} = -\frac{1}{2}U_{\beta} - \frac{\sqrt3}{2}U_{\alpha}
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220330145027064.png" alt="image-20220330145027064"></p>
 <p>可以看到在每个扇区内总有一向大于0，两向小于0，所以 $U_{b}$ 和 $U_{c}$ 的正负可以当做判断条件之一。我们顺便还又一次得到了 $U_{\beta}$ 这个判断条件。整理一下上面的式子</p>
 <script type="math/tex; mode=display">
+\begin{aligned}
 扇区1:U_{\beta} > 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} >0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} < 0\\
 扇区2:U_{\beta} > 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} <0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} < 0\\
 扇区3:U_{\beta} > 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} <0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} > 0\\
 扇区4:U_{\beta} < 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} <0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} > 0\\
 扇区5:U_{\beta} < 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} >0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} > 0\\
-扇区6:U_{\beta} < 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} >0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} < 0</script><p>所以通过计算 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 和 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 的正负可以判断出是1/6扇区，3/4扇区，2扇区，5扇区的哪一组。</p>
+扇区6:U_{\beta} < 0 , \frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} >0 , -\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta} < 0
+\end{aligned}</script><p>所以通过计算 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 和 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 的正负可以判断出是1/6扇区，3/4扇区，2扇区，5扇区的哪一组。</p>
 <p>综上，我们的判断条件有： $U_{\beta}$ 、 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 和 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 。综合这三个条件就可以判断是在哪个扇区 。那么有没有一种算法可以将这一堆判断数值化并转换成1~6的数字呢？可以用下面的公式：</p>
 <script type="math/tex; mode=display">
 N=A+2B+4C</script><p>式中的ABC代表三个判断条件的正负，大于0为1，小于0为0，其中A代表 $U_{\beta}$ ，B代表 $\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ ，C代表 $-\frac{\sqrt3}{2}U_{\alpha} - \frac{1}{2}U_{\beta}$ 。最后转换出来的的N即为1~6的数字：</p>
 <script type="math/tex; mode=display">
+\begin{array}{c}
 扇区 & 1 & 2 & 3 & 4 & 5 & 6 & \\
-N   & 3 & 1 & 5 & 4 & 6 & 2 &</script><p>至此，我们成功完成了扇区判断。</p>
+N   & 3 & 1 & 5 & 4 & 6 & 2 &
+\end{array}</script><p>至此，我们成功完成了扇区判断。</p>
 <h3 id="相邻矢量作用时长计算"><a href="#相邻矢量作用时长计算" class="headerlink" title="相邻矢量作用时长计算"></a>相邻矢量作用时长计算</h3><p>控制相邻矢量作用时长就可以控制转子到达任意方向，下面进行分析。</p>
 <h4 id="六个矢量的大小"><a href="#六个矢量的大小" class="headerlink" title="六个矢量的大小"></a>六个矢量的大小</h4><p>六个MOS管可以产生8种状态</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220330152650462.png" alt="image-20220330152650462" style="zoom:50%;"></p>
@@ -3304,13 +3312,11 @@ N   & 3 & 1 & 5 & 4 & 6 & 2 &</script><p>至此，我们成功完成了扇区判
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220330154344462.png" alt="image-20220330154344462" style="zoom:25%;"></p>
 <p>可以计算出电机中三个相电压（每相相对于电机中间连接点的电压）</p>
 <script type="math/tex; mode=display">
-\begin{equation}
 \begin{aligned}
 U_{AN} &=U_{A}-U_{N}=\frac{2}{3} U_{d c} \\
 U_{BN} &=U_{B}-U_{N}=-\frac{1}{3} U_{d c} \\
 U_{CN} &=U_{C}-U_{N}=-\frac{1}{3} U_{d c}
-\end{aligned}
-\end{equation}</script><p>同理可以计算其他所有方向矢量的相电压，可以看出，六个矢量的大小均为 $\frac{2}{3} U_{d c}$ ，即<strong>SVPWM相电压幅值为 $\frac{2}{3} U_{d c}$</strong> </p>
+\end{aligned}</script><p>同理可以计算其他所有方向矢量的相电压，可以看出，六个矢量的大小均为 $\frac{2}{3} U_{d c}$ ，即<strong>SVPWM相电压幅值为 $\frac{2}{3} U_{d c}$</strong> </p>
 <h4 id="电压利用率"><a href="#电压利用率" class="headerlink" title="电压利用率"></a>电压利用率</h4><p>电压利用率等于合成矢量的电压除以母线电压。下面在复平面计算合成矢量的电压 $U_{out}$ ：</p>
 <script type="math/tex; mode=display">
 U_{out} = U_a +U_{b}\cdot e^{j\cdot \frac{2}{3}\pi}+U_{c}\cdot e^{j\cdot (-\frac{2}{3}\pi)}</script><p>根据欧拉公式可以推导出：</p>
@@ -3330,12 +3336,12 @@ U_{out}=U_{dc}</script><p>即<strong>合成矢量的电压等于母线电压</st
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/d94c427b1d664ffe9b585d58e60482f6.jpg" alt="d94c427b1d664ffe9b585d58e60482f6"></p>
 <h3 id="矢量作用时长"><a href="#矢量作用时长" class="headerlink" title="矢量作用时长"></a>矢量作用时长</h3><p>合成矢量的电压是所在扇区两个矢量与空矢量不同时长的组合：</p>
 <script type="math/tex; mode=display">
-U_{out}=U_x\frac{T_x}{T_s}+U_y\frac{T_y}{T_s}+U_N\frac{T_N}{T_s}</script><p>由于SVPWM的输入是 $U_{\alpha}$ 和 $U_{\beta}$ ，但是要控制 $T_x$ 和 $T_y$ ，所以要找到他们的对应关系。</p>
+U_{out}=U_x\frac{T_x}{T_s}+U_y\frac{T_y}{T_s}+U_0\frac{T_0}{T_s}</script><p>由于SVPWM的输入是 $U_{\alpha}$ 和 $U_{\beta}$ ，但是要控制 $T_x$ 和 $T_y$ ，所以要找到他们的对应关系。</p>
 <p>对于第一个扇区，将 $U_{out}$ 在 $\alpha-\beta$ 坐标系中表示：</p>
 <script type="math/tex; mode=display">
 \begin{array}{l}
-\alpha轴:U_\alpha=|U_{out}|cos\theta=|U_x|\frac{T_x}{T_s}+|U_y|\frac{T_y}{T_s}cos60\degree\\
-\beta轴:U_\beta=|U_{out}|cos\theta=|U_y|\frac{T_y}{T_s}sin60\degree
+U_\alpha=|U_x|\frac{T_x}{T_s}+|U_y|\frac{T_y}{T_s}cos60^{\circ}\\
+U_\beta=|U_y|\frac{T_y}{T_s}sin60^{\circ}
 \end{array}</script><p>其中 $|U_x|$ 和 $|U_y|$ 根据前面的计算均为 $\frac{2}{3} U_{d c}$ ，可以解出：</p>
 <script type="math/tex; mode=display">
 \begin{array}{l}
@@ -3375,13 +3381,15 @@ Y= \frac{\sqrt{3}T_S}{U_{dc}}(\frac{\sqrt{3}}{2}U_\alpha+\frac{1}{2}U_\beta)=-\f
 Z= \frac{\sqrt{3}T_S}{U_{dc}}(-\frac{\sqrt{3}}{2}U_\alpha+\frac{1}{2}U_\beta)=-\frac{\sqrt{3}T_S}{U_{dc}}B
 \end{array}</script><p>可以将六个扇区表示为：</p>
 <script type="math/tex; mode=display">
+\begin{array}{c}
 & T_x & T_y  \\
 扇区1& -Z  &  X  \\
 扇区2&  Z  &  Y  \\
 扇区3&  X  & -Y  \\
 扇区4& -X  &  Z  \\
 扇区5& -Y  & -Z  \\
-扇区6&  Y  & -X  \\</script><h2 id="电流闭环"><a href="#电流闭环" class="headerlink" title="电流闭环"></a>电流闭环</h2><h2 id="角度和速度"><a href="#角度和速度" class="headerlink" title="角度和速度"></a>角度和速度</h2><h3 id="有感（HALL）"><a href="#有感（HALL）" class="headerlink" title="有感（HALL）"></a>有感（HALL）</h3><h3 id="无感（EKF）"><a href="#无感（EKF）" class="headerlink" title="无感（EKF）"></a>无感（EKF）</h3><h2 id="速度闭环"><a href="#速度闭环" class="headerlink" title="速度闭环"></a>速度闭环</h2>]]></content>
+扇区6&  Y  & -X  \\
+\end{array}</script><h2 id="电流闭环"><a href="#电流闭环" class="headerlink" title="电流闭环"></a>电流闭环</h2><h2 id="角度和速度"><a href="#角度和速度" class="headerlink" title="角度和速度"></a>角度和速度</h2><h3 id="有感（HALL）"><a href="#有感（HALL）" class="headerlink" title="有感（HALL）"></a>有感（HALL）</h3><h3 id="无感（EKF）"><a href="#无感（EKF）" class="headerlink" title="无感（EKF）"></a>无感（EKF）</h3><h2 id="速度闭环"><a href="#速度闭环" class="headerlink" title="速度闭环"></a>速度闭环</h2>]]></content>
       <categories>
         <category>电机</category>
       </categories>
