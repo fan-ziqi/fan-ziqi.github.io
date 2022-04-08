@@ -3074,7 +3074,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
   <entry>
     <title>FOC学习笔记【持续更新中】</title>
     <url>/posts/d99d1c1a.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="FOC学习笔记【持续更新中】"><a href="#FOC学习笔记【持续更新中】" class="headerlink" title="FOC学习笔记【持续更新中】"></a>FOC学习笔记【持续更新中】</h1><p><strong>2022.03.30 更新到SVPWM的矢量时长计算</strong></p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="FOC学习笔记【持续更新中】"><a href="#FOC学习笔记【持续更新中】" class="headerlink" title="FOC学习笔记【持续更新中】"></a>FOC学习笔记【持续更新中】</h1><p><strong>2022.03.30 更新到状态观测器</strong></p>
 <h2 id="FOC框架"><a href="#FOC框架" class="headerlink" title="FOC框架"></a>FOC框架</h2><p>三向电机，UVW三向，角度互差120度</p>
 <p>对于BLDC控制方法，每次换向增加60度，转子只能到达六个位置，所以六步换向会有振动；使用FOC控制方法可以使转子到达任意角度，所以运行起来会更加平滑。</p>
 <p>举个例子，如果想到达40度位置，只需要在0度方向通电一段时间，在60度方向通电一段时间，再在空矢量（全桥000或111）的状态下通电一段时间（空矢量的时长用来调节扭矩），三段时间组成一个周期，以这个周期循环产生PWM，即可锁定至40度。改变0度和60度的通电时长比例即可到达任意位置。</p>
@@ -3436,7 +3436,103 @@ T3& T_c & T_c & T_b & T_a & T_a & T_b &
 <p><img src="/posts/Users\fanziqi\AppData\Roaming\Typora\typora-user-images\image-20220331165323898.png" alt="image-20220331165323898"></p>
 <p>扇区为从1到6的循环</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220331165348883.png" alt="image-20220331165348883"></p>
-<h2 id="电流闭环"><a href="#电流闭环" class="headerlink" title="电流闭环"></a>电流闭环</h2><h2 id="角度和速度"><a href="#角度和速度" class="headerlink" title="角度和速度"></a>角度和速度</h2><h3 id="有感（HALL）"><a href="#有感（HALL）" class="headerlink" title="有感（HALL）"></a>有感（HALL）</h3><h3 id="无感（EKF）"><a href="#无感（EKF）" class="headerlink" title="无感（EKF）"></a>无感（EKF）</h3><h2 id="速度闭环"><a href="#速度闭环" class="headerlink" title="速度闭环"></a>速度闭环</h2>]]></content>
+<h2 id="电流闭环"><a href="#电流闭环" class="headerlink" title="电流闭环"></a>电流闭环</h2><p>前文输入 $U_{d}$ 和 $U_{q}$ 到反Park变换，输出 $U_{\alpha}$ 和 $U_{\beta}$ 到SVPWM，输出三对互补的PWM到全桥，最后输出三相电压到电机。如果需要让电机以设定的电流运行，就需要PI闭环控制电流。闭环控制三相交流电流是不太容易实现的，所以我们选择闭环控制直流电流 $I_{d}$ 和 $I_{q}$ 。</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/20220406114532.png" alt></p>
+<p>PI控制器输入 $I_{d_{ref}}$ 和 $I_{q_{ref}}$ ，输出 $U_{d}$ 和 $U_{q}$ ，现在还需要反馈量 $I_{d}$ 和 $I_{q}$ ，这就需要用到前文讲到的正变换。用采样电阻搭配ADC采集全桥上任意两相的电流，通过基尔霍夫电流定律计算第三相电流，一并送入Clark变换输出 $I_{\alpha}$ 和 $I_{\beta}$ ，再通过Park变换产生反馈量 $I_{d}$ 和 $I_{q}$ 。</p>
+<p>对于PI的参数设定，有一个参考设定值（还是需要自行调整）：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+  & P & I &\\
+d& K_{pd}=\alpha L_d & K_{Id}=\alpha R\\
+q& K_{pq}=\alpha L_q & K_{Iq}=\alpha R
+\end{array}</script><p>其中 $\alpha$ 的取值为（ $\tau$ 为电机的时间常数）：</p>
+<script type="math/tex; mode=display">
+\alpha = \frac{2\pi}{\tau} \\
+\tau = min\left\{\frac{L_d}{R},\frac{L_q}{R}\right\}</script><p>电机分为表贴电机和内嵌式电机，表贴式是把永磁体贴在转子表面，内嵌式是把永磁体安装在转子内。我们常用的电机都是表贴电机，对于表贴电机， $L_d=L_q=L$ ，则：</p>
+<script type="math/tex; mode=display">
+K_{pd}=2\pi R \\
+K_{Id}=2\pi \frac{R^2}{L}</script><h2 id="角度和速度"><a href="#角度和速度" class="headerlink" title="角度和速度"></a>角度和速度</h2><h3 id="有感（HALL）"><a href="#有感（HALL）" class="headerlink" title="有感（HALL）"></a>有感（HALL）</h3><p>霍尔传感器分为60度和120度</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220406151555324.png" alt="image-20220406151555324"></p>
+<p>画一下转一圈三个霍尔传感器的波形</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220406151530069.png" alt="image-20220406151530069"></p>
+<p>这两种排列方式除了组合方式不同，其他都一样。</p>
+<p>单片机通过输入捕获采集三路高低电平的跳变，通过对三路信号进行异或，则转一圈可以进6次中断，进入中断后检测IO电平就可以知道电机对应角度。但现在一圈只能获取到6个固定的角度值，无法获取到如80度这个角度。这时可以对速度进行积分得到角度，速度的获取可以通过查询60-120之间定时器的计数值来获得。但是转到80度的时候没办法获取到120度时候的定时器计数值就无法获取当前段的速度，这时可以用前一段的速度近似为当前段的速度。</p>
+<h3 id="无感（EKF）"><a href="#无感（EKF）" class="headerlink" title="无感（EKF）"></a>无感（EKF）</h3><h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>前面的有感部分，是在电机上安装霍尔传感器，引出三根线到单片机通过输入捕获算出当前角度，再与预设角度完成角度闭环。</p>
+<p>而无感控制则不需要霍尔传感器，只需要三根UVW线输出到电机即可，去掉了霍尔传感器和三根线，节省了成本；有些使用场合无法使用霍尔传感器，则需要使用无感，比如空调压缩机，内部充满了润滑油，无法安装霍尔传感器；有些时候有感算法或硬件出现问题也可以切换至无感，防止系统闸机，比如汽车运行中霍尔传感器突然坏了，为了使整个系统正常运行，就可以临时切换到无感。上述这些都是无感控制的优点。无感控制现在已经越来越普及，空调、洗衣机、高端风扇、汽车都在用无感控制。</p>
+<p>无感是如何获取到转子位置的呢？观察永磁同步电机的方程：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}
+U_\alpha = Ri_\alpha + L_s \frac{di_\alpha}{dt} - \omega_e \psi_f sin\theta\\
+U_\beta = Ri_\beta + L_s \frac{di_\beta}{dt} + \omega_e \psi_f cos\theta
+\end{array}\right.</script><p>上述方程的含义为：将每一相抽象为一个电阻，一个电感和一个反电动势的串联，则每一相的电压为前面三项压降之和（反电动势为速度乘磁链）。方程中的电阻R、电感L、和磁链flux为电机的固有参数，电流可以通过采样电阻获得，剩下角度和转速，可以很容易地获得他们之间的关系。</p>
+<p>但是电机参数会有误差，除了生产误差，温度的改变会造成电阻值变化、采集的电流经过运算放大器会造成误差、AD转换的精度还会造成误差。所以通过这种方式直接计算，稳定性、抗干扰能力、鲁棒性都不高，只是一个理论方法，无法实际应用。所以要用状态观测器重构整个电机的模型，提高稳定性。</p>
+<h4 id="状态观测器"><a href="#状态观测器" class="headerlink" title="状态观测器"></a>状态观测器</h4><p>观测器有很多种，EKF、滑膜、龙伯格、自适应等，这里先将EKF，即卡尔曼滤波观测器。</p>
+<p>无感观测器的输入为 $U_{\alpha}$ 、 $U_{\beta}$ 、 $I_{\alpha}$ 、 $I_{\beta}$ 和电机参数，输出角度 $\theta$ 和速度 $\omega_e$  ， $\theta$ 送入park变换和反park变换， $\omega_e$ 用作下文的速度闭环。</p>
+<p>状态空间方程为：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}
+\frac{dx}{dt} = Ax+Bu = f(x)+Bu\\
+y=Cx
+\end{array}\right.</script><p>无感观测器的框图为：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220406164426022.png" alt="image-20220406164426022"></p>
+<p>将永磁同步电机的方程转化为状态空间表达式：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}
+\frac{d i_\alpha}{dt} = -\frac{R}{L_s}i_\alpha + \frac{1}{L_s}\omega_e\psi_f sin\theta + \frac{1}{L_s}U_\alpha \\
+\frac{d i_\beta}{dt} = -\frac{R}{L_s}i_\beta - \frac{1}{L_s}\omega_e\psi_f cos\theta + \frac{1}{L_s}U_\beta \\
+\frac{d \omega_e}{dt} = 0 \\
+\frac{d \theta}{dt} = \omega_e
+\end{array}\right.</script><p>整理成矩阵形式</p>
+<script type="math/tex; mode=display">
+\dot{x}=
+\begin{bmatrix}
+ \frac{d i_\alpha}{dt} \\
+ \frac{d i_\beta}{dt} \\
+ \frac{d \omega_e}{dt} \\
+ \frac{d \theta}{dt} \\
+\end{bmatrix}
+\quad
+
+x=
+\begin{bmatrix}
+ i_\alpha \\
+ i_\beta \\
+ \omega_e \\
+ \theta \\
+\end{bmatrix}
+\quad
+
+f(x)=
+\begin{bmatrix}
+ -\frac{R}{L_s}i_\alpha + \frac{1}{L_s}\omega_e\psi_f sin\theta \\
+ -\frac{R}{L_s}i_\beta - \frac{1}{L_s}\omega_e\psi_f cos\theta \\
+ 0 \\
+ \omega_e \\
+\end{bmatrix}
+\quad
+
+B=
+\begin{bmatrix}
+ \frac{1}{L_s} & 0 \\
+ 0 & \frac{1}{L_s} \\
+ 0 & 0 \\
+ 0 & 0 \\
+\end{bmatrix}
+\quad
+
+u=
+\begin{bmatrix}
+ U_\alpha \\
+ U_\beta \\
+\end{bmatrix}
+\quad
+
+C=
+\begin{bmatrix}
+ 1 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 0 \\
+\end{bmatrix}
+\quad</script><h2 id="速度闭环"><a href="#速度闭环" class="headerlink" title="速度闭环"></a>速度闭环</h2>]]></content>
       <categories>
         <category>电机</category>
       </categories>
