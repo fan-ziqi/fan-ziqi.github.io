@@ -3074,7 +3074,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
   <entry>
     <title>FOC学习笔记【持续更新中】</title>
     <url>/posts/d99d1c1a.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="FOC学习笔记【持续更新中】"><a href="#FOC学习笔记【持续更新中】" class="headerlink" title="FOC学习笔记【持续更新中】"></a>FOC学习笔记【持续更新中】</h1><p><strong>2022.03.30 更新到状态观测器</strong></p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="FOC学习笔记【持续更新中】"><a href="#FOC学习笔记【持续更新中】" class="headerlink" title="FOC学习笔记【持续更新中】"></a>FOC学习笔记【持续更新中】</h1><p><strong>2022.04.14 更新到扩展卡尔曼滤波器</strong></p>
 <h2 id="FOC框架"><a href="#FOC框架" class="headerlink" title="FOC框架"></a>FOC框架</h2><p>三向电机，UVW三向，角度互差120度</p>
 <p>对于BLDC控制方法，每次换向增加60度，转子只能到达六个位置，所以六步换向会有振动；使用FOC控制方法可以使转子到达任意角度，所以运行起来会更加平滑。</p>
 <p>举个例子，如果想到达40度位置，只需要在0度方向通电一段时间，在60度方向通电一段时间，再在空矢量（全桥000或111）的状态下通电一段时间（空矢量的时长用来调节扭矩），三段时间组成一个周期，以这个周期循环产生PWM，即可锁定至40度。改变0度和60度的通电时长比例即可到达任意位置。</p>
@@ -3532,7 +3532,86 @@ C=
  1 & 0 & 0 & 0 \\
  0 & 1 & 0 & 0 \\
 \end{bmatrix}
-\quad</script><h2 id="速度闭环"><a href="#速度闭环" class="headerlink" title="速度闭环"></a>速度闭环</h2>]]></content>
+\quad</script><h4 id="扩展卡尔曼滤波器"><a href="#扩展卡尔曼滤波器" class="headerlink" title="扩展卡尔曼滤波器"></a>扩展卡尔曼滤波器</h4><p>扩展卡尔曼滤波器，即EKF观测器。带“扩展”二字，是因为普通卡尔曼滤波器只能处理线性系统，而扩展卡尔曼滤波器可以处理非线性系统，而电机就是一个非线性系统。扩展卡尔曼滤波相比较于卡尔曼滤波，只是多了一个使用泰勒展开的方式让系统传递函数线性化的过程。EKF处理的误差必须是正态分布的。</p>
+<p>卡尔曼滤波分三个步骤：预估<code>-&gt;</code>计算卡尔曼增益<code>-&gt;</code>结合观测值修正预估值。下面给出卡尔曼滤波进行这三步的五个公式（公式推导请看另一篇文章）</p>
+<ol>
+<li><p>计算预估值</p>
+<script type="math/tex; mode=display">
+\hat{x}_{k|k-1} =\Phi_{k|k-1} \hat{x}_{k-1|k-1}+B u_{k-1}</script></li>
+<li><p>计算误差协方差（Q为系统误差）</p>
+<script type="math/tex; mode=display">
+P_{k|k-1} =\Phi_{k|k-1} P_{k-1|k-1} \Phi_{k|k-1}^{T}+Q</script></li>
+<li><p>计算卡尔曼增益（R为观测误差）</p>
+<script type="math/tex; mode=display">
+K_{k|k-1} =P_{k|k-1} C^{T}\left(C P_{k|k-1} C^{T}+R\right)^{-1}</script></li>
+<li><p>修正预估值</p>
+<script type="math/tex; mode=display">
+\hat{x}_{k} =\hat{x}_{k|k-1}+K_{k|k-1}\left(Y_{k}-C \hat{x}_{k|k-1}\right)</script></li>
+<li><p>更新协方差，用于计算下一次误差协方差</p>
+<script type="math/tex; mode=display">
+P_{k} =\left(I-K_{k|k-1} C\right) P_{k|k-1}</script></li>
+</ol>
+<h2 id="速度闭环"><a href="#速度闭环" class="headerlink" title="速度闭环"></a>速度闭环</h2>]]></content>
+      <categories>
+        <category>电机</category>
+      </categories>
+      <tags>
+        <tag>FOC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>卡尔曼滤波器</title>
+    <url>/posts/5b298b12.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="卡尔曼滤波器"><a href="#卡尔曼滤波器" class="headerlink" title="卡尔曼滤波器"></a>卡尔曼滤波器</h1><h2 id="递归算法"><a href="#递归算法" class="headerlink" title="递归算法"></a>递归算法</h2><p>卡尔曼滤波器（Kalman Filter），从字面意思上来看，“Filter滤波器”一词并不能很好地体现其特性。卡尔曼滤波器用一句话来说就是“Optimal Recursive Data-Processing Algorithm”，即为“最优化 递归 数字处理 算法”，它更像是一种观测器，而不是一般意义上的滤波器。卡尔曼滤波器的应用非常广泛，尤其是在导航中。它的广泛应用是因为世界中存在大量的不确定性，当我们描述一个系统时，这个不确定性主要体现在三个方面：</p>
+<ol>
+<li>不存在完美的数学模型</li>
+<li>系统的扰动不可控，也很难建模</li>
+<li>测量传感器存在误差</li>
+</ol>
+<p>下面看一个例子，找几个不同的人用尺子测量一枚硬币的直径，用 $z_k$ 表示第k次的测量结果。由于种种误差，测量得：</p>
+<script type="math/tex; mode=display">
+z_1=50.1mm \\
+z_2=50.4mm \\
+z_3=50.2mm</script><p>此时如果要估计真实结果，自然而然地会想到取平均值。用 $\hat{x}_k$ 表示第k次的估计值，可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\hat{x}_k &= \frac{1}{k}(z_1+z_2+\cdots+z_k)\\
+          &= \frac{1}{k}(z_1+z_2+\cdots+z_{k-1}) + \frac{1}{k}(z_k)\\
+          &= \frac{k-1}{k}\frac{1}{k-1}(z_1+z_2+\cdots+z_{k-1}) + \frac{1}{k}(z_k)\\
+          &= \frac{k-1}{k}\hat{x}_{k-1} + \frac{1}{k}(z_k)\\
+          &= \hat{x}_{k-1} + \frac{1}{k}(z_k-\hat{x}_{k-1})
+\end{aligned}</script><p>上式中，第三行 $\frac{1}{k-1}(z_1+z_2+\cdots+z_{k-1})$ 就是 $k-1$ 次的平均值 $\hat{x}_{k-1}$ </p>
+<p>观察最后一行结论，$ k\uparrow, \frac{1}{k-1}\to0,\hat{x}_k\to\hat{x}_{k-1}$ ，也就是说，随着k的增加，此时拥有了大量的数据，对估计的结果就比较有信心了，测量的结果就不是很重要了。相反，如果k比较小， $\frac{1}{k-1}$ 就会比较大，测量结果 $z_k$ 就会起到很大的作用，尤其是测量结果和估计值差距比较大的时候。</p>
+<p>令 $K_k=\frac{1}{k-1}$ ，则此时公式可以表示为：</p>
+<script type="math/tex; mode=display">
+\hat{x}_k = \hat{x}_{k-1} + K_k(z_k-\hat{x}_{k-1})</script><p>上式表示的含义为：当前的估计值 = 上一次的估计值 + 系数 * ( 当前测量值 - 上一次的估计值 ) ，其中的 $K_k$ 就是卡尔曼增益/因数（Kalman Gain），通过这个公式可以看出，新的估计值 $\hat{x}_k$ 与上一次的估计值 $\hat{x}_{k-1}$ 有关，上一次的又与上上次的有关，这就是一种递归思想（Recursive），这也是卡尔曼滤波器的优势，他不需要追溯很久以前的数据，只需要上一次的就可以。下面来讨论一下这个 $K_k$ ：</p>
+<p>引入两个误差：</p>
+<ol>
+<li>估计误差 $e_{EST}$ （e代表误差error，EST代表估计estimate）</li>
+<li>测量误差 $e_{MEA}$ （e代表误差error，MEA代表测量measurement）</li>
+</ol>
+<p>则 $K_k$ 可以表示为</p>
+<script type="math/tex; mode=display">
+K_k = \frac{e_{EST_{k-1}}}{e_{EST_{k-1}}+e_{MEA_{k}}}</script><p>这个公式是卡尔曼滤波中的核心公式，具体的推导后文会讲到。下面对这个公式进行讨论。在k时刻，</p>
+<ol>
+<li>当 $e_{EST_{k-1}} \gg e_{MEA_{k}}$ ， $K_k\rightarrow1$ ，此时 $\hat{x}_k = z_k$ ，这说明当第k-1次的估计误差远大于第k次的测量误差时，第k次的估计值很趋近于测量值。（估计的误差大，测量的误差小，更信任测量值）</li>
+<li>当 $e_{EST_{k-1}} \ll e_{MEA_{k}}$ ， $K_k\rightarrow 0$ ，此时 $\hat{x}_k = \hat{x}_{k-1}$ ，这说明当第k-1次的估计误差远小于第k次的测量误差时，第k次的估计值很趋近于测量值。（估计的误差小，测量的误差大，更信任估计值）</li>
+</ol>
+<p>运用以上知识，解决一个实际问题可以分为三步：</p>
+<ol>
+<li>计算卡尔曼增益 $K_k$ ，公式见前文</li>
+<li>计算估算值 $\hat{x}_k$ ，公式见前文</li>
+<li>更新估计误差 $e_{EST_{k}} = (1-K_k)e_{EST_{k-1}}$ ，此公式推导见后文。</li>
+</ol>
+<p>再看前文测量硬币直径的例子，实际长度 $x=50mm$ ，对于第一次测量：</p>
+<script type="math/tex; mode=display">
+\hat{x}_0=40mm \\
+e_{EST_{0}}=5mm \\
+z_1=51mm\\
+e_{MEA_{k}}=3mm</script><p>估计值是是随便估计的一个值；估计误差随便给一个数；测量值是实际测量得到的；由于测量工具不变，测量误差是一个恒定值。接下来进行递归：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220414223222370.png" alt="image-20220414223222370"></p>
+<p>蓝色是测量值 $z_k$ ，红色为估计值 $\hat{x}_k$ ，可以看到经过反复迭代，估计值越来越接近实际值。这就是卡尔曼滤波器的递归思想。</p>
+]]></content>
       <categories>
         <category>电机</category>
       </categories>
