@@ -3570,9 +3570,11 @@ P_{k} =\left(I-K_{k|k-1} C\right) P_{k|k-1}</script></li>
 </ol>
 <p>下面看一个例子，找几个不同的人用尺子测量一枚硬币的直径，用 $z_k$ 表示第k次的测量结果。由于种种误差，测量得：</p>
 <script type="math/tex; mode=display">
+\begin{aligned}
 z_1=50.1mm \\
 z_2=50.4mm \\
-z_3=50.2mm</script><p>此时如果要估计真实结果，自然而然地会想到取平均值。用 $\hat{x}_k$ 表示第k次的估计值，可以得到：</p>
+z_3=50.2mm
+\end{aligned}</script><p>此时如果要估计真实结果，自然而然地会想到取平均值。用 $\hat{x}_k$ 表示第k次的估计值，可以得到：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 \hat{x}_k &= \frac{1}{k}(z_1+z_2+\cdots+z_k)\\
@@ -3605,10 +3607,12 @@ K_k = \frac{e_{EST_{k-1}}}{e_{EST_{k-1}}+e_{MEA_{k}}}</script><p>这个公式是
 </ol>
 <p>再看前文测量硬币直径的例子，实际长度 $x=50mm$ ，对于第一次测量：</p>
 <script type="math/tex; mode=display">
+\begin{aligned}
 \hat{x}_0=40mm \\
 e_{EST_{0}}=5mm \\
 z_1=51mm\\
-e_{MEA_{k}}=3mm</script><p>估计值是是随便估计的一个值；估计误差随便给一个数；测量值是实际测量得到的；由于测量工具不变，测量误差是一个恒定值。接下来进行递归：</p>
+e_{MEA_{k}}=3mm
+\end{aligned}</script><p>估计值是是随便估计的一个值；估计误差随便给一个数；测量值是实际测量得到的；由于测量工具不变，测量误差是一个恒定值。接下来进行递归：</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220414223222370.png" alt="image-20220414223222370"></p>
 <p>蓝色是测量值 $z_k$ ，红色为估计值 $\hat{x}_k$ ，可以看到经过反复迭代，估计值越来越接近实际值。这就是卡尔曼滤波器的递归思想。</p>
 ]]></content>
