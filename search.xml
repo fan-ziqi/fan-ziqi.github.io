@@ -3583,7 +3583,7 @@ z_3=50.2mm
           &= \frac{k-1}{k}\hat{x}_{k-1} + \frac{1}{k}(z_k)\\
           &= \hat{x}_{k-1} + \frac{1}{k}(z_k-\hat{x}_{k-1})
 \end{aligned}</script><p>上式中，第三行 $\frac{1}{k-1}(z_1+z_2+\cdots+z_{k-1})$ 就是 $k-1$ 次的平均值 $\hat{x}_{k-1}$ </p>
-<p>观察最后一行结论，$ k\uparrow, \frac{1}{k-1}\to0,\hat{x}_k\to\hat{x}_{k-1}$ ，也就是说，随着k的增加，此时拥有了大量的数据，对估计的结果就比较有信心了，测量的结果就不是很重要了。相反，如果k比较小， $\frac{1}{k-1}$ 就会比较大，测量结果 $z_k$ 就会起到很大的作用，尤其是测量结果和估计值差距比较大的时候。</p>
+<p>观察最后一行结论，$k\uparrow, \frac{1}{k-1}\to0,\hat{x}_k\to\hat{x}_{k-1}$ ，也就是说，随着k的增加，此时拥有了大量的数据，对估计的结果就比较有信心了，测量的结果就不是很重要了。相反，如果k比较小， $\frac{1}{k-1}$ 就会比较大，测量结果 $z_k$ 就会起到很大的作用，尤其是测量结果和估计值差距比较大的时候。</p>
 <p>令 $K_k=\frac{1}{k-1}$ ，则此时公式可以表示为：</p>
 <script type="math/tex; mode=display">
 \hat{x}_k = \hat{x}_{k-1} + K_k(z_k-\hat{x}_{k-1})</script><p>上式表示的含义为：当前的估计值 = 上一次的估计值 + 系数 * ( 当前测量值 - 上一次的估计值 ) ，其中的 $K_k$ 就是卡尔曼增益/因数（Kalman Gain），通过这个公式可以看出，新的估计值 $\hat{x}_k$ 与上一次的估计值 $\hat{x}_{k-1}$ 有关，上一次的又与上上次的有关，这就是一种递归思想（Recursive），这也是卡尔曼滤波器的优势，他不需要追溯很久以前的数据，只需要上一次的就可以。下面来讨论一下这个 $K_k$ ：</p>
@@ -3630,14 +3630,14 @@ z_2=32mm
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220415103427679.png" alt="image-20220415103427679"></p>
 <p>如果用这两个结果去估计真实值 $\hat{z}=?$ ，可以用到上一节的思想，则</p>
 <script type="math/tex; mode=display">
-\begin{array}{m}
+\begin{array}{c}
 \hat{z} = z_{1} + K(z_2-z_{1}),k\in[0,1] \\
 k=0,\hat{z}=z_1\\ 
 k=1,\hat{z}=z_2
-\end{array}</script><p>求k使得 $\sigma_\hat{z}$ 最小，也就是使得方差 $Var(\hat{z})$ 最小</p>
+\end{array}</script><p>求k使得 $\sigma_{\hat{z}}$ 最小，也就是使得方差 $Var(\hat{z})$ 最小</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-\sigma_\hat{z}^2&=Var(\hat{z})\\
+\sigma_{\hat{z}}^2&=Var(\hat{z})\\
                 &=Var(z_1 + K(z_2-z_1))\\
                 &=Var(z_1 -Kz_1+ Kz_2)\\
                 &=Var((1-K)z_1+ Kz_2)\\
@@ -3646,11 +3646,11 @@ k=1,\hat{z}=z_2
                 &=(1-K)^2\sigma_1^2+K^2\sigma_2^2\\
 \end{aligned}</script><p>可以看到，第四行中 $(1-K)z_1$ 和 $Kz_2$ 是互相独立的，因为两个称的结果不会互相影响，所以由于方差的性质可以写成两个独立的方差。要求这个式子的最小值，就要对K求导并令导数等于0。可以解出K：</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-\frac{d\sigma_\hat{z}^2}{dK}=0\\
+\begin{array}{c}
+\frac{d\sigma_{\hat{z}}^2}{dK}=0\\
 -2(1-K)\sigma_1^2+2K\sigma_2^2=0\\
 K=\frac{\sigma_1^2}{\sigma_1^2+\sigma_2^2}=\frac{2^2}{2^2+4^2}=0.2
-\end{aligned}</script><p>将K带入上面的式子，得到 $\hat{z}=30.4$ 。此时为最优解。计算此时的标准差 $\sigma_\hat{z}=1.79$ ，绘出正态分布图：</p>
+\end{array}</script><p>将K带入上面的式子，得到 $\hat{z}=30.4$ 。此时为最优解。计算此时的标准差 $\sigma_{\hat{z}}=1.79$ ，绘出正态分布图：</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220415105843056.png" alt="image-20220415105843056"></p>
 <p>得到比两个图形更高更瘦的图形，这个过程就叫数据融合。</p>
 <h3 id="协方差矩阵"><a href="#协方差矩阵" class="headerlink" title="协方差矩阵"></a>协方差矩阵</h3><p>协方差矩阵（Covarince Matrix）是把方差和协方差在一个矩阵中表示出来，体现了变量间的联动关系。下面举例说明：</p>
@@ -3676,9 +3676,8 @@ P =
   \sigma_z\sigma_x & \sigma_z\sigma_y & \sigma_z^2  
 \end{bmatrix}</script><p>如果需要编程实现，可以通过以下方法求得P（其中a为过渡矩阵）</p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
-a = 
-\begin{bmatrix}  
+\begin{aligned}
+a & = \begin{bmatrix}  
   x_1 & y_1 & z_1 \\  
   x_2 & y_2 & z_2 \\  
   x_3 & y_3 & z_3  
@@ -3693,9 +3692,8 @@ a =
   x_2 & y_2 & z_2 \\  
   x_3 & y_3 & z_3  
 \end{bmatrix}\\
-P=\frac{1}{3}a^Ta
-
-\end{array}</script><p>多取一些数据，得到协方差矩阵，可以利用协方差矩阵分析各个数据之间的关系；</p>
+P & = \frac{1}{3}a^Ta
+\end{aligned}</script><p>多取一些数据，得到协方差矩阵，可以利用协方差矩阵分析各个数据之间的关系；</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220415113508938.png" alt></p>
 <p>从协方差矩阵中可以看到，对角线上的数为方差，这些数据比较大，说明了这些变量之间跨度比较大。剩下的数据为协方差，体重和身高的协方差比较大，说明他们是正相关的，身高增加体重也增加；而年龄和其余两者的协方差比较小，说明他们之间的相关性比较小。</p>
 <h3 id="状态空间方程"><a href="#状态空间方程" class="headerlink" title="状态空间方程"></a>状态空间方程</h3><p>状态空间表达（State Space Representation），现代控制理论就是以状态空间方程为基础的。以弹簧振动阻尼系统为例：</p>
@@ -3712,12 +3710,11 @@ m\ddot{x}+B\dot{x}+kx=F</script><p>将F定义为u，也就是系统的输入（I
 \end{aligned}</script><p>这样就用两个一阶微分方程表达出来了。定义两个测量（Meansurement）变量，位置 $z_1=x=x_1$ ，速度 $z_2=\dot{x}=x_2$ </p>
 <p>将上面的式子改写成矩阵形式：</p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
+\begin{aligned}
 \begin{bmatrix}  
   \dot{x_1} \\  
   \dot{x_2} 
-\end{bmatrix} = 
-\begin{bmatrix}  
+\end{bmatrix} & = \begin{bmatrix}  
   0            & 1 \\
   -\frac{k}{m} & -\frac{B}{m}
 \end{bmatrix}
@@ -3729,12 +3726,10 @@ m\ddot{x}+B\dot{x}+kx=F</script><p>将F定义为u，也就是系统的输入（I
   0 \\  
   \frac{1}{m} 
 \end{bmatrix}u\\
-
 \begin{bmatrix}  
   z_1 \\  
   z_2 
-\end{bmatrix} = 
-\begin{bmatrix}  
+\end{bmatrix} & = \begin{bmatrix}  
   1 & 0 \\
   0 & 1
 \end{bmatrix}
@@ -3742,7 +3737,7 @@ m\ddot{x}+B\dot{x}+kx=F</script><p>将F定义为u，也就是系统的输入（I
   x_1 \\  
   x_2 
 \end{bmatrix}
-\end{array}</script><p>归纳出状态空间的表达形式：</p>
+\end{aligned}</script><p>归纳出状态空间的表达形式：</p>
 <script type="math/tex; mode=display">
 \begin{array}{l}
 \dot{x}(t)=Ax(t)+Bu(t)\\
@@ -3860,12 +3855,12 @@ K_k=\frac{P_k^-H^T}{HP_k^-H^T+R}\\
 <h2 id="误差协方差矩阵数学推导"><a href="#误差协方差矩阵数学推导" class="headerlink" title="误差协方差矩阵数学推导"></a>误差协方差矩阵数学推导</h2><p>现在来推导卡尔曼增益 $K_k$ 中的先验误差的协方差矩阵 $P_k^-$ 。</p>
 <p>根据前文的结论，我们可以得到真实值 $x_k$ ，先验估计 $\hat{x}_k^-$ ，后验估计 $\hat{x}_k$ ，卡尔曼增益 $K_k$ </p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
-x_k=Ax_{k-1}+Bu_{k-1}+w_{k-1}\\
-\hat{x}_k^-=A\hat{x}_{k-1}+Bu_{k-1}\\
-\hat{x}_k=\hat{x}_k^- + K_k(z_k-H\hat{x}_k^-)\\
-K_k=\frac{P_k^-H^T}{HP_k^-H^T+R}
-\end{array}</script><p>根据 $P_k^-$ 的定义， $P_k^-=E(e_k^-{e_k^-}^T)$ ，其中误差为真实值减估计值，</p>
+\begin{aligned}
+x_k & = Ax_{k-1}+Bu_{k-1}+w_{k-1}\\
+\hat{x}_k^- & = A\hat{x}_{k-1}+Bu_{k-1}\\
+\hat{x}_k & = \hat{x}_k^- + K_k(z_k-H\hat{x}_k^-)\\
+K_k & = \frac{P_k^-H^T}{HP_k^-H^T+R}
+\end{aligned}</script><p>根据 $P_k^-$ 的定义， $P_k^-=E(e_k^-{e_k^-}^T)$ ，其中误差为真实值减估计值，</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 e_k^-&=x_k-\hat{x}_k^-\\
@@ -3934,11 +3929,10 @@ f(x)=f(x_0)+\frac{\partial f}{\partial x}(x-x_0)
 \end{aligned}</script><p>如果需要线性化一个系统，需要找到一个点（Operating Point），在这个点附近进行线性化。对于非线性系统来说最好的线性化的点就是它的真实点，但由于系统有误差，无法知道真实值，所以无法在真实点进行线性化，所以过程方程 $f(x_k)$ 只能<strong>在 $\hat{x}_{k-1}$ 附近</strong>，也就是k-1时刻（上一次）的后验估计附近进行线性化。</p>
 <p>由于不知道误差 $w_{k-1}$ 是多少，所以将其假设为0，定义 $f(\hat{x}_{k-1},u_{k-1},0)=\tilde x_k$ ，可以得到</p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
-x_k=f(\hat{x}_{k-1},u_{k-1},0)+A_k(x_{k-1}-\hat{x}_{k-1})+W_kw_{k-1}\\
-A_k=\frac{\partial f}{\partial x}|_{\hat{x}_{k-1},u_{k-1}}\quad W_k=\frac{\partial f}{\partial w}|_{\hat{x}_{k-1},u_{k-1}}\\
-
-\end{array}</script><p>例：</p>
+\begin{aligned}
+x_k & = f(\hat{x}_{k-1},u_{k-1},0)+A_k(x_{k-1}-\hat{x}_{k-1})+W_kw_{k-1}\\
+A_k &= \frac{\partial f}{\partial x}|_{\hat{x}_{k-1},u_{k-1}}\qquad W_k  = \frac{\partial f}{\partial w}|_{\hat{x}_{k-1},u_{k-1}}
+\end{aligned}</script><p>例：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 x_1&=x_1+sinx_2=f_1\\
@@ -3959,17 +3953,15 @@ A_k&=\frac{\partial f}{\partial x}|_{\hat{x_1}_{k-1},\hat{x_2}_{k-1}}\\&=
 \end{aligned}</script><p>可以看出，A矩阵随着K的变化而变化，所以每次要重新计算A矩阵。</p>
 <p>同理对于测量方程， $z_k$ <strong>在 $\tilde x_k$ 附近</strong>进行线性化。由于不知道误差 $v_k$ ，所以将其假设为0，定义 $h(\hat{x}_k,0)=\tilde z_k$ </p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
-z_k=h(\tilde x,0)+H_k(x_k-\tilde{x}_k)+V_kv_k\\
-H_k=\frac{\partial h}{\partial x}|_{\hat{x}_k}\quad V_k=\frac{\partial h}{\partial v}|_{\hat{x}_k}\\
-
-\end{array}</script><p>这样就把非线性系统线性化了：</p>
+\begin{aligned}
+z_k&=h(\tilde x,0)+H_k(x_k-\tilde{x}_k)+V_kv_k\\
+H_k&=\frac{\partial h}{\partial x}|_{\hat{x}_k}\qquad V_k=\frac{\partial h}{\partial v}|_{\hat{x}_k}\\
+\end{aligned}</script><p>这样就把非线性系统线性化了：</p>
 <script type="math/tex; mode=display">
-\begin{array}{l}
-x_k=\tilde x_k+A_k(x_{k-1}-\hat{x}_{k-1})+W_kw_{k-1}\\
-z_k=\tilde z_k+H(x_k-\tilde{x}_k)+Vv_k
-
-\end{array}</script><p>其中的 $W_kw_{k-1}$ 和 $Vv_k$ 也都是正态分布（ $WQW^T$ 相当于矩阵中W的平方）：</p>
+\begin{aligned}
+x_k&=\tilde x_k+A_k(x_{k-1}-\hat{x}_{k-1})+W_kw_{k-1}\\
+z_k&=\tilde z_k+H(x_k-\tilde{x}_k)+Vv_k
+\end{aligned}</script><p>其中的 $W_kw_{k-1}$ 和 $Vv_k$ 也都是正态分布（ $WQW^T$ 相当于矩阵中W的平方）：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 P(w) &\sim N(0,R)\\
