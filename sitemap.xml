@@ -497,7 +497,7 @@
   </url>
   
   <url>
-    <loc>http://www.robotsfan.com/website/cake.html</loc>
+    <loc>http://www.robotsfan.com/website/happy.html</loc>
     
     <lastmod>2021-03-28</lastmod>
     
@@ -506,7 +506,7 @@
   </url>
   
   <url>
-    <loc>http://www.robotsfan.com/website/happy.html</loc>
+    <loc>http://www.robotsfan.com/website/cake.html</loc>
     
     <lastmod>2021-03-28</lastmod>
     
@@ -614,14 +614,14 @@
 
   
   <url>
-    <loc>http://www.robotsfan.com/tags/Chrome/</loc>
+    <loc>http://www.robotsfan.com/tags/PCB/</loc>
     <lastmod>2022-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.robotsfan.com/tags/PCB/</loc>
+    <loc>http://www.robotsfan.com/tags/Chrome/</loc>
     <lastmod>2022-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -656,14 +656,14 @@
   </url>
   
   <url>
-    <loc>http://www.robotsfan.com/tags/hexo/</loc>
+    <loc>http://www.robotsfan.com/tags/stm32/</loc>
     <lastmod>2022-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.robotsfan.com/tags/stm32/</loc>
+    <loc>http://www.robotsfan.com/tags/hexo/</loc>
     <lastmod>2022-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -691,14 +691,14 @@
   </url>
   
   <url>
-    <loc>http://www.robotsfan.com/tags/C/</loc>
+    <loc>http://www.robotsfan.com/tags/Ubuntu/</loc>
     <lastmod>2022-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.robotsfan.com/tags/Ubuntu/</loc>
+    <loc>http://www.robotsfan.com/tags/C/</loc>
     <lastmod>2022-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -728,14 +728,14 @@
 
   
   <url>
-    <loc>http://www.robotsfan.com/categories/%E6%8A%80%E8%83%BD/</loc>
+    <loc>http://www.robotsfan.com/categories/Altium-Designer/</loc>
     <lastmod>2022-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://www.robotsfan.com/categories/Altium-Designer/</loc>
+    <loc>http://www.robotsfan.com/categories/%E6%8A%80%E8%83%BD/</loc>
     <lastmod>2022-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

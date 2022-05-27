@@ -1,0 +1,662 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>手撕卡尔曼滤波器 | 范子琦的博客</title><meta name="keywords" content="FOC"><meta name="author" content="Fan Ziqi"><meta name="copyright" content="Fan Ziqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="手撕卡尔曼滤波器卡尔曼滤波器（Kalman Filter），从字面意思上来看，“Filter滤波器”一词并不能很好地体现其特性。卡尔曼滤波器用一句话来说就是“Optimal Recursive Data-Processing Algorithm”，即为“最优化 递归 数字处理 算法”，它更像是一种观测器，而不是一般意义上的滤波器。卡尔曼滤波器的应用非常广泛，尤其是在导航中。它的广泛应用是因为世界中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手撕卡尔曼滤波器">
+<meta property="og:url" content="http://www.robotsfan.com/posts/b4727fbe.html">
+<meta property="og:site_name" content="范子琦的博客">
+<meta property="og:description" content="手撕卡尔曼滤波器卡尔曼滤波器（Kalman Filter），从字面意思上来看，“Filter滤波器”一词并不能很好地体现其特性。卡尔曼滤波器用一句话来说就是“Optimal Recursive Data-Processing Algorithm”，即为“最优化 递归 数字处理 算法”，它更像是一种观测器，而不是一般意义上的滤波器。卡尔曼滤波器的应用非常广泛，尤其是在导航中。它的广泛应用是因为世界中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-cover4.jpg">
+<meta property="article:published_time" content="2022-04-14T14:36:00.000Z">
+<meta property="article:modified_time" content="2022-04-15T12:12:19.151Z">
+<meta property="article:author" content="Fan Ziqi">
+<meta property="article:tag" content="FOC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-cover4.jpg"><link rel="shortcut icon" href="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-favicon.png"><link rel="canonical" href="http://www.robotsfan.com/posts/b4727fbe"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '手撕卡尔曼滤波器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-15 20:12:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="范子琦的博客" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-avatar.png" onerror="onerror=null;src='https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/bb/"><i class="fa-fw fas fa-bomb"></i><span> 碎碎念</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-cover4.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">范子琦的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/bb/"><i class="fa-fw fas fa-bomb"></i><span> 碎碎念</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">手撕卡尔曼滤波器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-14T14:36:00.000Z" title="发表于 2022-04-14 22:36:00">2022-04-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-15T12:12:19.151Z" title="更新于 2022-04-15 20:12:19">2022-04-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%B5%E6%9C%BA/">电机</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="手撕卡尔曼滤波器"><a href="#手撕卡尔曼滤波器" class="headerlink" title="手撕卡尔曼滤波器"></a>手撕卡尔曼滤波器</h1><p>卡尔曼滤波器（Kalman Filter），从字面意思上来看，“Filter滤波器”一词并不能很好地体现其特性。卡尔曼滤波器用一句话来说就是“Optimal Recursive Data-Processing Algorithm”，即为“最优化 递归 数字处理 算法”，它更像是一种观测器，而不是一般意义上的滤波器。卡尔曼滤波器的应用非常广泛，尤其是在导航中。它的广泛应用是因为世界中存在大量的不确定性，当我们描述一个系统时，这个不确定性主要体现在三个方面：</p>
+<ol>
+<li>不存在完美的数学模型</li>
+<li>系统的扰动不可控，也很难建模</li>
+<li>测量传感器存在误差</li>
+</ol>
+<h2 id="递归算法"><a href="#递归算法" class="headerlink" title="递归算法"></a>递归算法</h2><p>下面看一个例子，多次用同一把尺子测量同一枚硬币的直径，用 $z_k$ 表示第k次的测量结果。由于种种误差，测量得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+z_1=50.1mm \\
+z_2=50.4mm \\
+z_3=50.2mm
+\end{aligned}</script><p>此时如果要估计真实结果，自然而然地会想到取平均值。用 $\hat{x}_k$ 表示第k次的估计值，可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\hat{x}_k &= \frac{1}{k}(z_1+z_2+\cdots+z_k)\\
+          &= \frac{1}{k}(z_1+z_2+\cdots+z_{k-1}) + \frac{1}{k}(z_k)\\
+          &= \frac{k-1}{k}\frac{1}{k-1}(z_1+z_2+\cdots+z_{k-1}) + \frac{1}{k}(z_k)\\
+          &= \frac{k-1}{k}\hat{x}_{k-1} + \frac{1}{k}(z_k)\\
+          &= \hat{x}_{k-1} + \frac{1}{k}(z_k-\hat{x}_{k-1})
+\end{aligned}</script><p>上式中，第三行 $\frac{1}{k-1}(z_1+z_2+\cdots+z_{k-1})$ 就是 $k-1$ 次的平均值 $\hat{x}_{k-1}$ </p>
+<p>观察最后一行结论，$k\uparrow, \frac{1}{k-1}\to0,\hat{x}_k\to\hat{x}_{k-1}$ ，也就是说，随着k的增加，此时拥有了大量的数据，对估计的结果就比较有信心了，测量的结果就不是很重要了。相反，如果k比较小， $\frac{1}{k-1}$ 就会比较大，测量结果 $z_k$ 就会起到很大的作用，尤其是测量结果和估计值差距比较大的时候。</p>
+<p>令 $K_k=\frac{1}{k-1}$ ，则此时公式可以表示为：</p>
+<script type="math/tex; mode=display">
+\hat{x}_k = \hat{x}_{k-1} + K_k(z_k-\hat{x}_{k-1})</script><p>上式表示的含义为：当前的估计值 = 上一次的估计值 + 系数 * ( 当前测量值 - 上一次的估计值 ) ，其中的 $K_k$ 就是卡尔曼增益/因数（Kalman Gain），通过这个公式可以看出，新的估计值 $\hat{x}_k$ 与上一次的估计值 $\hat{x}_{k-1}$ 有关，上一次的又与上上次的有关，这就是一种递归思想（Recursive），这也是卡尔曼滤波器的优势，他不需要追溯很久以前的数据，只需要上一次的就可以。下面来讨论一下这个 $K_k$ ：</p>
+<p>引入两个误差：</p>
+<ol>
+<li>估计误差 $e_{EST}$ （e代表误差error，EST代表估计estimate）</li>
+<li>测量误差 $e_{MEA}$ （e代表误差error，MEA代表测量measurement）</li>
+</ol>
+<p>则 $K_k$ 可以表示为</p>
+<script type="math/tex; mode=display">
+K_k = \frac{e_{EST_{k-1}}}{e_{EST_{k-1}}+e_{MEA_{k}}}</script><p>这个公式是卡尔曼滤波中的核心公式，具体的推导后文会讲到。下面对这个公式进行讨论。在k时刻，</p>
+<ol>
+<li>当 $e_{EST_{k-1}} \gg e_{MEA_{k}}$ ， $K_k\rightarrow1$ ，此时 $\hat{x}_k = z_k$ ，这说明当第k-1次的估计误差远大于第k次的测量误差时，第k次的估计值很趋近于测量值。（估计的误差大，测量的误差小，更信任测量值）</li>
+<li>当 $e_{EST_{k-1}} \ll e_{MEA_{k}}$ ， $K_k\rightarrow 0$ ，此时 $\hat{x}_k = \hat{x}_{k-1}$ ，这说明当第k-1次的估计误差远小于第k次的测量误差时，第k次的估计值很趋近于测量值。（估计的误差小，测量的误差大，更信任估计值）</li>
+</ol>
+<p>运用以上知识，解决一个实际问题可以分为三步：</p>
+<ol>
+<li>计算卡尔曼增益 $K_k$ ，公式见前文</li>
+<li>计算估算值 $\hat{x}_k$ ，公式见前文</li>
+<li>更新估计误差 $e_{EST_{k}} = (1-K_k)e_{EST_{k-1}}$ ，此公式推导见后文。</li>
+</ol>
+<p>再看前文测量硬币直径的例子，实际长度 $x=50mm$ ，对于第一次测量：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\hat{x}_0=40mm \\
+e_{EST_{0}}=5mm \\
+z_1=51mm\\
+e_{MEA_{k}}=3mm
+\end{aligned}</script><p>估计值是是随便估计的一个值；估计误差随便给一个数；测量值是实际测量得到的；由于测量工具不变，测量误差是一个恒定值。接下来进行递归：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220414223222370.png" alt="image-20220414223222370"></p>
+<p>蓝色是测量值 $z_k$ ，红色为估计值 $\hat{x}_k$ ，可以看到经过反复迭代，估计值越来越接近实际值。这就是卡尔曼滤波器的递归思想。</p>
+<h2 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h2><h3 id="数据融合"><a href="#数据融合" class="headerlink" title="数据融合"></a>数据融合</h3><p>下面举例说明数据融合（Data Fusion）</p>
+<p>分别用两个称称一个东西，得到两个结果，分别为</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+z_1=30mm \\
+z_2=32mm 
+\end{aligned}</script><p>两个称都有误差，两个称的标准差（Standard Deviation）分别为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sigma_1=2g \\
+\sigma_2=4g 
+\end{aligned}</script><p>他们均符合正态分布/高斯分布（Natural/Gaussin Distribution）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220415103427679.png" alt="image-20220415103427679"></p>
+<p>如果用这两个结果去估计真实值 $\hat{z}=?$ ，可以用到上一节的思想，则</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\hat{z} = z_{1} + K(z_2-z_{1}),k\in[0,1] \\
+k=0,\hat{z}=z_1\\ 
+k=1,\hat{z}=z_2
+\end{array}</script><p>求k使得 $\sigma_{\hat{z}}$ 最小，也就是使得方差 $Var(\hat{z})$ 最小</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sigma_{\hat{z}}^2&=Var(\hat{z})\\
+                &=Var(z_1 + K(z_2-z_1))\\
+                &=Var(z_1 -Kz_1+ Kz_2)\\
+                &=Var((1-K)z_1+ Kz_2)\\
+                &=Var((1-K)z_1)+Var(Kz_2)\\
+                &=(1-K)^2Var(z_1)+K^2Var(z_2)\\
+                &=(1-K)^2\sigma_1^2+K^2\sigma_2^2\\
+\end{aligned}</script><p>可以看到，第四行中 $(1-K)z_1$ 和 $Kz_2$ 是互相独立的，因为两个称的结果不会互相影响，所以由于方差的性质可以写成两个独立的方差。要求这个式子的最小值，就要对K求导并令导数等于0。可以解出K：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\frac{d\sigma_{\hat{z}}^2}{dK}=0\\
+-2(1-K)\sigma_1^2+2K\sigma_2^2=0\\
+K=\frac{\sigma_1^2}{\sigma_1^2+\sigma_2^2}=\frac{2^2}{2^2+4^2}=0.2
+\end{array}</script><p>将K带入上面的式子，得到 $\hat{z}=30.4$ 。此时为最优解。计算此时的标准差 $\sigma_{\hat{z}}=1.79$ ，绘出正态分布图：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220415105843056.png" alt="image-20220415105843056"></p>
+<p>得到比两个图形更高更瘦的图形，这个过程就叫数据融合。</p>
+<h3 id="协方差矩阵"><a href="#协方差矩阵" class="headerlink" title="协方差矩阵"></a>协方差矩阵</h3><p>协方差矩阵（Covarince Matrix）是把方差和协方差在一个矩阵中表示出来，体现了变量间的联动关系。下面举例说明：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220415121131214.png" alt="image-20220415121131214"></p>
+<p>令身高为x，体重为y，年龄为z，分别计算平均值，方差和协方差（拿x举例）：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sigma_x^2&=\frac{1}{3}((179-180.3)^2\\
+&\qquad+(187-180.3)^2\\
+&\qquad+(175-180.3)^2)\\
+&=24.89\\
+\sigma_x\sigma_y&=\frac{1}{3}((179-180.3)(74-75)\\
+&\qquad+(187-180.3)(80-75)\\
+&\qquad+(175-180.3)(71-75))\\
+&=18.7=\sigma_y\sigma_x
+\end{aligned}</script><p>观察协方差的每一项，如果两个括号内都为负数，相乘为正数；两个括号内都为正数，相乘仍为正数；但一正一负相乘得到负数。所以最后加在一起的结果如果是正数，说明这两个变量的变化方向是一样的；如果是负数，说明这两个变量的变化方向是相反的。</p>
+<p>协方差矩阵表示形式为：</p>
+<script type="math/tex; mode=display">
+P = 
+\begin{bmatrix}  
+  \sigma_x^2 & \sigma_x\sigma_y & \sigma_x\sigma_z \\  
+  \sigma_y\sigma_x & \sigma_y^2 & \sigma_y\sigma_z \\  
+  \sigma_z\sigma_x & \sigma_z\sigma_y & \sigma_z^2  
+\end{bmatrix}</script><p>如果需要编程实现，可以通过以下方法求得P（其中a为过渡矩阵）</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+a & = \begin{bmatrix}  
+  x_1 & y_1 & z_1 \\  
+  x_2 & y_2 & z_2 \\  
+  x_3 & y_3 & z_3  
+\end{bmatrix}-\frac{1}{3}
+\begin{bmatrix}  
+  1 & 1 & 1 \\  
+  1 & 1 & 1 \\  
+  1 & 1 & 1  
+\end{bmatrix}
+\begin{bmatrix}  
+  x_1 & y_1 & z_1 \\  
+  x_2 & y_2 & z_2 \\  
+  x_3 & y_3 & z_3  
+\end{bmatrix}\\
+P & = \frac{1}{3}a^Ta
+\end{aligned}</script><p>多取一些数据，得到协方差矩阵，可以利用协方差矩阵分析各个数据之间的关系；</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220415113508938.png" alt></p>
+<p>从协方差矩阵中可以看到，对角线上的数为方差，这些数据比较大，说明了这些变量之间跨度比较大。剩下的数据为协方差，体重和身高的协方差比较大，说明他们是正相关的，身高增加体重也增加；而年龄和其余两者的协方差比较小，说明他们之间的相关性比较小。</p>
+<h3 id="状态空间方程"><a href="#状态空间方程" class="headerlink" title="状态空间方程"></a>状态空间方程</h3><p>状态空间表达（State Space Representation），现代控制理论就是以状态空间方程为基础的。以弹簧振动阻尼系统为例：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220415113931219.png" alt="image-20220415113931219"></p>
+<p>动态方程表达式为：</p>
+<script type="math/tex; mode=display">
+m\ddot{x}+B\dot{x}+kx=F</script><p>将F定义为u，也就是系统的输入（Input）。将其转化成状态空间表达形式，定义两个状态（State）变量 $x_1=x$ ， $x_2=\dot{x}$ ，则</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\dot{x_1}&=x_2\\
+\dot{x_2}&=\ddot{x}\\
+         &=\frac{1}{m}u-\frac{B}{m}\dot{x}-\frac{k}{m}x\\
+         &=\frac{1}{m}u-\frac{B}{m}x_2-\frac{k}{m}x_1
+\end{aligned}</script><p>这样就用两个一阶微分方程表达出来了。定义两个测量（Meansurement）变量，位置 $z_1=x=x_1$ ，速度 $z_2=\dot{x}=x_2$ </p>
+<p>将上面的式子改写成矩阵形式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\begin{bmatrix}  
+  \dot{x_1} \\  
+  \dot{x_2} 
+\end{bmatrix} & = \begin{bmatrix}  
+  0            & 1 \\
+  -\frac{k}{m} & -\frac{B}{m}
+\end{bmatrix}
+\begin{bmatrix}  
+  x_1 \\  
+  x_2 
+\end{bmatrix}+
+\begin{bmatrix}  
+  0 \\  
+  \frac{1}{m} 
+\end{bmatrix}u\\
+\begin{bmatrix}  
+  z_1 \\  
+  z_2 
+\end{bmatrix} & = \begin{bmatrix}  
+  1 & 0 \\
+  0 & 1
+\end{bmatrix}
+\begin{bmatrix}  
+  x_1 \\  
+  x_2 
+\end{bmatrix}
+\end{aligned}</script><p>归纳出状态空间的表达形式：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\dot{x}(t)=Ax(t)+Bu(t)\\
+z(t)=Hx(t)
+\end{array}</script><p>这是一种连续的表达形式， $\dot{x}(t)$ 为x对时间的导数，体现了x随时间的变化。</p>
+<p>如果写成离散形式(本节不深入讲解离散型，只做了解)，其中下标 $k-1,k,k+1$ 里面的1代表一个时间单位，即为采样时间（Sample Time），这种形式体现了上一步到这一步的一种变化：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x_k=Ax_{k-1}+Bu_{k-1}\\
+z_k=Hx_k
+\end{array}</script><p>如果增加一些开头提到的不确定性，其中 $w_{k-1}$ 为过程噪音（Process Noise）， $v_k$ 为测量噪音（Meansurement Noise）：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x_k=Ax_{k-1}+Bu_{k-1}+w_{k-1}\\
+z_k=Hx_k+v_k
+\end{array}</script><p>也就是说当估计结果 $x_k$ 不准确，测量结果 $z_k$ 也不准确的情况下，如何估计一个精确的 $\hat{x}_k$ ？这就是卡尔曼滤波器所要解决的问题。</p>
+<h2 id="卡尔曼增益数学推导"><a href="#卡尔曼增益数学推导" class="headerlink" title="卡尔曼增益数学推导"></a>卡尔曼增益数学推导</h2><p>在上文的状态空间方程中， $x_k$ 为状态变量，A为状态矩阵，B为控制矩阵， $u_k$ 为控制， $w_{k-1}$ 为过程噪音， $v_k$ 为测量噪音，其中噪声是不可测的，是系统不确定性的表现。但过程噪声可以假设其符合正态分布 $P(w)\sim N(0,Q)$ ，其中0为期望，Q为协方差矩阵：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+Q&=E(ww^T)\\
+ &=E\left(
+         \begin{bmatrix}  
+          w_1 \\  
+          w_2 
+         \end{bmatrix}
+         \begin{bmatrix}  
+          w_1 & w_2  
+         \end{bmatrix}
+     \right)\\
+ &=E\left(
+         \begin{bmatrix}  
+          w_1^2  & w_1w_2\\  
+          w_2w_1 & w_2^2
+         \end{bmatrix}
+     \right)\\
+ &=
+     \begin{bmatrix}  
+     E(w_1^2)  & E(w_1w_2)\\  
+     E(w_2w_1) & E(w_2^2)
+     \end{bmatrix}\\
+ &=
+     \begin{bmatrix}  
+      \sigma_{w_1}^2 & \sigma_{w_1}\sigma_{w_2} \\  
+      \sigma_{w_2}\sigma_{w_1} & \sigma_{w_2}^2
+     \end{bmatrix}
+\end{aligned}</script><p>通过Q这个协方差矩阵可以表示出过程噪声的方差，亦可以表示出过程噪声之间的关系。</p>
+<p>对于测量噪声也同样认为符合正态分布 $P(v)\sim N(0,R)$ ， $R=E(vv^T)$ 同样为协方差矩阵，形同Q。</p>
+<p>但建模的时候噪音是不知道的，所以我们只能测得除掉噪声其余的项，表示为 $\hat{x}_k^-$ ，这是一个估计值所以要加一个hat。此时我们没有做任何处理，只是根据上面的式子去掉噪声得来，所以在上面加一个负号，代表先验估计。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\hat{x}_k^-=A\hat{x}_{k-1}+Bu_{k-1}\\
+z_k=Hx_k \to \hat{x}_{k_{mea}}=H^{-1}z_k
+\end{array}</script><p>上式中第一行 $\hat{x}_k^-$ 为算出来的结果，第二行 $\hat{x}_{k_{mea}}$ 为测出来的结果，但他们都不具备测量噪声这一项，他们都是不太准确的。这时可以运用卡尔曼滤波器通过两个不太准确的结果得到一个准确的结果。</p>
+<p>回忆之前数据融合的概念，对于最终的估计值， $\hat{x}_k$ （后验估计） 可以表示为：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\hat{x}_k=\hat{x}_k^- + G(H^{-1}z_k-\hat{x}_k^-),G\in[0,1]\\
+\end{array}</script><ul>
+<li>当 $G=0$ ， $\hat{x}_k=\hat{x}_k^-$ ，此时更相信计算结果</li>
+<li>当 $G=1$ ， $\hat{x}_k=H^{-1}z_k$ ，此时更相信测量结果</li>
+</ul>
+<p>在许多教材中会令 $G=K_kH$ ，卡尔曼滤波器可以表示为：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\hat{x}_k=\hat{x}_k^- + K_k(z_k-H\hat{x}_k^-),K_k\in[0,H^{-1}]\\
+\end{array}</script><ul>
+<li><p>当 $K_k=0$ ， $\hat{x}_k=\hat{x}_k^-$ ，此时更相信计算结果</p>
+</li>
+<li><p>当 $K_k=H^{-1}$ ， $\hat{x}_k=H^{-1}z_k$ ，此时更相信测量结果</p>
+</li>
+</ul>
+<p>接下来的目标就是<strong>寻找 $K_k$ ，使得误差最小</strong>，也就是说使得估计值 $\hat{x}_k$ 趋近于实际值 $x_k$ 。很明显， $K_k$ 的取值与<strong>计算误差</strong>和<strong>测量误差</strong>息息相关，当测量误差特别大时会更相信计算出来的结果，当计算误差特别大时会更相信测量出来的结果。</p>
+<p>令误差 $e_k=x_k-\hat{x}_k$ ，其同样符合正态分布 $P(e_k)\sim N(0,P)$ </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P=E(ee^T)=
+     \begin{bmatrix}  
+      \sigma_{e_1}^2 & \sigma_{e_1}\sigma_{e_2} \\  
+      \sigma_{e_2}\sigma_{e_1} & \sigma_{e_2}^2
+     \end{bmatrix}
+\end{aligned}</script><p>如果新估计出的 $x_k$ 距离实际值越小，说明误差的方差越小，说明越接近期望值0。而方差之和为P的迹 $tr(P)=\sigma_{e_1}^2+\sigma_{e_2}^2$ ，所以要想让方差最小，接下来的目标就变成了选取合适的 $K_k$ ，使得协方差<strong>矩阵P的迹最小</strong></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P&=E\left(ee^T\right)\\
+ &=E\left( \left(x_k-\hat{x}_k\right)\left(x_k-\hat{x}_k\right)^T \right)
+\end{aligned}</script><p>下面求 $x_k-\hat{x}_k$ ，其中的 $z_k$ 是真实测量的结果，所以 $z_k=Hx_k+v_k$ 。因为 $e_k=x_k-\hat{x}_k$ ，所以可以定义先验误差 $e_k^-=x_k-\hat{x}_k^-$ </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x_k-\hat{x}_k&=x_k-(\hat{x}_k^- + K_k(z_k-H\hat{x}_k^-))\\
+&=(I-K_kH)(x_k-\hat{x}_k^-)-K_kv_k \\
+&=(I-K_kH)e_k^--K_kv_k
+\end{aligned}</script><p>前文提到， $e_k^-$ 和 $e_k^-$ 的方差都是0，且令先验误差的协方差矩阵 $P_k^-=E(e_k^-{e_k^-}^T)$ 。此时第k步的 $P_k$ 可以整理为</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P_k&=E\left( \left(x_k-\hat{x}_k\right)\left(x_k-\hat{x}_k\right)^T \right)\\
+ &=E\left( \left(\left(I-K_kH\right)e_k^--K_kv_k\right)\left(\left(I-K_kH\right)e_k^--K_kv_k\right)^T \right)\\
+ &=P_k^--K_kHP_k^--(K_kHP_k^-)^T+K_kHP_k^-H^TK_k^T+K_kRK_k^T
+\end{aligned}</script><p>此时可以计算 $P_k$ 的迹</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+tr(P_k)&=tr(P_k^-)-2tr(K_kHP_k^-)+tr(K_kHP_k^-H^TK_k^T)+tr(K_kRK_k^T)
+\end{aligned}</script><p>寻找k使得 $tr(P_k)$ 有最小值，对k求导并寻找极值点（求导法则略）</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{dtr(P_k)}{dk}=0-2(HP_k^-)^T+2K_kHP_k^-H^T+2K_kR=0\\
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+K_k=\frac{P_k^-H^T}{HP_k^-H^T+R}\\
+\end{aligned}</script><p>至此，我们推出的 $K_k$ 就是卡尔曼增益。这也是卡尔曼滤波器中最核心的公式。</p>
+<p>其中的R是测量噪声的协方差矩阵，R的大小代表了测量噪声方差的大小，也就是 测量噪声的大小。分析 $K_k$ ：</p>
+<ul>
+<li>当R很大， $K_k\to0$ ， $\hat{x}_k=\hat{x}_k^-$ ，此时更相信计算结果</li>
+<li>当R很小， $K_k=\frac{P_k^-H^T}{HP_k^-H^T}=H^{-1},\hat{x}_k=H^{-1}z_k$ ，此时更相信测量结果</li>
+</ul>
+<h2 id="误差协方差矩阵数学推导"><a href="#误差协方差矩阵数学推导" class="headerlink" title="误差协方差矩阵数学推导"></a>误差协方差矩阵数学推导</h2><p>现在来推导卡尔曼增益 $K_k$ 中的先验误差的协方差矩阵 $P_k^-$ 。</p>
+<p>根据前文的结论，我们可以得到真实值 $x_k$ ，先验估计 $\hat{x}_k^-$ ，后验估计 $\hat{x}_k$ ，卡尔曼增益 $K_k$ </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x_k & = Ax_{k-1}+Bu_{k-1}+w_{k-1}\\
+\hat{x}_k^- & = A\hat{x}_{k-1}+Bu_{k-1}\\
+\hat{x}_k & = \hat{x}_k^- + K_k(z_k-H\hat{x}_k^-)\\
+K_k & = \frac{P_k^-H^T}{HP_k^-H^T+R}
+\end{aligned}</script><p>根据 $P_k^-$ 的定义， $P_k^-=E(e_k^-{e_k^-}^T)$ ，其中误差为真实值减估计值，</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+e_k^-&=x_k-\hat{x}_k^-\\
+     &=Ax_{k-1}+Bu_{k-1}+w_{k-1}-A\hat{x}_{k-1}-Bu_{k-1}\\
+     &=A(x_{k-1}-\hat{x}_{k-1}^-)+w_{k-1}\\
+     &=Ae_{k-1}+w_{k-1}
+\end{aligned}</script><p>则 $P_k^-$ 可以整理为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P_k^-&=E(e_k^-{e_k^-}^T)\\
+     &=E\left( (Ae_{k-1}+w_{k-1})(Ae_{k-1}+w_{k-1})^T \right)\\
+     &=AE(e_{k-1}^-{e_{k-1}^-}^T)A^T+E(w_{k-1}^-{w_{k-1}^-}^T)\\
+     &=AP_{k-1}A^T+Q
+\end{aligned}</script><p>根据上式就可以利用卡尔曼滤波器估计状态变量的值了。分为以下步骤</p>
+<ul>
+<li><p>预测</p>
+<ol>
+<li><p>先验估计</p>
+<p> $\hat{x}_k^-=A\hat{x}_{k-1}+Bu_{k-1}$</p>
+</li>
+<li><p>先验误差协方差矩阵</p>
+<p> $P_k^-=AP_{k-1}A^T+Q$</p>
+</li>
+</ol>
+</li>
+<li><p>校正</p>
+<ol>
+<li><p>卡尔曼增益</p>
+<p> $K_k=\frac{P_k^-H^T}{HP_k^-H^T+R}$</p>
+</li>
+<li><p>后验估计</p>
+<p> $\hat{x}_k=\hat{x}_k^- + K_k(z_k-H\hat{x}_k^-)$</p>
+</li>
+</ol>
+</li>
+</ul>
+<p>根据以上四步就可以得到最优估计值，也就是后验估计值 $\hat{x}_k$ 。</p>
+<p>先验误差协方差矩阵 $P_k^-$ 中包含上一次的 $P_{k-1}^-$ 项，每次矫正厚需要更新先验误差协方差矩阵。将卡尔曼增益带入可以求得：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P_k&=P_k^--K_kHP_k^--(K_kHP_k^-)^T+K_kHP_k^-H^TK_k^T+K_kRK_k^T\\
+   &=(I-K_kH)P_k^-
+\end{aligned}</script><p>所以第五步为</p>
+<ol>
+<li><p>更新先验误差协方差</p>
+<p>$P_k=(I-K_kH)P_k^-$ </p>
+</li>
+</ol>
+<p>以上就是完整的卡尔曼滤波器的五个公式。</p>
+<p>可以看到，每次预测都会用到上一次的结果，所以在最开始要赋予初值 $\hat{x}_0$ 和 $P_0$ ，初值的选取会在下文提及。</p>
+<h2 id="扩展卡尔曼滤波"><a href="#扩展卡尔曼滤波" class="headerlink" title="扩展卡尔曼滤波"></a>扩展卡尔曼滤波</h2><p>前文讲到，卡尔曼滤波器在线性系统里可以得到最优估计值。对于非线性系统，可以将其线性化再进行处理，这种滤波器叫做扩展卡尔曼滤波器（Extend Kalman Filter），简称EKF。</p>
+<p>线性系统可以表示为：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x_k=Ax_{k-1}+Bu_{k-1}+w_{k-1}\\
+z_k=Hx_k+v_k
+\end{array}</script><p>而非线性系统，无法用线性的状态空间方程表达，而是可以表示为：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x_k=f(x_{k-1},u_{k-1},w_{k-1})\\
+z_k=h(x_k,v_k)
+\end{array}</script><p>其中f为过程方程，h为测量方程，这是两个非线性的表达形式。注意无论是线性还是非线性，误差v和w都是符合正态分布的。但正态分布的随机变量通过非线性系统以后就不再是正态分布的了。所以如果还想对非线性系统进行卡尔曼滤波，需要对其线性化（Linearization），用泰勒级数展开，不赘述过程只给出结论：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+f(x)=f(x_0)+\frac{\partial f}{\partial x}(x-x_0)
+\end{aligned}</script><p>如果需要线性化一个系统，需要找到一个点（Operating Point），在这个点附近进行线性化。对于非线性系统来说最好的线性化的点就是它的真实点，但由于系统有误差，无法知道真实值，所以无法在真实点进行线性化，所以过程方程 $f(x_k)$ 只能<strong>在 $\hat{x}_{k-1}$ 附近</strong>，也就是k-1时刻（上一次）的后验估计附近进行线性化。</p>
+<p>由于不知道误差 $w_{k-1}$ 是多少，所以将其假设为0，定义 $f(\hat{x}_{k-1},u_{k-1},0)=\tilde x_k$ ，可以得到</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x_k & = f(\hat{x}_{k-1},u_{k-1},0)+A_k(x_{k-1}-\hat{x}_{k-1})+W_kw_{k-1}\\
+A_k &= \frac{\partial f}{\partial x}|_{\hat{x}_{k-1},u_{k-1}}\qquad W_k  = \frac{\partial f}{\partial w}|_{\hat{x}_{k-1},u_{k-1}}
+\end{aligned}</script><p>例：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x_1&=x_1+sinx_2=f_1\\
+x_2&=x_1^2=f_2\\
+A_k&=\frac{\partial f}{\partial x}|_{\hat{x_1}_{k-1},\hat{x_2}_{k-1}}\\&=
+\begin{bmatrix}  
+  \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} \\
+  \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2}
+\end{bmatrix}|_{\hat{x_1}_{k-1},\hat{x_2}_{k-1}}\\&=
+\begin{bmatrix}  
+  1 & cosx_2 \\
+  2x_1 & 0
+\end{bmatrix}|_{\hat{x_1}_{k-1},\hat{x_2}_{k-1}}\\&=
+\begin{bmatrix}  
+  1 & cos\hat{x_2}_{k-1} \\
+  2\hat{x_1}_{k-1} & 0
+\end{bmatrix}
+\end{aligned}</script><p>可以看出，A矩阵随着K的变化而变化，所以每次要重新计算A矩阵。</p>
+<p>同理对于测量方程， $z_k$ <strong>在 $\tilde x_k$ 附近</strong>进行线性化。由于不知道误差 $v_k$ ，所以将其假设为0，定义 $h(\hat{x}_k,0)=\tilde z_k$ </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+z_k&=h(\tilde x,0)+H_k(x_k-\tilde{x}_k)+V_kv_k\\
+H_k&=\frac{\partial h}{\partial x}|_{\hat{x}_k}\qquad V_k=\frac{\partial h}{\partial v}|_{\hat{x}_k}\\
+\end{aligned}</script><p>这样就把非线性系统线性化了：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x_k&=\tilde x_k+A_k(x_{k-1}-\hat{x}_{k-1})+W_kw_{k-1}\\
+z_k&=\tilde z_k+H(x_k-\tilde{x}_k)+Vv_k
+\end{aligned}</script><p>其中的 $W_kw_{k-1}$ 和 $Vv_k$ 也都是正态分布（ $WQW^T$ 相当于矩阵中W的平方）：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P(w) &\sim N(0,R)\\
+P(Ww_{k-1}) &\sim N(0,WQW^T)\\
+P(Vv_k) &\sim N(0,VRV^T)
+\end{aligned}</script><p>将卡尔曼滤波器的线性化部分替换成对应非线性的部分，就可以得到扩展卡尔曼滤波器的五个公式：</p>
+<ul>
+<li><p>预测</p>
+<ol>
+<li><p>先验估计</p>
+<p> $\hat{x}_k^-=f(\hat{x}_{k-1},u_{k-1},0)$</p>
+</li>
+<li><p>先验误差协方差矩阵</p>
+<p> $P_k^-=AP_{k-1}A^T+WQW^T$</p>
+</li>
+</ol>
+</li>
+<li><p>校正</p>
+<ol>
+<li><p>卡尔曼增益</p>
+<p> $K_k=\frac{P_k^-H^T}{HP_k^-H^T+VRV^T}$</p>
+</li>
+<li><p>后验估计</p>
+<p> $\hat{x}_k=\hat{x}_k^- + K_k(z_k-h(\hat{x}_k,0))$ </p>
+</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li><p>更新先验误差协方差</p>
+<p> $P_k=(I-K_kH)P_k^-$ </p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.robotsfan.com">Fan Ziqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.robotsfan.com/posts/b4727fbe.html">http://www.robotsfan.com/posts/b4727fbe.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.robotsfan.com" target="_blank">范子琦的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/FOC/">FOC</a></div><div class="post_share"><div class="social-share" data-image="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-cover4.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/d99d1c1a.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-cover4.jpg" onerror="onerror=null;src='https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">FOC学习笔记【持续更新中】</div></div></a></div><div class="next-post pull-right"><a href="/posts/7a5950c4.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-cover2.jpg" onerror="onerror=null;src='https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ROS2——教你写新版Launch文件</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/9532f19e.html" title="FOC控制原理——Clark变换和Park变换"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-23</div><div class="title">FOC控制原理——Clark变换和Park变换</div></div></a></div><div><a href="/posts/d99d1c1a.html" title="FOC学习笔记【持续更新中】"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/blog-cover4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-05</div><div class="title">FOC学习笔记【持续更新中】</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%8B%E6%92%95%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">手撕卡尔曼滤波器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">递归算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.2.</span> <span class="toc-text">数学基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%9E%8D%E5%90%88"><span class="toc-number">1.2.1.</span> <span class="toc-text">数据融合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5"><span class="toc-number">1.2.2.</span> <span class="toc-text">协方差矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E6%96%B9%E7%A8%8B"><span class="toc-number">1.2.3.</span> <span class="toc-text">状态空间方程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%A1%E5%B0%94%E6%9B%BC%E5%A2%9E%E7%9B%8A%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="toc-number">1.3.</span> <span class="toc-text">卡尔曼增益数学推导</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AF%E5%B7%AE%E5%8D%8F%E6%96%B9%E5%B7%AE%E7%9F%A9%E9%98%B5%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="toc-number">1.4.</span> <span class="toc-text">误差协方差矩阵数学推导</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2"><span class="toc-number">1.5.</span> <span class="toc-text">扩展卡尔曼滤波</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Fan Ziqi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://www.robotsfan.com/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'OjsFbKXQ3IMTb9HbvzYfYmcx-gzGzoHsz',
+      appKey: 'VBrjucYOiSf9CLiztjFtt7Oc',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='all'|| 'all' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="http://www.robotsfan.com/categories/C/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">💻 深入学习C++ (10)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://www.robotsfan.com/categories/STM32/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">💻 STM32 (3)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://www.robotsfan.com/categories/ROS机器人学习/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🤖 ROS机器人学习 (11)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://www.robotsfan.com/categories/Altium-Designer/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">💡 Altium Designer相关知识 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://www.robotsfan.com/categories/网站/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🧲 网站搭建 (2)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://www.robotsfan.com/categories/技能/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">💡 小技能 (6)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><a class="magnet_link_more"  href="http://www.robotsfan.com/categories" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(50% - 5px);background: #f2f2f2;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: #6699ff}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><!-- hexo injector body_end end --></body></html>
