@@ -4176,4 +4176,67 @@ v_{ty}=\frac{v_3-v_1}{2}\\
         <tag>控制</tag>
       </tags>
   </entry>
+  <entry>
+    <title>使用CLion开发STM32</title>
+    <url>/posts/ea0a6855.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="使用CLion开发STM32"><a href="#使用CLion开发STM32" class="headerlink" title="使用CLion开发STM32"></a>使用CLion开发STM32</h1><h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="STM32CubeMX"><a href="#STM32CubeMX" class="headerlink" title="STM32CubeMX"></a>STM32CubeMX</h3><p>正常安装即可。<a href="https://www.st.com/en/development-tools/stm32cubemx.html">下载链接</a></p>
+<h3 id="MinGW"><a href="#MinGW" class="headerlink" title="MinGW"></a>MinGW</h3><p>点击下载安装器。<a href="https://osdn.net/projects/mingw/releases/">下载链接</a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615165444739.png" alt="image-20220615165444739" style="zoom:50%;"></p>
+<p>选择安装</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615165549003.png" alt="image-20220615165549003" style="zoom:50%;"></p>
+<p>改变一下路径</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615165640045.png" alt="image-20220615165640045" style="zoom:50%;"></p>
+<p>等待下载完成后点击<code>Continue</code>进入下一步，勾选<code>Basic Setup</code>里的全部组件，点击<code>Apply Changes</code>下载。过程会很漫长，请耐心等待。</p>
+<p><img src="/posts/Users\fanziqi\AppData\Roaming\Typora\typora-user-images\image-20220615170342076.png" alt="image-20220615170342076" style="zoom:50%;"></p>
+<p>配置环境变量，在Path里添加<code>MinGW</code>的<code>bin</code>文件夹：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615165848575.png" alt="image-20220615165848575" style="zoom:50%;"></p>
+<p>打开命令行，输入<code>gcc -v</code>，出现类似下图信息即为安装成功</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615170030477.png" alt="image-20220615170030477" style="zoom:50%;"></p>
+<h3 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h3><p>下载最新版本。<a href="http://gnutoolchains.com/arm-eabi/openocd/">下载链接</a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615165310091.png" alt="image-20220615165310091" style="zoom:50%;"></p>
+<p>下载后解压，将文件夹改名为<code>OpenOCD</code>并放置到一个目录，这个目录将在下文中Clion中配置。</p>
+<h3 id="arm-none-eabi-gcc"><a href="#arm-none-eabi-gcc" class="headerlink" title="arm-none-eabi-gcc"></a>arm-none-eabi-gcc</h3><p>下载zip格式的。<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads">下载链接</a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615170148180.png" alt="image-20220615170148180" style="zoom:50%;"></p>
+<p>下载后解压，放置到一个目录，这个目录将在下文中Clion中配置。</p>
+<p>配置环境变量，在Path里添加所在文件夹的<code>bin</code>文件夹：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615170758145.png" alt="image-20220615170758145" style="zoom:50%;"></p>
+<p>打开命令行，输入<code>arm-none-eabi-gcc -v</code>，出现类似下图信息即为安装成功</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615170651597.png" alt="image-20220615170651597" style="zoom:50%;"></p>
+<h3 id="Clion"><a href="#Clion" class="headerlink" title="Clion"></a>Clion</h3><p>Clion可以去Jetbrain下载，学生可以免费使用。下载安装好之后配置工具链，添加如下图的路径</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615171359479.png" alt="image-20220615171359479" style="zoom:50%;"></p>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><p>新建STM32CubeMX项目</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615171646399.png" alt="image-20220615171646399" style="zoom:50%;"></p>
+<p>选择用CubeMX打开</p>
+<p><img src="/posts/Users\fanziqi\AppData\Roaming\Typora\typora-user-images\image-20220615171831417.png" alt="image-20220615171831417" style="zoom:50%;"></p>
+<p>更换芯片型号</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615171943646.png" alt="image-20220615171943646" style="zoom:50%;"></p>
+<p>将项目名改成前文Clion创建的工程名，将IDE改成<code>STM32CubeIDE</code>，然后点击生成代码，弹出是否overwrite选择yes</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615172307277.png" alt="image-20220615172307277" style="zoom:50%;"></p>
+<p>代码生成好之后点击Close，回到Clion，会弹出来这个对话框，这里先选择取消，后面再添加。</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615172412994.png" alt="image-20220615172412994" style="zoom:50%;"></p>
+<p>打开设置，确定一下cmake为以下配置：</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615171523025.png" alt="image-20220615171523025" style="zoom:50%;"></p>
+<p>点击锤子按钮编译，如以上配置无误即可生成<code>hex</code>及<code>bin</code></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615172739473.png" alt="image-20220615172739473" style="zoom:50%;"></p>
+<p>对于一个项目，不可避免地会用到第三方库或者自己创建的<code>.c/.h</code>文件，也就是需要修改<code>CmakeList</code>文件。但这里的<code>CMakelist</code>开头写明了<code>#此文件从模板自动生成! 请勿更改!</code>，其原因为在每一次使用CubeMX生成代码时此文件会被覆盖，用户的代码将不会被保存。所以需要修改模板文件。</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615173536388.png" alt="image-20220615173536388"></p>
+<p>如上图所示，需要增加头文件及编译文件。对于我们新增的编译文件，可以新增一个<code>MY_SOURCE</code>并在<code>add_executable</code>中添加<code>$&#123;MY_SOURCES&#125;</code>，可以避免修改原模板。</p>
+<p>file里的<code>GLOB_RECURSE</code>意思是对该目录下的所有子文件进行递归添加。而<code>GLOB</code>则不进行递归，只在当前文件夹下查找。可以根据需求选择用哪种。<code>*.*</code>为通配符，意为添加文件夹下的所有文件。</p>
+<h2 id="烧录"><a href="#烧录" class="headerlink" title="烧录"></a>烧录</h2><p>如使用STlink进行烧录，需要添加配置文件。在项目根目录下新建一个<code>stlink.cfg</code>，添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source [find interface/stlink-v2.cfg]</span><br><span class="line">transport select hla_swd</span><br><span class="line">source [find target/stm32f1x.cfg]</span><br><span class="line">adapter speed 10000</span><br></pre></td></tr></table></figure>
+<p>若使用的不是STM32F1或者不是STlink仿真器，可以到OpenOCD安装目录的<code>share\openocd\scripts</code>下寻找对应的配置。芯片在<code>target</code>文件下，仿真器在<code>interface</code>文件夹下。</p>
+<p>然后点击编辑配置</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615174236352.png" alt="image-20220615174236352"></p>
+<p>添加刚刚的配置文件</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615174323763.png" alt="image-20220615174323763" style="zoom:50%;"></p>
+<p>然后点击三角形烧录固件</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220615174411604.png" alt="image-20220615174411604"></p>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
 </search>
