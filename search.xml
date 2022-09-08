@@ -4269,6 +4269,20 @@ v_{ty}=\frac{v_3-v_1}{2}\\
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908123829879.png" alt="image-20220908123829879" style="zoom:50%;"></p>
 <p>运行</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908124126507.png" alt="image-20220908124126507"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>创建UI类</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908124511476.png" alt="image-20220908124511476" style="zoom:50%;"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908124618160.png" alt="image-20220908124618160" style="zoom:50%;"></p>
+<p>此时打开<code>mainwind.cpp</code>看到头文件<code>#include &quot;ui_MainWind.h&quot;</code>报错，这是因为需要使用UIC工具生成这个文件。</p>
+<p>右键使用Qt Designer打开<code>mainwind.ui</code>就可以进行可视化设计</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908124824449.png" alt="image-20220908124824449" style="zoom:50%;"></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908125226609.png" alt="image-20220908125226609" style="zoom:50%;"></p>
+<p>右键使用Qt UIC打开<code>mainwind.ui</code>生成代码</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908125126022.png" alt="image-20220908125126022" style="zoom:50%;"></p>
+<p>可以看到已成功生成<code>ui_MainWind.h</code>，且<code>mainwind.cpp</code>中不再报错。</p>
+<p>在<code>main.cpp</code>中添加以下代码进行测试：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;mainwindow.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">	<span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">	MainWindow mainWindow;</span><br><span class="line">	mainWindow.<span class="built_in">show</span>();</span><br><span class="line">	<span class="keyword">return</span> QApplication::<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>成功输出</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908125153526.png" alt="image-20220908125153526" style="zoom:50%;"></p>
 ]]></content>
       <categories>
         <category>技能</category>
