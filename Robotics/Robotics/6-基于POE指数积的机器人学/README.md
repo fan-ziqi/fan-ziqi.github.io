@@ -3,5 +3,4 @@
   - [1-机器人建模法——POE指数积公式](Robotics/6-基于POE指数积的机器人学/1-机器人建模法——POE指数积公式.md)
   - [2-运动学](Robotics/6-基于POE指数积的机器人学/2-运动学.md)
   - [3-速度运动学（雅可比矩阵）](Robotics/6-基于POE指数积的机器人学/3-速度运动学（雅可比矩阵）.md)
-  - [4-机器人动力学](Robotics/6-基于POE指数积的机器人学/4-机器人动力学.md)
-  - [5-MATLAB仿真](Robotics/6-基于POE指数积的机器人学/5-MATLAB仿真.md)
+  - [4-MATLAB仿真](Robotics/6-基于POE指数积的机器人学/4-MATLAB仿真.md)
