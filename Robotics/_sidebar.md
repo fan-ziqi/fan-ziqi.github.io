@@ -1,10 +1,3 @@
-# 机器人学
-
-手机用户请在左下角三个横杠处展开目录
-
-------
-
-- [返回首页](/)
 - [1-绪论](Robotics/1-绪论.md)
 - [2-线性代数基础](Robotics/2-线性代数基础.md)
 - [3-控制理论基础](Robotics/3-控制理论基础.md)
@@ -39,13 +32,4 @@
 - [11-机器人关节控制](Robotics/11-机器人关节控制/)
   - [1-电机控制](Robotics/11-机器人关节控制/1-电机控制/)
     - [1-FOC控制](Robotics/11-机器人关节控制/1-电机控制/1-FOC控制.md)
-
-
-------
-
-**文章作者:** [范子琦](https://github.com/fan-ziqi)
-
-**文章链接:** https://www.fanziqi.site/categories/Robotics/
-
-**版权声明:** 本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议。转载请注明来自 [范子琦的博客](http://www.fanziqi.site/)！
 
