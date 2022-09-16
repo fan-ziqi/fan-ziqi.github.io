@@ -12,4 +12,4 @@
 
 [GitHub](https://github.com/fan-ziqi)
 [Blog](https://www.robotsfan.com/)
-[开始阅读](/Robotics/)
+[开始阅读](/)
