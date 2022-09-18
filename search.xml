@@ -4305,4 +4305,48 @@ K_I=\beta K_P</script><p>其中 $\beta$ 是速度环的带宽，一般为50rad/s
         <tag>FOC</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Windows+Opencv+Clion的配置</title>
+    <url>/posts/d99d1c1a.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Windows-Opencv-Clion的配置"><a href="#Windows-Opencv-Clion的配置" class="headerlink" title="Windows+Opencv+Clion的配置"></a>Windows+Opencv+Clion的配置</h1><h2 id="下载OpenCV源码"><a href="#下载OpenCV源码" class="headerlink" title="下载OpenCV源码"></a>下载OpenCV源码</h2><p><a href="https://opencv.org/releases/">https://opencv.org/releases/</a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918154832306.png" alt="image-20220918154832306" style="zoom:50%;"></p>
+<p>解压到喜欢的位置，在<code>opencv</code> 根目录下新建<code>mingw_build</code>文件夹</p>
+<h2 id="下载MinGW-W64"><a href="#下载MinGW-W64" class="headerlink" title="下载MinGW-W64"></a>下载MinGW-W64</h2><p><a href="https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/">https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/</a></p>
+<p>注意一定要下载<code>x86_64-posix-sehMinGW</code>版本 的MinGW，否则后面编译会出错</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918155015462.png" alt="image-20220918155015462" style="zoom:50%;"></p>
+<p>解压到喜欢的位置</p>
+<h2 id="下载Cmake"><a href="#下载Cmake" class="headerlink" title="下载Cmake"></a>下载Cmake</h2><p><a href="https://cmake.org/download/">https://cmake.org/download/</a></p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918155143589.png" alt="image-20220918155143589" style="zoom:50%;"></p>
+<p>安装时选择为所有用户添加环境变量</p>
+<h2 id="生成opencv的makefile文件"><a href="#生成opencv的makefile文件" class="headerlink" title="生成opencv的makefile文件"></a>生成opencv的makefile文件</h2><p>打开<code>cmake-gui</code></p>
+<p>点击<code>Browse Source</code>选择选择 <code>opencv</code> 下的 <code>sources</code>文件夹</p>
+<p>点击<code>Browse Build</code>选择选择 <code>opencv</code> 下的 <code>mingw_build</code>文件夹</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918155621342.png" alt="image-20220918155621342" style="zoom:50%;"></p>
+<p>点击Configure，指定编译器</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918155658087.png" alt="image-20220918155658087" style="zoom:50%;"></p>
+<p>分别选择刚刚下载的posix版本MinGW-W64下的gcc和g++</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918155721214.png" alt="image-20220918155721214" style="zoom:50%;"></p>
+<p>点击Finish，等待完成</p>
+<p>如遇到一下问题，请打开下面的文件</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918155936331.png" alt="image-20220918155936331" style="zoom:50%;"></p>
+<p>按照日志里的下载地址分别下载这三个文件并放入<code>/source/.cache/ffmpeg</code>中，使用<code>certutil -hashfile 文件名 MD5</code>获取每个文件的MD5，以<code>MD5-文件名</code>重新命名这三个文件。</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918160038962.png" alt="image-20220918160038962" style="zoom:50%;"></p>
+<p>回到cmake-gui，重新点击Configure，若无其他报错则点击Generate生成Makefile文件。</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>打开命令行进入<code>mingw-build</code>文件夹，使用<code>mingw32-make -j8</code>编译（8为核心数，请自行调整），编译速度大概10分钟左右。</p>
+<p>编译成功后，使用<code>mingw32-make install</code>命令将编译生成的文件整合到<code>opencv/mingw_build/install</code>目录中</p>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>配置环境变量，将<code>opencv/mingw_build/install/x64/mingw/bin</code>加入环境变量中的path中。</p>
+<h2 id="在clion项目中使用opencv"><a href="#在clion项目中使用opencv" class="headerlink" title="在clion项目中使用opencv"></a>在clion项目中使用opencv</h2><p>新建项目，编辑<code>CMakeLists.txt</code></p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.22</span>)</span><br><span class="line"><span class="keyword">project</span>(OpenCV_Test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(OpenCV_Test main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置OpenCV目录</span></span><br><span class="line"><span class="keyword">set</span>(OpenCV_DIR E:/<span class="keyword">Install</span>/Tools/opencv/mingw_build/<span class="keyword">install</span>)</span><br><span class="line"><span class="comment"># 搜索OpenCV目录</span></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="comment"># 链接OpenCV库文件</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(OpenCV_Test <span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p>编辑<code>main.cpp</code></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/highgui/highgui.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Mat img = <span class="built_in">imread</span>(<span class="string">&quot;test.jpg&quot;</span>);</span><br><span class="line">	<span class="built_in">namedWindow</span>(<span class="string">&quot;test&quot;</span>, WINDOW_AUTOSIZE);</span><br><span class="line">	<span class="built_in">imshow</span>(<span class="string">&quot;test&quot;</span>, img);</span><br><span class="line">	<span class="built_in">waitKey</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918162039679.png" alt="image-20220918162039679" style="zoom:50%;"></p>
+]]></content>
+      <categories>
+        <category>Opencv</category>
+      </categories>
+      <tags>
+        <tag>Opencv</tag>
+      </tags>
+  </entry>
 </search>
