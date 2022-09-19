@@ -4307,7 +4307,7 @@ K_I=\beta K_P</script><p>其中 $\beta$ 是速度环的带宽，一般为50rad/s
   </entry>
   <entry>
     <title>Windows+Opencv+Clion的配置</title>
-    <url>/posts/d99d1c1a.html</url>
+    <url>/posts/69395e08.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Windows-Opencv-Clion的配置"><a href="#Windows-Opencv-Clion的配置" class="headerlink" title="Windows+Opencv+Clion的配置"></a>Windows+Opencv+Clion的配置</h1><h2 id="下载OpenCV源码"><a href="#下载OpenCV源码" class="headerlink" title="下载OpenCV源码"></a>下载OpenCV源码</h2><p><a href="https://opencv.org/releases/">https://opencv.org/releases/</a></p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918154832306.png" alt="image-20220918154832306" style="zoom:50%;"></p>
 <p>解压到喜欢的位置，在<code>opencv</code> 根目录下新建<code>mingw_build</code>文件夹</p>
