@@ -4361,4 +4361,33 @@ K_I=\beta K_P</script><p>其中 $\beta$ 是速度环的带宽，一般为50rad/s
         <tag>Git</tag>
       </tags>
   </entry>
+  <entry>
+    <title>管理git的submodule</title>
+    <url>/posts/95374dd8.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="管理git的submodule"><a href="#管理git的submodule" class="headerlink" title="管理git的submodule"></a>管理git的submodule</h1><h2 id="添加子仓库"><a href="#添加子仓库" class="headerlink" title="添加子仓库"></a>添加子仓库</h2><p>在主仓库需要添加submodule的地方新建：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git submodule add https://github.com/xxx/sub_xxx.git</span><br></pre></td></tr></table></figure>
+<p>注：<code>-b your_branch</code>可选</p>
+<p>更新主仓库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;add submodule&quot;</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h2 id="自动更新主仓库"><a href="#自动更新主仓库" class="headerlink" title="自动更新主仓库"></a>自动更新主仓库</h2><p>打开github，创建新token</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20230425114629665.png" alt="image-20230425114629665"></p>
+<p>记录下这个token，只会显示一遍</p>
+<p>在需要自动更新的submodule中点击</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20230425114446598.png" alt="image-20230425114446598"></p>
+<p>添加secret</p>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20230425114520685.png" alt="image-20230425114520685"></p>
+<p>回到仓库的Action，点击<code>set up a workflow yourself -&gt;</code>，随意起名，粘贴下述代码中的repository和branches：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Send</span> <span class="string">submodule</span> <span class="string">updates</span> <span class="string">to</span> <span class="string">parent</span> <span class="string">repo</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">update:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span> </span><br><span class="line">          <span class="attr">repository:</span> <span class="string">xxx/parent_xxx</span></span><br><span class="line">          <span class="attr">token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PRIVATE_TOKEN_GITHUB</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Pull</span> <span class="string">&amp;</span> <span class="string">update</span> <span class="string">submodules</span> <span class="string">recursively</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          git submodule update --init --recursive</span></span><br><span class="line"><span class="string">          git submodule update --recursive --remote</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Commit</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          git config user.email &quot;actions@github.com&quot;</span></span><br><span class="line"><span class="string">          git config user.name &quot;GitHub Actions - update submodules&quot;</span></span><br><span class="line"><span class="string">          git add --all</span></span><br><span class="line"><span class="string">          git commit -m &quot;Update submodules&quot; || echo &quot;No changes to commit&quot;</span></span><br><span class="line"><span class="string">          git push</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20230425115003220.png" alt="image-20230425115003220"></p>
+<h2 id="使用主仓库"><a href="#使用主仓库" class="headerlink" title="使用主仓库"></a>使用主仓库</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recursive https://github.com/xxx/parent_xxx</span><br></pre></td></tr></table></figure>
+<p>若子仓库有更新</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 拉取对应的分支</span></span><br><span class="line">git pull</span><br><span class="line"><span class="comment"># 更新对应代码</span></span><br><span class="line">git submodule update --remote --recursive</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
 </search>
