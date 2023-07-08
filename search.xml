@@ -4416,4 +4416,28 @@ v_{ty}=\frac{v_3-v_1}{2}\\
         <tag>ROS</tag>
       </tags>
   </entry>
+  <entry>
+    <title>显卡bug解决思路 Failed to initialize NVML Driver/library version mismatch</title>
+    <url>/posts/2038292b.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="显卡bug解决思路：Failed-to-initialize-NVML-Driver-library-version-mismatch"><a href="#显卡bug解决思路：Failed-to-initialize-NVML-Driver-library-version-mismatch" class="headerlink" title="显卡bug解决思路：Failed to initialize NVML: Driver/library version mismatch"></a>显卡bug解决思路：Failed to initialize NVML: Driver/library version mismatch</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在终端输入<a href="https://so.csdn.net/so/search?q=nvidia-smi&amp;spm=1001.2101.3001.7020">nvidia-smi</a>出现以下错误</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Failed to initialize NVML: Driver/library version mismatch</span><br></pre></td></tr></table></figure>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>NVIDIA内核驱动版本与系统内核版本不一致</p>
+<p>查看更新日志</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /var/<span class="built_in">log</span>/dpkg.log | grep nvidia</span><br></pre></td></tr></table></figure>
+<p>若有更新会显示：<code>upgrade nvidia-driver-515:amd64 515,86,01-0ubuntug,20.04,1 525,125.06-0ubuntuo.20.04.3</code>，可以看出内核驱动版本从515自动升级成了525</p>
+<p>查看显卡驱动内核版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /proc/driver/nvidia/version</span><br></pre></td></tr></table></figure>
+<p>会显示：<code>NVRM version: NVIDIA UNIX X86 64 Kernel ModuleGcc version:515.86.01
+Wed 0ct 26 99:12:38 UTC 2022</code>，可以发现显卡驱动内核版本还是525。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>第一种：重启服务器</p>
+<p>第二种：<a href="https://huaweicloud.csdn.net/63560f1dd3efff3090b5939c.html?spm=1001.2101.3001.6650.4&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~activity-4-122349627-blog-118105194.pc_relevant_aa2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~activity-4-122349627-blog-118105194.pc_relevant_aa2&amp;utm_relevant_index=4">不用重启的方案</a></p>
+<p>第三种：<a href="https://cloud.tencent.com/developer/article/2066902">重新安装显卡驱动</a></p>
+]]></content>
+      <categories>
+        <category>强化学习</category>
+      </categories>
+      <tags>
+        <tag>NVIDIA</tag>
+      </tags>
+  </entry>
 </search>
