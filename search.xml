@@ -1014,6 +1014,8 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p>然后再进行上传: git push -u origin main</p>
 <p>出现错误<code>fatal: LF would be replaced by CRLF in xx</code></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config core.autocrlf <span class="literal">false</span></span><br><span class="line">git config core.safecrlf <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>clone别的代码，上传到自己的远程仓库，仍持续跟进别人代码的更新</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote remove origin 删除<span class="built_in">clone</span>的远程连接</span><br><span class="line">git remote add origin 码云上的仓库地址</span><br><span class="line">git remote -v 看到新的origin地址及upstream</span><br><span class="line">git add . </span><br><span class="line">git commit -m <span class="string">&quot;&quot;</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>技能</category>
@@ -1258,10 +1260,10 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p>请读者尝试自行获取一下当前的<code>NumOfEachPerson</code>值作为练习.</p>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>ROS2学习</category>
       </categories>
       <tags>
-        <tag>ROS</tag>
+        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -1366,10 +1368,10 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 service call &lt;service_name&gt; &lt;service_type&gt; &lt;arguments&gt;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>ROS2学习</category>
       </categories>
       <tags>
-        <tag>ROS</tag>
+        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -1450,10 +1452,10 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/ros2-topic-hz-hamburger.png" alt="ros2-topic-hz-hamburger" style="zoom:67%;"></p>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>ROS2学习</category>
       </categories>
       <tags>
-        <tag>ROS</tag>
+        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -1527,10 +1529,10 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <h3 id="自定义服务接口"><a href="#自定义服务接口" class="headerlink" title="自定义服务接口"></a>自定义服务接口</h3><p>自定义服务接口将在下一篇文章讲解服务时一起讲解.</p>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>ROS2学习</category>
       </categories>
       <tags>
-        <tag>ROS</tag>
+        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -1576,10 +1578,10 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p>强烈建议ROS加入获取参数内容的方法！！！！！</p>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>ROS2学习</category>
       </categories>
       <tags>
-        <tag>ROS</tag>
+        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -4149,12 +4151,6 @@ sin(\theta_1 + \theta_3) &  cos(\theta_1 + \theta_3) & 0 & L_3*sin(\theta_1 + \t
 <figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">view(<span class="number">3</span>)</span><br><span class="line">robot.teach([<span class="number">30.906</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="number">0</span> <span class="number">72.993</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)-<span class="built_in">pi</span> <span class="number">-68.722</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="number">0</span> <span class="number">84.098</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="number">0</span> <span class="number">91.007</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="number">0</span> <span class="number">0.051</span>*(<span class="built_in">pi</span>/<span class="number">180</span>)+<span class="built_in">pi</span>])</span><br></pre></td></tr></table></figure>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/%E6%88%AA%E5%B1%8F2021-11-14%20%E4%B8%8B%E5%8D%8810.09.30.png" alt="截屏2021-11-14 下午10.09.30" style="zoom:50%;"></p>
 ]]></content>
-      <categories>
-        <category>ROS机器人学习</category>
-      </categories>
-      <tags>
-        <tag>ROS</tag>
-      </tags>
   </entry>
   <entry>
     <title>透视变换MATLAB仿真，OpenCV验证</title>
@@ -4438,6 +4434,23 @@ Wed 0ct 26 99:12:38 UTC 2022</code>，可以发现显卡驱动内核版本还是
       </categories>
       <tags>
         <tag>NVIDIA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++获取当前工作空间下某文件的路径</title>
+    <url>/posts/efbbd14c.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="C-获取当前工作空间下某文件的路径"><a href="#C-获取当前工作空间下某文件的路径" class="headerlink" title="C++获取当前工作空间下某文件的路径"></a>C++获取当前工作空间下某文件的路径</h1><h2 id="使用Cmake编译"><a href="#使用Cmake编译" class="headerlink" title="使用Cmake编译"></a>使用Cmake编译</h2><p>在CmakeLists.txt中定义预处理宏</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_definitions</span>(-DCMAKE_CURRENT_SOURCE_DIR=<span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>在源文件中：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> YOUR_FILE_PATH CMAKE_CURRENT_SOURCE_DIR <span class="meta-string">&quot;/xxx/YOUR_FILE_NAME.xxx&quot;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="使用ROS环境"><a href="#使用ROS环境" class="headerlink" title="使用ROS环境"></a>使用ROS环境</h2><p>直接在源文件中写：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">std::string package_path = ros::package::<span class="built_in">getPath</span>(<span class="string">&quot;YOUR_PACKAGE_NAME&quot;</span>);</span><br><span class="line">std::string file_path = package_path + <span class="string">&quot;/xxx/YOUR_FILE_NAME.xxx&quot;</span>;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
 </search>
