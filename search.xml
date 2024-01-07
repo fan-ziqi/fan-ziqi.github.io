@@ -4453,4 +4453,84 @@ Wed 0ct 26 99:12:38 UTC 2022</code>，可以发现显卡驱动内核版本还是
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>DreamWaQ论文分析</title>
+    <url>/posts/4b2e8826.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="DreamWaQ论文分析"><a href="#DreamWaQ论文分析" class="headerlink" title="DreamWaQ论文分析"></a>DreamWaQ论文分析</h1><h2 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h2><p>环境建模为POMDP，定义为</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathcal{M}&=(\mathcal{S},\mathcal{O},\mathcal{A},d_0,p,r,\gamma)
+\end{aligned}</script><p>其中完整状态、部分观测、动作都是连续的</p>
+<script type="math/tex; mode=display">
+\mathbf{s}\in\mathcal{S},\mathbf{o}\in\mathcal{O},\mathbf{a}\in\mathcal{A}</script><p>环境从初始状态分布 $\begin{aligned}d_0(\mathbf{s}_0)\end{aligned}$ 开始，以下述状态转移概率进行</p>
+<script type="math/tex; mode=display">
+p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)</script><p>每次transition获得下述奖励函数定义的奖励</p>
+<script type="math/tex; mode=display">
+r:\mathcal{S}\times\mathcal{A}\to\mathcal{R}</script><p>折扣因子定义为</p>
+<script type="math/tex; mode=display">
+\gamma\in[0,1)</script><p>将t时刻的过去H次测量值的时间观测值定义为</p>
+<script type="math/tex; mode=display">
+\mathbf{o}_t^H=\begin{bmatrix}\mathbf{o}_t&\mathbf{o}_{t-1}\ldots\mathbf{o}_{t-H}\end{bmatrix}^T</script><p>同时定义一个上下文向量 $\mathbf{z}_{t}$ ，其中包含了描述环境状态的隐含表示（高程信息）</p>
+<h2 id="隐式的地形想象"><a href="#隐式的地形想象" class="headerlink" title="隐式的地形想象"></a>隐式的地形想象</h2><p>其他工作利用了teacher-student训练方法，这种”行为克隆“将学生政策的表现与教师政策限制在一起，且顺序训练教师和学生网络的数据效率低下。学生策略可能无法探索教师策略在早期RL阶段学到的失败状态，因为在行为克隆期间学生策略仅受到教师策略的良好行动监督。<br>为了学习隐式的地形想象，采用不对称的actor-critic架构。actor-critic中的策略和价值网络之间的相互作用可以训练一种策略，这种策略可以在给定部分时间观测的情况下隐式地“想象”特权观察。<br>策略（actor）接收部分时间观测 $\mathbf{o}_t^H$ 作为输入，价值网络（critic）接收完整状态 $\mathbf{s}_t$ ，如下图所示，定义H=5<br><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/20240106220514.png" alt><br>由于只需要⼀个训练阶段，训练期间的数据效率显著提⾼。此外，该策略可以在训练期间探索所有可能的轨迹，通过泛化提⾼其稳健性。使用PPO算法优化策略。</p>
+<h3 id="策略网络"><a href="#策略网络" class="headerlink" title="策略网络"></a>策略网络</h3><p>策略 $\pi_\phi(\mathbf{a}_t|\mathbf{o}_t,\mathbf{v}_t,\mathbf{z}_t)$ 是在本体感知观测 $\mathbf{o}_t$ 、机身线速度 $\mathbf{v}_t$ 、隐含状态 $\mathbf{z}_t$ 的情况下，采取动作 $\mathbf{a}_t$ 时由 $\phi$ 参数化的神经网络。<br> $\mathbf{o}_t$ 是一个 $n \times 1$ 的向量，直接从关节编码器和IMU中测量得到，表示为</p>
+<script type="math/tex; mode=display">
+\mathbf{o}_t=\begin{bmatrix}\omega_t&\mathbf{g}_t&\mathbf{c}_t&\theta_t&\dot{\theta}_t&\mathbf{a}_{t-1}\end{bmatrix}^T</script><p>其中：</p>
+<ul>
+<li>$\omega_t$ ：机身角速度</li>
+<li>$\mathbf{g}_t$ ：机身坐标系下的重力向量</li>
+<li>$\mathbf{c}_t$ ：机身速度指令</li>
+<li>$\theta_t$ ：关节角度</li>
+<li>$\dot{\theta}_t$ ：关节角速度</li>
+<li>$\mathbf{a}_{t-1}$ ：之前的动作<br>$\mathbf{v}_t$ 和 $\mathbf{z}_t$ 由上下文辅助估计网络context-aided estimator network（CENet）估计，下文会讲到。<h3 id="价值网络"><a href="#价值网络" class="headerlink" title="价值网络"></a>价值网络</h3>价值网络经过训练输出状态值 $V(\mathbf{s}_{t})$ 的估计。与策略网络不同的是，价值网络接收特权观测 $\mathbf{s}_t$ ，定义为：<script type="math/tex; mode=display">
+\mathbf{s}_t=\begin{bmatrix}\mathbf{o}_t&\mathbf{v}_t&\mathbf{d}_t&\mathbf{h}_t\end{bmatrix}^T</script>其中：</li>
+<li>$\mathbf{o}_t$ ：前文提到的本体感知观测</li>
+<li>$\mathbf{v}_t$ ：前文提到的机身线速度</li>
+<li>$\mathbf{d}_t$ ：随机施加在机身上的⼲扰⼒</li>
+<li>$\mathbf{h}_t$ ：机器⼈周围环境的高程图，作为价值⽹络感受外界的输入<br>策略网络经过训练可以从本体感知隐式地推断 $\mathbf{d}_t$ 和 $\mathbf{h}_t$ <h3 id="动作空间"><a href="#动作空间" class="headerlink" title="动作空间"></a>动作空间</h3>动作空间 $\mathbf{a}_t$ 是一个 $12 \times 1$ 的向量，对应机器人12个关节的角度。为了使学习更加容易，策略的输出为机器人当前姿态与静止姿态对应关节角度的差值，即为<script type="math/tex; mode=display">
+\mathbf{\theta}_{\mathrm{des}}=\mathbf{\theta}_{\mathrm{stand}}+\mathbf{a}_t</script>然后使用PD控制器跟踪期望的关节角度。<h3 id="奖励函数"><a href="#奖励函数" class="headerlink" title="奖励函数"></a>奖励函数</h3>奖励函数与其他工作相同，不做过多的修改，以突出DreamWaQ的效果，定义如下：<br><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/20240106224109.png" alt><br>其中：</li>
+<li>exp为指数运算，var为方差运算；</li>
+<li>des为期望值，cmd为命令值；</li>
+<li>xyz定义在机器人坐标系中，x为前方，z为上方；</li>
+<li>$\mathbf{g}$ ：重力向量在机身坐标系上的投影</li>
+<li>$\mathbf{v}_{xy}$ ：xy平面上的线速度</li>
+<li>$\omega_{\mathrm{yaw}}$ ：yaw轴角加速度</li>
+<li>$h$ ：机身相对地面的高度</li>
+<li>$p_{f,z,k}$ ：足端高度</li>
+<li>$v_{f,xy,k}$ ：足端横向速度</li>
+<li>$\mathrm{\tau}$ ：关节扭矩<br>奖励函数包括跟踪命令速度的任务奖励和稳定性奖励。在每个状态采取动作的策略的总奖励定义为<script type="math/tex; mode=display">
+r_t(\mathbf{s}_t,\mathbf{a}_t)=\sum r_iw_i</script>对最后一项Power奖励函数的解释：用于学习运动策略的复杂奖励函数通常包括电机功率最小化项。然而这种奖励在不考虑每个电机的功率平衡的情况下最大限度地减少了总功率。 因此从长远来看某些电机可能会比其他电机更快过热。因此引入功率分配奖励，通过惩罚机器人上使用的所有电机的高方差电机功率来减少现实世界中的电机过热。<h3 id="课程学习"><a href="#课程学习" class="headerlink" title="课程学习"></a>课程学习</h3>在困难地形上进行渐进的运动策略学习。地形由光滑、粗糙、离散和阶梯地形组成，倾斜度在0°-22°范围内有十级的变化。利用网格自适应课程进行低速运动可以实现更好、更稳定的转弯，从而防止足端绊倒。<h2 id="下文辅助估计网络（CENet）"><a href="#下文辅助估计网络（CENet）" class="headerlink" title="下文辅助估计网络（CENet）"></a>下文辅助估计网络（CENet）</h2>上面的训练方法需要机身线速度 $\mathbf{v}_t$ 、隐含状态 $\mathbf{z}_t$ 作为输入，可以通过本体感知进行估计。（？）其他工作将 $\mathbf{z}_t$ 视为地形隐含变量。此外通过学习网络估计 $\mathbf{v}_t$ 通过消除累计的估计漂移，显著提高运动策略的鲁棒性。<br>通过这些先前的工作可以发现，地形和身体状态估计之间的相互作用显着提高了身体状态估计的准确性。因此提出了上下文辅助估计网络（CENet）架构来共同学习估计和推断的隐含环境信息，而不是仅仅显式估计机器人的状态。 CENet的优点是：</li>
+</ul>
+<ol>
+<li>由于共享编码器架构，网络架构显著简化并在推理过程中同步运行；</li>
+<li>编码器网络可以通过自动编码机制来联合学习机器人的前向和后向动力学，从而提高其精度。<br>CENet由单编码器和多部分解码器组成，如下图所示。CENet的架构由机身速度估计模型和共享统一编码器的自动编码器模型组成。共享编码器经过训练可以联合提供鲁棒的身体状态和上下文估计。<br><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/20240107122725.png" alt><br>编码器网络将 $\mathbf{o}_t^H$ 编码为 $\mathbf{v}_t$ 和 $\mathbf{z}_t$ 。 第一部分估计 $\mathbf{v}_t$ ，第二部分重建  $\mathbf{o}_{t+1}$ 。 我们利用β-变分自动编码器（β-VAE）作为自动编码器架构。 CENet 使用混合损失函数进行优化，定义如下：<script type="math/tex; mode=display">
+\mathcal{L}_{\mathrm{CE}}=\mathcal{L}_{\mathrm{est}}+\mathcal{L}_{\mathrm{VAE}}</script>其中 $\mathcal{L}_{\mathrm{est}}$ 是身体速度估计， $\mathcal{L}_{\mathrm{VAE}}$ 是VAE损失。对于显式状态估计，估计的物体速度 $\tilde{\mathbf{v}}_t$ 和来自模拟器实际的 $\mathbf{v}_{t}$ 之间采用了均方误差 (MSE) 损失，如下所示：<script type="math/tex; mode=display">
+\mathcal{L}_{\mathrm{est}}=MSE(\tilde{\mathbf{v}}_t,\mathbf{v}_t)</script>VAE网络使用标准 β-VAE 损失进行训练，其中包括重建损失和隐含损失。使用 MSE 作为重建损失，使用 Kullback-Leibler (KL) 散度作为潜在损失。VAE 损失的公式为：<script type="math/tex; mode=display">
+\begin{aligned}\mathcal{L}_{\text{VAE}} = M S E ( \tilde { \mathbf{o}}_{t+1},\mathbf{o}_{t+1})+\beta D_{\text{KL}}(q(\mathbf{z}_t|\mathbf{o}_t^H)\parallel p(\mathbf{z}_t))\end{aligned}</script>其中：</li>
+</ol>
+<ul>
+<li>$\tilde { \mathbf{o}}_{t+1}$ 为重建的下一个观测值</li>
+<li>$q(\mathbf{z}_t|\mathbf{o}_t^H)$ 为给定 $\mathbf{o}_t^H$ 时 $\mathbf{z}_t$ 的后验分布</li>
+<li>$p(\mathbf{z}_t)$ 为由高斯分布参数化的上下文先验分布<br>选择标准正态分布作为先验分布，因为所有观测值均已标准化为零均值和单位方差。<br>此外，在策略网络训练期间从估计器网络引导（bootstrap）可以提高学习策略的sim-to-real鲁棒性。然而由于学习早期阶段的学习噪声较大，引导也可能会损害策略的性能。 因此提出一种自适应引导（AdaBoot）方法，可以在训练期间自适应地调整引导概率。 AdaBoot 由变异系数（CV）控制，即m个经过随机化的环境中的情景奖励的标准差与平均值的比率。 关键思想是，当m个agent的奖励的CV较小时，需要进行引导，以使策略对不准确的估计更加稳健。 但是当agent学习得不够好时不应该引导，用奖励中的较大CV值表示。 将每次学习迭代的引导概率定义如下：<script type="math/tex; mode=display">
+p_{\mathrm{boot}}=1-\tanh(CV(\mathbf{R}))</script>其中：</li>
+<li>$p_{\mathrm{boot}}\in[0,1]$ 是引导概率</li>
+<li>$\mathbf{R}$ 是来自m个进过随机化的环境的情景奖励的 $m\times1$ 向量</li>
+<li>CV为变异系数运算</li>
+<li>tanh为双曲正切运算，用于将 $CV(\mathbf{R})$ 的上限平滑地变为1<h2 id="仿真"><a href="#仿真" class="headerlink" title="仿真"></a>仿真</h2>使用isaac gym同步训练policy、value、CENet网络。训练参数如下：</li>
+<li>agents：4096</li>
+<li>iterations：1000</li>
+<li>策略网络：PPO，其clip范围设置为0.2，⼴义优势估计因⼦设置为0.95，折扣因⼦设置为0.99</li>
+<li>隐含层的激活函数：指数线性单元（ELU）</li>
+<li>使⽤ Adam 优化器优化⽹络，学习率为 $10^{-3}$ </li>
+<li>环境参数随机化见下表<br><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/20240107125948.png" alt><h2 id="迁移到实物"><a href="#迁移到实物" class="headerlink" title="迁移到实物"></a>迁移到实物</h2>迁移到Unitree A1四足机器人上，策略与CENet以50Hz的频率同步运⾏。使⽤200Hz的PD控制器跟踪所需的关节⻆度，Kp=28、Kd=0.7。<br>在楼梯环境中，CENet可以准确估计⾝体速度，使机器⼈能安全爬楼梯。假设这由两个因素实现：</li>
+<li>前向-后向动态学习在所有地形中提供更准确的估计</li>
+<li>使⽤ DreamWaQ，联合训练编码器来预测地形属性<br>因此，可以隐式推断地形属性，有助于调节显式估计。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>RL</category>
+      </categories>
+      <tags>
+        <tag>RL</tag>
+      </tags>
+  </entry>
 </search>
