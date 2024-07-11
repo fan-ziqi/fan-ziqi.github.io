@@ -4740,9 +4740,9 @@ p_{\mathrm{boot}}=1-\tanh(CV(\mathbf{R}))</script>其中：</li>
       </tags>
   </entry>
   <entry>
-    <title>四足机器人学习笔记</title>
+    <title>四足机器人传统控制方法学习笔记</title>
     <url>/posts/311d50f4.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="四足机器人"><a href="#四足机器人" class="headerlink" title="四足机器人"></a>四足机器人</h1><h2 id="运动学与动力学"><a href="#运动学与动力学" class="headerlink" title="运动学与动力学"></a>运动学与动力学</h2><h3 id="单腿运动学"><a href="#单腿运动学" class="headerlink" title="单腿运动学"></a>单腿运动学</h3><h4 id="正运动学"><a href="#正运动学" class="headerlink" title="正运动学"></a>正运动学</h4><p>目标：已知三个关节的角度 $(\theta_1,\theta_2,\theta_3)$ ，需要求出足端位置 $(x,y,z)$ </p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="四足机器人传统控制方法学习笔记"><a href="#四足机器人传统控制方法学习笔记" class="headerlink" title="四足机器人传统控制方法学习笔记"></a>四足机器人传统控制方法学习笔记</h1><h2 id="运动学与动力学"><a href="#运动学与动力学" class="headerlink" title="运动学与动力学"></a>运动学与动力学</h2><h3 id="单腿运动学"><a href="#单腿运动学" class="headerlink" title="单腿运动学"></a>单腿运动学</h3><h4 id="正运动学"><a href="#正运动学" class="headerlink" title="正运动学"></a>正运动学</h4><p>目标：已知三个关节的角度 $(\theta_1,\theta_2,\theta_3)$ ，需要求出足端位置 $(x,y,z)$ </p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 
