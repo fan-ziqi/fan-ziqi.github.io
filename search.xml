@@ -52,7 +52,7 @@
 <p>Github：<a href="https://github.com/fan-ziqi">点击进入</a></p>
 ]]></content>
       <categories>
-        <category>Altium Designer</category>
+        <category>硬件</category>
       </categories>
       <tags>
         <tag>PCB</tag>
@@ -104,7 +104,7 @@
 </ul>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>Chrome</tag>
@@ -848,7 +848,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p>然后在浏览器中打开<a href="http://localhost:4000/，检验你的成果！">http://localhost:4000/，检验你的成果！</a></p>
 ]]></content>
       <categories>
-        <category>小技能</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>Gitbook</tag>
@@ -940,7 +940,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chown -R git:git /var/repo</span><br><span class="line">chmod -R 755 /var/repo</span><br><span class="line"></span><br><span class="line">chown -R git:git /var/hexo</span><br><span class="line">chmod -R 755 /var/hexo</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>网站</category>
       </categories>
       <tags>
         <tag>Git</tag>
@@ -966,10 +966,10 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p><strong>RNM退钱！</strong></p>
 ]]></content>
       <categories>
-        <category>stm32</category>
+        <category>STM32</category>
       </categories>
       <tags>
-        <tag>stm32</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1018,7 +1018,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote remove origin 删除<span class="built_in">clone</span>的远程连接</span><br><span class="line">git remote add origin 码云上的仓库地址</span><br><span class="line">git remote -v 看到新的origin地址及upstream</span><br><span class="line">git add . </span><br><span class="line">git commit -m <span class="string">&quot;&quot;</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>Git</category>
       </categories>
       <tags>
         <tag>Git</tag>
@@ -1846,7 +1846,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <h4 id="launch文件启动"><a href="#launch文件启动" class="headerlink" title="launch文件启动"></a>launch文件启动</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- 海龟仿真器 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;turtlesim&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtlesim_node&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sim&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- 键盘控制 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;turtlesim&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtle_teleop_key&quot;</span> <span class="attr">name</span>=<span class="string">&quot;teleop&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- 两只海龟的tf广播 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;learning_tf&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtle_tf_broadcaster&quot;</span> <span class="attr">args</span>=<span class="string">&quot;/turtle1&quot;</span> <span class="attr">name</span>=<span class="string">&quot;turtle1_tf_broadcaster&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;learning_tf&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtle_tf_broadcaster&quot;</span> <span class="attr">args</span>=<span class="string">&quot;/turtle2&quot;</span> <span class="attr">name</span>=<span class="string">&quot;turtle2_tf_broadcaster&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- 监听tf广播，并且控制turtle2移动 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;learning_tf&quot;</span> <span class="attr">type</span>=<span class="string">&quot;turtle_tf_listener&quot;</span> <span class="attr">name</span>=<span class="string">&quot;listener&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>ROS1学习</category>
       </categories>
       <tags>
         <tag>ROS</tag>
@@ -1904,7 +1904,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://blog.csdn.net/autolabor/article/details/86492895">https://blog.csdn.net/autolabor/article/details/86492895</a></p>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>ROS1学习</category>
       </categories>
       <tags>
         <tag>ROS</tag>
@@ -1956,17 +1956,6 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
       </tags>
   </entry>
   <entry>
-    <title>ROS机器人学习——机器人建模与仿真</title>
-    <url>/posts/7859c9f3.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
-      <categories>
-        <category>ROS机器人学习</category>
-      </categories>
-      <tags>
-        <tag>ROS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM32CubeMX重定向printf输出至串口</title>
     <url>/posts/f00798b9.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="STM32CubeMX重定向printf输出至串口"><a href="#STM32CubeMX重定向printf输出至串口" class="headerlink" title="STM32CubeMX重定向printf输出至串口"></a>STM32CubeMX重定向printf输出至串口</h1><p>第一步,CubeMX配置串口(GPIO配置略)</p>
@@ -2014,7 +2003,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 </ol>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>快捷键</tag>
@@ -2054,7 +2043,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p>编译运行，若配置无误即可显示出图片。</p>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>Ubuntu</tag>
@@ -2098,10 +2087,10 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220918162039679.png" alt="image-20220918162039679" style="zoom:50%;"></p>
 ]]></content>
       <categories>
-        <category>Opencv</category>
+        <category>OpenCV</category>
       </categories>
       <tags>
-        <tag>Opencv</tag>
+        <tag>OpenCV</tag>
       </tags>
   </entry>
   <entry>
@@ -2418,10 +2407,10 @@ NVIC_Init();
 </ul>
 ]]></content>
       <categories>
-        <category>stm32</category>
+        <category>STM32</category>
       </categories>
       <tags>
-        <tag>stm32</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -2533,10 +2522,10 @@ NVIC_Init();
 <p>名 为 <strong>PPP_ClearITPendingBit</strong> 的函数，其功能为清除外设 PPP 中断待处理标志位，例如：<strong>I2C_ClearITPendingBit</strong>. </p>
 ]]></content>
       <categories>
-        <category>stm32</category>
+        <category>STM32</category>
       </categories>
       <tags>
-        <tag>stm32</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -2628,10 +2617,10 @@ NVIC_Init();
 <p>PSP：process stack pointer</p>
 ]]></content>
       <categories>
-        <category>stm32</category>
+        <category>STM32</category>
       </categories>
       <tags>
-        <tag>stm32</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -2897,7 +2886,7 @@ NVIC_Init();
 <p>然后即可使用<code>printf</code>函数。且此段代码在Keil和Clion中均可正常编译运行。</p>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>STM32</tag>
@@ -2937,7 +2926,7 @@ NVIC_Init();
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220908125153526.png" alt="image-20220908125153526" style="zoom:50%;"></p>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>Qt</tag>
@@ -3005,7 +2994,7 @@ NVIC_Init();
 </ol>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>ROS</tag>
@@ -3032,10 +3021,10 @@ NVIC_Init();
 </ol>
 ]]></content>
       <categories>
-        <category>c++</category>
+        <category>C++</category>
       </categories>
       <tags>
-        <tag>c++</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -3587,10 +3576,10 @@ g(\theta) &=\left[\begin{array}{c}
 \end{aligned}</script><p>式中 <strong>$M(\theta)$ 为对称正定的质量矩阵</strong>， <strong>$c(\theta, \dot{\theta})$ 为速度乘积项，包含科里奥利和向心力矩的向量</strong>，其中包含 $\dot{\theta}^2$ 的二次项称为向心项，包含 $\dot{\theta}_{i} \dot{\theta}_{j}(i \ne j)$ 的二次项则称为科里奥利项。 <strong>$g(\theta)$ 为重力项</strong> ，因为此处势能仅来自重力，若末端有弹簧，弹簧也会贡献势能。这些揭示了运动方程是 $\ddot{\theta}$ 的线性函数、 $\dot{\theta}$ 的二次函数、 $\theta$ 的三角函数。上述结论不仅适用于 $2R$ 型机器人，对于包含转动关节的串联运动链也同样适用。</p>
 ]]></content>
       <categories>
-        <category>机器人学</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>机器人学</tag>
+        <tag>机器人</tag>
       </tags>
   </entry>
   <entry>
@@ -3655,7 +3644,7 @@ g(\theta) &=\left[\begin{array}{c}
 <p>然后自行删除相关的环境变量</p>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>ROS</tag>
@@ -3678,7 +3667,7 @@ g(\theta) &=\left[\begin{array}{c}
 <p>然后再次<code>ls -l /dev/serial*</code>就可以看到正确的映射关系</p>
 ]]></content>
       <categories>
-        <category>小技能</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>树莓派</tag>
@@ -3694,7 +3683,7 @@ g(\theta) &=\left[\begin{array}{c}
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo bash resize.sh</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>ROS</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>树莓派</tag>
@@ -3718,10 +3707,10 @@ g(\theta) &=\left[\begin{array}{c}
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/dafaah.png" alt="dafaah" style="zoom:50%;"></p>
 ]]></content>
       <categories>
-        <category>控制</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>控制</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -4197,7 +4186,7 @@ sin(\theta_1 + \theta_3) &  cos(\theta_1 + \theta_3) & 0 & L_3*sin(\theta_1 + \t
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 拉取对应的分支</span></span><br><span class="line">git pull</span><br><span class="line"><span class="comment"># 更新对应代码</span></span><br><span class="line">git submodule update --remote --recursive</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>Git</category>
       </categories>
       <tags>
         <tag>Git</tag>
@@ -4235,7 +4224,7 @@ sin(\theta_1 + \theta_3) &  cos(\theta_1 + \theta_3) & 0 & L_3*sin(\theta_1 + \t
 </ol>
 ]]></content>
       <categories>
-        <category>技能</category>
+        <category>Git</category>
       </categories>
       <tags>
         <tag>Git</tag>
@@ -4406,10 +4395,10 @@ v_{ty}=\frac{v_3-v_1}{2}\\
 <p>【2】<a href="https://blog.csdn.net/shixiaolu63/article/details/78496457">https://blog.csdn.net/shixiaolu63/article/details/78496457</a></p>
 ]]></content>
       <categories>
-        <category>ROS机器人学习</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>ROS</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -4430,7 +4419,7 @@ Wed 0ct 26 99:12:38 UTC 2022</code>，可以发现显卡驱动内核版本还是
 <p>第三种：<a href="https://cloud.tencent.com/developer/article/2066902">重新安装显卡驱动</a></p>
 ]]></content>
       <categories>
-        <category>强化学习</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>NVIDIA</tag>
@@ -4733,7 +4722,7 @@ p_{\mathrm{boot}}=1-\tanh(CV(\mathbf{R}))</script>其中：</li>
 </ul>
 ]]></content>
       <categories>
-        <category>机器人</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>机器人</tag>
@@ -5482,7 +5471,7 @@ g&=2B_{qp}^TL(A_{qp}x_{0}-y)\in\mathbb{R}^{3nk\times1}\\
 <p>Robot Dynamics Lecture Notes（机器人动力学课程笔记）</p>
 ]]></content>
       <categories>
-        <category>机器人</category>
+        <category>算法</category>
       </categories>
       <tags>
         <tag>机器人</tag>
