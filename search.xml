@@ -82,7 +82,7 @@
 <p>STM32CbueMX之W25Q256 <a href="https://blog.csdn.net/sudaroot/article/details/93158309">https://blog.csdn.net/sudaroot/article/details/93158309</a></p>
 ]]></content>
       <categories>
-        <category>STM32</category>
+        <category>stm32</category>
       </categories>
       <tags>
         <tag>STM32</tag>
@@ -966,7 +966,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <p><strong>RNM退钱！</strong></p>
 ]]></content>
       <categories>
-        <category>STM32</category>
+        <category>stm32</category>
       </categories>
       <tags>
         <tag>STM32</tag>
@@ -1949,7 +1949,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <h4 id="3-4验证"><a href="#3-4验证" class="headerlink" title="3.4验证"></a>3.4验证</h4><p><img src="https://img-blog.csdnimg.cn/20201204175752858.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L28wMDAxXzAwMDA=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 ]]></content>
       <categories>
-        <category>STM32</category>
+        <category>stm32</category>
       </categories>
       <tags>
         <tag>STM32</tag>
@@ -1972,7 +1972,7 @@ I_{q}=-I_{\alpha} \sin (\theta)+I_{\beta} \cos (\theta)
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">buf_len = <span class="built_in">sprintf</span>(buf, <span class="string">&quot;%d\r\n&quot;</span>,num);</span><br><span class="line">HAL_UART_Transmit(&amp;huart2, (<span class="keyword">uint8_t</span> *)buf, buf_len, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>STM32</category>
+        <category>stm32</category>
       </categories>
       <tags>
         <tag>STM32</tag>
@@ -2407,7 +2407,7 @@ NVIC_Init();
 </ul>
 ]]></content>
       <categories>
-        <category>STM32</category>
+        <category>stm32</category>
       </categories>
       <tags>
         <tag>STM32</tag>
@@ -2522,7 +2522,7 @@ NVIC_Init();
 <p>名 为 <strong>PPP_ClearITPendingBit</strong> 的函数，其功能为清除外设 PPP 中断待处理标志位，例如：<strong>I2C_ClearITPendingBit</strong>. </p>
 ]]></content>
       <categories>
-        <category>STM32</category>
+        <category>stm32</category>
       </categories>
       <tags>
         <tag>STM32</tag>
@@ -2617,7 +2617,7 @@ NVIC_Init();
 <p>PSP：process stack pointer</p>
 ]]></content>
       <categories>
-        <category>STM32</category>
+        <category>stm32</category>
       </categories>
       <tags>
         <tag>STM32</tag>

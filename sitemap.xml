@@ -2,6 +2,69 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.robotsfan.com/posts/7b613e40.html</loc>
+    
+    <lastmod>2024-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/posts/bfa5a820.html</loc>
+    
+    <lastmod>2024-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/posts/358fc8e8.html</loc>
+    
+    <lastmod>2024-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/posts/8cc52eb9.html</loc>
+    
+    <lastmod>2024-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/posts/2ed78409.html</loc>
+    
+    <lastmod>2024-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/posts/f00798b9.html</loc>
+    
+    <lastmod>2024-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/posts/f382e178.html</loc>
+    
+    <lastmod>2024-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.robotsfan.com/posts/6b69667c.html</loc>
     
     <lastmod>2024-07-17</lastmod>
@@ -147,42 +210,6 @@
   
   <url>
     <loc>https://www.robotsfan.com/posts/dab7fbfc.html</loc>
-    
-    <lastmod>2024-07-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/posts/2ed78409.html</loc>
-    
-    <lastmod>2024-07-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/posts/8cc52eb9.html</loc>
-    
-    <lastmod>2024-07-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/posts/f382e178.html</loc>
-    
-    <lastmod>2024-07-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/posts/bfa5a820.html</loc>
     
     <lastmod>2024-07-17</lastmod>
     
@@ -515,33 +542,6 @@
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/posts/358fc8e8.html</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/posts/f00798b9.html</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/posts/7b613e40.html</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.robotsfan.com/bb/index.html</loc>
     
     <lastmod>2021-08-08</lastmod>
@@ -846,14 +846,14 @@
 
   
   <url>
-    <loc>https://www.robotsfan.com/categories/STM32/</loc>
+    <loc>https://www.robotsfan.com/categories/%E7%94%B5%E6%9C%BA/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/categories/%E7%94%B5%E6%9C%BA/</loc>
+    <loc>https://www.robotsfan.com/categories/stm32/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
