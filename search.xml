@@ -132,7 +132,7 @@
 <p>下面的变换均采用联立和矩阵两种形式表示，以方便使用。</p>
 <h3 id="Clark变换"><a href="#Clark变换" class="headerlink" title="Clark变换"></a>Clark变换</h3><p>Clark变换实现了三向坐标系 $(a,b,c)$ 与直角坐标系 $(\alpha,\beta)$ 间的转换。</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/7C602099D7A9549EDA9C24D13AB98072.png" alt="7C602099D7A9549EDA9C24D13AB98072" style="zoom: 67%;"></p>
-<h4 id="正向Clark变换"><a href="#正向Clark变换" class="headerlink" title="正向Clark变换"></a>正向Clark变换</h4><p>Clark反变换则将两相信号转换为三相信号。已知三相坐标系 $(I_a,I_b,I_c)$ ，这三个基向量不是正交的，所以可以将其正交化为一个直角坐标系，命名为 $\alpha-\beta$ 坐标系，变换公式为：</p>
+<h4 id="正向Clark变换"><a href="#正向Clark变换" class="headerlink" title="正向Clark变换"></a>正向Clark变换</h4><p>Clark变换将三相信号转换为两相信号。已知三相坐标系 $(I_a,I_b,I_c)$ ，这三个基向量不是正交的，所以可以将其正交化为一个直角坐标系，命名为 $\alpha-\beta$ 坐标系，变换公式为：</p>
 <script type="math/tex; mode=display">
 \left\{\begin{array}{l}
     \begin{aligned}
@@ -196,7 +196,7 @@
 \end{array}\right]</script><p>（这里的系数在后文SVPWM里相电压的幅值与电压空间矢量之间有一个 $\frac{3}{2}$ 的系数相抵消）</p>
 <p>MATLAB实现为：</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220330103933845.png" alt="image-20220330103933845" style="zoom: 80%;"></p>
-<h4 id="反向Clark变换"><a href="#反向Clark变换" class="headerlink" title="反向Clark变换"></a>反向Clark变换</h4><p>反Clark变换则将三相信号转换为两相信号。根据图可以写出：</p>
+<h4 id="反向Clark变换"><a href="#反向Clark变换" class="headerlink" title="反向Clark变换"></a>反向Clark变换</h4><p>Clark反变换则将两相信号转换为三相信号。根据图可以写出：</p>
 <script type="math/tex; mode=display">
 \left\{\begin{array}{l}
 U_{a} =  U_{\alpha} \\
