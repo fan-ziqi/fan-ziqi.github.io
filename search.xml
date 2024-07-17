@@ -111,9 +111,10 @@
       </tags>
   </entry>
   <entry>
-    <title>手把手教你电机FOC控制【持续更新中】</title>
+    <title>手把手教你电机FOC控制</title>
     <url>/posts/d99d1c1a.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="手把手教你电机FOC控制"><a href="#手把手教你电机FOC控制" class="headerlink" title="手把手教你电机FOC控制"></a>手把手教你电机FOC控制</h1><h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>2022.09.16 完善图片内容与代码，更新到速度闭环</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="手把手教你电机FOC控制"><a href="#手把手教你电机FOC控制" class="headerlink" title="手把手教你电机FOC控制"></a>手把手教你电机FOC控制</h1><h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p><strong>2024.07.17 作者已很久没做过电机了，此文停更</strong></p>
+<p>2022.09.16 完善图片内容与代码，更新到速度闭环</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220916003234988.png" alt="image-20220916003234988" style="zoom: 25%;"></p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/image-20220916003249372.png" alt="image-20220916003249372" style="zoom: 25%;"></p>
 <h2 id="FOC框架引入"><a href="#FOC框架引入" class="headerlink" title="FOC框架引入"></a>FOC框架引入</h2><p>三向电机，分别为UVW三向，角度互差120度。若使用BLDC控制方法，如下图每次换向增加60度，转子只能到达六个位置，所以六步换向时会有振动。使用FOC控制方法可以使转子到达任意角度，所以运行起来会更加平滑。</p>
