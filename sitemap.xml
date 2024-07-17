@@ -83,6 +83,15 @@
   </url>
   
   <url>
+    <loc>https://www.robotsfan.com/posts/296a4234.html</loc>
+    
+    <lastmod>2024-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.robotsfan.com/posts/c0ff5b54.html</loc>
     
     <lastmod>2024-07-17</lastmod>
@@ -551,15 +560,6 @@
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/posts/296a4234.html</loc>
-    
-    <lastmod>2021-08-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.robotsfan.com/music/index.html</loc>
     
     <lastmod>2020-07-10</lastmod>
@@ -639,7 +639,7 @@
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/tags/STM32/</loc>
+    <loc>https://www.robotsfan.com/tags/C/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -653,7 +653,28 @@
   </url>
   
   <url>
+    <loc>https://www.robotsfan.com/tags/STM32/</loc>
+    <lastmod>2024-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/tags/RL/</loc>
+    <lastmod>2024-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.robotsfan.com/tags/FOC/</loc>
+    <lastmod>2024-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -688,6 +709,13 @@
   </url>
   
   <url>
+    <loc>https://www.robotsfan.com/tags/ROS2/</loc>
+    <lastmod>2024-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.robotsfan.com/tags/ROS/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -709,13 +737,6 @@
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/tags/C/</loc>
-    <lastmod>2024-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.robotsfan.com/tags/web/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -730,13 +751,6 @@
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
-    <lastmod>2024-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.robotsfan.com/tags/NVIDIA/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -744,21 +758,7 @@
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/tags/ROS2/</loc>
-    <lastmod>2024-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/tags/RL/</loc>
-    <lastmod>2024-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/</loc>
+    <loc>https://www.robotsfan.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -774,21 +774,7 @@
 
   
   <url>
-    <loc>https://www.robotsfan.com/categories/%E7%94%B5%E6%9C%BA/</loc>
-    <lastmod>2024-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/categories/stm32/</loc>
-    <lastmod>2024-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/categories/OpenCV/</loc>
+    <loc>https://www.robotsfan.com/categories/%E7%A1%AC%E4%BB%B6/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -802,14 +788,14 @@
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/categories/%E7%BD%91%E7%AB%99/</loc>
+    <loc>https://www.robotsfan.com/categories/%E5%85%B6%E4%BB%96/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/categories/ROS2%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://www.robotsfan.com/categories/stm32/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -823,14 +809,7 @@
   </url>
   
   <url>
-    <loc>https://www.robotsfan.com/categories/%E7%A1%AC%E4%BB%B6/</loc>
-    <lastmod>2024-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.robotsfan.com/categories/%E5%85%B6%E4%BB%96/</loc>
+    <loc>https://www.robotsfan.com/categories/%E7%94%B5%E6%9C%BA/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -838,6 +817,27 @@
   
   <url>
     <loc>https://www.robotsfan.com/categories/Git/</loc>
+    <lastmod>2024-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/categories/%E7%BD%91%E7%AB%99/</loc>
+    <lastmod>2024-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/categories/OpenCV/</loc>
+    <lastmod>2024-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.robotsfan.com/categories/ROS2%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2024-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
