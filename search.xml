@@ -5482,8 +5482,9 @@ v_{ty}=\frac{v_3-v_1}{2}\\
     <title>AMP论文分析</title>
     <url>/posts/1742892a.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="AMP论文分析"><a href="#AMP论文分析" class="headerlink" title="AMP论文分析"></a>AMP论文分析</h1><p>AMP: Adversarial Motion Priors for Stylized Physics-Based Character Control</p>
-<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>先从从模仿学习IL(Imitation Learning)说起。正常的强化学习RL(Reinforcement Learning)过程是”环境互动+最大化认为人为设计的奖励函数=最优Actor”</p>
-<p>逆强化学习IRL(Inverse Reinforcement Learning)则没有奖励，取而代之的是”环境互动+最大化从专家数据学到的奖励函数=最优Actor”<br>GAIL(Generative Adversarial Imitation Learning)是使用GAN(Generative Adversarial Network)的IRL，即训练一个生成器 $G$ ，它从一个普通的分布逐渐生成与现有数据分布相似的分布。GAIL的数据集(参考运动)是 $\{(s,a)\}$ 。同样，我们希望我们的 Actor 能够模仿专家，即 Actor 产生的轨迹（的分布）与专家产生的轨迹（的分布）相似。GAN中的生成器和判别器这里不再赘述。reward是鼓励policy的行为和数据集里面的 $(𝑠,𝑎)$ 对尽可能像。</p>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>先从从模仿学习IL(Imitation Learning)说起。正常的强化学习RL(Reinforcement Learning)过程是“环境互动+最大化认为人为设计的奖励函数=最优Actor”</p>
+<p>逆强化学习IRL(Inverse Reinforcement Learning)则没有奖励，取而代之的是“环境互动+最大化从专家数据学到的奖励函数=最优Actor”</p>
+<p>GAIL(Generative Adversarial Imitation Learning)是使用GAN(Generative Adversarial Network)的IRL，即训练一个生成器 $G$ ，它从一个普通的分布逐渐生成与现有数据分布相似的分布。GAIL的数据集(参考运动)是 $\{(s,a)\}$ 。同样，我们希望我们的 Actor 能够模仿专家，即 Actor 产生的轨迹（的分布）与专家产生的轨迹（的分布）相似。GAN中的生成器和判别器这里不再赘述。reward是鼓励policy的行为和数据集里面的 $(𝑠,𝑎)$ 对尽可能像。</p>
 <h2 id="AMP目标"><a href="#AMP目标" class="headerlink" title="AMP目标"></a>AMP目标</h2><p>本文的目标是训练一个agent，让其完成某个目标(Goal)，同时保持某种风格(Style)，其中风格由expert dataset或者demonstration dataset提供。本文混合了目标实现和模仿学习，其中模仿学习使用对抗性方式学习对给定风格的遵守，AMP中的A(Adversarial)就是对抗性。</p>
 <p><img src="https://fan-ziqi.oss-cn-beijing.aliyuncs.com/img/Pasted%20image%2020240719001013.png" alt="Pasted image 20240719001013" style="zoom: 50%;"></p>
 <p>奖励函数由两部分组成，一部分是目标奖励 $r_t^G$ ，另一部分是风格奖励 $r_t^S$ ，通过计算两者的加权和得到总奖励：</p>
