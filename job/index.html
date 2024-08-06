@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招聘</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        @media screen and (max-width: 600px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                display: none;
+            }
+            tr {
+                margin-bottom: 15px;
+                border-bottom: 2px solid #ddd;
+            }
+            td {
+                border: none;
+                padding-left: 20%;
+                position: relative;
+                text-align: left;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: calc(50% - 10px);
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>【机器人强化学习与运动控制】群专属招聘信息发布</h1>
+    <p>增加条目请联系群主，使用电脑查看表格视图。</p>
+    <table>
+        <thead>
+            <tr>
+                <th>公司</th>
+                <th>岗位</th>
+                <th>职责</th>
+                <th>要求</th>
+                <th>地点</th>
+                <th>其他</th>
+                <th>联系</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="公司">小鹏</td>
+                <td data-label="岗位">去小鹏汽车招聘官网筛选智能机器人板块</td>
+                <td data-label="职责"></td>
+                <td data-label="要求"></td>
+                <td data-label="地点"></td>
+                <td data-label="其他"></td>
+                <td data-label="联系">小鹏机器人 Shawn</td>
+            </tr>
+            <tr>
+                <td data-label="公司">松延动力</td>
+                <td data-label="岗位">强化学习实习生</td>
+                <td data-label="职责">1. 负责基于强化学习的双足人形机器人运动控制算法研发及落地应用；<br>2. 根据实际项目需求实现、改造和优化算法，解决实际问题；<br>3. 根据实现的算法，撰写学术论文，投稿国际会议；</td>
+                <td data-label="要求">1. 熟悉Q-Learning、PPO等强化学习算法，熟悉Python等编程语言，熟悉Linux操作系统；<br>2. 熟悉至少一种主流机器人仿真平台如IsaacGym，MuJoCo，PyBullet等；<br>3. 拥有良好的沟通能力，优秀的学习能力，较强的分析和解决实际问题的能力，动手能力强，对运动控制感兴趣；<br>4. 做过基于强化学习、模仿学习的机器人控制任务者优先；<br>5. 熟悉ROS系统，有人工智能/计算机视觉方向顶会顶刊论文者优先；</td>
+                <td data-label="地点">北京</td>
+                <td data-label="其他">5～20k，具体面议，可选住房补贴3k</td>
+                <td data-label="联系">微信：Chris_Tsui_14<br>chriscui14@gmail.com</td>
+            </tr>
+            <tr>
+                <td data-label="公司">傅利叶智能</td>
+                <td data-label="岗位">算法</td>
+                <td data-label="职责">强化学习/步态&手部算法</td>
+                <td data-label="要求">有RL理论或实操经验优先，全职/长期实习优先</td>
+                <td data-label="地点">上海</td>
+                <td data-label="其他">机器人平台成熟，量大管够上机实践多，系统开发完善，豪华投资方阵容</td>
+                <td data-label="联系">群主</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
